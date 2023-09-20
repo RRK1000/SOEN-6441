@@ -30,13 +30,14 @@ jobs:
     name: JavaDoc + Test
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v1
     - name: Grant Permissions to gradlew
-      run: chmod +x gradle
+      run: chmod +x ./gradlew
 
     - name: Verify Javadoc
-      run: gradle javadoc
+      run: ./gradlew javadoc
     
     - name: Test
-      run: gradle test --tests "*"
+      run: ./gradlew test --tests "*"
 
     
