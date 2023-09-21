@@ -4,7 +4,7 @@ package models;
  * Represents a Player in the game.
  * Manages player-related functionalities.
  * This class is used in relationship with the GameController class to manage player actions.
- *  @author
+ *  @author Yusuke
  */
 public class Player {
     // Data Members
