@@ -32,6 +32,23 @@ public class Map {
         d_continents = new ArrayList<>();
     }
 
+
+    public DirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
+        return d_countryMapGraph;
+    }
+
+    public void setD_countryMapGraph(DirectedGraph<Country, DefaultEdge> d_countryMapGraph) {
+        this.d_countryMapGraph = d_countryMapGraph;
+    }
+
+    public DirectedGraph<Continent, DefaultEdge> getD_continentMapGraph() {
+        return d_continentMapGraph;
+    }
+
+    public void setD_continentMapGraph(DirectedGraph<Continent, DefaultEdge> d_continentMapGraph) {
+        this.d_continentMapGraph = d_continentMapGraph;
+    }
+
     /**
      * Shows the map.
      */
