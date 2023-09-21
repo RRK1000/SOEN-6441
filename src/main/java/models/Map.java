@@ -34,10 +34,10 @@ public class Map {
      */
     public void showMap() {
         System.out.println("Showing the map...");
-        for (Continent continent : d_continents) {
-            System.out.println("Continent: " + continent.getName());
-            for (Country country : continent.getCountries()) {
-                System.out.println("  Country: " + country.getName());
+        for (Continent l_continent : d_continents) {
+            System.out.println("Continent: " + l_continent.getName());
+            for (Country l_country : l_continent.getCountries()) {
+                System.out.println("  Country: " + l_country.getName());
             }
         }
     }
@@ -49,11 +49,11 @@ public class Map {
     public void saveMap() {
         System.out.println("Saving the map...");
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("map_data.txt"))) {
-            for (Continent continent : d_continents) {
-                writer.write("Continent: " + continent.getName() + "\n");
-                for (Country country : continent.getCountries()) {
-                    writer.write("  Country: " + country.getName() + "\n");
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("map_data.txt"))) {
+            for (Continent l_continent : d_continents) {
+                l_writer.write("Continent: " + l_continent.getName() + "\n");
+                for (Country l_country : l_continent.getCountries()) {
+                    l_writer.write("  Country: " + l_country.getName() + "\n");
                 }
             }
             System.out.println("Map saved successfully!");
@@ -69,24 +69,24 @@ public class Map {
     public void loadMap(String p_filename) {
         System.out.println("Loading the map from " + p_filename + "...");
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(p_filename))) {
-            String line;
-            Continent currentContinent = null;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Continent: ")) {
+        try (BufferedReader l_reader = new BufferedReader(new FileReader(p_filename))) {
+            String l_line;
+            Continent l_currentContinent = null;
+            while ((l_line = l_reader.readLine()) != null) {
+                if (l_line.startsWith("Continent: ")) {
                 	
-                    String continentName = line.substring(11); // Extract continent name
-                    currentContinent = new Continent();
-                    currentContinent.setName(continentName);
-                    d_continents.add(currentContinent);
+                    String l_continentName = l_line.substring(11); // Extract continent name
+                    l_currentContinent = new Continent();
+                    l_currentContinent.setName(l_continentName);
+                    d_continents.add(l_currentContinent);
                     
-                } else if (line.startsWith("  Country: ") && currentContinent != null) {
+                } else if (l_line.startsWith("  Country: ") && l_currentContinent != null) {
                 	
-                    String countryName = line.substring(11); // Extract country name
-                    Country country = new Country();
-                    country.setName(countryName);
-                    currentContinent.getCountries().add(country);
-                    d_countries.add(country);
+                    String l_countryName = l_line.substring(11); // Extract country name
+                    Country l_country = new Country();
+                    l_country.setName(l_countryName);
+                    l_currentContinent.getCountries().add(l_country);
+                    d_countries.add(l_country);
                     
                 }
             }
