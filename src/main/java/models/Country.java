@@ -19,23 +19,6 @@ public class Country {
     private int d_numArmies;
     private Map d_map;  // Relationship to Map
     private Continent d_continent;  // Relationship to Continent
-    private String d_name;  // Added name data member
-
-    /**
-     * Gets the name of the country.
-     * @return The name of the country.
-     */
-    public String getName() {
-        return d_name;
-    }
-
-    /**
-     * Sets the name of the country.
-     * @param p_name The new name of the country.  // Adjusted parameter name to follow convention
-     */
-    public void setName(String p_name) {
-        this.d_name = p_name;
-    }
 
     /**
      * Default constructor for Country class.
