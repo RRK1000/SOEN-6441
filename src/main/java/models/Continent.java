@@ -14,7 +14,7 @@ public class Continent {
     private int d_continentID;
     private int d_continentValue;
     private List<Country> d_countries;
-    private String d_name;  // Added name data member 
+
 
 
     /**
@@ -34,23 +34,7 @@ public class Continent {
         this.d_continentValue = p_continentValue;
         d_countries = new ArrayList<>();
     }
-    
-    /**
-     * Gets the name of the continent.
-     * @return The name of the continent.
-     */
-    public String getName() {
-        return d_name;
-    }
 
-    /**
-     * Sets the name of the continent.
-     * @param p_name The new name of the continent.
-     */
-    public void setName(String p_name) {
-        this.d_name = p_name;
-    }
-    
     /**
      * Adds a country to the continent.
      * @param p_country The country to be added.
