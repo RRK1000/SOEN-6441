@@ -1,2 +1,2 @@
-rootProject.name = "risk"
+rootProject.name = "SOEN-6441"
 
