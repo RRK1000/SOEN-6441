@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "org.binarynomads"
+group = "com.u2"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jgrapht:jgrapht:1.5.2")
+
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

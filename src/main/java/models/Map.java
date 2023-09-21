@@ -1,10 +1,9 @@
 package models;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +20,14 @@ import java.util.List;
  */
 public class Map {
 
+    DirectedGraph<Country, DefaultEdge> d_countryMapGraph;
+    DirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
     private List<Country> d_countries;
     private List<Continent> d_continents;
 
     public Map() {
+        d_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        d_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         d_countries = new ArrayList<>();
         d_continents = new ArrayList<>();
     }
