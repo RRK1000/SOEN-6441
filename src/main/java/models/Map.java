@@ -21,12 +21,12 @@ import java.util.List;
  */
 public class Map {
 
-    private List<Country> countries;
-    private List<Continent> continents;
+    private List<Country> d_countries;
+    private List<Continent> d_continents;
 
     public Map() {
-        countries = new ArrayList<>();
-        continents = new ArrayList<>();
+        d_countries = new ArrayList<>();
+        d_continents = new ArrayList<>();
     }
 
     /**
@@ -34,7 +34,7 @@ public class Map {
      */
     public void showMap() {
         System.out.println("Showing the map...");
-        for (Continent continent : continents) {
+        for (Continent continent : d_continents) {
             System.out.println("Continent: " + continent.getName());
             for (Country country : continent.getCountries()) {
                 System.out.println("  Country: " + country.getName());
@@ -50,7 +50,7 @@ public class Map {
         System.out.println("Saving the map...");
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("map_data.txt"))) {
-            for (Continent continent : continents) {
+            for (Continent continent : d_continents) {
                 writer.write("Continent: " + continent.getName() + "\n");
                 for (Country country : continent.getCountries()) {
                     writer.write("  Country: " + country.getName() + "\n");
@@ -64,12 +64,12 @@ public class Map {
 
     /**
      * Loads the map from a given file.
-     * @param filename The name of the file to load the map from.
+     * @param p_filename The name of the file to load the map from.
      */
-    public void loadMap(String filename) {
-        System.out.println("Loading the map from " + filename + "...");
+    public void loadMap(String p_filename) {
+        System.out.println("Loading the map from " + p_filename + "...");
         
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(p_filename))) {
             String line;
             Continent currentContinent = null;
             while ((line = reader.readLine()) != null) {
@@ -78,7 +78,7 @@ public class Map {
                     String continentName = line.substring(11); // Extract continent name
                     currentContinent = new Continent();
                     currentContinent.setName(continentName);
-                    continents.add(currentContinent);
+                    d_continents.add(currentContinent);
                     
                 } else if (line.startsWith("  Country: ") && currentContinent != null) {
                 	
@@ -86,7 +86,7 @@ public class Map {
                     Country country = new Country();
                     country.setName(countryName);
                     currentContinent.getCountries().add(country);
-                    countries.add(country);
+                    d_countries.add(country);
                     
                 }
             }

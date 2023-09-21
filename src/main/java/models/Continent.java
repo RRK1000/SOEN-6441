@@ -13,7 +13,7 @@ public class Continent {
     // Data Members
     private int d_continentID;
     private int d_continentValue;
-    private List<Country> countries;
+    private List<Country> d_countries;
     private String d_name;  // Added name data member 
 
 
@@ -21,7 +21,7 @@ public class Continent {
      * Default constructor for Continent class.
      */
     public Continent() {
-        countries = new ArrayList<>();
+        d_countries = new ArrayList<>();
     }
 
     /**
@@ -32,7 +32,7 @@ public class Continent {
     public Continent(int p_continentID, int p_continentValue) {
         this.d_continentID = p_continentID;
         this.d_continentValue = p_continentValue;
-        countries = new ArrayList<>();
+        d_countries = new ArrayList<>();
     }
     
     /**
@@ -45,7 +45,7 @@ public class Continent {
 
     /**
      * Sets the name of the continent.
-     * @param name The new name of the continent.
+     * @param p_name The new name of the continent.
      */
     public void setName(String p_name) {
         this.d_name = p_name;
@@ -53,18 +53,18 @@ public class Continent {
     
     /**
      * Adds a country to the continent.
-     * @param country The country to be added.
+     * @param p_country The country to be added.
      */
-    public void addCountry(Country country) {
-        countries.add(country);
+    public void addCountry(Country p_country) {
+        d_countries.add(p_country);
     }
 
     /**
      * Removes a country from the continent.
-     * @param country The country to be removed.
+     * @param p_country The country to be removed.
      */
-    public void removeCountry(Country country) {
-        countries.remove(country);
+    public void removeCountry(Country p_country) {
+        d_countries.remove(p_country);
     }
 
     /**
@@ -104,6 +104,6 @@ public class Continent {
      * @return The list of countries.
      */
     public List<Country> getCountries() {
-        return countries;
+        return d_countries;
     }
 }
