@@ -1,6 +1,6 @@
 package models;
 
-import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.io.*;
@@ -26,8 +26,8 @@ public class Map {
     private List<Continent> d_continents;
 
     public Map() {
-        d_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-        d_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+//        d_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+//        d_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         d_countries = new ArrayList<>();
         d_continents = new ArrayList<>();
     }
