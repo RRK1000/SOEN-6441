@@ -23,9 +23,7 @@ public class MapUtil implements IMapUtil {
     public Map loadMap(String p_filename) {
         Map l_map = new Map();
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-        ;
         DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-        ;
 
         System.out.println("Loading the map from " + p_filename + "...");
 
@@ -128,11 +126,10 @@ public class MapUtil implements IMapUtil {
     public void saveMap(Map p_map) {
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/saveMap.txt"))) {
             l_writer.write("[continents]");
-            for (Continent continent: p_map.getD_continentMapGraph().vertexSet()) {
+            for (Continent continent : p_map.getD_continentMapGraph().vertexSet()) {
 
 
             }
-
 
 
             //----
@@ -163,7 +160,7 @@ public class MapUtil implements IMapUtil {
         }
 
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
-        if(l_continentMapGraph.vertexSet().isEmpty()){
+        if (l_continentMapGraph.vertexSet().isEmpty()) {
             System.out.println("Continent Graph is Empty");
             return false;
         }
@@ -175,25 +172,24 @@ public class MapUtil implements IMapUtil {
         }
 
         for (Continent l_continent : l_continentMapGraph.vertexSet()) {
-            if(l_continent.getCountries() == null){
+            if (l_continent.getCountries() == null) {
                 System.out.println("Continent " + l_continent.getContinentID() + " doesnt have countries");
                 return false;
             }
         }
 
-        if(GraphTests.isStronglyConnected(l_continentMapGraph) && GraphTests.isSimple(l_continentMapGraph)){
+        if (GraphTests.isStronglyConnected(l_continentMapGraph) && GraphTests.isSimple(l_continentMapGraph)) {
             System.out.println("Continent Graph is not strongly connected or it has self loops/multiple edges.");
             return false;
         }
 
-        if(GraphTests.isStronglyConnected(l_countryMapGraph) && GraphTests.isSimple(l_countryMapGraph)){
+        if (GraphTests.isStronglyConnected(l_countryMapGraph) && GraphTests.isSimple(l_countryMapGraph)) {
             System.out.println("Continent Graph is not strongly connected  or it has self loops/multiple edges.");
             return false;
         }
-
         for (Country l_country : l_countryMapGraph.vertexSet()) {
             if (l_country.getD_neighbourCountryIDList() == null) {
-                System.out.println("Country "+ l_country.getCountryID()+" doesnt have neighbours" );
+                System.out.println("Country " + l_country.getCountryID() + " doesnt have neighbours");
                 return false;
             }
         }
