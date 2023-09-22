@@ -1,0 +1,7 @@
+// source: https://domination.sourceforge.io/makemaps.shtml
+[continents]
+North-America 6 yellow  <-- name of the continent <> The number is the army value<>color does totally nothing
+[countries]
+1 Alaska 1 44 83        <-- the first number is the number of the country <> country name <> what continent it belongs to<>the other two numbers are the x and y co-ordinates
+[borders]
+1 2 3 38                <~~ the first number is the number of the country <> and the other numbers that follow are what countries that country is adjacent too
