@@ -156,7 +156,7 @@ public class MapUtil implements IMapUtil{
         Set l_countries = l_countryMapGraph.vertexSet();
         for (Object l_vertex : l_vertices) {
             Country l_vertexInt = (Country)l_vertex;
-            if(l_vertexInt.getneighborhoodCountryIDList().isEmpty()){
+            if(l_vertexInt.getD_neighbourCountryIDList().isEmpty()){
                 System.out.println("Country doesnt have neighbours");
                 return false;
             }
