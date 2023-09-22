@@ -17,8 +17,6 @@ public class Country {
     private int d_countryID;
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
-    private Map d_map;  // Relationship to Map
-    private Continent d_continent;  // Relationship to Continent
 
     /**
      * Default constructor for Country class.

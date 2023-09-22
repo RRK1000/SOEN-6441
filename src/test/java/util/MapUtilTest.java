@@ -1,6 +1,5 @@
 package util;
 
-import models.Country;
 import models.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,10 +20,8 @@ class MapUtilTest {
         mapUtil.d_map = d_map;
         mapUtil.loadMap("src/test/resources/validMap1.txt");
 
-        for(Country l_c : d_map.getD_countryMapGraph().vertexSet()){
-            System.out.println(d_map.getD_countryMapGraph().outgoingEdgesOf(l_c));
-        }
-
+        mapUtil.showMap(d_map);
+ 
         assertFalse(d_map.getD_countryMapGraph().vertexSet().isEmpty());
         assertFalse(d_map.getD_continentMapGraph().vertexSet().isEmpty());
 

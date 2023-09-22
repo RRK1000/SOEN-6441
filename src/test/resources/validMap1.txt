@@ -1,6 +1,6 @@
 [continents]
 Scandinavia 5 #fff780
-Britian 5 #ff8097
+Britian 9 #ff8097
 Spain 5 #8480ff
 
 [countries]

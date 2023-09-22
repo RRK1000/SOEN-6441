@@ -41,6 +41,13 @@ public class Map {
         return null;
     }
 
+    public Continent getD_continentByID(int p_continentID) {
+        for (Continent c: d_continentMapGraph.vertexSet()) {
+            if(c.getContinentID() == p_continentID)
+                return c;
+        }
+        return null;
+    }
 
     public DirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
         return d_countryMapGraph;
