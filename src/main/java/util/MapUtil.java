@@ -50,6 +50,7 @@ public class MapUtil implements IMapUtil{
                         l_continentMapGraph.addVertex(l_continent);
                         line = reader.readLine();
                     }
+                    d_map.setD_continentMapGraph(l_continentMapGraph);
                     continue;
                 }
 
