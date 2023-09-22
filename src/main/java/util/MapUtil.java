@@ -19,7 +19,7 @@ import java.util.Set;
  *
  * This class implements the IMapUtil interface
  *
- * @author Rishi Ravikumar
+ * @author Rishi Ravikumar, Anuja-Somthankar
  */
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultEdge;
@@ -166,10 +166,24 @@ public class MapUtil implements IMapUtil{
     }
 
     /**
-     *
+     * This method displays the map, i.e., it shows all continents and countries and their respective neighbors
+     * @param p_graphMap Object of the Map graph
+     * @author Anuja-Somthankar
      */
     @Override
-    public void showMap() {
+    public void showMap(Map p_graphMap) {
+        DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
+        DirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
+
+        System.out.println("List of continents: ");
+        for (Continent l_continent : l_continentMapGraph.vertexSet()){
+            System.out.println(l_continent.getContinentID() + " " + l_continent.getContinentValue());
+        }
+
+        System.out.println("List of countries and their neighbours: ");
+        for (Country l_country : l_countryMapGraph.vertexSet()){
+            System.out.println(l_country.getCountryID() + " " + l_country.getD_neighbourCountryIDList());
+        }
 
     }
 }
