@@ -33,6 +33,15 @@ public class Map {
         d_continents = new ArrayList<>();
     }
 
+    public Country getD_countryByID(int p_countryID) {
+        for (Country c: d_countryMapGraph.vertexSet()) {
+            if(c.getCountryID() == p_countryID)
+                return c;
+        }
+        return null;
+    }
+
+
     public DirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
         return d_countryMapGraph;
     }
@@ -71,9 +80,9 @@ public class Map {
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("map_data.txt"))) {
             for (Continent continent : d_continents) {
-                writer.write("Continent: " + continent.getName() + "\n");
+                writer.write("Continent: " + continent.getContinentID() + "\n");
                 for (Country country : continent.getCountries()) {
-                    writer.write("  Country: " + country.getName() + "\n");
+                    writer.write("  Country: " + country.getCountryID() + "\n");
                 }
             }
             System.out.println("Map saved successfully!");
