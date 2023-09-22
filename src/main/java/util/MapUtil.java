@@ -21,7 +21,7 @@ import java.util.List;
  * @author Rishi Ravikumar
  */
 public class MapUtil implements IMapUtil{
-    public Map map;
+    public Map d_map;
 
     /**
      * Loads the map from a given file.
@@ -53,27 +53,36 @@ public class MapUtil implements IMapUtil{
 
                 if (line.startsWith("[Country]")) {
                     line = reader.readLine();
+
+                    // adding country vertices
                     while(line != null) {
                         String[] countryData = line.split(" ");
                         Country l_country = new Country();
                         l_country.setCountryID(Integer.parseInt(countryData[0]));
+                        l_countryMapGraph.addVertex(l_country);
 
                         List<Integer> l_neighbourhoodCountryList = new ArrayList<>();
                         for (int l_i = 1; l_i < countryData.length; l_i++)
                             l_neighbourhoodCountryList.add(Integer.valueOf(countryData[l_i]));
-                        l_country.setD_neighborhoodCountryIDList(l_neighbourhoodCountryList);
-                        l_countryMapGraph.addVertex(l_country);
+
+                        l_country.setD_neighbourCountryIDList(l_neighbourhoodCountryList);
                         line = reader.readLine();
                     }
+                    d_map.setD_countryMapGraph(l_countryMapGraph);
+
+                    // adding graph edges
+                    for (Country c: l_countryMapGraph.vertexSet()) {
+                        List<Integer> d_neighbourCountryIDList = c.getD_neighbourCountryIDList();
+                        for (Integer l_id: d_neighbourCountryIDList) {
+                            l_countryMapGraph.addEdge(c, d_map.getD_countryByID(l_id));
+                        }
+                    }
+
                 }
             }
 
-            map.setD_continentMapGraph(l_continentMapGraph);
-            map.setD_countryMapGraph(l_countryMapGraph);
-
-            System.out.println("Continent Graph:\n"+map.getD_continentMapGraph().vertexSet());
-            System.out.println("Country Graph:\n"+map.getD_countryMapGraph().vertexSet());
-
+            d_map.setD_continentMapGraph(l_continentMapGraph);
+            d_map.setD_countryMapGraph(l_countryMapGraph);
             System.out.println("Map loaded successfully!");
         } catch (IOException e) {
             System.out.println("Error loading the map: " + e.getMessage());
