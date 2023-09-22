@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Responsible for map utility functions (loading/saving/editing a map)
@@ -134,29 +133,25 @@ public class MapUtil implements IMapUtil{
             return false;
         }
 
-        Set l_vertices = l_continentMapGraph.vertexSet();
-        for (Object l_vertex : l_vertices) {
-            Continent l_vertexInt = (Continent)l_vertex;
-            if(l_vertexInt.getCountries().isEmpty()){
+        for (Continent l_continent : l_continentMapGraph.vertexSet()) {
+            if(l_continent.getCountries().isEmpty()){
                 System.out.println("Continent doesnt have countries");
                 return false;
             }
         }
 
-        if(GraphTests.isStronglyConnected(l_continentMapGraph) || GraphTests.isSimple(l_continentMapGraph)){
+        if(GraphTests.isStronglyConnected(l_continentMapGraph) && GraphTests.isSimple(l_continentMapGraph)){
             System.out.println("Continent Graph is not strongly connected or it has self loops");
             return false;
         }
 
-        if(GraphTests.isStronglyConnected(l_countryMapGraph) || GraphTests.isSimple(l_countryMapGraph)){
+        if(GraphTests.isStronglyConnected(l_countryMapGraph) && GraphTests.isSimple(l_countryMapGraph)){
             System.out.println("Continent Graph is not strongly connected  or it has self loops");
             return false;
         }
 
-        Set l_countries = l_countryMapGraph.vertexSet();
-        for (Object l_vertex : l_vertices) {
-            Country l_vertexInt = (Country)l_vertex;
-            if(l_vertexInt.getD_neighbourCountryIDList().isEmpty()){
+        for (Country l_country : l_countryMapGraph.vertexSet()) {
+            if(l_country.getD_neighbourCountryIDList().isEmpty()){
                 System.out.println("Country doesnt have neighbours");
                 return false;
             }
