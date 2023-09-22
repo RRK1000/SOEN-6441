@@ -4,6 +4,7 @@ import models.Continent;
 import models.Country;
 import models.Map;
 import org.jgrapht.DirectedGraph;
+import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -13,21 +14,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Responsible for map utility functions (loading/saving/editing a map)
- *
- * This class implements the IMapUtil interface
- *
- * @author Rishi Ravikumar, Anuja-Somthankar
- */
-import org.jgrapht.GraphTests;
-import org.jgrapht.graph.DefaultEdge;
-
 public class MapUtil implements IMapUtil{
     public Map d_map;
 
     /**
      * Loads the map from a given file.
+     * @author Rishi Ravikumar
      * @param p_filename The name of the file to load the map from.
      */
     @Override
@@ -42,48 +34,57 @@ public class MapUtil implements IMapUtil{
             line = reader.readLine();
 
             while (line != null) {
-                if (line.startsWith("[Continent]")) {
+                if (line.isEmpty()) {
                     line = reader.readLine();
-                    while(!line.startsWith("[")){
+                    continue;
+                }
+
+                if (line.startsWith("[continents]")) {
+                    int l_continentID = 1;
+                    line = reader.readLine();
+                    while(!line.isEmpty()){
                         String[] continentData = line.split(" ");
                         Continent l_continent = new Continent();
-                        l_continent.setContinentID(Integer.parseInt(continentData[0]));
+                        l_continent.setContinentID(l_continentID++);
                         l_continent.setContinentValue(Integer.parseInt(continentData[1]));
                         l_continentMapGraph.addVertex(l_continent);
                         line = reader.readLine();
                     }
+                    continue;
                 }
 
-                if (line.startsWith("[Country]")) {
+                if (line.startsWith("[countries]")) {
                     line = reader.readLine();
 
-                    // adding country vertices
-                    while(line != null) {
+                    while (!line.isEmpty()) {
                         String[] countryData = line.split(" ");
                         Country l_country = new Country();
+                        Continent l_continent = d_map.getD_continentByID(Integer.parseInt(countryData[2]));
                         l_country.setCountryID(Integer.parseInt(countryData[0]));
                         l_countryMapGraph.addVertex(l_country);
-
-                        List<Integer> l_neighbourhoodCountryList = new ArrayList<>();
-                        for (int l_i = 1; l_i < countryData.length; l_i++)
-                            l_neighbourhoodCountryList.add(Integer.valueOf(countryData[l_i]));
-
-                        l_country.setD_neighbourCountryIDList(l_neighbourhoodCountryList);
                         line = reader.readLine();
                     }
                     d_map.setD_countryMapGraph(l_countryMapGraph);
+                    continue;
+                }
 
-                    // adding graph edges
-                    for (Country c: l_countryMapGraph.vertexSet()) {
-                        List<Integer> d_neighbourCountryIDList = c.getD_neighbourCountryIDList();
-                        for (Integer l_id: d_neighbourCountryIDList) {
-                            l_countryMapGraph.addEdge(c, d_map.getD_countryByID(l_id));
+                if (line.startsWith("[borders]")) {
+                    line = reader.readLine();
+
+                    while(line != null) {
+                        String[] borderData = line.split(" ");
+                        Country l_currentCountry = d_map.getD_countryByID(Integer.parseInt(borderData[0]));
+
+                        List<Integer> l_neighbourhoodCountryIDList = new ArrayList<>();
+                        for (int l_id = 1; l_id < borderData.length; l_id++) {
+                            l_neighbourhoodCountryIDList.add(Integer.valueOf(borderData[l_id]));
+                            l_countryMapGraph.addEdge(l_currentCountry, d_map.getD_countryByID(l_id));
                         }
+                        l_currentCountry.setD_neighbourCountryIDList(l_neighbourhoodCountryIDList);
+                        line = reader.readLine();
                     }
-
                 }
             }
-
             d_map.setD_continentMapGraph(l_continentMapGraph);
             d_map.setD_countryMapGraph(l_countryMapGraph);
             System.out.println("Map loaded successfully!");
