@@ -11,6 +11,6 @@ public interface IMapUtil {
 
     public Boolean validateMap(Map p_graphMap);
 
-    public void showMap();
+    public void showMap(Map p_graphMap);
 
 }
