@@ -5,12 +5,11 @@ import java.util.List;
 /**
  * Represents a Country in the game.
  * Manages country-related functionalities.
- * 
+ * <p>
  * This class is related to the Continent class.
  * This class is also related to the Map class.
  *
  * @author Yusuke
- * 
  */
 public class Country {
     // Data Members
@@ -27,9 +26,10 @@ public class Country {
 
     /**
      * Constructor with parameters for Country class.
-     * @param p_countryID The ID of the country.
+     *
+     * @param p_countryID              The ID of the country.
      * @param p_neighbourCountryIDList The list of neighboring country IDs
-     * @param p_numArmies The number of armies in the country.
+     * @param p_numArmies              The number of armies in the country.
      */
     public Country(int p_countryID, List<Integer> p_neighbourCountryIDList, int p_numArmies) {
         this.d_countryID = p_countryID;
@@ -53,6 +53,7 @@ public class Country {
 
     /**
      * Gets the country ID.
+     *
      * @return The country ID.
      */
     public int getCountryID() {
@@ -61,6 +62,7 @@ public class Country {
 
     /**
      * Sets the country ID.
+     *
      * @param p_countryID The new country ID.
      */
     public void setCountryID(int p_countryID) {
@@ -69,6 +71,7 @@ public class Country {
 
     /**
      * Gets the list of neighboring country IDS
+     *
      * @return The list of neighboring country IDS
      */
     public List<Integer> getD_neighbourCountryIDList() {
@@ -77,6 +80,7 @@ public class Country {
 
     /**
      * Sets the list of neighboring country IDs.
+     *
      * @param p_neighbourCountryIDList The new list of neighboring country IDs.
      */
     public void setD_neighbourCountryIDList(List<Integer> p_neighbourCountryIDList) {
@@ -85,6 +89,7 @@ public class Country {
 
     /**
      * Gets the number of armies in the country.
+     *
      * @return The number of armies.
      */
     public int getNumArmies() {
@@ -93,6 +98,7 @@ public class Country {
 
     /**
      * Sets the number of armies in the country.
+     *
      * @param p_numArmies The new number of armies.
      */
     public void setNumArmies(int p_numArmies) {

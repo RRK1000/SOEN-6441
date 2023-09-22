@@ -7,6 +7,7 @@ import java.util.List;
  * Represents a Continent in the game.
  * Manages continent-related functionalities.
  * This class is related to the Country class, as each Continent can contain multiple Countries.
+ *
  * @author Yusuke
  */
 public class Continent {
@@ -14,7 +15,6 @@ public class Continent {
     private int d_continentID;
     private int d_continentValue;
     private List<Country> d_countries;
-
 
 
     /**
@@ -26,7 +26,8 @@ public class Continent {
 
     /**
      * Constructor with parameters for Continent class.
-     * @param p_continentID The ID of the continent.
+     *
+     * @param p_continentID    The ID of the continent.
      * @param p_continentValue The value of the continent.
      */
     public Continent(int p_continentID, int p_continentValue) {
@@ -37,6 +38,7 @@ public class Continent {
 
     /**
      * Adds a country to the continent.
+     *
      * @param p_country The country to be added.
      */
     public void addCountry(Country p_country) {
@@ -45,6 +47,7 @@ public class Continent {
 
     /**
      * Removes a country from the continent.
+     *
      * @param p_country The country to be removed.
      */
     public void removeCountry(Country p_country) {
@@ -53,6 +56,7 @@ public class Continent {
 
     /**
      * Gets the continent ID.
+     *
      * @return The continent ID.
      */
     public int getContinentID() {
@@ -61,6 +65,7 @@ public class Continent {
 
     /**
      * Sets the continent ID.
+     *
      * @param p_continentID The new continent ID.
      */
     public void setContinentID(int p_continentID) {
@@ -69,6 +74,7 @@ public class Continent {
 
     /**
      * Gets the continent value.
+     *
      * @return The continent value.
      */
     public int getContinentValue() {
@@ -77,6 +83,7 @@ public class Continent {
 
     /**
      * Sets the continent value.
+     *
      * @param p_continentValue The new continent value.
      */
     public void setContinentValue(int p_continentValue) {
@@ -85,6 +92,7 @@ public class Continent {
 
     /**
      * Gets the list of countries in the continent.
+     *
      * @return The list of countries.
      */
     public List<Country> getCountries() {
