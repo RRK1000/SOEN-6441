@@ -15,7 +15,7 @@ import java.util.List;
 public class Country {
     // Data Members
     private int d_countryID;
-    private List<Integer> d_neighborhoodCountryIDList;
+    private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
     private Map d_map;  // Relationship to Map
     private Continent d_continent;  // Relationship to Continent
@@ -30,12 +30,12 @@ public class Country {
     /**
      * Constructor with parameters for Country class.
      * @param p_countryID The ID of the country.
-     * @param p_neighborhoodCountryIDList The list of neighboring country IDs.
+     * @param p_neighbourCountryIDList The list of neighboring country IDs
      * @param p_numArmies The number of armies in the country.
      */
-    public Country(int p_countryID, List<Integer> p_neighborhoodCountryIDList, int p_numArmies) {
+    public Country(int p_countryID, List<Integer> p_neighbourCountryIDList, int p_numArmies) {
         this.d_countryID = p_countryID;
-        this.d_neighborhoodCountryIDList = p_neighborhoodCountryIDList;
+        this.d_neighbourCountryIDList = p_neighbourCountryIDList;
         this.d_numArmies = p_numArmies;
     }
 
@@ -70,19 +70,19 @@ public class Country {
     }
 
     /**
-     * Gets the list of neighboring country IDs.
-     * @return The list of neighboring country IDs.
+     * Gets the list of neighboring country IDS
+     * @return The list of neighboring country IDS
      */
-    public List<Integer> getneighborhoodCountryIDList() {
-        return d_neighborhoodCountryIDList;
+    public List<Integer> getD_neighbourCountryIDList() {
+        return d_neighbourCountryIDList;
     }
 
     /**
      * Sets the list of neighboring country IDs.
-     * @param p_neighborhoodCountryIDList The new list of neighboring country IDs.
+     * @param p_neighbourCountryIDList The new list of neighboring country IDs.
      */
-    public void setD_neighborhoodCountryIDList(List<Integer> p_neighborhoodCountryIDList) {
-        this.d_neighborhoodCountryIDList = p_neighborhoodCountryIDList;
+    public void setD_neighbourCountryIDList(List<Integer> p_neighbourCountryIDList) {
+        this.d_neighbourCountryIDList = p_neighbourCountryIDList;
     }
 
     /**
