@@ -3,9 +3,9 @@ package util;
 import models.Map;
 
 public interface IMapUtil {
-    public void loadMap(String p_filename);
+    public Map loadMap(String p_filename);
 
-    public void editMap();
+    public Map editMap(String p_filename);
 
     public void saveMap();
 

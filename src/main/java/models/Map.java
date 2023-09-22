@@ -4,19 +4,21 @@ import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a Map in the game.
  * Responsible for showing and saving the map.
- * 
+ * <p>
  * This class is related to the MapEditor and MapValidator classes in the Utility package,
  * as it utilizes their functionalities for editing and validating the map.
- * 
+ * <p>
  * This class is also related to the Country class, as each Map can contain multiple Countries.
- * 
+ *
  * @author Yusuke
  */
 public class Map {
@@ -34,16 +36,16 @@ public class Map {
     }
 
     public Country getD_countryByID(int p_countryID) {
-        for (Country c: d_countryMapGraph.vertexSet()) {
-            if(c.getCountryID() == p_countryID)
+        for (Country c : d_countryMapGraph.vertexSet()) {
+            if (c.getCountryID() == p_countryID)
                 return c;
         }
         return null;
     }
 
     public Continent getD_continentByID(int p_continentID) {
-        for (Continent c: d_continentMapGraph.vertexSet()) {
-            if(c.getContinentID() == p_continentID)
+        for (Continent c : d_continentMapGraph.vertexSet()) {
+            if (c.getContinentID() == p_continentID)
                 return c;
         }
         return null;
@@ -81,10 +83,10 @@ public class Map {
     /**
      * Saves the map to a file.
      */
-    
+
     public void saveMap() {
         System.out.println("Saving the map...");
-        
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("map_data.txt"))) {
             for (Continent continent : d_continents) {
                 writer.write("Continent: " + continent.getContinentID() + "\n");
