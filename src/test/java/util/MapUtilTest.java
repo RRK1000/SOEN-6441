@@ -1,11 +1,12 @@
 package util;
 
 import models.Map;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * This class contains the test methods for MapUtil.java.
@@ -13,27 +14,47 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Anuja-Somthankar Rishi Ravikumar
  */
 class MapUtilTest {
-    private Map d_map;
+    private static MapUtil d_mapUtil;
 
-    @BeforeEach
-    void setUp() {
-        d_map = new Map();
+    @BeforeAll
+    static void setUp() {
+        d_mapUtil = new MapUtil();
     }
 
     /**
-     *
+     * This test loads a valid map and checks if the countryMapGraph and the continentMapGraph is initialized
      */
     @Test
-    void loadMap()  {
+    void loadMapTest1() {
+        Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
+        d_mapUtil.showMap(l_map);
+
+        assertFalse(l_map.getD_countryMapGraph().vertexSet().isEmpty());
+        assertFalse(l_map.getD_continentMapGraph().vertexSet().isEmpty());
+    }
+
+    /**
+     * This test  checks the editMap() function for a valid file
+     */
+    @Test
+    void editMapTest1() {
         MapUtil mapUtil = new MapUtil();
-        mapUtil.d_map = d_map;
-        mapUtil.loadMap("src/test/resources/validMap1.txt");
+        Map map = mapUtil.editMap("src/test/resources/validMap1.txt");
+        mapUtil.showMap(map);
 
-        mapUtil.showMap(d_map);
- 
-        assertFalse(d_map.getD_countryMapGraph().vertexSet().isEmpty());
-        assertFalse(d_map.getD_continentMapGraph().vertexSet().isEmpty());
+        assertNotNull(map);
+    }
 
+    /**
+     * This test  checks the editMap() function for a non-existing file
+     */
+    @Test
+    void editMapTest2() {
+        MapUtil mapUtil = new MapUtil();
+        Map map = mapUtil.editMap("src/test/resources/invalid.txt");
+        mapUtil.showMap(map);
+
+        assertNotNull(map);
     }
 
     /**

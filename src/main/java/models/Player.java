@@ -4,7 +4,8 @@ package models;
  * Represents a Player in the game.
  * Manages player-related functionalities.
  * This class is used in relationship with the GameController class to manage player actions.
- *  @author Yusuke
+ *
+ * @author Yusuke
  */
 public class Player {
     // Data Members
@@ -19,6 +20,7 @@ public class Player {
 
     /**
      * Constructor with parameters for Player class.
+     *
      * @param p_playerName The name of the player.
      */
     public Player(String p_playerName) {
@@ -41,6 +43,7 @@ public class Player {
 
     /**
      * Gets the player name.
+     *
      * @return The player name.
      */
     public String getPlayerName() {
@@ -49,6 +52,7 @@ public class Player {
 
     /**
      * Sets the player name.
+     *
      * @param p_playerName The new player name.
      */
     public void setPlayerName(String p_playerName) {
