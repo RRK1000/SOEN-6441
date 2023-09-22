@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jgrapht:jgrapht-core:1.0.1")
+    implementation("org.jgrapht:jgrapht-core:1.5.2")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
