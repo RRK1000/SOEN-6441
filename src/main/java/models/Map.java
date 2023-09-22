@@ -1,6 +1,7 @@
 package models;
 
 import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import java.io.*;
@@ -20,18 +21,17 @@ import java.util.List;
  */
 public class Map {
 
-    DirectedGraph<Country, DefaultEdge> d_countryMapGraph;
-    DirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
+    private DirectedGraph<Country, DefaultEdge> d_countryMapGraph;
+    private DirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
     private List<Country> d_countries;
     private List<Continent> d_continents;
 
     public Map() {
-//        d_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
-//        d_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        d_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        d_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         d_countries = new ArrayList<>();
         d_continents = new ArrayList<>();
     }
-
 
     public DirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
         return d_countryMapGraph;
@@ -81,41 +81,4 @@ public class Map {
             System.out.println("Error saving the map: " + e.getMessage());
         }
     }
-
-    /**
-     * Loads the map from a given file.
-     * @param p_filename The name of the file to load the map from.
-     */
-    public void loadMap(String p_filename) {
-        System.out.println("Loading the map from " + p_filename + "...");
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(p_filename))) {
-            String line;
-            Continent currentContinent = null;
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("Continent: ")) {
-                	
-                    String continentName = line.substring(11); // Extract continent name
-                    currentContinent = new Continent();
-                    currentContinent.setName(continentName);
-                    d_continents.add(currentContinent);
-                    
-                } else if (line.startsWith("  Country: ") && currentContinent != null) {
-                	
-                    String countryName = line.substring(11); // Extract country name
-                    Country country = new Country();
-                    country.setName(countryName);
-                    currentContinent.getCountries().add(country);
-                    d_countries.add(country);
-                    
-                }
-            }
-            System.out.println("Map loaded successfully!");
-        } catch (IOException e) {
-            System.out.println("Error loading the map: " + e.getMessage());
-        }
-    }
-    
-    
-
 }

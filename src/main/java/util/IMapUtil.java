@@ -1,7 +1,7 @@
 package util;
 
 public interface IMapUtil {
-    public void loadMap();
+    public void loadMap(String p_filename);
 
     public void editMap();
 
