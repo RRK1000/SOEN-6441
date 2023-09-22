@@ -62,6 +62,7 @@ public class MapUtil implements IMapUtil{
                         Continent l_continent = d_map.getD_continentByID(Integer.parseInt(countryData[2]));
                         l_country.setCountryID(Integer.parseInt(countryData[0]));
                         l_countryMapGraph.addVertex(l_country);
+                        l_continent.addCountry(l_country);
                         line = reader.readLine();
                     }
                     d_map.setD_countryMapGraph(l_countryMapGraph);
@@ -106,7 +107,6 @@ public class MapUtil implements IMapUtil{
      */
     @Override
     public void saveMap() {
-
     }
 
     /**
