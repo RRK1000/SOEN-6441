@@ -118,13 +118,14 @@ public class MapUtil implements IMapUtil{
      */
     @Override
     public Boolean validateMap(Map p_graphMap) {
+
         if(p_graphMap == null){
             System.out.println("Graph is Empty");
             return false;
         }
 
         DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
-        if(GraphTests.isEmpty(l_continentMapGraph)){
+        if(l_continentMapGraph.vertexSet().isEmpty()){
             System.out.println("Continent Graph is Empty");
             return false;
         }
@@ -136,25 +137,25 @@ public class MapUtil implements IMapUtil{
         }
 
         for (Continent l_continent : l_continentMapGraph.vertexSet()) {
-            if(l_continent.getCountries().isEmpty()){
-                System.out.println("Continent doesnt have countries");
+            if(l_continent.getCountries() == null){
+                System.out.println("Continent " + l_continent.getContinentID() + " doesnt have countries");
                 return false;
             }
         }
 
         if(GraphTests.isStronglyConnected(l_continentMapGraph) && GraphTests.isSimple(l_continentMapGraph)){
-            System.out.println("Continent Graph is not strongly connected or it has self loops");
+            System.out.println("Continent Graph is not strongly connected or it has self loops/multiple edges.");
             return false;
         }
 
         if(GraphTests.isStronglyConnected(l_countryMapGraph) && GraphTests.isSimple(l_countryMapGraph)){
-            System.out.println("Continent Graph is not strongly connected  or it has self loops");
+            System.out.println("Continent Graph is not strongly connected  or it has self loops/multiple edges.");
             return false;
         }
 
         for (Country l_country : l_countryMapGraph.vertexSet()) {
-            if(l_country.getD_neighbourCountryIDList().isEmpty()){
-                System.out.println("Country doesnt have neighbours");
+            if (l_country.getD_neighbourCountryIDList() == null) {
+                System.out.println("Country "+ l_country.getCountryID()+" doesnt have neighbours" );
                 return false;
             }
         }
