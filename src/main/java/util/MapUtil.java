@@ -3,14 +3,11 @@ package util;
 import models.Continent;
 import models.Country;
 import models.Map;
-import org.jgrapht.DirectedGraph;
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +22,9 @@ public class MapUtil implements IMapUtil {
     @Override
     public Map loadMap(String p_filename) {
         Map l_map = new Map();
-        DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         ;
-        DirectedGraph<Country, DefaultEdge> l_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
+        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         ;
 
         System.out.println("Loading the map from " + p_filename + "...");
@@ -127,7 +124,27 @@ public class MapUtil implements IMapUtil {
      *
      */
     @Override
-    public void saveMap() {
+    public void saveMap(Map p_map) {
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/saveMap.txt"))) {
+            l_writer.write("[continents]");
+            for (Continent continent: p_map.getD_continentMapGraph().vertexSet()) {
+
+
+            }
+
+
+
+            //----
+//            for (Continent continent : d_continents) {
+//                writer.write("Continent: " + continent.getContinentID() + "\n");
+//                for (Country country : continent.getCountries()) {
+//                    writer.write("  Country: " + country.getCountryID() + "\n");
+//                }
+//            }
+            System.out.println("Map saved successfully!");
+        } catch (IOException e) {
+            System.out.println("Error saving the map: " + e.getMessage());
+        }
     }
 
     /**
@@ -144,13 +161,13 @@ public class MapUtil implements IMapUtil {
             return false;
         }
 
-        DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
+        DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
         if(l_continentMapGraph.vertexSet().isEmpty()){
             System.out.println("Continent Graph is Empty");
             return false;
         }
 
-        DirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
+        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
         if (GraphTests.isEmpty(l_countryMapGraph)) {
             System.out.println("Country Graph is Empty");
             return false;
@@ -191,8 +208,8 @@ public class MapUtil implements IMapUtil {
      */
     @Override
     public void showMap(Map p_graphMap) {
-        DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
-        DirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
+        DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
+        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
 
         System.out.println("List of continents: ");
         for (Continent l_continent : l_continentMapGraph.vertexSet()) {
