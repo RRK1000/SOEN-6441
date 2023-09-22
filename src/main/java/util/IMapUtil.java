@@ -1,5 +1,7 @@
 package util;
 
+import models.Map;
+
 public interface IMapUtil {
     public void loadMap(String p_filename);
 
@@ -7,7 +9,7 @@ public interface IMapUtil {
 
     public void saveMap();
 
-    public void validateMap();
+    public Boolean validateMap(Map p_graphMap);
 
     public void showMap();
 

@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Responsible for map utility functions (loading/saving/editing a map)
@@ -20,6 +21,9 @@ import java.util.List;
  *
  * @author Rishi Ravikumar
  */
+import org.jgrapht.GraphTests;
+import org.jgrapht.graph.DefaultEdge;
+
 public class MapUtil implements IMapUtil{
     public Map d_map;
 
@@ -106,11 +110,59 @@ public class MapUtil implements IMapUtil{
     }
 
     /**
-     *
+     *This method checks whether the map is valid or not.
+     * @param p_graphMap The Map object
+     * @return A boolean value - True if map is valid, otherwise false
+     * @author Anuja-Somthankar
      */
     @Override
-    public void validateMap() {
+    public Boolean validateMap(Map p_graphMap) {
+        if(p_graphMap == null){
+            System.out.println("Graph is Empty");
+            return false;
+        }
 
+        DirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
+        if(GraphTests.isEmpty(l_continentMapGraph)){
+            System.out.println("Continent Graph is Empty");
+            return false;
+        }
+
+        DirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
+        if(GraphTests.isEmpty(l_countryMapGraph)){
+            System.out.println("Country Graph is Empty");
+            return false;
+        }
+
+        Set l_vertices = l_continentMapGraph.vertexSet();
+        for (Object l_vertex : l_vertices) {
+            Continent l_vertexInt = (Continent)l_vertex;
+            if(l_vertexInt.getCountries().isEmpty()){
+                System.out.println("Continent doesnt have countries");
+                return false;
+            }
+        }
+
+        if(GraphTests.isStronglyConnected(l_continentMapGraph) || GraphTests.isSimple(l_continentMapGraph)){
+            System.out.println("Continent Graph is not strongly connected or it has self loops");
+            return false;
+        }
+
+        if(GraphTests.isStronglyConnected(l_countryMapGraph) || GraphTests.isSimple(l_countryMapGraph)){
+            System.out.println("Continent Graph is not strongly connected  or it has self loops");
+            return false;
+        }
+
+        Set l_countries = l_countryMapGraph.vertexSet();
+        for (Object l_vertex : l_vertices) {
+            Country l_vertexInt = (Country)l_vertex;
+            if(l_vertexInt.getneighborhoodCountryIDList().isEmpty()){
+                System.out.println("Country doesnt have neighbours");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
