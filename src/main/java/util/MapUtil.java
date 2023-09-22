@@ -80,7 +80,8 @@ public class MapUtil implements IMapUtil {
                         List<Integer> l_neighbourhoodCountryIDList = new ArrayList<>();
                         for (int l_id = 1; l_id < borderData.length; l_id++) {
                             l_neighbourhoodCountryIDList.add(Integer.valueOf(borderData[l_id]));
-                            l_countryMapGraph.addEdge(l_currentCountry, l_map.getD_countryByID(l_id));
+                            Country l_neighbour = l_map.getD_countryByID(Integer.parseInt(borderData[l_id]));
+                            l_countryMapGraph.addEdge(l_currentCountry, l_neighbour);
                         }
                         l_currentCountry.setD_neighbourCountryIDList(l_neighbourhoodCountryIDList);
                         line = reader.readLine();
