@@ -1,6 +1,5 @@
 package models;
 
-import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -23,8 +22,8 @@ import java.util.List;
  */
 public class Map {
 
-    private DirectedGraph<Country, DefaultEdge> d_countryMapGraph;
-    private DirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
+    private DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph;
+    private DefaultDirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
     private List<Country> d_countries;
     private List<Continent> d_continents;
 
@@ -51,19 +50,19 @@ public class Map {
         return null;
     }
 
-    public DirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
+    public DefaultDirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
         return d_countryMapGraph;
     }
 
-    public void setD_countryMapGraph(DirectedGraph<Country, DefaultEdge> d_countryMapGraph) {
+    public void setD_countryMapGraph(DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph) {
         this.d_countryMapGraph = d_countryMapGraph;
     }
 
-    public DirectedGraph<Continent, DefaultEdge> getD_continentMapGraph() {
+    public DefaultDirectedGraph<Continent, DefaultEdge> getD_continentMapGraph() {
         return d_continentMapGraph;
     }
 
-    public void setD_continentMapGraph(DirectedGraph<Continent, DefaultEdge> d_continentMapGraph) {
+    public void setD_continentMapGraph(DefaultDirectedGraph<Continent, DefaultEdge> d_continentMapGraph) {
         this.d_continentMapGraph = d_continentMapGraph;
     }
 

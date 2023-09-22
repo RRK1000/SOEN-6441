@@ -7,7 +7,7 @@ public interface IMapUtil {
 
     public Map editMap(String p_filename);
 
-    public void saveMap();
+    public void saveMap(Map p_map);
 
     public Boolean validateMap(Map p_graphMap);
 
