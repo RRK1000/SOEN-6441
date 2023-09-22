@@ -55,9 +55,9 @@ public class Map {
     public void showMap() {
         System.out.println("Showing the map...");
         for (Continent continent : d_continents) {
-            System.out.println("Continent: " + continent.getName());
+            System.out.println("Continent: " + continent.getContinentID());
             for (Country country : continent.getCountries()) {
-                System.out.println("  Country: " + country.getName());
+                System.out.println("  Country: " + country.getCountryID());
             }
         }
     }

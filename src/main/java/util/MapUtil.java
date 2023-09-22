@@ -13,6 +13,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Responsible for map utility functions (loading/saving/editing a map)
+ *
+ * This class implements the IMapUtil interface
+ *
+ * @author Rishi Ravikumar
+ */
 public class MapUtil implements IMapUtil{
     public Map map;
 
