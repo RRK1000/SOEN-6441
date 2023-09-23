@@ -178,13 +178,13 @@ public class MapUtil implements IMapUtil {
             }
         }
 
-        if (GraphTests.isStronglyConnected(l_continentMapGraph) && GraphTests.isSimple(l_continentMapGraph)) {
+        if(!GraphTests.isWeaklyConnected(l_continentMapGraph) && !GraphTests.isSimple(l_continentMapGraph)){
             System.out.println("Continent Graph is not strongly connected or it has self loops/multiple edges.");
             return false;
         }
 
-        if (GraphTests.isStronglyConnected(l_countryMapGraph) && GraphTests.isSimple(l_countryMapGraph)) {
-            System.out.println("Continent Graph is not strongly connected  or it has self loops/multiple edges.");
+        if(!GraphTests.isWeaklyConnected(l_countryMapGraph) && !GraphTests.isSimple(l_countryMapGraph)){
+            System.out.println("Country Graph is not strongly connected  or it has self loops/multiple edges.");
             return false;
         }
         for (Country l_country : l_countryMapGraph.vertexSet()) {
@@ -194,6 +194,18 @@ public class MapUtil implements IMapUtil {
             }
         }
 
+        for(Country l_i : l_countryMapGraph.vertexSet()){
+            List<Integer> l_neighbourList = l_i.getD_neighbourCountryIDList();
+            for(int l_j : l_neighbourList){
+                Country l_country = p_graphMap.getD_countryByID(l_j);
+                if(!l_countryMapGraph.containsEdge(l_country,l_i)){
+                    System.out.println(l_i.getCountryID() + " is a neighbour to " + l_j +
+                            " but " + l_j + " is not specified as a neighbour to " + l_i.getCountryID());
+                    return false;
+                }
+            }
+        }
+        System.out.println("Map is Valid!");
         return true;
     }
 
