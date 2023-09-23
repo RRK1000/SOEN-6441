@@ -14,6 +14,9 @@ import java.util.List;
 public class Country {
     // Data Members
     private int d_countryID;
+    private String d_countryName;
+
+    private int d_continentID;
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
 
@@ -67,6 +70,22 @@ public class Country {
      */
     public void setCountryID(int p_countryID) {
         this.d_countryID = p_countryID;
+    }
+
+    public String getD_countryName() {
+        return d_countryName;
+    }
+
+    public void setD_countryName(String d_countryName) {
+        this.d_countryName = d_countryName;
+    }
+
+    public int getD_continentID() {
+        return d_continentID;
+    }
+
+    public void setD_continentID(int d_continentID) {
+        this.d_continentID = d_continentID;
     }
 
     /**

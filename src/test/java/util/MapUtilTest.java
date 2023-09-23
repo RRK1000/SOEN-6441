@@ -106,4 +106,13 @@ class MapUtilTest {
 
         assertFalse(d_mapUtil.validateMap(l_map));
     }
+
+    /**
+     * This test checks the saveMap() function for a valid map
+     */
+    @Test
+    void saveMap() {
+        Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
+        d_mapUtil.saveMap(l_map);
+    }
 }
