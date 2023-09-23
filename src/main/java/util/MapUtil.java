@@ -60,6 +60,7 @@ public class MapUtil implements IMapUtil {
                         Country l_country = new Country();
                         Continent l_continent = l_map.getD_continentByID(Integer.parseInt(countryData[2]));
                         l_country.setCountryID(Integer.parseInt(countryData[0]));
+                        l_country.setD_continentID(Integer.parseInt(countryData[2]));
                         l_countryMapGraph.addVertex(l_country);
                         l_continent.addCountry(l_country);
                         line = reader.readLine();
@@ -120,28 +121,49 @@ public class MapUtil implements IMapUtil {
     }
 
     /**
+     * Saves the contents {@link models.Map} to a "domination" map file
      *
+     * @param p_map The {@link models.Map} from which a file would be generated
+     * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
+     * @author Rishi Ravikumar
      */
     @Override
-    public void saveMap(Map p_map) {
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/saveMap.txt"))) {
-            l_writer.write("[continents]");
-            for (Continent continent : p_map.getD_continentMapGraph().vertexSet()) {
-
-
+    public Boolean saveMap(Map p_map) {
+        if (!validateMap(p_map)) {
+            return false;
+        }
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/saveMap.txt"))) {
+            l_writer.write("[continents]\n");
+            for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
+                l_writer.write(l_continent.getContinentID() + " " + l_continent.getContinentValue() + " blue\n");
             }
+            l_writer.write("\n");
 
+            l_writer.write("[countries]\n");
+            for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
+                l_writer.write(l_country.getCountryID()
+                        + " " + l_country.getD_countryName() + " " + l_country.getD_continentID() + " 100 100\n");
+            }
+            l_writer.write("\n");
 
-            //----
-//            for (Continent continent : d_continents) {
-//                writer.write("Continent: " + continent.getContinentID() + "\n");
-//                for (Country country : continent.getCountries()) {
-//                    writer.write("  Country: " + country.getCountryID() + "\n");
-//                }
-//            }
+            l_writer.write("[borders]\n");
+            for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
+                StringBuilder l_borderData = new StringBuilder();
+                l_borderData.append(l_country.getCountryID());
+
+                for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
+                    l_borderData.append(" ");
+                    l_borderData.append(l_neighbourID);
+                }
+                l_writer.write(String.valueOf(l_borderData));
+                l_writer.write("\n");
+            }
+            l_writer.write("\n");
             System.out.println("Map saved successfully!");
+            return true;
         } catch (IOException e) {
             System.out.println("Error saving the map: " + e.getMessage());
+            return false;
         }
     }
 
@@ -178,12 +200,12 @@ public class MapUtil implements IMapUtil {
             }
         }
 
-        if(!GraphTests.isWeaklyConnected(l_continentMapGraph) && !GraphTests.isSimple(l_continentMapGraph)){
+        if (!GraphTests.isWeaklyConnected(l_continentMapGraph) && !GraphTests.isSimple(l_continentMapGraph)) {
             System.out.println("Continent Graph is not strongly connected or it has self loops/multiple edges.");
             return false;
         }
 
-        if(!GraphTests.isWeaklyConnected(l_countryMapGraph) && !GraphTests.isSimple(l_countryMapGraph)){
+        if (!GraphTests.isWeaklyConnected(l_countryMapGraph) && !GraphTests.isSimple(l_countryMapGraph)) {
             System.out.println("Country Graph is not strongly connected  or it has self loops/multiple edges.");
             return false;
         }
@@ -194,11 +216,11 @@ public class MapUtil implements IMapUtil {
             }
         }
 
-        for(Country l_i : l_countryMapGraph.vertexSet()){
+        for (Country l_i : l_countryMapGraph.vertexSet()) {
             List<Integer> l_neighbourList = l_i.getD_neighbourCountryIDList();
-            for(int l_j : l_neighbourList){
+            for (int l_j : l_neighbourList) {
                 Country l_country = p_graphMap.getD_countryByID(l_j);
-                if(!l_countryMapGraph.containsEdge(l_country,l_i)){
+                if (!l_countryMapGraph.containsEdge(l_country, l_i)) {
                     System.out.println(l_i.getCountryID() + " is a neighbour to " + l_j +
                             " but " + l_j + " is not specified as a neighbour to " + l_i.getCountryID());
                     return false;

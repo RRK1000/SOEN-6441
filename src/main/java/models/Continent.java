@@ -13,6 +13,7 @@ import java.util.List;
 public class Continent {
     // Data Members
     private int d_continentID;
+    private int d_continentName;
     private int d_continentValue;
     private List<Country> d_countries;
 
