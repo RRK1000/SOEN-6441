@@ -96,13 +96,26 @@ class MapUtilTest {
 
     /**
      * This test tests the validateMap function. It takes a map object and passes it to validateMap() to check if validation is correct.
-     * In this test, the map object is empty, hence map is invalid.
+     * In this test, one neighbour is mapped to another, but that neighbour is not mapped to it.
      * Context: A map object is passed.
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
     void isValidMapTest4() {  //neighbour mismatch
         Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap3.txt");
+
+        assertFalse(d_mapUtil.isValidMap(l_map));
+    }
+
+    /**
+     * This test tests the validateMap function. It takes a map object and passes it to validateMap() to check if validation is correct.
+     * In this test, one neighbour is mapped to another, but that neighbour is not mapped to it.
+     * Context: A map object is passed.
+     * Expected Results: The map is invalid, hence false should be returned.
+     */
+    @Test
+    void isValidMapTest5() {  //neighbour mismatch
+        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap4.txt");
 
         assertFalse(d_mapUtil.isValidMap(l_map));
     }
