@@ -1,5 +1,9 @@
 package controller;
 
+/**
+ * This is the main implementation of the game.
+ *
+ */
 public class GameEngine {
 
     public static void main(String[] p_args){
@@ -10,6 +14,10 @@ public class GameEngine {
         gameMenu();
     }
 
+    /**
+     * This method is used to display the Menu of the game.
+     * @author Nimisha Jadav
+     */
     public static void gameMenu(){
         GameStartup gameStartup = new GameStartup();
 

@@ -22,6 +22,11 @@ public class GameStartup {
 
     }
 
+    /**
+     * Method to take input from the user to choose an option from the given menu
+     * @return option selected by user
+     * @author Nimisha Jadav
+     */
     public int menuGame(){
         int d_choice;
         Scanner sc = new Scanner(System.in);
@@ -33,6 +38,10 @@ public class GameStartup {
         return d_choice;
     }
 
+    /**
+     * Method to load the existing game and if not then start a new game
+     * @author Nimisha Jadav
+     */
     public void loadGame(){
 
         Scanner sc = new Scanner(System.in);
@@ -43,9 +52,12 @@ public class GameStartup {
         //write logic to check whether the map exist or not, if not create a new map
         if(ifMapExists(d_mapName)){
             //continue the saved game
+
+
         }
         else{
             //start a new game
+
         }
     }
 
@@ -53,6 +65,12 @@ public class GameStartup {
         //write logic to create new map and then validate the map
     }
 
+    /**
+     * This method is used to check whether the map already exists or not
+     * @param d_mapName Name of the saved map
+     * @return boolean value true if the map exists and false if it doesn't exist
+     * @author Nimisha Jadav
+     */
     public boolean ifMapExists(String d_mapName){
         File f_file = new File(d_mapName);
         boolean d_exists = f_file.exists();
