@@ -129,7 +129,7 @@ public class MapUtil implements IMapUtil {
      */
     @Override
     public Boolean saveMap(Map p_map) {
-        if (!validateMap(p_map)) {
+        if (!isValidMap(p_map)) {
             return false;
         }
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/saveMap.txt"))) {
@@ -169,13 +169,13 @@ public class MapUtil implements IMapUtil {
 
     /**
      * This method checks whether the map is valid or not.
-     *
+     * It checks conditions like if graph is empty, if it has any self loops/multiple edges, if every continent has at least 1 country, etc.
      * @param p_graphMap The Map object
      * @return A boolean value - True if map is valid, otherwise false
      * @author Anuja-Somthankar
      */
     @Override
-    public Boolean validateMap(Map p_graphMap) {
+    public Boolean isValidMap(Map p_graphMap) {
         if (p_graphMap == null) {
             System.out.println("Graph is Empty");
             return false;
@@ -201,12 +201,12 @@ public class MapUtil implements IMapUtil {
         }
 
         if (!GraphTests.isWeaklyConnected(l_continentMapGraph) && !GraphTests.isSimple(l_continentMapGraph)) {
-            System.out.println("Continent Graph is not strongly connected or it has self loops/multiple edges.");
+            System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
             return false;
         }
 
         if (!GraphTests.isWeaklyConnected(l_countryMapGraph) && !GraphTests.isSimple(l_countryMapGraph)) {
-            System.out.println("Country Graph is not strongly connected  or it has self loops/multiple edges.");
+            System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
             return false;
         }
         for (Country l_country : l_countryMapGraph.vertexSet()) {
