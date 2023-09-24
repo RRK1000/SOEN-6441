@@ -62,10 +62,10 @@ class MapUtilTest {
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
-     void validateMapTest1() {
+     void isValidMapTest1() {
         Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap1.txt");
 
-        assertFalse(d_mapUtil.validateMap(l_map));
+        assertFalse(d_mapUtil.isValidMap(l_map));
     }
 
     /**
@@ -75,10 +75,10 @@ class MapUtilTest {
      * Expected Results: The map is valid, hence true should be returned.
      */
     @Test
-    void validateMapTest2() {
+    void isValidMapTest2() {
         Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
 
-        assertTrue(d_mapUtil.validateMap(l_map));
+        assertTrue(d_mapUtil.isValidMap(l_map));
     }
 
     /**
@@ -88,10 +88,10 @@ class MapUtilTest {
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
-    void validateMapTest3() {
+    void isValidMapTest3() {
         Map l_map = new Map();
 
-        assertFalse(d_mapUtil.validateMap(l_map));
+        assertFalse(d_mapUtil.isValidMap(l_map));
     }
 
     /**
@@ -101,10 +101,10 @@ class MapUtilTest {
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
-    void validateMapTest4() {  //neighbour mismatch
+    void isValidMapTest4() {  //neighbour mismatch
         Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap3.txt");
 
-        assertFalse(d_mapUtil.validateMap(l_map));
+        assertFalse(d_mapUtil.isValidMap(l_map));
     }
 
     /**

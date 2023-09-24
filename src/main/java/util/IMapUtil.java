@@ -9,7 +9,7 @@ public interface IMapUtil {
 
     public Boolean saveMap(Map p_map);
 
-    public Boolean validateMap(Map p_graphMap);
+    public Boolean isValidMap(Map p_graphMap);
 
     public void showMap(Map p_graphMap);
 
