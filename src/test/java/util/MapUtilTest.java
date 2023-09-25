@@ -126,6 +126,6 @@ class MapUtilTest {
     @Test
     void saveMap() {
         Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
-        d_mapUtil.saveMap(l_map);
+        assertTrue(d_mapUtil.saveMap(l_map));
     }
 }
