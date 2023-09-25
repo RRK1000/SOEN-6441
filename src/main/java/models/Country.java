@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,10 +13,8 @@ import java.util.List;
  * @author Yusuke
  */
 public class Country {
-    // Data Members
     private int d_countryID;
     private String d_countryName;
-
     private int d_continentID;
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
@@ -24,7 +23,7 @@ public class Country {
      * Default constructor for Country class.
      */
     public Country() {
-        // Implementation here
+        d_neighbourCountryIDList = new ArrayList<>();
     }
 
     /**
@@ -41,25 +40,11 @@ public class Country {
     }
 
     /**
-     * Edits the country.
-     */
-    public void editCountry() {
-        // Implementation here
-    }
-
-    /**
-     * Edits the neighboring countries.
-     */
-    public void editNeighbor() {
-        // Implementation here
-    }
-
-    /**
      * Gets the country ID.
      *
      * @return The country ID.
      */
-    public int getCountryID() {
+    public int getD_countryID() {
         return d_countryID;
     }
 
@@ -68,7 +53,7 @@ public class Country {
      *
      * @param p_countryID The new country ID.
      */
-    public void setCountryID(int p_countryID) {
+    public void setD_countryID(int p_countryID) {
         this.d_countryID = p_countryID;
     }
 
@@ -111,7 +96,7 @@ public class Country {
      *
      * @return The number of armies.
      */
-    public int getNumArmies() {
+    public int getD_numArmies() {
         return d_numArmies;
     }
 
@@ -120,7 +105,7 @@ public class Country {
      *
      * @param p_numArmies The new number of armies.
      */
-    public void setNumArmies(int p_numArmies) {
+    public void setD_numArmies(int p_numArmies) {
         this.d_numArmies = p_numArmies;
     }
 }
