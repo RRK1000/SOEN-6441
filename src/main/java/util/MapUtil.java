@@ -92,8 +92,8 @@ public class MapUtil implements IMapUtil {
             l_map.setD_continentMapGraph(l_continentMapGraph);
             l_map.setD_countryMapGraph(l_countryMapGraph);
             System.out.println("Map loaded successfully!");
-        } catch (IOException e) {
-            System.out.println("Error loading the map: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Failed to load the file: " + e.getMessage());
         }
         return l_map;
     }
@@ -112,7 +112,7 @@ public class MapUtil implements IMapUtil {
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_filename))) {
             l_map = loadMap(p_filename);
             System.out.println("Map Loaded Successfully");
-        } catch (IOException l_e) {
+        } catch (Exception l_e) {
             System.out.println("File not found");
             l_map = new Map();
             return l_map;
@@ -161,7 +161,7 @@ public class MapUtil implements IMapUtil {
             l_writer.write("\n");
             System.out.println("Map saved successfully!");
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error saving the map: " + e.getMessage());
             return false;
         }
