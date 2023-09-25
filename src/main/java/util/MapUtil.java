@@ -200,15 +200,6 @@ public class MapUtil implements IMapUtil {
             }
         }
 
-        if (!GraphTests.isWeaklyConnected(l_continentMapGraph) && !GraphTests.isSimple(l_continentMapGraph)) {
-            System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
-            return false;
-        }
-
-        if (!GraphTests.isWeaklyConnected(l_countryMapGraph) && !GraphTests.isSimple(l_countryMapGraph)) {
-            System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
-            return false;
-        }
         for (Country l_country : l_countryMapGraph.vertexSet()) {
             if (l_country.getD_neighbourCountryIDList() == null) {
                 System.out.println("Country " + l_country.getCountryID() + " doesnt have neighbours");
@@ -227,6 +218,17 @@ public class MapUtil implements IMapUtil {
                 }
             }
         }
+
+        if (!GraphTests.isSimple(l_continentMapGraph)) {
+            System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
+            return false;
+        }
+
+        if (!GraphTests.isWeaklyConnected(l_countryMapGraph) || !GraphTests.isSimple(l_countryMapGraph)) {
+            System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
+            return false;
+        }
+
         System.out.println("Map is Valid!");
         return true;
     }
