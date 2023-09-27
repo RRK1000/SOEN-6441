@@ -1,21 +1,56 @@
 package controller;
 import java.util.ArrayList;
-import models.Player;
 
-/**
- * This is the main game loop.
- */
-public class GameEngine{
+import models.*;
+import org.apache.commons.*;
+import org.apache.commons.cli.*;
 
-    GameManager d_gameManager = new GameManager();
+public class GameEngine {
+
 
     public static void main(String[] p_args){
+        Options options = new Options();
+        options.addOption("h", "help", false, "Print help message");
+        options.addOption("f", "file", true, "Input file");
 
+        // Create a command-line parser
+        CommandLineParser parser = new DefaultParser();
+
+        try {
+            // Parse the command-line arguments
+            CommandLine cmd = parser.parse(options, p_args);
+
+            // Check for specific options and perform actions based on them
+            if (cmd.hasOption("help")) {
+                // Handle the --help option (e.g., display usage information)
+                printHelp(options); // You can define a method to print usage information
+            }
+
+            if (cmd.hasOption("file")) {
+                String inputFile = cmd.getOptionValue("file");
+                // Process the input file option and its value
+                // Add your code here
+            }
+
+            // Continue with your application logic
+            // ...
+
+        } catch (ParseException e) {
+            // Handle parsing errors (e.g., display an error message)
+            System.err.println("Error parsing command-line arguments: " + e.getMessage());
+            printHelp(options); // Optionally, print usage information after an error
+        }
     }
+
+    private static void printHelp(Options options) {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("YourApplication", options);
+    }
+    /*
     public static ArrayList<Player> d_playerList = new ArrayList<Player>();
 
 
-    /* public static void gameMenu(){
+    public static void gameMenu(){
         GameStartup gameStartup = new GameStartup();
 
         int d_selectMenuOption = gameStartup.menuGame();
@@ -34,32 +69,6 @@ public class GameEngine{
                     System.out.println("Incorrect Input! Enter the correct option");
             }
         }while(d_selectMenuOption!=3);
-    } */
-
-
-    /**
-     * This method is used to read the command given by the player and validates if the syntax
-     * of the command is correct and then takes the action accordingly
-     * @param d_input - Command entered by the player
-     * @author - Abhigyan
-     * @author - Nimisha
-     * @author - Yuki
-     * @version - 1.0.0
-     */
-    public void inputParser(String d_input){
-        //Implementation here
-
-    }
-
-    /**
-     * This method is used to validate the command entered by player. Validates the command based
-     * on the current game phase.
-     * @param d_input - Command entered by the player
-     * @version - 1.0.0
-     */
-    public void validateInput(String d_input){
-        //Implementation here
-
-    }
+    }*/
 
 }
