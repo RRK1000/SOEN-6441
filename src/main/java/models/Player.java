@@ -14,6 +14,7 @@ public class Player {
     private String d_playerName;
     private int d_numArmies;
     private List<Country> d_countryList;
+    private List<Continent> d_continentList;
     private List<Order> d_orderList;
 
 
@@ -42,10 +43,9 @@ public class Player {
     /**
      * Moves to the next order.
      */
-    public Order nextOrder() {
+    public void nextOrder() {
         // Implementation here
 
-        return null;
     }
 
     /**
@@ -53,7 +53,7 @@ public class Player {
      *
      * @return The player name.
      */
-    public String getPlayerName() {
+    public String getD_playerName() {
         return d_playerName;
     }
 
@@ -62,7 +62,7 @@ public class Player {
      *
      * @param p_playerName The new player name.
      */
-    public void setPlayerName(String p_playerName) {
+    public void setD_playerName(String p_playerName) {
         this.d_playerName = p_playerName;
     }
 
@@ -112,5 +112,20 @@ public class Player {
      */
     public void setD_orderList(List<Order> p_orderList) {
         this.d_orderList = p_orderList;
+    }
+
+    /**
+     * Gets the list of continents held by the player
+     */
+    public List<Continent> getD_continentList() {
+        return d_continentList;
+    }
+
+    /**
+     * Sets the list of continents held by the player
+     * @param p_continentList List of Continent objects under player's ownership
+     */
+    public void setD_continentList(List<Continent> p_continentList) {
+        this.d_continentList = p_continentList;
     }
 }
