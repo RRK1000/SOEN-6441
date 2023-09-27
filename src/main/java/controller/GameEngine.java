@@ -12,6 +12,21 @@ public class GameEngine {
         Options options = new Options();
         options.addOption("h", "help", false, "Print help message");
         options.addOption("f", "file", true, "Input file");
+        //options.addOption("e", "edit_neighbour", true, "Edit neighbor");
+
+        Option editNeighbourOption = Option.builder("e")
+                .longOpt("edit_neighbour")
+                .hasArgs()
+                .argName("subcommand")
+                .desc("Edit neighbor relationships (add or remove)")
+                .build();
+
+        options.addOption(editNeighbourOption);
+
+        // Create sub-options for "add" and "remove" within "edit_neighbour"
+        Options editNeighbourSubOptions = new Options();
+        editNeighbourSubOptions.addOption("a", "add", true, "Add neighbor relationship");
+        editNeighbourSubOptions.addOption("r", "remove", true, "Remove neighbor relationship");
 
         // Create a command-line parser
         CommandLineParser parser = new DefaultParser();
@@ -30,6 +45,26 @@ public class GameEngine {
                 String inputFile = cmd.getOptionValue("file");
                 // Process the input file option and its value
                 // Add your code here
+            }
+
+            if (cmd.hasOption("edit_neighbour")) {
+                CommandLine editNeighbourCmd = parser.parse(editNeighbourSubOptions, cmd.getOptionValues("edit_neighbour"));
+
+                if (editNeighbourCmd.hasOption("add")) {
+                    // Handle the "add" subcommand
+                    String countryID = editNeighbourCmd.getOptionValue("add");
+                    String neighborCountryID = editNeighbourCmd.getOptionValue("add");
+                    // Process the "add" operation with countryID and neighborCountryID
+                    // Add your code here
+                }
+
+                if (editNeighbourCmd.hasOption("remove")) {
+                    // Handle the "remove" subcommand
+                    String countryID = editNeighbourCmd.getOptionValue("remove");
+                    String neighborCountryID = editNeighbourCmd.getOptionValue("remove");
+                    // Process the "remove" operation with countryID and neighborCountryID
+                    // Add your code here
+                }
             }
 
             // Continue with your application logic
