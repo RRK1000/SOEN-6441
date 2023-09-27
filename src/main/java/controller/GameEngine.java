@@ -1,17 +1,52 @@
 package controller;
 import java.util.ArrayList;
 
-import models.Player;
+import models.*;
+import org.apache.commons.*;
+import org.apache.commons.cli.*;
 
 public class GameEngine {
 
+
     public static void main(String[] p_args){
-        System.out.println("WELCOME TO WARZONE");
+        Options options = new Options();
+        options.addOption("h", "help", false, "Print help message");
+        options.addOption("f", "file", true, "Input file");
 
-        System.out.println("---GAME BEGINS---");
+        // Create a command-line parser
+        CommandLineParser parser = new DefaultParser();
 
-        gameMenu();
+        try {
+            // Parse the command-line arguments
+            CommandLine cmd = parser.parse(options, p_args);
+
+            // Check for specific options and perform actions based on them
+            if (cmd.hasOption("help")) {
+                // Handle the --help option (e.g., display usage information)
+                printHelp(options); // You can define a method to print usage information
+            }
+
+            if (cmd.hasOption("file")) {
+                String inputFile = cmd.getOptionValue("file");
+                // Process the input file option and its value
+                // Add your code here
+            }
+
+            // Continue with your application logic
+            // ...
+
+        } catch (ParseException e) {
+            // Handle parsing errors (e.g., display an error message)
+            System.err.println("Error parsing command-line arguments: " + e.getMessage());
+            printHelp(options); // Optionally, print usage information after an error
+        }
     }
+
+    private static void printHelp(Options options) {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("YourApplication", options);
+    }
+    /*
     public static ArrayList<Player> d_playerList = new ArrayList<Player>();
 
 
@@ -34,6 +69,6 @@ public class GameEngine {
                     System.out.println("Incorrect Input! Enter the correct option");
             }
         }while(d_selectMenuOption!=3);
-    }
+    }*/
 
 }
