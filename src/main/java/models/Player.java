@@ -21,8 +21,9 @@ public class Player {
     /**
      * Default constructor for Player class.
      */
-    public Player() {
+    public Player(String p_playerName) {
         // Implementation here
+        this.d_playerName = p_playerName;
     }
 
     public Player(String p_playerName, int p_numArmies, List<Country> p_countryList, List<Order> p_orderList) {

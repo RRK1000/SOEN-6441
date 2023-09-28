@@ -2,6 +2,7 @@ package controller;
 
 import models.Player;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class GameManager {
         // implementation here
         // must iterate through d_playerList and assign countries to each player according to the warzone rules
         // Must update the d_countryList data member of each Player
+
     }
 
     /**
@@ -47,6 +49,13 @@ public class GameManager {
     public void addPlayer(String p_playerName) {
         // implementation here
         // must add a new player object to GameManager->d_playerList
+        boolean d_gamePlayerExists = d_playerList.contains(p_playerName);
+        if(d_gamePlayerExists){
+            System.out.println("Player already exists");
+        }else {
+            d_playerList.add(new Player(p_playerName));
+            System.out.println("Successfully added "+p_playerName+" to the game!");
+        }
     }
 
     /**
@@ -58,6 +67,20 @@ public class GameManager {
     public void removePlayer(String p_playerName) {
         // implementation here
         // must remove a player object from GameManager->d_playerList
+        Player d_player;
+        boolean d_gamePlayerExists = d_playerList.contains(p_playerName);
+        if(d_gamePlayerExists){
+            Iterator d_itr = d_playerList.iterator();
+            while(d_itr.hasNext()) {
+                String d_name = (String) d_itr.next();
+                if (d_name == p_playerName) {
+                    d_itr.remove();
+                }
+            }
+            System.out.println("Player removed from the game");
+        }else {
+            System.out.println("Player doesnot existed");
+        }
     }
 
     /**
