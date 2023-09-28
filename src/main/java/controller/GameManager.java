@@ -26,6 +26,10 @@ public class GameManager {
         // must iterate through d_playerList and assign countries to each player according to the warzone rules
         // Must update the d_countryList data member of each Player
 
+
+
+
+
     }
 
     /**
@@ -44,43 +48,51 @@ public class GameManager {
      * Adds a new {@link models.Player} to the game
      *
      * @param p_playerName name of the player to be added
-     * @author Rishi Ravikumar
+     * @author Nimisha Jadav
      */
     public void addPlayer(String p_playerName) {
         // implementation here
         // must add a new player object to GameManager->d_playerList
-        boolean d_gamePlayerExists = d_playerList.contains(p_playerName);
-        if(d_gamePlayerExists){
-            System.out.println("Player already exists");
-        }else {
-            d_playerList.add(new Player(p_playerName));
-            System.out.println("Successfully added "+p_playerName+" to the game!");
+        if(d_playerList.size()<6){
+            if(d_playerList.contains(p_playerName)){
+                System.out.println("Player already exists");
+            }else {
+                d_playerList.add(new Player(p_playerName));
+                System.out.println("Successfully added "+p_playerName+" to the game!");
+            }
+        } else {
+            System.out.println("You have reached the limit to add players");
         }
+
     }
 
     /**
      * Removes a {@link models.Player} from the game
      *
      * @param p_playerName name of the player to be removed
-     * @author Rishi Ravikumar
+     * @author Nimisha Jadav
      */
     public void removePlayer(String p_playerName) {
         // implementation here
         // must remove a player object from GameManager->d_playerList
         Player d_player;
-        boolean d_gamePlayerExists = d_playerList.contains(p_playerName);
-        if(d_gamePlayerExists){
-            Iterator d_itr = d_playerList.iterator();
-            while(d_itr.hasNext()) {
-                String d_name = (String) d_itr.next();
-                if (d_name == p_playerName) {
-                    d_itr.remove();
+        if(d_playerList.size()>2){
+            if(d_playerList.contains(p_playerName)){
+                Iterator l_itr = d_playerList.iterator();
+                while(l_itr.hasNext()) {
+                    String l_name = (String) l_itr.next();
+                    if (l_name == p_playerName) {
+                        l_itr.remove();
+                    }
                 }
+                System.out.println("Player removed from the game");
+            }else {
+                System.out.println("Player doesnot existed");
             }
-            System.out.println("Player removed from the game");
-        }else {
-            System.out.println("Player doesnot existed");
+        } else {
+            System.out.println("You have reached the limit to remove players");
         }
+
     }
 
     /**
