@@ -1,9 +1,12 @@
 package controller;
 
-import models.Player;
-
 import java.util.Iterator;
 import java.util.List;
+
+import models.Continent;
+import models.Country;
+import models.Map;
+import models.Player;
 
 /**
  * Represents the Game Manager
@@ -15,6 +18,12 @@ public class GameManager {
     private List<Player> d_playerList;
     private Player d_currentPlayerTurn;
     private GamePhase d_gamePhase;
+
+    private Map d_map;
+
+    public GameManager(Map p_map) {
+        this.d_map = p_map;
+    }
 
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
@@ -37,11 +46,50 @@ public class GameManager {
      *
      * @author Rishi Ravikumar
      */
-    public void assignReinforcements() {
+
+    /**
+     * check if enough armies are
+     * left to be assigned for the player
+     * @author Abhigyan
+     */
+
+    public boolean check_armies(){
+        for(Player l_player : d_playerList){
+            if(l_player.getD_numArmies()!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void assignReinforcements(Map p_map) {
         // implementation here
         // must iterate through d_playerList and assign d_numArmies value to each player according to the warzone rules
         //      Must use the d_continentList from the Player object to assign the d_numArmies.
         //      Must use the d_continentValue from each continent conquered by the player
+        for (Player l_player : d_playerList) {
+            int l_ownedCountries = l_player.getD_countryList().size();
+            int l_ArmyCount, l_flag;
+            String l_playerName = l_player.getD_playerName();
+
+            l_ArmyCount = Math.max((l_ownedCountries / 5), 5);
+            List<Continent> l_continentList = (List<Continent>) p_map.getD_continentMapGraph().vertexSet();
+            for (Continent l_continent : l_continentList) {
+                l_flag = 0;
+                for (Country l_country : l_continent.getD_countryList()) {
+                    if (!l_country.getD_Player().getD_PlayerName().equals(l_playerName)) {
+                        l_flag = 1;
+                        break;
+                    }
+                }
+                if (l_flag == 0) {
+                    l_ArmyCount += l_continent.getD_continentValue();
+                }
+            }
+
+            l_player.setD_numArmies(l_player.getD_numArmies() + l_ArmyCount);
+            l_player.d_armiesForNextCountry = l_player.getD_numArmies();
+        }
+
     }
 
     /**
