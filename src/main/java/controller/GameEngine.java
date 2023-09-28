@@ -1,7 +1,6 @@
 package controller;
-import java.util.ArrayList;
+import java.text.ParseException;
 
-import models.*;
 import org.apache.commons.*;
 import org.apache.commons.cli.*;
 
@@ -105,5 +104,24 @@ public class GameEngine {
             }
         }while(d_selectMenuOption!=3);
     }*/
+
+    
+    /**
+     * Validates the provided input string.
+     * <p>
+     * This method checks if the input string is null or empty. If the input is invalid,
+     * it throws an IllegalArgumentException.
+     * </p>
+     *
+     * @param p_input The input string to be validated.
+     * @throws IllegalArgumentException if the input string is null or empty.
+     * @author Yusuke Ishii
+     */
+    private void validateInput(String p_input) throws IllegalArgumentException {
+        if (p_input == null || p_input.trim().isEmpty()) {
+            throw new IllegalArgumentException("Invalid input provided.");
+        }
+    }
+
 
 }
