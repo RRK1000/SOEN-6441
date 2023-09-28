@@ -10,7 +10,6 @@ import java.util.List;
  * @author Yusuke, Anuja-Somthankar
  */
 public class Player {
-    public int d_armiesForNextCountry;
     // Data Members
     private String d_playerName;
     private int d_numArmies;
