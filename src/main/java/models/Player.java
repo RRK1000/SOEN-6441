@@ -36,19 +36,21 @@ public class Player {
     /**
      * Issues an order.
      */
-    public void issueOrder() {
-        // Implementation here
-
+    public void issueOrder(Order p_order) {
+        d_orderList.add(p_order);
     }
 
     /**
      * Moves to the next order.
      */
-    public void nextOrder() {
-        // Implementation here
-
+    public Order nextOrder() {
+        Order l_order = null;
+        if(!d_orderList.isEmpty()) {
+            l_order = d_orderList.get(0);
+            d_orderList.remove(0);
+        }
+        return l_order;
     }
-
     /**
      * Gets the player name.
      *

@@ -8,23 +8,23 @@ package models;
  * @author Anuja-Somthankar
  */
 public class Order {
-    private int d_countryID;
+    private Country d_country;
     private int d_num;
 
     /**
-     * Gets the country ID specified in the order
-     * @return d_countryID The country ID on which order of attack is given
+     * Gets the country specified in the order
+     * @return d_num country on which armies on deployed
      */
-    public int getD_countryID() {
-        return d_countryID;
+    public Country getD_country() {
+        return d_country;
     }
 
     /**
-     * Sets the country ID specified in the order
-     * @param p_countryID The country ID on which order of attack is given
+     * Sets the country specified in the order
+     * @return d_num country on which armies on deployed
      */
-    public void setD_countryID(int p_countryID) {
-        this.d_countryID = p_countryID;
+    public void setD_country(Country d_country) {
+        this.d_country = d_country;
     }
 
     /**
@@ -46,7 +46,8 @@ public class Order {
     /**
      * Executes an Order
      */
-    public void execute(){
-        //Implementation here
+    public void execute() {
+        d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
+
     }
 }
