@@ -1,7 +1,7 @@
 package controller;
+import java.io.File;
 import java.util.Objects;
-
-
+import java.util.Scanner;
 
 import models.Map;
 import util.MapUtil;
@@ -12,6 +12,38 @@ public class GameEngine {
     public void main(String[] p_args){
         Map l_map = new Map();
         d_gameManager = new GameManager(l_map);
+        Scanner l_sc = new Scanner(System.in);
+        String l_mapname;
+        String l_usercommand;
+        System.out.println("--- WELCOME TO WARZONE ---");
+        System.out.println("--- STARTING THE GAME ---");
+        System.out.println("--- MENU ---");
+        System.out.println("1. Start an existing game");
+        System.out.println("2. Start an new game");
+        System.out.println("3. Exit");
+        int l_userinput;
+        System.out.println("Choose an option from the menu");
+        l_userinput = l_sc.nextInt();
+
+        switch (l_userinput){
+            case 1:
+
+                System.out.println("Starting an existing game...");
+                System.out.println("Command : ");
+                l_usercommand = l_sc.nextLine();
+                inputParser(l_usercommand);
+                break;
+
+            case 2:
+                System.out.println("Starting a new game");
+                System.out.println("Command : ");
+                l_usercommand = l_sc.nextLine();
+                inputParser(l_usercommand);
+                break;
+
+            default:
+                System.out.println("Please enter a correct option.");
+        }
     }
 
 
@@ -44,6 +76,8 @@ public class GameEngine {
      */
     public void inputParser(String d_input) {
 
+        Scanner sc = new Scanner(System.in);
+        String l_mapname=null;
         while (!Objects.equals(d_input, "exit")) {
             String[] l_inpcmd = d_input.split(" -");
             System.out.println("Command: " + l_inpcmd[0]);
@@ -52,8 +86,22 @@ public class GameEngine {
             MapUtil mp = new MapUtil();
 
             switch (l_inpcmd[0]) {
+                case "help":
+                    System.out.println("showmap        : show all continents and countries and their respective neighbors");
+                    System.out.println("savemap        : save the map file to the text file");
+                    System.out.println("editmap        : edit an existing saved map or create a new map");
+                    System.out.println("validatemap    : validate the map");
+                    System.out.println("editneighbour  : used to add or remove the neighbour country");
+                    System.out.println("editcontinent  : used to add or remove the continent");
+                    System.out.println("editcountry    : used to add or remove the country");
+                    System.out.println("gameplayer     : add or remove players from the game");
+                    System.out.println("assigncountries: countries assigned to the players in the start of the game");
+                    System.out.println("deploy         : deploy the command given by player to attack");
+                    System.out.println("exit           : exit the game");
+                    break;
+
                 case "showmap":
-                    System.out.println("Shwoing map");
+                    System.out.println("Showing map");
                     mp.showMap(l_map);
                     break;
 
@@ -121,27 +169,67 @@ public class GameEngine {
                                 System.out.println("removing country: " + l_countryID);
                             }
                         }
-                        break;
                     }
-
+                    break;
 
                     case "savemap":
                         System.out.println("Saving the map");
                         mp.saveMap(l_map);
+                        break;
 
                     case "editmap":
                         System.out.println("editing the map");
-                        mp.editMap();
+                        mp.editMap(l_mapname);
+                        break;
 
-                        case "validatemap":
+                    case "validatemap":
+                        System.out.println("Validating the map");
+                        if(mp.isValidMap(l_map)){
+                            System.out.println("Map validation succesful");
+                        } else {
+                            System.out.println("Map validation unsuccessful");
+                        }
+                        break;
 
-                        case "loadmap":
+                    case "loadmap":
+                        System.out.println("Enter the name of the map: ");
+                        l_mapname = sc.nextLine();
+                        File l_file = new File("src/main/resources/"+l_mapname);
+                        if(l_file.exists()){
+                            System.out.println("Loading the map");
+                            mp.loadMap(l_mapname);
+                        } else {
+                            System.out.println("Map does not exist. Start a new game.");
+                        }
 
-                        case "gameplayer":
+                        break;
 
-                        case "assigncountries":
+                    case "gameplayer":
+                        for(int i=1; i<=l_inpcmd.length; i++){
+                            if(l_inpcmd[i].startsWith("add")){
+                                String[] addParams = l_inpcmd[i].split(" ");
+                                if (addParams.length >= 2) {
+                                    String l_playername = addParams[1];
+                                    d_gameManager.addPlayer(l_playername);
+                                    System.out.println("Adding player: " + l_playername);
+                                }
+                            } else if(l_inpcmd[i].startsWith("remove")) {
+                                String[] removeParams = l_inpcmd[i].split(" ");
+                                if (removeParams.length >= 2) {
+                                    String l_playername = removeParams[1];
+                                    d_gameManager.removePlayer(l_playername);
+                                    System.out.println("Removing player: " + l_playername);
+                                }
+                            }
+                        }
+                        break;
 
-                        case "deploy":
+                    case "assigncountries":
+                        System.out.println("Assigning countries to the players");
+                        break;
+
+                    case "deploy":
+
 
 
                 default:
@@ -151,9 +239,6 @@ public class GameEngine {
 
         }
     }
-
-
-
 }
 
 
