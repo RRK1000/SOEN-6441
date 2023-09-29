@@ -1,7 +1,7 @@
 package controller;
 import java.util.Objects;
 
-//import org.apache.commons.cli.HelpFormatter;
+
 
 import models.Map;
 import util.MapUtil;
@@ -13,11 +13,6 @@ public class GameEngine {
         Map l_map = new Map();
         d_gameManager = new GameManager(l_map);
     }
-
-//    private static void printHelp(Options options) {
-//        HelpFormatter formatter = new HelpFormatter();
-//        formatter.printHelp("YourApplication", options);
-//    }
 
 
     /**
@@ -47,79 +42,114 @@ public class GameEngine {
      * @author - Yusuke
      * @version - 1.0.0
      */
-    public void inputParser(String d_input){
+    public void inputParser(String d_input) {
 
-        while(!Objects.equals(d_input,"exit")){
+        while (!Objects.equals(d_input, "exit")) {
             String[] l_inpcmd = d_input.split(" -");
-            System.out.println("Command: "+ l_inpcmd[0]);
+            System.out.println("Command: " + l_inpcmd[0]);
 
             Map l_map = new Map();
+            MapUtil mp = new MapUtil();
 
-            switch(l_inpcmd[0]){
-                case "editcontinent":
-                    MapUtil mp = new MapUtil();
-                    for(int i=1; i<l_inpcmd.length; i++){
-                        if(l_inpcmd[i].startsWith("add")) {
+            switch (l_inpcmd[0]) {
+                case "showmap":
+                    System.out.println("Shwoing map");
+                    mp.showMap(l_map);
+                    break;
+
+
+                case "editneighbor":
+                    for (int i = 1; i < l_inpcmd.length; i++) {
+                        if (l_inpcmd[i].startsWith("add")) {
                             String[] addParams = l_inpcmd[i].split(" ");
-                            if(addParams.length >= 3) {
-                                int continentID = Integer.parseInt(addParams[1]);
-                                int continentValue = Integer.parseInt(addParams[2]);
-                                mp.addContinent(l_map, continentID, continentValue);
-                                System.out.println("adding continent: " + continentID);
+                            if (addParams.length >= 3) {
+                                int l_countryID = Integer.parseInt(addParams[1]);
+                                int l_neighbourID = Integer.parseInt(addParams[2]);
+                                mp.addNeighbour(l_map, l_countryID, l_neighbourID);
+                                System.out.println("adding neighbor country: " + l_neighbourID);
+                            } else if (l_inpcmd[i].startsWith("remove")) {
+                                String[] removeParams = l_inpcmd[i].split(" ");
+                                if (removeParams.length >= 3) {
+                                    int l_countryID = Integer.parseInt(removeParams[1]);
+                                    int l_neighbourID = Integer.parseInt(removeParams[2]);
+                                    mp.removeNeighbour(l_map, l_countryID, l_neighbourID);
+                                    System.out.println("removing neighbour country: " + l_neighbourID);
+                                }
                             }
                         }
-                        else if(l_inpcmd[i].startsWith("remove")) {
+                    }
+                    break;
+
+                case "editcontinent":
+
+                    for (int i = 1; i < l_inpcmd.length; i++) {
+                        if (l_inpcmd[i].startsWith("add")) {
+                            String[] addParams = l_inpcmd[i].split(" ");
+                            if (addParams.length >= 3) {
+                                int l_continentID = Integer.parseInt(addParams[1]);
+                                int l_continentValue = Integer.parseInt(addParams[2]);
+                                mp.addContinent(l_map, l_continentID, l_continentValue);
+                                System.out.println("adding continent: " + l_continentID);
+                            }
+                        } else if (l_inpcmd[i].startsWith("remove")) {
                             String[] removeParams = l_inpcmd[i].split(" ");
-                            if(removeParams.length >= 2) {
+                            if (removeParams.length >= 2) {
                                 int continentID = Integer.parseInt(removeParams[1]);
                                 mp.removeContinent(l_map, continentID);
                                 System.out.println("removing continent: " + continentID);
                             }
                         }
                     }
-                    break;
-        
+                break;
 
 
                 case "editcountry":
-                    for(int i=1; i<l_inpcmd.length; i++){
-                        if(l_inpcmd[i].equals("add countryID continentID")){
-                            //util.MapUtil.addContinent();
-                            System.out.println("adding country: ");
+                    for (int i = 1; i < l_inpcmd.length; i++) {
+                        if (l_inpcmd[i].startsWith("add")) {
+                            String[] addParams = l_inpcmd[i].split(" ");
+                            if (addParams.length >= 3) {
+                                int l_countryID = Integer.parseInt(addParams[1]);
+                                int l_continentID = Integer.parseInt(addParams[2]);
+                                mp.addCountry(l_map, l_countryID, l_continentID);
+                                System.out.println("adding country: " + l_countryID);
+                            }
+                        } else if (l_inpcmd[i].startsWith("remove")) {
+                            String[] removeParams = l_inpcmd[i].split(" ");
+                            if (removeParams.length >= 2) {
+                                int l_countryID = Integer.parseInt(removeParams[1]);
+                                mp.removeCountry(l_map, l_countryID);
+                                System.out.println("removing country: " + l_countryID);
+                            }
                         }
-                        else if(l_inpcmd[i].equals("remove continentID")){
-                            //util.MapUtil.removeContinent();
-                            System.out.println("removing continent: ");
-                        }
+                        break;
                     }
-                    break;
 
-                case "editneighbor":
 
-                case "showmap":
+                    case "savemap":
+                        System.out.println("Saving the map");
+                        mp.saveMap(l_map);
 
-                case "savemap":
+                    case "editmap":
+                        System.out.println("editing the map");
+                        mp.editMap();
 
-                case "editmap":
+                        case "validatemap":
 
-                case "validatemap":
+                        case "loadmap":
 
-                case "loadmap":
+                        case "gameplayer":
 
-                case "gameplayer":
+                        case "assigncountries":
 
-                case "assigncountries":
+                        case "deploy":
 
-                case "deploy":
 
                 default:
-                    System.out.println("Please enter a valid command.");
+                    throw new IllegalStateException("Unexpected value: " + l_inpcmd[0]);
             }
+
+
         }
-
-
-
-
     }
 
 
