@@ -1,8 +1,7 @@
 package controller;
 import java.util.Objects;
 
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
+//import org.apache.commons.cli.HelpFormatter;
 
 import models.Map;
 import util.MapUtil;
@@ -15,10 +14,10 @@ public class GameEngine {
         d_gameManager = new GameManager(l_map);
     }
 
-    private static void printHelp(Options options) {
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("YourApplication", options);
-    }
+//    private static void printHelp(Options options) {
+//        HelpFormatter formatter = new HelpFormatter();
+//        formatter.printHelp("YourApplication", options);
+//    }
 
 
     /**
@@ -30,7 +29,7 @@ public class GameEngine {
      *
      * @param p_input The input string to be validated.
      * @throws IllegalArgumentException if the input string is null or empty.
-     * @author Yusuke Ishii
+     * @author Yusuke
      */
     private void validateInput(String p_input) throws IllegalArgumentException {
         if (p_input == null || p_input.trim().isEmpty()) {
@@ -45,7 +44,7 @@ public class GameEngine {
      * @param d_input - Command entered by the player
      * @author - Abhigyan
      * @author - Nimisha
-     * @author - Yuki
+     * @author - Yusuke
      * @version - 1.0.0
      */
     public void inputParser(String d_input){
@@ -55,23 +54,32 @@ public class GameEngine {
             String[] l_inpcmd = d_input.split(" -");
             System.out.println("Command: "+ l_inpcmd[0]);
 
+            Map l_map = new Map();
+
             switch(l_inpcmd[0]){
                 case "editcontinent":
-                    //String[] options = new String[2];
-                    //ArrayList<String> add = new ArrayUnenforcedSet<>();
-                    //ArrayList<String> remove = new ArrayUnenforcedSet<>();
                     MapUtil mp = new MapUtil();
                     for(int i=1; i<l_inpcmd.length; i++){
-                        if(l_inpcmd[i].equals("add continentID continentvalue")){
-                            mp.addContinent();
-                            System.out.println("adding continent: ");
+                        if(l_inpcmd[i].startsWith("add")) {
+                            String[] addParams = l_inpcmd[i].split(" ");
+                            if(addParams.length >= 3) {
+                                int continentID = Integer.parseInt(addParams[1]);
+                                int continentValue = Integer.parseInt(addParams[2]);
+                                mp.addContinent(l_map, continentID, continentValue);
+                                System.out.println("adding continent: " + continentID);
+                            }
                         }
-                        else if(l_inpcmd[i].equals("remove continentID")){
-                            mp.removeContinent();
-                            System.out.println("removing continent: ");
+                        else if(l_inpcmd[i].startsWith("remove")) {
+                            String[] removeParams = l_inpcmd[i].split(" ");
+                            if(removeParams.length >= 2) {
+                                int continentID = Integer.parseInt(removeParams[1]);
+                                mp.removeContinent(l_map, continentID);
+                                System.out.println("removing continent: " + continentID);
+                            }
                         }
                     }
                     break;
+        
 
 
                 case "editcountry":
@@ -115,25 +123,6 @@ public class GameEngine {
 
     }
 
-
-
-    
-    /**
-     * Validates the provided input string.
-     * <p>
-     * This method checks if the input string is null or empty. If the input is invalid,
-     * it throws an IllegalArgumentException.
-     * </p>
-     *
-     * @param p_input The input string to be validated.
-     * @throws IllegalArgumentException if the input string is null or empty.
-     * @author Yusuke Ishii
-     */
-    private void validateInput(String p_input) throws IllegalArgumentException {
-        if (p_input == null || p_input.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid input provided.");
-        }
-    }
 
 
 }
