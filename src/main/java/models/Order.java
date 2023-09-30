@@ -11,6 +11,11 @@ public class Order {
     private Country d_country;
     private int d_num;
 
+    public Order(Country country, int num) {
+        this.d_country = country;
+        this.d_num = num;
+    }
+
     /**
      * Gets the country specified in the order
      * @return d_num country on which armies on deployed

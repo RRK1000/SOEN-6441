@@ -4,10 +4,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+
 import models.Continent;
 import models.Country;
 import models.Map;
 import models.Order;
+import models.Player;
+
+import models.*;
+
+
+import models.Continent;
+import models.Country;
+import models.Map;
 import models.Player;
 
 /**
@@ -178,16 +187,29 @@ public class GameManager {
      * Adds an order to the current player’s list of orders
      *
      * @author Rishi Ravikumar
+     * @author Abhigyan
      */
-    public void issueOrder(int p_countryID, int num) {
+    public void issueOrder(Country p_countryID, int num) {
         // implementation here
         // must call the d_currentPlayerTurn.issue_order()
 
+        // Check if it's the current player's turn
+        if (d_currentPlayerTurn != null) {
+            // Create an order using the provided parameters (p_countryID and num)
+            Order order = new Order(p_countryID, num);
 
+            // Call the issue_order() method of the current player to add the order
+            d_currentPlayerTurn.issueOrder(order);
+        } else {
+            // Handle the case where there is no current player or it's not their turn
+            System.out.println("No current player or it's not their turn to issue orders.");
+        }
     }
 
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
+     *
+     * @author Rishi Ravikumar
      * @author Nimisha Jadav
      */
     public void executeOrder() {
