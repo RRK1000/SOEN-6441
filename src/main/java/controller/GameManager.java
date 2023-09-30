@@ -1,7 +1,9 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import models.Continent;
 import models.Country;
@@ -19,26 +21,42 @@ public class GameManager {
     private Player d_currentPlayerTurn;
     private GamePhase d_gamePhase;
 
+    private static Player d_player;
+
     private Map d_map;
 
     public GameManager(Map p_map) {
         this.d_map = p_map;
     }
 
+    public GameManager() { }
+
+    public GameManager(Player p_player) {
+        this.d_player = p_player;
+    }
+
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
      *
-     * @author Rishi Ravikumar
+     * @author Nimisha Jadav
      */
     public static void assignCountries() {
         // implementation here
         // must iterate through d_playerList and assign countries to each player according to the warzone rules
         // Must update the d_countryList data member of each Player
 
+        Random l_random = new Random();
+        GameManager l_gamemanager = new GameManager();
+        int l_index = 0;
+        for(Player l_player: l_gamemanager.d_playerList){
+            l_player.addCountry(d_player.getD_countryList().get(l_index));
+            l_index++;
+        }
+        for(int i=l_index; i<d_player.getD_countryList().size(); i++){
+            int l_indexOfPlayer = l_random.nextInt(l_gamemanager.d_playerList.size());
+            l_gamemanager.d_playerList.get(l_indexOfPlayer).addCountry(d_player.getD_countryList().get(i));
 
-
-
-
+        }
     }
 
     /**
@@ -102,7 +120,7 @@ public class GameManager {
         // implementation here
         // must add a new player object to GameManager->d_playerList
         if(d_playerList.size()<6){
-            if(d_playerList.contains(p_playerName)){
+            if(d_playerList.contains(new Player(p_playerName))){
                 System.out.println("Player already exists");
             }else {
                 d_playerList.add(new Player(p_playerName));
@@ -125,7 +143,7 @@ public class GameManager {
         // must remove a player object from GameManager->d_playerList
         Player d_player;
         if(d_playerList.size()>2){
-            if(d_playerList.contains(p_playerName)){
+            if(d_playerList.contains(new Player(p_playerName))){
                 Iterator l_itr = d_playerList.iterator();
                 while(l_itr.hasNext()) {
                     String l_name = (String) l_itr.next();
@@ -173,6 +191,7 @@ public class GameManager {
         // implementation here
         // show all countries and continents,
         // armies on each country, ownership, and connectivity in a way that enables efficient game play
+
     }
 
     /**

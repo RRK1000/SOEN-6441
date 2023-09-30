@@ -26,6 +26,10 @@ public class Player {
         this.d_playerName = p_playerName;
     }
 
+    public void addCountry(Country p_country){
+        this.d_countryList.add(p_country);
+    }
+
     public Player(String p_playerName, int p_numArmies, List<Country> p_countryList, List<Order> p_orderList) {
         this.d_playerName = p_playerName;
         this.d_numArmies = p_numArmies;
