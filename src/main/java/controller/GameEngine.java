@@ -3,12 +3,22 @@ import java.io.File;
 import java.util.Objects;
 import java.util.Scanner;
 
+import models.Country;
 import models.Map;
+import models.Order;
+import models.Player;
 import util.MapUtil;
 
 public class GameEngine {
     GameManager d_gameManager;
 
+    
+    /**
+     * Main method to drive the game logic.
+     * 
+     * @param p_args Command line arguments.
+     */
+    
     public void main(String[] p_args){
         Map l_map = new Map();
         d_gameManager = new GameManager(l_map);
@@ -68,22 +78,23 @@ public class GameEngine {
     /**
      * This method is used to read the command given by the player and validates if the syntax
      * of the command is correct and then takes the action accordingly
-     * @param d_input - Command entered by the player
+     * @param p_input - Command entered by the player
      * @author - Abhigyan
      * @author - Nimisha
      * @author - Yusuke
      * @version - 1.0.0
      */
-    public void inputParser(String d_input) {
+    public void inputParser(String p_input) {
 
+        validateInput(p_input);
         Scanner sc = new Scanner(System.in);
-        String l_mapname=null;
-        while (!Objects.equals(d_input, "exit")) {
-            String[] l_inpcmd = d_input.split(" -");
+        String l_mapName=null;
+        while (!Objects.equals(p_input, "exit")) {
+            String[] l_inpcmd = p_input.split(" -");
             System.out.println("Command: " + l_inpcmd[0]);
 
             Map l_map = new Map();
-            MapUtil mp = new MapUtil();
+            MapUtil l_mapUtil = new MapUtil();
 
             switch (l_inpcmd[0]) {
                 case "help":
@@ -102,7 +113,7 @@ public class GameEngine {
 
                 case "showmap":
                     System.out.println("Showing map");
-                    mp.showMap(l_map);
+                    l_mapUtil.showMap(l_map);
                     break;
 
 
@@ -113,14 +124,14 @@ public class GameEngine {
                             if (addParams.length >= 3) {
                                 int l_countryID = Integer.parseInt(addParams[1]);
                                 int l_neighbourID = Integer.parseInt(addParams[2]);
-                                mp.addNeighbour(l_map, l_countryID, l_neighbourID);
+                                l_mapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
                                 System.out.println("adding neighbor country: " + l_neighbourID);
                             } else if (l_inpcmd[i].startsWith("remove")) {
                                 String[] removeParams = l_inpcmd[i].split(" ");
                                 if (removeParams.length >= 3) {
                                     int l_countryID = Integer.parseInt(removeParams[1]);
                                     int l_neighbourID = Integer.parseInt(removeParams[2]);
-                                    mp.removeNeighbour(l_map, l_countryID, l_neighbourID);
+                                    l_mapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
                                     System.out.println("removing neighbour country: " + l_neighbourID);
                                 }
                             }
@@ -132,19 +143,19 @@ public class GameEngine {
 
                     for (int i = 1; i < l_inpcmd.length; i++) {
                         if (l_inpcmd[i].startsWith("add")) {
-                            String[] addParams = l_inpcmd[i].split(" ");
-                            if (addParams.length >= 3) {
-                                int l_continentID = Integer.parseInt(addParams[1]);
-                                int l_continentValue = Integer.parseInt(addParams[2]);
-                                mp.addContinent(l_map, l_continentID, l_continentValue);
+                            String[] l_addParams = l_inpcmd[i].split(" ");
+                            if (l_addParams.length >= 3) {
+                                int l_continentID = Integer.parseInt(l_addParams[1]);
+                                int l_continentValue = Integer.parseInt(l_addParams[2]);
+                                l_mapUtil.addContinent(l_map, l_continentID, l_continentValue);
                                 System.out.println("adding continent: " + l_continentID);
                             }
                         } else if (l_inpcmd[i].startsWith("remove")) {
-                            String[] removeParams = l_inpcmd[i].split(" ");
-                            if (removeParams.length >= 2) {
-                                int continentID = Integer.parseInt(removeParams[1]);
-                                mp.removeContinent(l_map, continentID);
-                                System.out.println("removing continent: " + continentID);
+                            String[] l_removeParams = l_inpcmd[i].split(" ");
+                            if (l_removeParams.length >= 2) {
+                                int l_continentID = Integer.parseInt(l_removeParams[1]);
+                                l_mapUtil.removeContinent(l_map, l_continentID);
+                                System.out.println("removing continent: " + l_continentID);
                             }
                         }
                     }
@@ -158,14 +169,14 @@ public class GameEngine {
                             if (addParams.length >= 3) {
                                 int l_countryID = Integer.parseInt(addParams[1]);
                                 int l_continentID = Integer.parseInt(addParams[2]);
-                                mp.addCountry(l_map, l_countryID, l_continentID);
+                                l_mapUtil.addCountry(l_map, l_countryID, l_continentID);
                                 System.out.println("adding country: " + l_countryID);
                             }
                         } else if (l_inpcmd[i].startsWith("remove")) {
                             String[] removeParams = l_inpcmd[i].split(" ");
                             if (removeParams.length >= 2) {
                                 int l_countryID = Integer.parseInt(removeParams[1]);
-                                mp.removeCountry(l_map, l_countryID);
+                                l_mapUtil.removeCountry(l_map, l_countryID);
                                 System.out.println("removing country: " + l_countryID);
                             }
                         }
@@ -174,17 +185,17 @@ public class GameEngine {
 
                     case "savemap":
                         System.out.println("Saving the map");
-                        mp.saveMap(l_map);
+                        l_mapUtil.saveMap(l_map);
                         break;
 
                     case "editmap":
                         System.out.println("editing the map");
-                        mp.editMap(l_mapname);
+                        l_mapUtil.editMap(l_mapName);
                         break;
 
                     case "validatemap":
                         System.out.println("Validating the map");
-                        if(mp.isValidMap(l_map)){
+                        if(l_mapUtil.isValidMap(l_map)){
                             System.out.println("Map validation succesful");
                         } else {
                             System.out.println("Map validation unsuccessful");
@@ -193,11 +204,11 @@ public class GameEngine {
 
                     case "loadmap":
                         System.out.println("Enter the name of the map: ");
-                        l_mapname = sc.nextLine();
-                        File l_file = new File("src/main/resources/"+l_mapname);
+                        l_mapName = sc.nextLine();
+                        File l_file = new File("src/main/resources/"+l_mapName);
                         if(l_file.exists()){
                             System.out.println("Loading the map");
-                            mp.loadMap(l_mapname);
+                            l_mapUtil.loadMap(l_mapName);
                         } else {
                             System.out.println("Map does not exist. Start a new game.");
                         }
@@ -227,8 +238,35 @@ public class GameEngine {
                     case "assigncountries":
                         System.out.println("Assigning countries to the players");
                         break;
-
+                        
                     case "deploy":
+                        while(!d_gameManager.check_armies()) {
+                            for(Player l_player : d_gameManager.getD_playerList()) {
+                                System.out.println(l_player.getD_playerName() + ", enter your deploy command:");
+                                String l_deployCommand = sc.nextLine();
+                                String[] l_deployParams = l_deployCommand.split(" ");
+                                
+                                if(l_deployParams[0].equals("deploy") && l_deployParams.length == 3) {
+                                    int l_countryID = Integer.parseInt(l_deployParams[1]);
+                                    int l_numArmies = Integer.parseInt(l_deployParams[2]);
+                                    
+                                    if(l_numArmies <= l_player.getD_numArmies()) {
+                                        Country l_targetCountry = d_gameManager.getMap().getD_countryByID(l_countryID);
+                                        Order l_deployOrder = new Order();
+                                        l_deployOrder.setD_country(l_targetCountry);
+                                        l_deployOrder.setD_num(l_numArmies);
+                                        l_player.issueOrder(l_deployOrder);
+                                        l_player.setD_numArmies(l_player.getD_numArmies() - l_numArmies);
+                                    } else {
+                                        System.out.println("You don't have enough armies to deploy.");
+                                    }
+                                } else {
+                                    System.out.println("Invalid deploy command. Please try again.");
+                                }
+                            }
+                        }
+                        System.out.println("All reinforcements have been placed.");
+                        break;
 
 
 
