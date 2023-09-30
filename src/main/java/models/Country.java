@@ -18,6 +18,7 @@ public class Country {
     private int d_continentID;
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
+    private Player d_owner;  
 
     /**
      * Default constructor for Country class.
@@ -107,5 +108,23 @@ public class Country {
      */
     public void setD_numArmies(int p_numArmies) {
         this.d_numArmies = p_numArmies;
+    }
+    
+    /**
+     * Gets the owner of the country.
+     *
+     * @return The owner of the country.
+     */
+    public Player getD_owner() {
+        return d_owner;
+    }
+    
+    /**
+     * Sets the owner of the country.
+     *
+     * @param p_owner The new owner of the country.
+     */
+    public void setD_owner(Player p_owner) {
+        this.d_owner = p_owner;
     }
 }
