@@ -5,10 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Player;
+import models.*;
 
 /**
  * Represents the Game Manager
@@ -169,17 +166,22 @@ public class GameManager {
     public void issueOrder(int p_countryID, int num) {
         // implementation here
         // must call the d_currentPlayerTurn.issue_order()
+
+
     }
 
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
-     *
-     * @author Rishi Ravikumar
+     * @author Nimisha Jadav
      */
-    public void executeOrder(String p_playerName) {
+    public void executeOrder() {
         // implementation here
         // iterates through each player and does the following for each order:
         //      fetch the next order object using d_currentPlayerTurn.next_order() and then run Order->execute()
+        for(int i=0; i<=d_playerList.size(); i++){
+            Order l_order = d_currentPlayerTurn.nextOrder();
+            l_order.execute();
+        }
     }
 
     /**
