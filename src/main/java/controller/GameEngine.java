@@ -239,34 +239,36 @@ public class GameEngine {
                         System.out.println("Assigning countries to the players");
                         break;
                         
+
+
                     case "deploy":
-                        while(!d_gameManager.check_armies()) {
-                            for(Player l_player : d_gameManager.getD_playerList()) {
-                                System.out.println(l_player.getD_playerName() + ", enter your deploy command:");
-                                String l_deployCommand = sc.nextLine();
-                                String[] l_deployParams = l_deployCommand.split(" ");
-                                
-                                if(l_deployParams[0].equals("deploy") && l_deployParams.length == 3) {
-                                    int l_countryID = Integer.parseInt(l_deployParams[1]);
-                                    int l_numArmies = Integer.parseInt(l_deployParams[2]);
-                                    
-                                    if(l_numArmies <= l_player.getD_numArmies()) {
-                                        Country l_targetCountry = d_gameManager.getMap().getD_countryByID(l_countryID);
-                                        Order l_deployOrder = new Order();
-                                        l_deployOrder.setD_country(l_targetCountry);
-                                        l_deployOrder.setD_num(l_numArmies);
-                                        l_player.issueOrder(l_deployOrder);
-                                        l_player.setD_numArmies(l_player.getD_numArmies() - l_numArmies);
-                                    } else {
-                                        System.out.println("You don't have enough armies to deploy.");
-                                    }
-                                } else {
-                                    System.out.println("Invalid deploy command. Please try again.");
-                                }
-                            }
-                        }
-                        System.out.println("All reinforcements have been placed.");
-                        break;
+                                          while(!d_gameManager.check_armies()) {
+                                              for(Player l_player : d_gameManager.getD_playerList()) {
+                                                  System.out.println(l_player.getD_playerName() + ", enter your deploy command:");
+                                                  String l_deployCommand = sc.nextLine();
+                                                  String[] l_deployParams = l_deployCommand.split(" ");
+                                                  
+                                                  if(l_deployParams[0].equals("deploy") && l_deployParams.length == 3) {
+                                                      int l_countryID = Integer.parseInt(l_deployParams[1]);
+                                                      int l_numArmies = Integer.parseInt(l_deployParams[2]);
+                                                      
+                                                      if(l_numArmies <= l_player.getD_numArmies()) {
+                                                          Country l_targetCountry = d_gameManager.getD_map().getD_countryByID(l_countryID);
+                                                          Order l_deployOrder = new Order();
+                                                          l_deployOrder.setD_country(l_targetCountry);
+                                                          l_deployOrder.setD_num(l_numArmies);
+                                                          l_player.issueOrder(l_deployOrder);
+                                                          l_player.setD_numArmies(l_player.getD_numArmies() - l_numArmies);
+                                                      } else {
+                                                          System.out.println("You don't have enough armies to deploy.");
+                                                      }
+                                                  } else {
+                                                      System.out.println("Invalid deploy command. Please try again.");
+                                                  }
+                                              }
+                                          }
+                                          System.out.println("All reinforcements have been placed.");
+                                          break;
 
 
 

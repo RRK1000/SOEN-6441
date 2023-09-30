@@ -1,11 +1,14 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import models.*;
+import models.Continent;
+import models.Country;
+import models.Map;
+import models.Order;
+import models.Player;
 
 /**
  * Represents the Game Manager
@@ -32,6 +35,19 @@ public class GameManager {
         this.d_player = p_player;
     }
 
+    
+    /**
+     * Retrieves the current map.
+     *
+     * @return The current map.
+     */
+    public Map getD_map() {
+        return this.d_map;
+    }
+
+
+    
+    
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
      *
