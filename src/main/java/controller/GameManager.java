@@ -4,19 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-
 import models.Continent;
 import models.Country;
 import models.Map;
 import models.Order;
-import models.Player;
-
-import models.*;
-
-
-import models.Continent;
-import models.Country;
-import models.Map;
 import models.Player;
 
 /**
@@ -224,15 +215,36 @@ public class GameManager {
 
     /**
      * Displays the {@link models.Map}, and the current game state
-     *
+     * It shows all continents, countries, armies on each country, ownership, and connectivity.
      * @author Rishi Ravikumar
+     * @author Yusuke Ishii
      */
-    public void showMap() {
-        // implementation here
-        // show all countries and continents,
-        // armies on each country, ownership, and connectivity in a way that enables efficient game play
 
+    
+    public void showMap() {
+    	
+        Map l_map = this.getD_map();
+    	System.out.println("---- MAP DISPLAY ----");
+
+        System.out.println("List of Continents:");
+        for (Continent l_continent : l_map.getD_continentMapGraph().vertexSet()) {
+            System.out.println("Continent ID: " + l_continent.getD_continentID() + ", Name: " + l_continent.getD_continentName() + ", Value: " + l_continent.getD_continentValue());
+        }
+
+        System.out.println("\nList of Countries, their Owners, Armies, and Neighbours:");
+        for (Country l_country : l_map.getD_countryMapGraph().vertexSet()) {
+            Player l_owner = l_country.getD_owner();
+            String l_ownerName = (l_owner != null) ? l_owner.getD_playerName() : "Unowned";
+            System.out.println("Country ID: " + l_country.getD_countryID() + ", Name: " + l_country.getD_countryName() + ", Owner: " + l_ownerName + ", Armies: " + l_country.getD_numArmies());
+            System.out.print("Neighbours: ");
+            for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
+                Country l_neighbour = l_map.getD_countryByID(l_neighbourID);
+                System.out.print(l_neighbour.getD_countryName() + ", ");
+            }
+            System.out.println("\n");
+        }
     }
+
 
     /**
      * Gets the list of players in the current active game

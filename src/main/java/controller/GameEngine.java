@@ -74,6 +74,7 @@ public class GameEngine {
         }
     }
 
+  
 
     /**
      * This method is used to read the command given by the player and validates if the syntax
@@ -113,7 +114,7 @@ public class GameEngine {
 
                 case "showmap":
                     System.out.println("Showing map");
-                    l_mapUtil.showMap(l_map);
+                    d_gameManager.showMap();  
                     break;
 
 
@@ -254,7 +255,7 @@ public class GameEngine {
                                                       
                                                       if(l_numArmies <= l_player.getD_numArmies()) {
                                                           Country l_targetCountry = d_gameManager.getD_map().getD_countryByID(l_countryID);
-                                                          Order l_deployOrder = new Order();
+                                                          Order l_deployOrder = new Order(l_targetCountry, l_numArmies);
                                                           l_deployOrder.setD_country(l_targetCountry);
                                                           l_deployOrder.setD_num(l_numArmies);
                                                           l_player.issueOrder(l_deployOrder);
