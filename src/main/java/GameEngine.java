@@ -1,5 +1,6 @@
 import controller.CommandParser;
 import controller.GameManager;
+import global.Constants;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class GameEngine {
 
         System.out.println("WELCOME TO WARZONE");
         System.out.println("Load a map / Build a new map using the following commands");
-        CommandParser.displayInstructions(d_gameManager);
+        System.out.println(Constants.HELP_MESSAGE);
 
 
         String l_inputCommand = l_scanner.nextLine();

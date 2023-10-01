@@ -51,149 +51,151 @@ public class CommandParser {
      * @author - Yusuke
      */
     public static void inputParser(GameManager p_gameManager, String p_input) {
-            String[] l_cmdSplit = p_input.split(" ");
-            System.out.println("Command: " + l_cmdSplit[0]);
+        String[] l_cmdSplit = p_input.split(" ");
+        System.out.println("Command: " + l_cmdSplit[0]);
 
-            Map l_map = new Map();
-            l_map = p_gameManager.getD_map();
+        Map l_map = new Map();
+        l_map = p_gameManager.getD_map();
 
-            switch (l_cmdSplit[0]) {
-                case "help":
-                    displayInstructions(p_gameManager);
-                    break;
+        switch (l_cmdSplit[0]) {
+            case "help":
+                displayInstructions(p_gameManager);
+                break;
 
-                case "showmap":
-                    System.out.println("Showing map");
-                    p_gameManager.showMap();
-                    break;
-
-
-                case "editneighbor":
-                    for (int i = 1; i < l_cmdSplit.length; i++) {
-                        if (l_cmdSplit[i].startsWith("add")) {
-                            String[] addParams = l_cmdSplit[i].split(" ");
-                            if (addParams.length >= 3) {
-                                int l_countryID = Integer.parseInt(addParams[1]);
-                                int l_neighbourID = Integer.parseInt(addParams[2]);
-                                MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
-                                System.out.println("adding neighbor country: " + l_neighbourID);
-                            } else if (l_cmdSplit[i].startsWith("remove")) {
-                                String[] removeParams = l_cmdSplit[i].split(" ");
-                                if (removeParams.length >= 3) {
-                                    int l_countryID = Integer.parseInt(removeParams[1]);
-                                    int l_neighbourID = Integer.parseInt(removeParams[2]);
-                                    MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
-                                    System.out.println("removing neighbour country: " + l_neighbourID);
-                                }
-                            }
-                        }
-                    }
-                    break;
-
-                case "editcontinent":
-
-                    String[] l_inputSplit = p_input.split(" -");
-                    for (int i = 1; i < l_inputSplit.length; i++) {
-                        if (l_inputSplit[i].startsWith("add")) {
-                            String[] l_addParams = l_inputSplit[i].split(" ");
-                            if (l_addParams.length == 3) {
-                                int l_continentID = Integer.parseInt(l_addParams[1]);
-                                int l_continentValue = Integer.parseInt(l_addParams[2]);
-                                System.out.println("adding continent: " + l_continentID);
-                                MapUtil.addContinent(l_map, l_continentID, l_continentValue);
-                            }else{
-                                System.out.println("Command " + i+" is invalid.");
-                            }
-                        } else if (l_inputSplit[i].startsWith("remove")) {
-                            String[] l_removeParams = l_inputSplit[i].split(" ");
-                            if (l_removeParams.length == 2) {
-                                int l_continentID = Integer.parseInt(l_removeParams[1]);
-                                System.out.println("removing continent: " + l_continentID);
-                                MapUtil.removeContinent(l_map, l_continentID);
-
-                            }else{
-                                System.out.println("Command "+i+ " is invalid.");
-                            }
-                        }
-                    }
-                    System.out.println("EditContinent command execution completed.");
-                    break;
+            case "showmap":
+                System.out.println("Showing map");
+                p_gameManager.showMap();
+                break;
 
 
-                case "editcountry":
-                    for (int i = 1; i < l_cmdSplit.length; i++) {
-                        if (l_cmdSplit[i].startsWith("add")) {
-                            String[] addParams = l_cmdSplit[i].split(" ");
-                            if (addParams.length >= 3) {
-                                int l_countryID = Integer.parseInt(addParams[1]);
-                                int l_continentID = Integer.parseInt(addParams[2]);
-                                MapUtil.addCountry(l_map, l_countryID, l_continentID);
-                                System.out.println("adding country: " + l_countryID);
-                            }
+            case "editneighbor":
+                for (int i = 1; i < l_cmdSplit.length; i++) {
+                    if (l_cmdSplit[i].startsWith("add")) {
+                        String[] addParams = l_cmdSplit[i].split(" ");
+                        if (addParams.length >= 3) {
+                            int l_countryID = Integer.parseInt(addParams[1]);
+                            int l_neighbourID = Integer.parseInt(addParams[2]);
+                            MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
+                            System.out.println("adding neighbor country: " + l_neighbourID);
                         } else if (l_cmdSplit[i].startsWith("remove")) {
                             String[] removeParams = l_cmdSplit[i].split(" ");
-                            if (removeParams.length >= 2) {
+                            if (removeParams.length >= 3) {
                                 int l_countryID = Integer.parseInt(removeParams[1]);
-                                MapUtil.removeCountry(l_map, l_countryID);
-                                System.out.println("removing country: " + l_countryID);
+                                int l_neighbourID = Integer.parseInt(removeParams[2]);
+                                MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
+                                System.out.println("removing neighbour country: " + l_neighbourID);
                             }
                         }
                     }
-                    break;
+                }
+                break;
 
-                case "savemap":
-                    System.out.println("Saving the map");
-                    MapUtil.saveMap(l_map);
-                    break;
+            case "editcontinent":
 
-                case "editmap":
-                    p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
-                    System.out.println("Map loaded to be edited...");
-                    break;
+                String[] l_inputSplit = p_input.split(" -");
+                for (int i = 1; i < l_inputSplit.length; i++) {
+                    if (l_inputSplit[i].startsWith("add")) {
+                        String[] l_addParams = l_inputSplit[i].split(" ");
+                        if (l_addParams.length == 3) {
+                            int l_continentID = Integer.parseInt(l_addParams[1]);
+                            int l_continentValue = Integer.parseInt(l_addParams[2]);
+                            System.out.println("adding continent: " + l_continentID);
+                            MapUtil.addContinent(l_map, l_continentID, l_continentValue);
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
+                        }
+                    } else if (l_inputSplit[i].startsWith("remove")) {
+                        String[] l_removeParams = l_inputSplit[i].split(" ");
+                        if (l_removeParams.length == 2) {
+                            int l_continentID = Integer.parseInt(l_removeParams[1]);
+                            System.out.println("removing continent: " + l_continentID);
+                            MapUtil.removeContinent(l_map, l_continentID);
 
-                case "validatemap":
-                    System.out.println("Validating the map");
-                    if (MapUtil.isValidMap(l_map)) {
-                        System.out.println("Map validation successful");
-                        p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
-                    } else {
-                        System.out.println("Map validation unsuccessful");
-                    }
-                    break;
-
-                case "loadmap":
-                        p_gameManager.setD_map(MapUtil.loadMap(l_cmdSplit[1]));
-                    break;
-
-                case "gameplayer":
-                    for (int i = 1; i <= l_cmdSplit.length; i++) {
-                        if (l_cmdSplit[i].startsWith("add")) {
-                            String[] addParams = l_cmdSplit[i].split(" ");
-                            if (addParams.length >= 2) {
-                                String l_playername = addParams[1];
-                                p_gameManager.addPlayer(l_playername);
-                                System.out.println("Adding player: " + l_playername);
-                            }
-                        } else if (l_cmdSplit[i].startsWith("remove")) {
-                            String[] removeParams = l_cmdSplit[i].split(" ");
-                            if (removeParams.length >= 2) {
-                                String l_playername = removeParams[1];
-                                p_gameManager.removePlayer(l_playername);
-                                System.out.println("Removing player: " + l_playername);
-                            }
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
                         }
                     }
-                    break;
-
-                case "assigncountries":
-                    System.out.println("Assigning countries to the players");
-                    p_gameManager.d_gamePhase = GameManager.GamePhase.AssignReinforcements;
-                    break;
+                }
+                System.out.println("EditContinent command execution completed.");
+                break;
 
 
-                case "deploy":
-                    System.out.println("deploy called");
-                    break;
+            case "editcountry":
+                for (int i = 1; i < l_cmdSplit.length; i++) {
+                    if (l_cmdSplit[i].startsWith("add")) {
+                        String[] addParams = l_cmdSplit[i].split(" ");
+                        if (addParams.length >= 3) {
+                            int l_countryID = Integer.parseInt(addParams[1]);
+                            int l_continentID = Integer.parseInt(addParams[2]);
+                            MapUtil.addCountry(l_map, l_countryID, l_continentID);
+                            System.out.println("adding country: " + l_countryID);
+                        }
+                    } else if (l_cmdSplit[i].startsWith("remove")) {
+                        String[] removeParams = l_cmdSplit[i].split(" ");
+                        if (removeParams.length >= 2) {
+                            int l_countryID = Integer.parseInt(removeParams[1]);
+                            MapUtil.removeCountry(l_map, l_countryID);
+                            System.out.println("removing country: " + l_countryID);
+                        }
+                    }
+                }
+                break;
+
+            case "savemap":
+                System.out.println("Saving the map");
+                MapUtil.saveMap(l_map);
+                break;
+
+            case "editmap":
+                p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
+                System.out.println("Map loaded to be edited...");
+                break;
+
+            case "validatemap":
+                System.out.println("Validating the map");
+                if (MapUtil.isValidMap(l_map)) {
+                    System.out.println("Map validation successful");
+                    p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                } else {
+                    System.out.println("Map validation unsuccessful");
+                }
+                break;
+
+            case "loadmap":
+                l_map = MapUtil.loadMap(l_cmdSplit[1]);
+                if (MapUtil.isValidMap(l_map)) {
+                    p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                    System.out.println("Next, add players to the game");
+                } else {
+                    l_map = new Map();
+                }
+                p_gameManager.setD_map(l_map);
+                System.out.println(Constants.HELP_MESSAGE);
+                break;
+
+            case "gameplayer":
+                for (int i = 1; i < l_cmdSplit.length-1; i++) {
+                    if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
+                            && !l_cmdSplit[i + 1].startsWith("-")) {
+                        String l_playername = l_cmdSplit[i + 1];
+                        p_gameManager.addPlayer(l_playername);
+                    } else if (l_cmdSplit[i].startsWith("-remove") && i + 1 < l_cmdSplit.length
+                            && !l_cmdSplit[i + 1].startsWith("-")) {
+                        String l_playername = l_cmdSplit[i + 1];
+                        p_gameManager.removePlayer(l_playername);
+                    }
+                }
+                break;
+
+            case "assigncountries":
+                System.out.println("Assigning countries to the players");
+                p_gameManager.d_gamePhase = GameManager.GamePhase.AssignReinforcements;
+                break;
+
+
+            case "deploy":
+                System.out.println("deploy called");
+                break;
 //                    while (!p_gameManager.check_armies()) {
 //                        for (Player l_player : p_gameManager.getD_playerList()) {
 //                            if (l_deployParams[0].equals("deploy") && l_deployParams.length == 3) {
@@ -218,11 +220,11 @@ public class CommandParser {
 //                    }
 //                    System.out.println("All reinforcements have been placed.");
 //                    break;
-                default:
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println("Try 'help' to get instructions of available commands");            }
-
-
+            default:
+                System.out.println(Constants.CMD_ERROR);
+                System.out.println(Constants.HELP_MESSAGE);
         }
+
     }
+}
 
