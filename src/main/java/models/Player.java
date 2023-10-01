@@ -16,6 +16,7 @@ public class Player {
     private List<Country> d_countryList;
     private List<Continent> d_continentList;
     private List<Order> d_orderList;
+    private Order d_currentOrder;
 
 
     
@@ -49,20 +50,21 @@ public class Player {
      * @param p_numArmies Number of armies the player has
      * @param p_countryList List of countries the player owns
      * @param p_orderList List of orders the player has issued
+     * @param p_currentOrder Current Order issued by the player
      */
-    public Player(String p_playerName, int p_numArmies, List<Country> p_countryList, List<Order> p_orderList) {
+    public Player(String p_playerName, int p_numArmies, List<Country> p_countryList, List<Order> p_orderList,Order p_currentOrder) {
         this.d_playerName = p_playerName;
         this.d_numArmies = p_numArmies;
         this.d_countryList = p_countryList;
         this.d_orderList = p_orderList;
+        this.d_currentOrder = p_currentOrder;
     }
 
     /**
-     * Issues an order.
-     * @param p_order The order to be issued
+     * Issues an order. Adds the current order issued by the player to their order list
      */
-    public void issueOrder(Order p_order) {
-        d_orderList.add(p_order);
+    public void issueOrder() {
+        d_orderList.add(d_currentOrder);
     }
 
     /**
@@ -143,6 +145,21 @@ public class Player {
         this.d_orderList = p_orderList;
     }
 
+    /**
+     * Gets the current Order of the current player that is being issued
+     * @return current Order of the current player that is being issued
+     */
+    public Order getD_currentOrder() {
+        return d_currentOrder;
+    }
+
+    /**
+     * Sets the current Order of the current player that is being issued
+     * @param d_currentOrder current Order of the current player that is being issued
+     */
+    public void setD_currentOrder(Order d_currentOrder) {
+        this.d_currentOrder = d_currentOrder;
+    }
 
     /**
      * Gets the list of continents held by the player

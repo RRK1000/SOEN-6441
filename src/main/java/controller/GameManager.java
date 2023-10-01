@@ -213,9 +213,9 @@ public class GameManager {
         if (d_currentPlayerTurn != null) {
             // Create an order using the provided parameters (p_countryID and num)
             Order order = new Order(p_countryID, num);
-
+            d_currentPlayerTurn.setD_currentOrder(order);
             // Call the issue_order() method of the current player to add the order
-            d_currentPlayerTurn.issueOrder(order);
+            d_currentPlayerTurn.issueOrder();
         } else {
             // Handle the case where there is no current player or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");

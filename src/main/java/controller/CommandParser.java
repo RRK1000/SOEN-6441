@@ -210,7 +210,8 @@ public class CommandParser {
                                     Order l_deployOrder = new Order(l_targetCountry, l_numArmies);
                                     l_deployOrder.setD_country(l_targetCountry);
                                     l_deployOrder.setD_num(l_numArmies);
-                                    l_player.issueOrder(l_deployOrder);
+                                    l_player.setD_currentOrder(l_deployOrder);
+                                    l_player.issueOrder();
                                     l_player.setD_numArmies(l_player.getD_numArmies() - l_numArmies);
                                 } else {
                                     System.out.println("You don't have enough armies to deploy.");
