@@ -102,12 +102,12 @@ public class GameManager {
             int l_ArmyCount, l_flag;
             String l_playerName = l_player.getD_playerName();
 
-            l_ArmyCount = Math.max((l_ownedCountries / 5), 5);
+            l_ArmyCount = Math.max((l_ownedCountries / 3), 3);
             List<Continent> l_continentList = (List<Continent>) p_map.getD_continentMapGraph().vertexSet();
             for (Continent l_continent : l_continentList) {
                 l_flag = 0;
                 for (Country l_country : l_continent.getD_countryList()) {
-                    if (!l_country.getD_Player().getD_PlayerName().equals(l_playerName)) {
+                    if (!l_country.getD_owner().getD_playerName().equals(l_playerName)) {
                         l_flag = 1;
                         break;
                     }
@@ -118,7 +118,7 @@ public class GameManager {
             }
 
             l_player.setD_numArmies(l_player.getD_numArmies() + l_ArmyCount);
-            l_player.d_armiesForNextCountry = l_player.getD_numArmies();
+           // l_player.d_armiesForNextCountry = l_player.getD_numArmies();
         }
 
     }
