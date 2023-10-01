@@ -69,29 +69,36 @@ public class CommandParser {
 
 
             case "editneighbor":
-                for (int i = 1; i < l_cmdSplit.length; i++) {
-                    if (l_cmdSplit[i].startsWith("add")) {
-                        String[] addParams = l_cmdSplit[i].split(" ");
-                        if (addParams.length >= 3) {
+                String[] l_editNeighbourInput = p_input.split(" -");
+                for (int i = 1; i < l_editNeighbourInput.length; i++) {
+                    if (l_editNeighbourInput[i].startsWith("add")) {
+                        String[] addParams = l_editNeighbourInput[i].split(" ");
+                        if (addParams.length == 3) {
                             int l_countryID = Integer.parseInt(addParams[1]);
                             int l_neighbourID = Integer.parseInt(addParams[2]);
-                            MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
                             System.out.println("adding neighbor country: " + l_neighbourID);
-                        } else if (l_cmdSplit[i].startsWith("remove")) {
-                            String[] removeParams = l_cmdSplit[i].split(" ");
-                            if (removeParams.length >= 3) {
-                                int l_countryID = Integer.parseInt(removeParams[1]);
-                                int l_neighbourID = Integer.parseInt(removeParams[2]);
-                                MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
-                                System.out.println("removing neighbour country: " + l_neighbourID);
-                            }
+                            MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
                         }
+                    } else if (l_editNeighbourInput[i].startsWith("remove")) {
+                        String[] removeParams = l_editNeighbourInput[i].split(" ");
+                        if (removeParams.length == 3) {
+                            int l_countryID = Integer.parseInt(removeParams[1]);
+                            int l_neighbourID = Integer.parseInt(removeParams[2]);
+                            System.out.println("removing neighbour country: " + l_neighbourID);
+                            MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
+                        }
+                    } else {
+                        System.out.println("Command " + i + " is invalid.");
                     }
                 }
+                System.out.println("EditNeighbor command execution completed.");
                 break;
 
             case "editcontinent":
-
                 String[] l_inputSplit = p_input.split(" -");
                 for (int i = 1; i < l_inputSplit.length; i++) {
                     if (l_inputSplit[i].startsWith("add")) {
@@ -114,6 +121,8 @@ public class CommandParser {
                         } else {
                             System.out.println("Command " + i + " is invalid.");
                         }
+                    } else {
+                        System.out.println("Command " + i + " is invalid.");
                     }
                 }
                 System.out.println("EditContinent command execution completed.");
@@ -121,24 +130,32 @@ public class CommandParser {
 
 
             case "editcountry":
-                for (int i = 1; i < l_cmdSplit.length; i++) {
-                    if (l_cmdSplit[i].startsWith("add")) {
-                        String[] addParams = l_cmdSplit[i].split(" ");
-                        if (addParams.length >= 3) {
+                String[] l_editCountryInput = p_input.split(" -");
+                for (int i = 1; i < l_editCountryInput.length; i++) {
+                    if (l_editCountryInput[i].startsWith("add")) {
+                        String[] addParams = l_editCountryInput[i].split(" ");
+                        if (addParams.length == 3) {
                             int l_countryID = Integer.parseInt(addParams[1]);
                             int l_continentID = Integer.parseInt(addParams[2]);
-                            MapUtil.addCountry(l_map, l_countryID, l_continentID);
                             System.out.println("adding country: " + l_countryID);
+                            MapUtil.addCountry(l_map, l_countryID, l_continentID);
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
                         }
-                    } else if (l_cmdSplit[i].startsWith("remove")) {
-                        String[] removeParams = l_cmdSplit[i].split(" ");
-                        if (removeParams.length >= 2) {
+                    } else if (l_editCountryInput[i].startsWith("remove")) {
+                        String[] removeParams = l_editCountryInput[i].split(" ");
+                        if (removeParams.length == 2) {
                             int l_countryID = Integer.parseInt(removeParams[1]);
-                            MapUtil.removeCountry(l_map, l_countryID);
                             System.out.println("removing country: " + l_countryID);
+                            MapUtil.removeCountry(l_map, l_countryID);
+                        } else {
+                            System.out.println("Command " + i + " is invalid.");
                         }
+                    } else {
+                        System.out.println("Command " + i + " is invalid.");
                     }
                 }
+                System.out.println("EditCountry command execution completed.");
                 break;
 
             case "savemap":
@@ -174,7 +191,7 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                for (int i = 1; i < l_cmdSplit.length-1; i++) {
+                for (int i = 1; i < l_cmdSplit.length - 1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
                             && !l_cmdSplit[i + 1].startsWith("-")) {
                         String l_playername = l_cmdSplit[i + 1];
