@@ -25,12 +25,29 @@ public class GameManager {
 
     private Map d_map;
 
+    /**
+     * Constructor that initializes the GameManager with a map.
+     *
+     * @param p_map The map to be used for the game.
+     */
     public GameManager(Map p_map) {
         this.d_map = p_map;
     }
 
+    
+    /**
+     * Default constructor for GameManager.
+     */
+    
     public GameManager() { }
 
+    
+    /**
+     * Constructor that initializes the GameManager with a player.
+     *
+     * @param p_player The player to be managed.
+     */
+    
     public GameManager(Player p_player) {
         this.d_player = p_player;
     }
@@ -81,6 +98,7 @@ public class GameManager {
     /**
      * check if enough armies are
      * left to be assigned for the player
+     * @return true if all players have assigned all their armies, false otherwise.
      * @author Abhigyan
      */
 
@@ -92,6 +110,12 @@ public class GameManager {
         }
         return true;
     }
+    
+    
+    /**
+     * Assigns to each player the number of reinforcement armies according to the Warzone rules.
+     * @param p_map The map used for determining reinforcements.
+     */
     public void assignReinforcements(Map p_map) {
         // implementation here
         // must iterate through d_playerList and assign d_numArmies value to each player according to the warzone rules
@@ -176,7 +200,8 @@ public class GameManager {
 
     /**
      * Adds an order to the current player’s list of orders
-     *
+     * @param p_countryID The country to which the order pertains.
+     * @param num The number associated with the order.
      * @author Rishi Ravikumar
      * @author Abhigyan
      */
@@ -248,6 +273,7 @@ public class GameManager {
 
     /**
      * Gets the list of players in the current active game
+     * @return List of players.
      */
     public List<Player> getD_playerList() {
         return d_playerList;
@@ -255,6 +281,7 @@ public class GameManager {
 
     /**
      * Sets the list of players in the current active game
+     * @param d_playerList List of players.
      */
     public void setD_playerList(List<Player> d_playerList) {
         this.d_playerList = d_playerList;
@@ -262,6 +289,7 @@ public class GameManager {
 
     /**
      * Gets the game's current turn it is to perform actions
+     *  @return The current player.
      */
     public Player getD_currentPlayerTurn() {
         return d_currentPlayerTurn;
@@ -269,6 +297,7 @@ public class GameManager {
 
     /**
      * Sets the game's current turn
+     * @param d_currentPlayerTurn The current player.
      */
     public void setD_currentPlayerTurn(Player d_currentPlayerTurn) {
         this.d_currentPlayerTurn = d_currentPlayerTurn;
@@ -278,6 +307,7 @@ public class GameManager {
      * Gets the game's current phase.
 
      * Possible values defined by {@link GamePhase}
+     * @return The current game phase.
      */
     public GamePhase getD_gamePhase() {
         return d_gamePhase;
@@ -292,6 +322,9 @@ public class GameManager {
         this.d_gamePhase = d_gamePhase;
     }
 
+    /**
+     * Represents the different phases of the game.
+     */
     public enum GamePhase {
         Game_Startup,
         AssignReinforcements,
