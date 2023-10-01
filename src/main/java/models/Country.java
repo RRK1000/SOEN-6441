@@ -58,18 +58,42 @@ public class Country {
         this.d_countryID = p_countryID;
     }
 
+
+    /**
+     * Gets the country Name.
+     *
+     * @return the country Name.
+     */
+    
     public String getD_countryName() {
         return d_countryName;
     }
+    
+    /**
+     * Sets the name of the country.
+     *
+     * @param d_countryName The new name of the country.
+     */
 
     public void setD_countryName(String d_countryName) {
         this.d_countryName = d_countryName;
     }
+    
+    /**
+     * Gets the ID of the continent to which the country belongs.
+     *
+     * @return The continent ID.
+     */
 
     public int getD_continentID() {
         return d_continentID;
     }
 
+    /**
+     * Sets the ID of the continent to which the country belongs.
+     *
+     * @param d_continentID The new continent ID.
+     */
     public void setD_continentID(int d_continentID) {
         this.d_continentID = d_continentID;
     }
