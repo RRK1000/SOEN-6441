@@ -1,14 +1,10 @@
 package controller;
 
+import models.*;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Order;
-import models.Player;
 
 /**
  * Represents the Game Manager
@@ -19,7 +15,7 @@ import models.Player;
 public class GameManager {
     private List<Player> d_playerList;
     private Player d_currentPlayerTurn;
-    private GamePhase d_gamePhase;
+    public GamePhase d_gamePhase;
 
     private static Player d_player;
 
@@ -31,6 +27,7 @@ public class GameManager {
      * @param p_map The map to be used for the game.
      */
     public GameManager(Map p_map) {
+        this.d_gamePhase = GamePhase.Map_Init;
         this.d_map = p_map;
     }
 
@@ -39,7 +36,9 @@ public class GameManager {
      * Default constructor for GameManager.
      */
     
-    public GameManager() { }
+    public GameManager() {
+        this.d_gamePhase = GamePhase.Map_Init;
+    }
 
     
     /**
@@ -326,6 +325,7 @@ public class GameManager {
      * Represents the different phases of the game.
      */
     public enum GamePhase {
+        Map_Init,
         Game_Startup,
         AssignReinforcements,
         IssueOrder,
