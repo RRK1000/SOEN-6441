@@ -21,14 +21,15 @@ public class Constants {
     public static String GAME_EXIT = "\t exit:\tcommand to end game";
 
     public static String GAME_STARTUP_HELP = "usage: " +
-            "\n\t gameplayer -add <playername> -remove <playername> : Add/Remove player from the game " +
-            "\n\t assigncountries : assigns countries to the players, and begins the game";
+            "\n\t gameplayer -add <playername> -remove <playername> :\tAdd/Remove player from the game " +
+            "\n\t assigncountries :\tassigns countries to the players, and begins the game";
 
     public static String ISSUE_ORDER_HELP = "usage: " +
-            "\n\t deploy <countryID> <num>        : deploys armies to owned countries";
+            "\n\t deploy <countryID> <num> :\tdeploys armies to owned countries" +
+            "\n\t showmap :\tshow all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
+                    "\t\t\t enables efficient game play";
 
-    public static String IN_GAME_HELP = "usage: " +
-            "\n\t showmap        : show all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
+    public static String IN_GAME_HELP = "\n\t showmap        : show all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
             "\t\t\t enables efficient game play";
 
     public static String CMD_ERROR = "unknown command/option";

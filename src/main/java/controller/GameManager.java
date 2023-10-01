@@ -56,23 +56,20 @@ public class GameManager {
      *
      * @author Nimisha Jadav
      */
-    public static void assignCountries() {
-        // implementation here
-        // must iterate through d_playerList and assign countries to each player according to the warzone rules
-        // Must update the d_countryList data member of each Player
-
+    public void assignCountries() {
         Random l_random = new Random();
-        GameManager l_gamemanager = new GameManager();
-        int l_index = 0;
-        for (Player l_player : l_gamemanager.d_playerList) {
-            l_player.addCountry(d_player.getD_countryList().get(l_index));
-            l_index++;
-        }
-        for (int i = l_index; i < d_player.getD_countryList().size(); i++) {
-            int l_indexOfPlayer = l_random.nextInt(l_gamemanager.d_playerList.size());
-            l_gamemanager.d_playerList.get(l_indexOfPlayer).addCountry(d_player.getD_countryList().get(i));
 
+        for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
+            int l_playerIndex = l_random.nextInt(d_playerList.size());
+            Player l_player = d_playerList.get(l_playerIndex);
+            l_player.addCountry(l_country);
+            l_country.setD_owner(l_player);
         }
+        System.out.println("Assigned countries to the players");
+        assignReinforcements();
+
+        d_currentPlayerTurn = d_playerList.get(0);
+        System.out.println("Player " + d_currentPlayerTurn.getD_playerName() + "'s turn");
     }
 
     /**
@@ -88,11 +85,6 @@ public class GameManager {
         this.d_map = d_map;
     }
 
-    /**
-     * Assigns to each {@link models.Player} the number of reinforcement armies according to the Warzone rules
-     *
-     * @author Rishi Ravikumar
-     */
 
     /**
      * check if enough armies are
@@ -101,7 +93,6 @@ public class GameManager {
      * @return true if all players have assigned all their armies, false otherwise.
      * @author Abhigyan
      */
-
     public boolean check_armies() {
         for (Player l_player : d_playerList) {
             if (l_player.getD_numArmies() != 0) {
@@ -115,37 +106,16 @@ public class GameManager {
     /**
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      *
-     * @param p_map The map used for determining reinforcements.
      */
-    public void assignReinforcements(Map p_map) {
-        // implementation here
-        // must iterate through d_playerList and assign d_numArmies value to each player according to the warzone rules
-        //      Must use the d_continentList from the Player object to assign the d_numArmies.
-        //      Must use the d_continentValue from each continent conquered by the player
+    public void assignReinforcements() {
+        int l_numArmies = (int) Math.min((double) (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
-            int l_ownedCountries = l_player.getD_countryList().size();
-            int l_ArmyCount, l_flag;
-            String l_playerName = l_player.getD_playerName();
-
-            l_ArmyCount = Math.max((l_ownedCountries / 3), 3);
-            List<Continent> l_continentList = (List<Continent>) p_map.getD_continentMapGraph().vertexSet();
-            for (Continent l_continent : l_continentList) {
-                l_flag = 0;
-                for (Country l_country : l_continent.getD_countryList()) {
-                    if (!l_country.getD_owner().getD_playerName().equals(l_playerName)) {
-                        l_flag = 1;
-                        break;
-                    }
-                }
-                if (l_flag == 0) {
-                    l_ArmyCount += l_continent.getD_continentValue();
-                }
+            l_player.setD_numArmies(l_player.getD_numArmies()+l_numArmies);
+            for (Continent l_c: l_player.getD_continentList()) {
+                l_player.setD_numArmies(l_player.getD_numArmies()+l_c.getD_continentValue());
             }
-
-            l_player.setD_numArmies(l_player.getD_numArmies() + l_ArmyCount);
-            // l_player.d_armiesForNextCountry = l_player.getD_numArmies();
         }
-
+        System.out.println("Reinforcement armies have been assigned to each player");
     }
 
     /**
@@ -158,11 +128,12 @@ public class GameManager {
         if (d_playerList.size() < 6) {
             for (Player l_p : d_playerList) {
                 if (Objects.equals(l_p.getD_playerName(), p_playerName)) {
-                    System.out.println("Player " + p_playerName+ " already exists");
+                    System.out.println("Player " + p_playerName + " already exists");
                     return;
                 }
             }
-            d_playerList.add(new Player(p_playerName));
+            Player l_player = new Player(p_playerName);
+            d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
         } else {
             System.out.println("You have reached the limit to add players");
@@ -179,12 +150,12 @@ public class GameManager {
     public void removePlayer(String p_playerName) {
         for (Player l_p : d_playerList) {
             if (Objects.equals(l_p.getD_playerName(), p_playerName)) {
-                System.out.println("Player " + p_playerName+ " removed from the game");
+                System.out.println("Player " + p_playerName + " removed from the game");
                 d_playerList.remove(l_p);
                 return;
             }
         }
-        System.out.println("Player " + p_playerName+ " does not exist");
+        System.out.println("Player " + p_playerName + " does not exist");
     }
 
     /**

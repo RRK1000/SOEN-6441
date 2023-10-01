@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,8 +28,10 @@ public class Player {
      */
     
     public Player(String p_playerName) {
-        // Implementation here
         this.d_playerName = p_playerName;
+        this.d_countryList = new ArrayList<>();
+        this.d_continentList = new ArrayList<>();
+        this.d_orderList = new ArrayList<>();
     }
     
     /**

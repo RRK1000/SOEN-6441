@@ -172,7 +172,6 @@ public class CommandParser {
                 System.out.println("Validating the map");
                 if (MapUtil.isValidMap(l_map)) {
                     System.out.println("Map validation successful");
-                    p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
                 } else {
                     System.out.println("Map validation unsuccessful");
                 }
@@ -181,7 +180,6 @@ public class CommandParser {
             case "loadmap":
                 l_map = MapUtil.loadMap(l_cmdSplit[1]);
                 if (MapUtil.isValidMap(l_map)) {
-                    p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
                     System.out.println("Next, add players to the game");
                 } else {
                     l_map = new Map();
@@ -191,7 +189,9 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                for (int i = 1; i < l_cmdSplit.length - 1; i++) {
+                p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+
+                for (int i = 1; i < l_cmdSplit.length-1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
                             && !l_cmdSplit[i + 1].startsWith("-")) {
                         String l_playername = l_cmdSplit[i + 1];
@@ -205,10 +205,18 @@ public class CommandParser {
                 break;
 
             case "assigncountries":
-                System.out.println("Assigning countries to the players");
-                p_gameManager.d_gamePhase = GameManager.GamePhase.AssignReinforcements;
-                break;
+                p_gameManager.assignCountries();
+                p_gameManager.d_gamePhase = GameManager.GamePhase.IssueOrder;
+                System.out.println("Game has Begin!");
+//                for (Player p :p_gameManager.getD_playerList()) {
+//                    System.out.println(p.getD_playerName());
+//                    System.out.println(p.getD_numArmies());
+//                    for(Country c: p.getD_countryList()){
+//                        System.out.println(c.getD_countryID());
+//                    }
+//                }
 
+                break;
 
             case "deploy":
                 System.out.println("deploy called");
