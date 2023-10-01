@@ -18,18 +18,38 @@ public class Player {
     private List<Order> d_orderList;
 
 
+    
     /**
-     * Default constructor for Player class.
+     * Default constructor for Player class
+     *
+     * @param p_playerName Name of the player
      */
+    
     public Player(String p_playerName) {
         // Implementation here
         this.d_playerName = p_playerName;
     }
+    
+    /**
+     * Adds a country to the player's list of countries
+     *
+     * @param p_country The country to be added
+     */
 
     public void addCountry(Country p_country){
         this.d_countryList.add(p_country);
     }
 
+    
+
+    /**
+     * Constructor with parameters for Player class
+     *
+     * @param p_playerName Name of the player
+     * @param p_numArmies Number of armies the player has
+     * @param p_countryList List of countries the player owns
+     * @param p_orderList List of orders the player has issued
+     */
     public Player(String p_playerName, int p_numArmies, List<Country> p_countryList, List<Order> p_orderList) {
         this.d_playerName = p_playerName;
         this.d_numArmies = p_numArmies;
@@ -39,13 +59,15 @@ public class Player {
 
     /**
      * Issues an order.
+     * @param p_order The order to be issued
      */
     public void issueOrder(Order p_order) {
         d_orderList.add(p_order);
     }
 
     /**
-     * Moves to the next order.
+     * Moves to the next order
+     * @return The next order, or null if no orders are left
      */
     public Order nextOrder() {
         Order l_order = null;
@@ -56,18 +78,18 @@ public class Player {
         return l_order;
     }
     /**
-     * Gets the player name.
+     * Gets the player name
      *
-     * @return The player name.
+     * @return The player name
      */
     public String getD_playerName() {
         return d_playerName;
     }
 
     /**
-     * Sets the player name.
+     * Sets the player name
      *
-     * @param p_playerName The new player name.
+     * @param p_playerName The new player name
      */
     public void setD_playerName(String p_playerName) {
         this.d_playerName = p_playerName;
@@ -121,9 +143,13 @@ public class Player {
         this.d_orderList = p_orderList;
     }
 
+
     /**
      * Gets the list of continents held by the player
+     *
+     * @return List of continents the player owns
      */
+    
     public List<Continent> getD_continentList() {
         return d_continentList;
     }
