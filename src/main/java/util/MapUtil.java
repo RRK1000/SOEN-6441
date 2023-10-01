@@ -113,7 +113,6 @@ public class MapUtil {
         Map l_map;
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_filename))) {
             l_map = loadMap(p_filename);
-            System.out.println("Map Loaded Successfully");
         } catch (Exception l_e) {
             System.out.println("File not found");
             l_map = new Map();
@@ -270,6 +269,7 @@ public class MapUtil {
         l_continent.setD_continentID(p_continentID);
         l_continent.setD_continentValue(p_continentValue);
         l_continentMapGraph.addVertex(l_continent);
+        System.out.println("Added continent " + l_continent.getD_continentID() + " with value " + l_continent.getD_continentValue());
     }
 
     /**
@@ -280,6 +280,7 @@ public class MapUtil {
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
         Continent l_continent = p_map.getD_continentByID(p_continentID);
         l_continentMapGraph.removeVertex(l_continent);
+        System.out.println("Removed continent " + l_continent.getD_continentID() + " with value " + l_continent.getD_continentValue());
     }
 
     /**

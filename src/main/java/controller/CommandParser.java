@@ -55,8 +55,7 @@ public class CommandParser {
             System.out.println("Command: " + l_cmdSplit[0]);
 
             Map l_map = new Map();
-            if (p_gameManager.getD_gamePhase() != GameManager.GamePhase.Map_Init)
-                 l_map = p_gameManager.getD_map();
+            l_map = p_gameManager.getD_map();
 
             switch (l_cmdSplit[0]) {
                 case "help":
@@ -70,7 +69,6 @@ public class CommandParser {
 
 
                 case "editneighbor":
-
                     for (int i = 1; i < l_cmdSplit.length; i++) {
                         if (l_cmdSplit[i].startsWith("add")) {
                             String[] addParams = l_cmdSplit[i].split(" ");
@@ -94,24 +92,31 @@ public class CommandParser {
 
                 case "editcontinent":
 
-                    for (int i = 1; i < l_cmdSplit.length; i++) {
-                        if (l_cmdSplit[i].startsWith("add")) {
-                            String[] l_addParams = l_cmdSplit[i].split(" ");
-                            if (l_addParams.length >= 3) {
+                    String[] l_inputSplit = p_input.split(" -");
+                    for (int i = 1; i < l_inputSplit.length; i++) {
+                        if (l_inputSplit[i].startsWith("add")) {
+                            String[] l_addParams = l_inputSplit[i].split(" ");
+                            if (l_addParams.length == 3) {
                                 int l_continentID = Integer.parseInt(l_addParams[1]);
                                 int l_continentValue = Integer.parseInt(l_addParams[2]);
-                                MapUtil.addContinent(l_map, l_continentID, l_continentValue);
                                 System.out.println("adding continent: " + l_continentID);
+                                MapUtil.addContinent(l_map, l_continentID, l_continentValue);
+                            }else{
+                                System.out.println("Command " + i+" is invalid.");
                             }
-                        } else if (l_cmdSplit[i].startsWith("remove")) {
-                            String[] l_removeParams = l_cmdSplit[i].split(" ");
-                            if (l_removeParams.length >= 2) {
+                        } else if (l_inputSplit[i].startsWith("remove")) {
+                            String[] l_removeParams = l_inputSplit[i].split(" ");
+                            if (l_removeParams.length == 2) {
                                 int l_continentID = Integer.parseInt(l_removeParams[1]);
-                                MapUtil.removeContinent(l_map, l_continentID);
                                 System.out.println("removing continent: " + l_continentID);
+                                MapUtil.removeContinent(l_map, l_continentID);
+
+                            }else{
+                                System.out.println("Command "+i+ " is invalid.");
                             }
                         }
                     }
+                    System.out.println("EditContinent command execution completed.");
                     break;
 
 
@@ -142,8 +147,8 @@ public class CommandParser {
                     break;
 
                 case "editmap":
-                    System.out.println("editing the map");
-                    MapUtil.editMap(l_cmdSplit[1]);
+                    p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
+                    System.out.println("Map loaded to be edited...");
                     break;
 
                 case "validatemap":
