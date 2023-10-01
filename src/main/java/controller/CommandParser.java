@@ -1,7 +1,10 @@
 package controller;
 
 import global.Constants;
+import models.Country;
 import models.Map;
+import models.Order;
+import models.Player;
 import util.MapUtil;
 
 public class CommandParser {
@@ -239,7 +242,7 @@ public class CommandParser {
             case "gameplayer":
                 p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
 
-                for (int i = 1; i < l_cmdSplit.length-1; i++) {
+                for (int i = 1; i < l_cmdSplit.length - 1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
                             && !l_cmdSplit[i + 1].startsWith("-")) {
                         String l_playername = l_cmdSplit[i + 1];
@@ -256,43 +259,35 @@ public class CommandParser {
                 p_gameManager.assignCountries();
                 p_gameManager.d_gamePhase = GameManager.GamePhase.IssueOrder;
                 System.out.println("Game has Begin!");
-//                for (Player p :p_gameManager.getD_playerList()) {
-//                    System.out.println(p.getD_playerName());
-//                    System.out.println(p.getD_numArmies());
-//                    for(Country c: p.getD_countryList()){
-//                        System.out.println(c.getD_countryID());
-//                    }
-//                }
-
                 break;
 
             case "deploy":
-                System.out.println("deploy called");
+                Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+
+                if (l_cmdSplit.length < 3) {
+                    System.out.println(Constants.CMD_ERROR);
+                    break;
+                }
+                int l_countryID = Integer.parseInt(l_cmdSplit[1]);
+                Country l_country = p_gameManager.getD_map().getD_countryByID(l_countryID);
+
+                int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
+                l_currentPlayer.setD_currentOrder(new Order(l_country, l_numArmies));
+                l_currentPlayer.issueOrder();
+                System.out.println("Issued Order");
+                if (l_currentPlayer.getD_numArmies() == 0) {
+                    System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
+                    System.out.println();
+                    p_gameManager.updatePlayerTurn();
+                    if(p_gameManager.getD_currentPlayerTurn() == 0){
+                        p_gameManager.executeOrder();
+                    }
+                    l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                    System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
+                } else {
+                    System.out.println("Reinforcement armies: " + l_currentPlayer.getD_numArmies());
+                }
                 break;
-//                    while (!p_gameManager.check_armies()) {
-//                        for (Player l_player : p_gameManager.getD_playerList()) {
-//                            if (l_deployParams[0].equals("deploy") && l_deployParams.length == 3) {
-//                                int l_countryID = Integer.parseInt(l_deployParams[1]);
-//                                int l_numArmies = Integer.parseInt(l_deployParams[2]);
-//
-//                                if (l_numArmies <= l_player.getD_numArmies()) {
-//                                    Country l_targetCountry = p_gameManager.getD_map().getD_countryByID(l_countryID);
-//                                    Order l_deployOrder = new Order(l_targetCountry, l_numArmies);
-//                                    l_deployOrder.setD_country(l_targetCountry);
-//                                    l_deployOrder.setD_num(l_numArmies);
-//                                    l_player.setD_currentOrder(l_deployOrder);
-//                                    l_player.issueOrder();
-//                                    l_player.setD_numArmies(l_player.getD_numArmies() - l_numArmies);
-//                                } else {
-//                                    System.out.println("You don't have enough armies to deploy.");
-//                                }
-//                            } else {
-//                                System.out.println("Invalid deploy command. Please try again.");
-//                            }
-//                        }
-//                    }
-//                    System.out.println("All reinforcements have been placed.");
-//                    break;
             default:
                 System.out.println(Constants.CMD_ERROR);
                 System.out.println(Constants.HELP_MESSAGE);

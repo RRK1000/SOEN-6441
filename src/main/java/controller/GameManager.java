@@ -17,7 +17,7 @@ public class GameManager {
     private static Player d_player;
     public GamePhase d_gamePhase;
     private List<Player> d_playerList;
-    private Player d_currentPlayerTurn;
+    private int d_currentPlayerTurn;
     private Map d_map;
 
     /**
@@ -68,8 +68,12 @@ public class GameManager {
         System.out.println("Assigned countries to the players");
         assignReinforcements();
 
-        d_currentPlayerTurn = d_playerList.get(0);
-        System.out.println("Player " + d_currentPlayerTurn.getD_playerName() + "'s turn");
+        d_currentPlayerTurn = 0;
+        System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
+    }
+
+    public void updatePlayerTurn() {
+        d_currentPlayerTurn = (++d_currentPlayerTurn) % d_playerList.size();
     }
 
     /**
@@ -105,14 +109,13 @@ public class GameManager {
 
     /**
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
-     *
      */
     public void assignReinforcements() {
         int l_numArmies = (int) Math.min((double) (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
-            l_player.setD_numArmies(l_player.getD_numArmies()+l_numArmies);
-            for (Continent l_c: l_player.getD_continentList()) {
-                l_player.setD_numArmies(l_player.getD_numArmies()+l_c.getD_continentValue());
+            l_player.setD_numArmies(l_player.getD_numArmies() + l_numArmies);
+            for (Continent l_c : l_player.getD_continentList()) {
+                l_player.setD_numArmies(l_player.getD_numArmies() + l_c.getD_continentValue());
             }
         }
         System.out.println("Reinforcement armies have been assigned to each player");
@@ -169,14 +172,14 @@ public class GameManager {
     public void issueOrder(Country p_countryID, int num) {
         // implementation here
         // must call the d_currentPlayerTurn.issue_order()
-
+        Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
         // Check if it's the current player's turn
-        if (d_currentPlayerTurn != null) {
+        if (l_currentPlayer != null) {
             // Create an order using the provided parameters (p_countryID and num)
             Order order = new Order(p_countryID, num);
-            d_currentPlayerTurn.setD_currentOrder(order);
+            l_currentPlayer.setD_currentOrder(order);
             // Call the issue_order() method of the current player to add the order
-            d_currentPlayerTurn.issueOrder();
+            l_currentPlayer.issueOrder();
         } else {
             // Handle the case where there is no current player or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");
@@ -190,11 +193,10 @@ public class GameManager {
      * @author Nimisha Jadav
      */
     public void executeOrder() {
-        // implementation here
-        // iterates through each player and does the following for each order:
-        //      fetch the next order object using d_currentPlayerTurn.next_order() and then run Order->execute()
+        Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
+
         for (int i = 0; i <= d_playerList.size(); i++) {
-            Order l_order = d_currentPlayerTurn.nextOrder();
+            Order l_order = l_currentPlayer.nextOrder();
             l_order.execute();
         }
     }
@@ -254,19 +256,10 @@ public class GameManager {
     /**
      * Gets the game's current turn it is to perform actions
      *
-     * @return The current player.
+     * @return The current player index.
      */
-    public Player getD_currentPlayerTurn() {
+    public int getD_currentPlayerTurn() {
         return d_currentPlayerTurn;
-    }
-
-    /**
-     * Sets the game's current turn
-     *
-     * @param d_currentPlayerTurn The current player.
-     */
-    public void setD_currentPlayerTurn(Player d_currentPlayerTurn) {
-        this.d_currentPlayerTurn = d_currentPlayerTurn;
     }
 
     /**
