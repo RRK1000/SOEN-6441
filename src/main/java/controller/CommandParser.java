@@ -51,15 +51,16 @@ public class CommandParser {
      * @author - Yusuke
      */
     public static void inputParser(GameManager p_gameManager, String p_input) {
-            String[] l_cmdSplit = p_input.split(" -");
+            String[] l_cmdSplit = p_input.split(" ");
             System.out.println("Command: " + l_cmdSplit[0]);
 
-            Map l_map = p_gameManager.getD_map();
+            Map l_map = new Map();
+            if (p_gameManager.getD_gamePhase() != GameManager.GamePhase.Map_Init)
+                 l_map = p_gameManager.getD_map();
 
             switch (l_cmdSplit[0]) {
                 case "help":
-                    System.out.println("help called");
-
+                    displayInstructions(p_gameManager);
                     break;
 
                 case "showmap":
@@ -69,6 +70,7 @@ public class CommandParser {
 
 
                 case "editneighbor":
+
                     for (int i = 1; i < l_cmdSplit.length; i++) {
                         if (l_cmdSplit[i].startsWith("add")) {
                             String[] addParams = l_cmdSplit[i].split(" ");
@@ -155,8 +157,7 @@ public class CommandParser {
                     break;
 
                 case "loadmap":
-                        System.out.println("Loading the map");
-                        MapUtil.loadMap(l_cmdSplit[1]);
+                        p_gameManager.setD_map(MapUtil.loadMap(l_cmdSplit[1]));
                     break;
 
                 case "gameplayer":
@@ -213,8 +214,8 @@ public class CommandParser {
 //                    System.out.println("All reinforcements have been placed.");
 //                    break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + l_cmdSplit[0]);
-            }
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println("Try 'help' to get instructions of available commands");            }
 
 
         }

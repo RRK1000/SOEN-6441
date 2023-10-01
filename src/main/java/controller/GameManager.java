@@ -19,6 +19,10 @@ public class GameManager {
 
     private static Player d_player;
 
+    public void setD_map(Map d_map) {
+        this.d_map = d_map;
+    }
+
     private Map d_map;
 
     /**
