@@ -226,11 +226,15 @@ public class MapUtil implements IMapUtil {
 
         if (!GraphTests.isSimple(l_continentMapGraph)) {
             System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
+            System.out.println("Reasons for the following could be either a duplicate continent or some continent is not connected with others.");
+            System.out.println("Also possible that some continent has itself as a neighbour or some neighbour is stated more than once for a continent.");
             return false;
         }
 
         if (!GraphTests.isWeaklyConnected(l_countryMapGraph) || !GraphTests.isSimple(l_countryMapGraph)) {
             System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
+            System.out.println("Reasons for the following could be either a duplicate country or some country is not connected with others.");
+            System.out.println("Also possible that some country has itself as a neighbour or some neighbour is stated more than once for a country.");
             return false;
         }
 
