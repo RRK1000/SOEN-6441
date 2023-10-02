@@ -23,14 +23,10 @@ public class GameEngine {
 
 
         String l_inputCommand = l_scanner.nextLine();
-        if(!CommandParser.isvalidInput(l_inputCommand)){
-            System.out.println(Constants.CMD_ERROR);
-            System.out.println(Constants.HELP_MESSAGE);
-        }else{
-            while (!Objects.equals(l_inputCommand, "exit")) {
-                CommandParser.inputParser(d_gameManager, l_inputCommand);
-                l_inputCommand = l_scanner.nextLine();
-            }
+
+        while (!Objects.equals(l_inputCommand, "exit")) {
+            CommandParser.inputParser(d_gameManager, l_inputCommand);
+            l_inputCommand = l_scanner.nextLine();
         }
     }
 }
