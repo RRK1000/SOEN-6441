@@ -14,7 +14,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapUtil implements IMapUtil {
+public class MapUtil {
     /**
      * Loads the map from a given file, and stores it into {@link models.Map}
      *
@@ -22,8 +22,7 @@ public class MapUtil implements IMapUtil {
      * @return {@link models.Map}
      * @author Rishi Ravikumar
      */
-    @Override
-    public Map loadMap(String p_filename) {
+    public static Map loadMap(String p_filename) {
         Map l_map = new Map();
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
         DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = new DefaultDirectedGraph<>(DefaultEdge.class);
@@ -110,12 +109,10 @@ public class MapUtil implements IMapUtil {
      * @return {@link models.Map}
      * @author Rishi Ravikumar
      */
-    @Override
-    public Map editMap(String p_filename) {
+    public static Map editMap(String p_filename) {
         Map l_map;
         try (BufferedReader l_reader = new BufferedReader(new FileReader(p_filename))) {
             l_map = loadMap(p_filename);
-            System.out.println("Map Loaded Successfully");
         } catch (Exception l_e) {
             System.out.println("File not found");
             l_map = new Map();
@@ -131,8 +128,7 @@ public class MapUtil implements IMapUtil {
      * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
      * @author Rishi Ravikumar
      */
-    @Override
-    public Boolean saveMap(Map p_map) {
+    public static Boolean saveMap(Map p_map) {
         if (!isValidMap(p_map)) {
             return false;
         }
@@ -179,8 +175,7 @@ public class MapUtil implements IMapUtil {
      * @return A boolean value - True if map is valid, otherwise false
      * @author Anuja-Somthankar
      */
-    @Override
-    public Boolean isValidMap(Map p_graphMap) {
+    public static Boolean isValidMap(Map p_graphMap) {
         if (p_graphMap == null) {
             System.out.println("Graph is Empty");
             return false;
@@ -226,11 +221,15 @@ public class MapUtil implements IMapUtil {
 
         if (!GraphTests.isSimple(l_continentMapGraph)) {
             System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
+            System.out.println("Reasons for the following could be either a duplicate continent or some continent is not connected with others.");
+            System.out.println("Also possible that some continent has itself as a neighbour or some neighbour is stated more than once for a continent.");
             return false;
         }
 
         if (!GraphTests.isWeaklyConnected(l_countryMapGraph) || !GraphTests.isSimple(l_countryMapGraph)) {
             System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
+            System.out.println("Reasons for the following could be either a duplicate country or some country is not connected with others.");
+            System.out.println("Also possible that some country has itself as a neighbour or some neighbour is stated more than once for a country.");
             return false;
         }
 
@@ -244,8 +243,7 @@ public class MapUtil implements IMapUtil {
      * @param p_graphMap Object of the Map graph
      * @author Anuja-Somthankar
      */
-    @Override
-    public void showMap(Map p_graphMap) {
+    public static void showMap(Map p_graphMap) {
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
         DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
 
@@ -265,24 +263,32 @@ public class MapUtil implements IMapUtil {
      * @param p_continentID    Continent ID of the new continent
      * @param p_continentValue Continent Value of the new continent
      */
-    @Override
-    public void addContinent(Map p_map, int p_continentID, int p_continentValue) {
-        DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
-        Continent l_continent = new Continent();
-        l_continent.setD_continentID(p_continentID);
-        l_continent.setD_continentValue(p_continentValue);
-        l_continentMapGraph.addVertex(l_continent);
+    public static void addContinent(Map p_map, int p_continentID, int p_continentValue) {
+        try {
+            DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
+            Continent l_continent = new Continent();
+            l_continent.setD_continentID(p_continentID);
+            l_continent.setD_continentValue(p_continentValue);
+            l_continentMapGraph.addVertex(l_continent);
+            System.out.println("Added continent " + l_continent.getD_continentID() + " with value " + l_continent.getD_continentValue());
+        } catch (Exception e) {
+            System.out.println("Unable to add continent");
+        }
     }
 
     /**
      * @param p_map         {@link models.Map}
      * @param p_continentID Continent ID of the continent to be deleted
      */
-    @Override
-    public void removeContinent(Map p_map, int p_continentID) {
-        DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
-        Continent l_continent = p_map.getD_continentByID(p_continentID);
-        l_continentMapGraph.removeVertex(l_continent);
+    public static void removeContinent(Map p_map, int p_continentID) {
+        try {
+            DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
+            Continent l_continent = p_map.getD_continentByID(p_continentID);
+            l_continentMapGraph.removeVertex(l_continent);
+            System.out.println("Removed continent " + l_continent.getD_continentID() + " with value " + l_continent.getD_continentValue());
+        } catch (Exception e) {
+            System.out.println("Unable to remove continent");
+        }
     }
 
     /**
@@ -290,27 +296,35 @@ public class MapUtil implements IMapUtil {
      * @param p_countryID   Country ID of the new country
      * @param p_continentID Continent ID of the continent of which the country belongs to
      */
-    @Override
-    public void addCountry(Map p_map, int p_countryID, int p_continentID) {
-        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
-        Continent l_continent = p_map.getD_continentByID(p_continentID);
+    public static void addCountry(Map p_map, int p_countryID, int p_continentID) {
+        try {
+            DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            Continent l_continent = p_map.getD_continentByID(p_continentID);
 
-        Country l_country = new Country();
-        l_country.setD_countryID(p_countryID);
-        l_country.setD_continentID(p_continentID);
-        l_countryMapGraph.addVertex(l_country);
-        l_continent.addCountry(l_country);
+            Country l_country = new Country();
+            l_country.setD_countryID(p_countryID);
+            l_country.setD_continentID(p_continentID);
+            l_countryMapGraph.addVertex(l_country);
+            l_continent.addCountry(l_country);
+            System.out.println("Added country " + l_country.getD_countryID() + " to continent " + l_country.getD_continentID());
+        } catch (Exception e) {
+            System.out.println("Unable to add country");
+        }
     }
 
     /**
      * @param p_map       {@link models.Map}
      * @param p_countryID Country ID of the country to be deleted
      */
-    @Override
-    public void removeCountry(Map p_map, int p_countryID) {
-        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
-        Country l_country = p_map.getD_countryByID(p_countryID);
-        l_countryMapGraph.removeVertex(l_country);
+    public static void removeCountry(Map p_map, int p_countryID) {
+        try {
+            DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            Country l_country = p_map.getD_countryByID(p_countryID);
+            l_countryMapGraph.removeVertex(l_country);
+            System.out.println("Removed country " + l_country.getD_countryID() + " in continent " + l_country.getD_continentID());
+        } catch (Exception e) {
+            System.out.println("Unable to remove country");
+        }
     }
 
     /**
@@ -318,12 +332,17 @@ public class MapUtil implements IMapUtil {
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex
      */
-    @Override
-    public void addNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
-        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
-        Country l_country = p_map.getD_countryByID(p_countryID);
-        Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
-        l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
+    public static void addNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
+        try {
+            DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            Country l_country = p_map.getD_countryByID(p_countryID);
+            Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
+            l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
+            l_countryMapGraph.addEdge(l_neighbourCountry,l_country);
+            System.out.println("Added " + l_neighbourCountry.getD_countryID() + " and " + l_country.getD_countryID() + " as neighbors.");
+        } catch (Exception e) {
+            System.out.println("Unable to add neighbour");
+        }
     }
 
     /**
@@ -331,11 +350,16 @@ public class MapUtil implements IMapUtil {
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex
      */
-    @Override
-    public void removeNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
-        DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
-        Country l_country = p_map.getD_countryByID(p_countryID);
-        Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
-        l_countryMapGraph.removeEdge(l_country, l_neighbourCountry);
+    public static void removeNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
+        try {
+            DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            Country l_country = p_map.getD_countryByID(p_countryID);
+            Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
+            l_countryMapGraph.removeEdge(l_country, l_neighbourCountry);
+            l_countryMapGraph.removeEdge(l_neighbourCountry, l_country);
+            System.out.println("Removed " + l_country.getD_countryID() + " and " + l_neighbourCountry.getD_countryID() + " as neighbors.");
+        } catch (Exception e) {
+            System.out.println("Unable to remove neighbour");
+        }
     }
 }

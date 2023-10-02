@@ -121,6 +121,19 @@ class MapUtilTest {
     }
 
     /**
+     * This test tests the validateMap function. It takes a map object and passes it to validateMap() to check if validation is correct.
+     * In this test, there is a duplicate country.
+     * Context: A map object is passed.
+     * Expected Results: The map is invalid, hence false should be returned.
+     */
+    @Test
+    void isValidMapTest6() {  //neighbour mismatch
+        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap5.txt");
+
+        assertFalse(d_mapUtil.isValidMap(l_map));
+    }
+
+    /**
      * This test checks the saveMap() function for a valid map
      */
     @Test

@@ -1,0 +1,21 @@
+[continents]
+Scandinavia 5 #fff780
+Britian 9 #ff8097
+Spain 5 #8480ff
+
+[countries]
+1 s1 1 66 28
+2 s2 1 384 39
+3 s3 1 459 61
+4 b1 2 207 95
+5 b2 2 222 131
+6 b3 2 241 149
+7 sp1 3 161 348
+8 sp2 3 192 352
+9 sp3 3 219 356
+10 sp4 3 246 352
+
+[borders]
+1 2
+2 10 1 8 3
+3 2 4 6
