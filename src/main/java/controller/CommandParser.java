@@ -20,16 +20,18 @@ public class CommandParser {
      * @throws IllegalArgumentException if the input string is null or empty.
      * @author Yusuke
      */
-    public static void validateInput(String p_input) throws IllegalArgumentException {
+    public static Boolean isvalidInput(String p_input) {
         if (p_input == null || p_input.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid input provided.");
+            return false;
         }
-
+        return true;
     }
 
     public static Boolean isValidMapInitInput(GameManager p_gameManager) {
         if (p_gameManager.getD_gamePhase() != GameManager.GamePhase.Map_Init) {
-            System.out.println("Invalid input provided.");
+            System.out.println(Constants.CMD_ERROR);
+            System.out.println(Constants.HELP_MESSAGE);
+
             return false;
         }
         return true;
@@ -96,7 +98,7 @@ public class CommandParser {
                                 System.out.println("adding neighbor country: " + l_neighbourID);
                                 MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else if (l_editNeighbourInput[i].startsWith("remove")) {
                             String[] removeParams = l_editNeighbourInput[i].split(" ");
@@ -106,15 +108,16 @@ public class CommandParser {
                                 System.out.println("removing neighbour country: " + l_neighbourID);
                                 MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else {
-                            System.out.println("Command " + i + " is invalid.");
+                            System.out.println(Constants.CMD_ERROR);
                         }
                     }
                     System.out.println("EditNeighbor command execution completed.");
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
@@ -130,7 +133,7 @@ public class CommandParser {
                                 System.out.println("adding continent: " + l_continentID);
                                 MapUtil.addContinent(l_map, l_continentID, l_continentValue);
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else if (l_inputSplit[i].startsWith("remove")) {
                             String[] l_removeParams = l_inputSplit[i].split(" ");
@@ -140,15 +143,16 @@ public class CommandParser {
                                 MapUtil.removeContinent(l_map, l_continentID);
 
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else {
-                            System.out.println("Command " + i + " is invalid.");
+                            System.out.println(Constants.CMD_ERROR);
                         }
                     }
                     System.out.println("EditContinent command execution completed.");
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
@@ -165,7 +169,7 @@ public class CommandParser {
                                 System.out.println("adding country: " + l_countryID);
                                 MapUtil.addCountry(l_map, l_countryID, l_continentID);
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else if (l_editCountryInput[i].startsWith("remove")) {
                             String[] removeParams = l_editCountryInput[i].split(" ");
@@ -174,29 +178,32 @@ public class CommandParser {
                                 System.out.println("removing country: " + l_countryID);
                                 MapUtil.removeCountry(l_map, l_countryID);
                             } else {
-                                System.out.println("Command " + i + " is invalid.");
+                                System.out.println(Constants.CMD_ERROR);
                             }
                         } else {
-                            System.out.println("Command " + i + " is invalid.");
+                            System.out.println(Constants.CMD_ERROR);
                         }
                     }
                     System.out.println("EditCountry command execution completed.");
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
             case "savemap":
                 if (isValidMapInitInput(p_gameManager)) {
                     System.out.println("Saving the map");
-                    Boolean isMapSaved = MapUtil.saveMap(l_map);
-                    if (isMapSaved) {
+                    Boolean l_isMapSaved = MapUtil.saveMap(l_map);
+                    if (l_isMapSaved) {
                         System.out.println("Map is saved");
+                        System.out.println("Load the map to start the game.");
                     } else {
                         System.out.println("The map was not saved");
                     }
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
@@ -205,7 +212,8 @@ public class CommandParser {
                     p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
                     System.out.println("Map loaded to be edited...");
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
@@ -219,7 +227,8 @@ public class CommandParser {
                         System.out.println("Map validation unsuccessful");
                     }
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
@@ -235,7 +244,8 @@ public class CommandParser {
                     p_gameManager.setD_map(l_map);
                     System.out.println(Constants.HELP_MESSAGE);
                 } else {
-                    System.out.println("Map Init phase is required for this command.");
+                    System.out.println(Constants.CMD_ERROR);
+                    System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
 
