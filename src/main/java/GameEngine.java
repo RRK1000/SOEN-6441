@@ -18,7 +18,7 @@ public class GameEngine {
         Scanner l_scanner = new Scanner(System.in);
 
         System.out.println("WELCOME TO WARZONE");
-        System.out.println("Load a map / Build a new map using the following commands");
+        System.out.println("First, load a map / build a new map");
         System.out.println(Constants.HELP_MESSAGE);
 
 

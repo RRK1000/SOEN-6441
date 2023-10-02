@@ -165,21 +165,24 @@ public class GameManager {
      * Adds an order to the current player’s list of orders
      *
      * @param p_countryID The country to which the order pertains.
-     * @param num         The number associated with the order.
+     * @param p_num         The number associated with the order.
      * @author Rishi Ravikumar
      * @author Abhigyan
      */
-    public void issueOrder(Country p_countryID, int num) {
-        // implementation here
-        // must call the d_currentPlayerTurn.issue_order()
+    public void issueOrder(Country p_countryID, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
-        // Check if it's the current player's turn
         if (l_currentPlayer != null) {
+            if(l_currentPlayer.getD_numArmies() < p_num) {
+                System.out.println("Cannot issue order");
+                return;
+            }
+
             // Create an order using the provided parameters (p_countryID and num)
-            Order order = new Order(p_countryID, num);
+            Order order = new Order(p_countryID, p_num);
             l_currentPlayer.setD_currentOrder(order);
             // Call the issue_order() method of the current player to add the order
             l_currentPlayer.issueOrder();
+            System.out.println("Issued Order");
         } else {
             // Handle the case where there is no current player or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");
@@ -228,7 +231,7 @@ public class GameManager {
             System.out.print("Neighbours: ");
             for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
                 Country l_neighbour = l_map.getD_countryByID(l_neighbourID);
-                System.out.print(l_neighbour.getD_countryName() + ", ");
+                System.out.print(l_neighbour.getD_countryID() + ", ");
             }
             System.out.println("\n");
         }

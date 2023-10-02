@@ -3,7 +3,6 @@ package controller;
 import global.Constants;
 import models.Country;
 import models.Map;
-import models.Order;
 import models.Player;
 import util.MapUtil;
 
@@ -66,9 +65,8 @@ public class CommandParser {
      */
     public static void inputParser(GameManager p_gameManager, String p_input) {
         String[] l_cmdSplit = p_input.split(" ");
-        System.out.println("Command: " + l_cmdSplit[0]);
 
-        Map l_map = new Map();
+        Map l_map;
         l_map = p_gameManager.getD_map();
 
         switch (l_cmdSplit[0]) {
@@ -268,7 +266,7 @@ public class CommandParser {
             case "assigncountries":
                 p_gameManager.assignCountries();
                 p_gameManager.d_gamePhase = GameManager.GamePhase.IssueOrder;
-                System.out.println("Game has Begin!");
+                System.out.println("Game has Started!");
                 break;
 
             case "deploy":
@@ -282,9 +280,8 @@ public class CommandParser {
                 Country l_country = p_gameManager.getD_map().getD_countryByID(l_countryID);
 
                 int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
-                l_currentPlayer.setD_currentOrder(new Order(l_country, l_numArmies));
-                l_currentPlayer.issueOrder();
-                System.out.println("Issued Order");
+                p_gameManager.issueOrder(l_country, l_numArmies);
+
                 if (l_currentPlayer.getD_numArmies() == 0) {
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
                     System.out.println();
@@ -295,7 +292,7 @@ public class CommandParser {
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
                 } else {
-                    System.out.println("Reinforcement armies: " + l_currentPlayer.getD_numArmies());
+                    System.out.println("Available Reinforcement armies: " + l_currentPlayer.getD_numArmies());
                 }
                 break;
             default:

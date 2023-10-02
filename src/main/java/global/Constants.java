@@ -5,15 +5,16 @@ public class Constants {
 
     public static String MAP_INIT_HELP = "usage: " +
             "\n\t loadmap <filename> :\tLoads a map from the given file path " +
+            "\n\t editmap <filename> :\tloads a map from an existing “domination” map file, or create a new map from scratch if the file does not exist." +
+
             "\n\t editcontinent -add <continentID> <continentvalue> -remove <continentID" +
             ":\t Add/Remove continents to the map" +
-            "\n\t editcountry -add countryID continentID -remove countryID" +
+            "\n\t editcountry -add <countryID> <continentID> -remove <countryID>" +
             ":\t Add/Remove countries to the map" +
-            "\n\t editneighbor -add countryID neighborcountryID -remove countryID neighborcountryID" +
+            "\n\t editneighbor -add <countryID> <neighborcountryID> -remove <countryID> <neighborcountryID>" +
             ":\t Add/Remove neighbour countries to the map" +
             "\n" +
             "\n\t savemap <filename> :\tsaves the user-created map into a file path given" +
-            "\n\t editmap <filename> :\tloads a map from an existing “domination” map file, or create a new map from scratch if the file does not exist." +
             "\n\t validatemap :\tverifies the map correctness" +
             "\n" +
             "\n\t showmap :\tdisplays the map that is loaded, if valid";
@@ -29,8 +30,6 @@ public class Constants {
             "\n\t showmap :\tshow all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
                     "\t\t\t enables efficient game play";
 
-    public static String IN_GAME_HELP = "\n\t showmap        : show all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
-            "\t\t\t enables efficient game play";
-
+    public static String IN_GAME_HELP = "\n\t showmap :\tshow all countries and continents, armies on each country, ownership, and connectivity\n";
     public static String CMD_ERROR = "unknown command/option";
 }
