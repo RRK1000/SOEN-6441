@@ -15,6 +15,9 @@ import java.util.Random;
  */
 public class GameManager {
     private static Player d_player;
+    /**
+     * GamePhase instance
+     */
     public GamePhase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
@@ -72,6 +75,9 @@ public class GameManager {
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
     }
 
+    /**
+     * Method to update the turn of the player.
+     */
     public void updatePlayerTurn() {
         d_currentPlayerTurn = (++d_currentPlayerTurn) % d_playerList.size();
     }
@@ -85,6 +91,11 @@ public class GameManager {
         return this.d_map;
     }
 
+    /**
+     * Sets the current map.
+     *
+     * @param d_map Sets the current map.
+     */
     public void setD_map(Map d_map) {
         this.d_map = d_map;
     }
@@ -279,7 +290,7 @@ public class GameManager {
     /**
      * Gets the game's current phase.
      * <p>
-     * Possible values defined by {@link GamePhase}
+     * @param d_gamePhase Possible values defined by {@link GamePhase}
      */
     public void setD_gamePhase(GamePhase d_gamePhase) {
         this.d_gamePhase = d_gamePhase;
@@ -289,10 +300,25 @@ public class GameManager {
      * Represents the different phases of the game.
      */
     public enum GamePhase {
+        /**
+         * Initialize the map
+         */
         Map_Init,
+        /**
+         * Game startup phase
+         */
         Game_Startup,
+        /**
+         * Assigning armies to the players
+         */
         AssignReinforcements,
+        /**
+         * Issuing orders from the player
+         */
         IssueOrder,
+        /**
+         * Execute the order issued by the players
+         */
         ExecuteOrder
     }
 }
