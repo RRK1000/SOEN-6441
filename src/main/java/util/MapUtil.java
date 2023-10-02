@@ -14,6 +14,13 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the Map Utility class.
+ * This class is used to load, create, validate and show the map.
+ *
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
+ */
 public class MapUtil {
     /**
      * Loads the map from a given file, and stores it into {@link models.Map}
@@ -259,6 +266,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds continent to the game map.
      * @param p_map            {@link models.Map}
      * @param p_continentID    Continent ID of the new continent
      * @param p_continentValue Continent Value of the new continent
@@ -277,6 +285,7 @@ public class MapUtil {
     }
 
     /**
+     * This method removes the continent from the game map.
      * @param p_map         {@link models.Map}
      * @param p_continentID Continent ID of the continent to be deleted
      */
@@ -292,6 +301,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds country to the game map.
      * @param p_map         {@link models.Map}
      * @param p_countryID   Country ID of the new country
      * @param p_continentID Continent ID of the continent of which the country belongs to
@@ -313,6 +323,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds country to the game map.
      * @param p_map       {@link models.Map}
      * @param p_countryID Country ID of the country to be deleted
      */
@@ -328,6 +339,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds neighbour country to the game map.
      * @param p_map                {@link models.Map}
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex
@@ -346,6 +358,7 @@ public class MapUtil {
     }
 
     /**
+     * This method removes neighbour country to the game map.
      * @param p_map                {@link models.Map}
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex

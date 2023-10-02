@@ -8,7 +8,8 @@ import java.util.List;
  * Manages player-related functionalities.
  * This class is used in relationship with the GameController class to manage player actions.
  *
- * @author Yusuke, Anuja-Somthankar
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
  */
 public class Player {
     // Data Members

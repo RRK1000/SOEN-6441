@@ -10,6 +10,8 @@ import java.util.List;
  * This class is related to the Continent class.
  * This class is also related to the Map class.
  *
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
  * @author Yusuke
  */
 public class Country {

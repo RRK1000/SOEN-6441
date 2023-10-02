@@ -5,7 +5,9 @@ package models;
  * Manages order-executing functionalities.
  * This class is used in relationship with the GameController to manage actions of an order given by a player.
  *
- * @author Anuja-Somthankar
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
+ * @author Anuja Somthankar
  */
 public class Order {
     private Country d_country;

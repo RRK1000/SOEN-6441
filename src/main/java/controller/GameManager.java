@@ -12,6 +12,9 @@ import java.util.Random;
  * Manages game state, and the player actions involved during the game play
  *
  * @author Rishi Ravikumar
+ * @author Abhigyan Singh
+ * @author Nimisha Jadav
+ * @author Yusuke
  */
 public class GameManager {
     private static Player d_player;
@@ -56,8 +59,6 @@ public class GameManager {
 
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
-     *
-     * @author Nimisha Jadav
      */
     public void assignCountries() {
         Random l_random = new Random();
@@ -106,7 +107,6 @@ public class GameManager {
      * left to be assigned for the player
      *
      * @return true if all players have assigned all their armies, false otherwise.
-     * @author Abhigyan
      */
     public boolean check_armies() {
         for (Player l_player : d_playerList) {
@@ -136,7 +136,6 @@ public class GameManager {
      * Adds a new {@link models.Player} to the game
      *
      * @param p_playerName name of the player to be added
-     * @author Nimisha Jadav
      */
     public void addPlayer(String p_playerName) {
         if (d_playerList.size() < 6) {
@@ -159,7 +158,6 @@ public class GameManager {
      * Removes a {@link models.Player} from the game
      *
      * @param p_playerName name of the player to be removed
-     * @author Nimisha Jadav
      */
     public void removePlayer(String p_playerName) {
         for (Player l_p : d_playerList) {
@@ -177,8 +175,6 @@ public class GameManager {
      *
      * @param p_countryID The country to which the order pertains.
      * @param p_num         The number associated with the order.
-     * @author Rishi Ravikumar
-     * @author Abhigyan
      */
     public void issueOrder(Country p_countryID, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
@@ -202,9 +198,6 @@ public class GameManager {
 
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
-     *
-     * @author Rishi Ravikumar
-     * @author Nimisha Jadav
      */
     public void executeOrder() {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
@@ -218,9 +211,6 @@ public class GameManager {
     /**
      * Displays the {@link models.Map}, and the current game state
      * It shows all continents, countries, armies on each country, ownership, and connectivity.
-     *
-     * @author Rishi Ravikumar
-     * @author Yusuke Ishii
      */
 
 

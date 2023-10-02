@@ -8,6 +8,8 @@ import java.util.List;
  * Manages continent-related functionalities.
  * This class is related to the Country class, as each Continent can contain multiple Countries.
  *
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
  * @author Yusuke
  */
 public class Continent {
@@ -118,6 +120,11 @@ public class Continent {
         return d_countryList;
     }
 
+    /**
+     * Sets the country list.
+     *
+     * @param p_countryList Sets the country list.
+     */
     public void setD_countryList(List<Country> p_countryList) {
         this.d_countryList = p_countryList;
     }

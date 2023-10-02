@@ -11,9 +11,9 @@ import util.MapUtil;
  *
  * @author Rishi Ravikumar
  * @author Anuja Somthankar
- * @author - Abhigyan Singh
- * @author - Nimisha Jadav
- * @author - Yusuke
+ * @author Abhigyan Singh
+ * @author Nimisha Jadav
+ * @author Yusuke
  */
 public class CommandParser {
      /**

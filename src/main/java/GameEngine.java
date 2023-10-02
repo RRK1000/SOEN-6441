@@ -5,6 +5,13 @@ import global.Constants;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Represents the Game Engine.
+ * Represents the main game loop.
+ *
+ * @author Rishi Ravikumar
+ * @author Nimisha Jadav
+ */
 public class GameEngine {
 
 

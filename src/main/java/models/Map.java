@@ -13,6 +13,8 @@ import org.jgrapht.graph.DefaultEdge;
  * This class is also related to the Country class, as each Map can contain
  * multiple Countries.
  *
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
  * @author Yusuke
  */
 public class Map {
