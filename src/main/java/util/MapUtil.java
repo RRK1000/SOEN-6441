@@ -29,7 +29,7 @@ public class MapUtil {
 
         System.out.println("Loading the map from " + p_filename + "...");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(p_filename))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/"+p_filename))) {
             String line;
             line = reader.readLine();
 
@@ -125,14 +125,15 @@ public class MapUtil {
      * Saves the contents {@link models.Map} to a "domination" map file
      *
      * @param p_map The {@link models.Map} from which a file would be generated
+     * @param p_filename The file name which would be generated
      * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
      * @author Rishi Ravikumar
      */
-    public static Boolean saveMap(Map p_map) {
+    public static Boolean saveMap(Map p_map, String p_filename) {
         if (!isValidMap(p_map)) {
             return false;
         }
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/saveMap.txt"))) {
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/" + p_filename))) {
             l_writer.write("[continents]\n");
             for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
                 l_writer.write(l_continent.getD_continentID() + " " + l_continent.getD_continentValue() + " blue\n");

@@ -44,7 +44,7 @@ public class GameManager {
      * @author Nimisha Jadav
      */
     public void assignCountries() {
-        if(d_playerList.size() < 2){
+        if (d_playerList.size() < 2) {
             System.out.println("Too few players added. Minimum players required is 2");
             return;
         }
@@ -158,14 +158,14 @@ public class GameManager {
      * Adds an order to the current player’s list of orders
      *
      * @param p_countryID The country to which the order pertains.
-     * @param p_num         The number associated with the order.
+     * @param p_num       The number associated with the order.
      * @author Rishi Ravikumar
      * @author Abhigyan
      */
     public void issueOrder(Country p_countryID, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
         if (l_currentPlayer != null) {
-            if(l_currentPlayer.getD_numArmies() < p_num) {
+            if (l_currentPlayer.getD_numArmies() < p_num) {
                 System.out.println("Cannot issue order");
                 return;
             }
