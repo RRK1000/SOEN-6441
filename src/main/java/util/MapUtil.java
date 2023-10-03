@@ -29,7 +29,7 @@ public class MapUtil {
 
         System.out.println("Loading the map from " + p_filename + "...");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/"+p_filename))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
             String line;
             line = reader.readLine();
 
@@ -124,7 +124,7 @@ public class MapUtil {
     /**
      * Saves the contents {@link models.Map} to a "domination" map file
      *
-     * @param p_map The {@link models.Map} from which a file would be generated
+     * @param p_map      The {@link models.Map} from which a file would be generated
      * @param p_filename The file name which would be generated
      * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
      * @author Rishi Ravikumar
@@ -339,7 +339,7 @@ public class MapUtil {
             Country l_country = p_map.getD_countryByID(p_countryID);
             Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
             l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
-            l_countryMapGraph.addEdge(l_neighbourCountry,l_country);
+            l_countryMapGraph.addEdge(l_neighbourCountry, l_country);
             System.out.println("Added " + l_neighbourCountry.getD_countryID() + " and " + l_country.getD_countryID() + " as neighbors.");
         } catch (Exception e) {
             System.out.println("Unable to add neighbour");
