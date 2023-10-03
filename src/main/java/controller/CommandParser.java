@@ -26,10 +26,7 @@ public class CommandParser {
      * @return Boolean - true if the input string is not null else false.
      */
     public static Boolean isvalidInput(String p_input) {
-        if (p_input == null || p_input.trim().isEmpty()) {
-            return false;
-        }
-        return true;
+        return p_input != null && !p_input.trim().isEmpty();
     }
 
     /**
@@ -38,10 +35,9 @@ public class CommandParser {
      * @return Boolean true if current phase is initial phase or else retuen false.
      */
     public static Boolean isValidMapInitInput(GameManager p_gameManager) {
-        if (p_gameManager.getD_gamePhase() != GameManager.GamePhase.Map_Init) {
+        if (p_gameManager.getD_gamePhase() != GamePhase.Map_Init) {
             System.out.println(Constants.CMD_ERROR);
             System.out.println(Constants.HELP_MESSAGE);
-
             return false;
         }
         return true;
@@ -125,7 +121,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditNeighbor command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -160,7 +155,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditContinent command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -195,7 +189,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditCountry command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -203,9 +196,9 @@ public class CommandParser {
                 break;
 
             case "savemap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (l_cmdSplit.length == 2 && isValidMapInitInput(p_gameManager)) {
                     System.out.println("Saving the map");
-                    Boolean l_isMapSaved = MapUtil.saveMap(l_map);
+                    Boolean l_isMapSaved = MapUtil.saveMap(l_map, l_cmdSplit[1]);
                     if (l_isMapSaved) {
                         System.out.println("Map is saved");
                         System.out.println("Load the map to start the game.");
@@ -232,8 +225,7 @@ public class CommandParser {
                 if (isValidMapInitInput(p_gameManager)) {
                     System.out.println("Validating the map");
                     if (MapUtil.isValidMap(l_map)) {
-                        System.out.println("Map validation successful");
-                        p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
                     } else {
                         System.out.println("Map validation unsuccessful");
                     }
@@ -246,13 +238,14 @@ public class CommandParser {
             case "loadmap":
                 if (isValidMapInitInput(p_gameManager)) {
                     l_map = MapUtil.loadMap(l_cmdSplit[1]);
-                    if (MapUtil.isValidMap(l_map)) {
-                        p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                    if (!l_map.getD_countryMapGraph().vertexSet().isEmpty() && MapUtil.isValidMap(l_map)) {
+                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                        p_gameManager.setD_map(l_map);
+
                         System.out.println("Next, add players to the game");
                     } else {
                         l_map = new Map();
                     }
-                    p_gameManager.setD_map(l_map);
                     System.out.println(Constants.HELP_MESSAGE);
                 } else {
                     System.out.println(Constants.CMD_ERROR);
@@ -261,7 +254,12 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                if(p_gameManager.getD_map() != null){
+                    p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                } else {
+                    System.out.println("Map not initialized");
+                    break;
+                }
 
                 for (int i = 1; i < l_cmdSplit.length - 1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
@@ -278,8 +276,6 @@ public class CommandParser {
 
             case "assigncountries":
                 p_gameManager.assignCountries();
-                p_gameManager.d_gamePhase = GameManager.GamePhase.IssueOrder;
-                System.out.println("Game has Started!");
                 break;
 
             case "deploy":
@@ -299,14 +295,15 @@ public class CommandParser {
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
                     System.out.println();
                     p_gameManager.updatePlayerTurn();
-                    if(p_gameManager.getD_currentPlayerTurn() == 0){
+                    if (p_gameManager.getD_currentPlayerTurn() == 0) {
                         p_gameManager.executeOrder();
+                        p_gameManager.assignReinforcements();
                     }
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
-                } else {
-                    System.out.println("Available Reinforcement armies: " + l_currentPlayer.getD_numArmies());
                 }
+                System.out.println("Available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
+
                 break;
             default:
                 System.out.println(Constants.CMD_ERROR);

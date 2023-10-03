@@ -3,10 +3,12 @@ package controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CommandParserTest {
     GameManager d_gameManager;
+
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -15,7 +17,6 @@ class CommandParserTest {
     /**
      * Test switch case "loadmap". Checks whether map object is set,
      * and the country graph is not empty
-     *
      */
     @Test
     void inputParser1() {
@@ -28,7 +29,6 @@ class CommandParserTest {
     /**
      * Test switch case "editmap" on a valid map file. Checks whether map object is set,
      * and the country graph is not empty
-     *
      */
     @Test
     void inputParse2() {
@@ -41,7 +41,6 @@ class CommandParserTest {
     /**
      * Test switch case "editmap" on an invalid file. Checks whether map object is set,
      * and the country graph is not empty
-     *
      */
     @Test
     void inputParse3() {
