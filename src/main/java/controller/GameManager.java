@@ -5,7 +5,6 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents the Game Manager
@@ -14,8 +13,7 @@ import java.util.Random;
  * @author Rishi Ravikumar
  */
 public class GameManager {
-    private static Player d_player;
-    public GamePhase d_gamePhase;
+    private GamePhase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
     private Map d_map;
@@ -40,36 +38,31 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
     }
 
-
-    /**
-     * Constructor that initializes the GameManager with a player.
-     *
-     * @param p_player The player to be managed.
-     */
-
-    public GameManager(Player p_player) {
-        d_player = p_player;
-    }
-
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
      *
      * @author Nimisha Jadav
      */
     public void assignCountries() {
-        Random l_random = new Random();
-
+        if(d_playerList.size() < 2){
+            System.out.println("Too few players added. Minimum players required is 2");
+            return;
+        }
+        int l_playerIndex = 0;
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
-            int l_playerIndex = l_random.nextInt(d_playerList.size());
             Player l_player = d_playerList.get(l_playerIndex);
             l_player.addCountry(l_country);
             l_country.setD_owner(l_player);
+            l_playerIndex = (++l_playerIndex) % d_playerList.size();
         }
         System.out.println("Assigned countries to the players");
+        setD_gamePhase(GamePhase.IssueOrder);
+        System.out.println("Game has Started!");
         assignReinforcements();
 
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
+        System.out.println("Available Reinforcement armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
     }
 
     public void updatePlayerTurn() {
@@ -285,14 +278,5 @@ public class GameManager {
         this.d_gamePhase = d_gamePhase;
     }
 
-    /**
-     * Represents the different phases of the game.
-     */
-    public enum GamePhase {
-        Map_Init,
-        Game_Startup,
-        AssignReinforcements,
-        IssueOrder,
-        ExecuteOrder
-    }
+
 }

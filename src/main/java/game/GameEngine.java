@@ -1,3 +1,5 @@
+package game;
+
 import controller.CommandParser;
 import controller.GameManager;
 import global.Constants;
@@ -6,7 +8,6 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class GameEngine {
-
 
     /**
      * Main method to drive the game logic.
@@ -21,13 +22,12 @@ public class GameEngine {
         System.out.println("First, load a map / build a new map");
         System.out.println(Constants.HELP_MESSAGE);
 
-
-        String l_inputCommand = l_scanner.nextLine();
-
-        while (!Objects.equals(l_inputCommand, "exit")) {
-            CommandParser.inputParser(d_gameManager, l_inputCommand);
+        String l_inputCommand;
+        do {
+            System.out.print("\n> ");
             l_inputCommand = l_scanner.nextLine();
-        }
+            CommandParser.inputParser(d_gameManager, l_inputCommand);
+        } while (!Objects.equals(l_inputCommand, "exit"));
     }
 }
 

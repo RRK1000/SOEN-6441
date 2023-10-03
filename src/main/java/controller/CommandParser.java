@@ -27,10 +27,9 @@ public class CommandParser {
     }
 
     public static Boolean isValidMapInitInput(GameManager p_gameManager) {
-        if (p_gameManager.getD_gamePhase() != GameManager.GamePhase.Map_Init) {
+        if (p_gameManager.getD_gamePhase() != GamePhase.Map_Init) {
             System.out.println(Constants.CMD_ERROR);
             System.out.println(Constants.HELP_MESSAGE);
-
             return false;
         }
         return true;
@@ -112,7 +111,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditNeighbor command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -147,7 +145,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditContinent command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -182,7 +179,6 @@ public class CommandParser {
                             System.out.println(Constants.CMD_ERROR);
                         }
                     }
-                    System.out.println("EditCountry command execution completed.");
                 } else {
                     System.out.println(Constants.CMD_ERROR);
                     System.out.println(Constants.HELP_MESSAGE);
@@ -219,8 +215,7 @@ public class CommandParser {
                 if (isValidMapInitInput(p_gameManager)) {
                     System.out.println("Validating the map");
                     if (MapUtil.isValidMap(l_map)) {
-                        System.out.println("Map validation successful");
-                        p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
                     } else {
                         System.out.println("Map validation unsuccessful");
                     }
@@ -234,7 +229,7 @@ public class CommandParser {
                 if (isValidMapInitInput(p_gameManager)) {
                     l_map = MapUtil.loadMap(l_cmdSplit[1]);
                     if (MapUtil.isValidMap(l_map)) {
-                        p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
                         System.out.println("Next, add players to the game");
                     } else {
                         l_map = new Map();
@@ -248,7 +243,7 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                p_gameManager.d_gamePhase = GameManager.GamePhase.Game_Startup;
+                p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
 
                 for (int i = 1; i < l_cmdSplit.length - 1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
@@ -265,8 +260,6 @@ public class CommandParser {
 
             case "assigncountries":
                 p_gameManager.assignCountries();
-                p_gameManager.d_gamePhase = GameManager.GamePhase.IssueOrder;
-                System.out.println("Game has Started!");
                 break;
 
             case "deploy":
@@ -291,9 +284,9 @@ public class CommandParser {
                     }
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
-                } else {
-                    System.out.println("Available Reinforcement armies: " + l_currentPlayer.getD_numArmies());
                 }
+                System.out.println("Available Reinforcement armies: " + l_currentPlayer.getD_numArmies());
+
                 break;
             default:
                 System.out.println(Constants.CMD_ERROR);
