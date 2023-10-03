@@ -53,7 +53,7 @@ public class GameManager {
             Player l_player = d_playerList.get(l_playerIndex);
             l_player.addCountry(l_country);
             l_country.setD_owner(l_player);
-            l_playerIndex = (++l_playerIndex) % d_playerList.size();
+            l_playerIndex = ((l_playerIndex+1) % d_playerList.size());
         }
         System.out.println("Assigned countries to the players");
         setD_gamePhase(GamePhase.IssueOrder);
@@ -62,11 +62,11 @@ public class GameManager {
 
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
-        System.out.println("Available Reinforcement armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
+        System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
     }
 
     public void updatePlayerTurn() {
-        d_currentPlayerTurn = (++d_currentPlayerTurn) % d_playerList.size();
+        d_currentPlayerTurn = (d_currentPlayerTurn+1) % d_playerList.size();
     }
 
     /**
@@ -104,14 +104,14 @@ public class GameManager {
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      */
     public void assignReinforcements() {
-        int l_numArmies = (int) Math.min((double) (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
+        int l_numArmies = Math.min((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
             l_player.setD_numArmies(l_player.getD_numArmies() + l_numArmies);
             for (Continent l_c : l_player.getD_continentList()) {
                 l_player.setD_numArmies(l_player.getD_numArmies() + l_c.getD_continentValue());
             }
         }
-        System.out.println("Reinforcement armies have been assigned to each player");
+        System.out.println("Reinforcement armies have been assigned to each player\n");
     }
 
     /**
@@ -189,12 +189,11 @@ public class GameManager {
      * @author Nimisha Jadav
      */
     public void executeOrder() {
-        Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
-
-        for (int i = 0; i <= d_playerList.size(); i++) {
-            Order l_order = l_currentPlayer.nextOrder();
+        for(Player l_player: d_playerList){
+            Order l_order = l_player.nextOrder();
             l_order.execute();
         }
+        System.out.println("Orders have been executed for this round.");
     }
 
     /**

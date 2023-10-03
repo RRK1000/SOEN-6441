@@ -225,13 +225,14 @@ public class CommandParser {
             case "loadmap":
                 if (isValidMapInitInput(p_gameManager)) {
                     l_map = MapUtil.loadMap(l_cmdSplit[1]);
-                    if (MapUtil.isValidMap(l_map)) {
+                    if (!l_map.getD_countryMapGraph().vertexSet().isEmpty() && MapUtil.isValidMap(l_map)) {
                         p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                        p_gameManager.setD_map(l_map);
+
                         System.out.println("Next, add players to the game");
                     } else {
                         l_map = new Map();
                     }
-                    p_gameManager.setD_map(l_map);
                     System.out.println(Constants.HELP_MESSAGE);
                 } else {
                     System.out.println(Constants.CMD_ERROR);
@@ -240,7 +241,12 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                if(p_gameManager.getD_map() != null){
+                    p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                } else {
+                    System.out.println("Map not initialized");
+                    break;
+                }
 
                 for (int i = 1; i < l_cmdSplit.length - 1; i++) {
                     if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
@@ -278,11 +284,12 @@ public class CommandParser {
                     p_gameManager.updatePlayerTurn();
                     if (p_gameManager.getD_currentPlayerTurn() == 0) {
                         p_gameManager.executeOrder();
+                        p_gameManager.assignReinforcements();
                     }
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
                 }
-                System.out.println("Available Reinforcement armies: " + l_currentPlayer.getD_numArmies());
+                System.out.println("Available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
 
                 break;
             default:
