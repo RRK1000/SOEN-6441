@@ -20,10 +20,7 @@ public class CommandParser {
      * @author Yusuke
      */
     public static Boolean isvalidInput(String p_input) {
-        if (p_input == null || p_input.trim().isEmpty()) {
-            return false;
-        }
-        return true;
+        return p_input != null && !p_input.trim().isEmpty();
     }
 
     public static Boolean isValidMapInitInput(GameManager p_gameManager) {
@@ -186,9 +183,9 @@ public class CommandParser {
                 break;
 
             case "savemap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (l_cmdSplit.length == 2 && isValidMapInitInput(p_gameManager)) {
                     System.out.println("Saving the map");
-                    Boolean l_isMapSaved = MapUtil.saveMap(l_map);
+                    Boolean l_isMapSaved = MapUtil.saveMap(l_map, l_cmdSplit[1]);
                     if (l_isMapSaved) {
                         System.out.println("Map is saved");
                         System.out.println("Load the map to start the game.");
@@ -279,7 +276,7 @@ public class CommandParser {
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
                     System.out.println();
                     p_gameManager.updatePlayerTurn();
-                    if(p_gameManager.getD_currentPlayerTurn() == 0){
+                    if (p_gameManager.getD_currentPlayerTurn() == 0) {
                         p_gameManager.executeOrder();
                     }
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
