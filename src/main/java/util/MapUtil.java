@@ -133,6 +133,7 @@ public class MapUtil {
         if (!isValidMap(p_map)) {
             return false;
         }
+
         try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/" + p_filename))) {
             l_writer.write("[continents]\n");
             for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
@@ -321,6 +322,10 @@ public class MapUtil {
         try {
             DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
             Country l_country = p_map.getD_countryByID(p_countryID);
+
+            Continent l_continent = p_map.getD_continentByID(l_country.getD_continentID());
+            l_continent.removeCountry(l_country);
+
             l_countryMapGraph.removeVertex(l_country);
             System.out.println("Removed country " + l_country.getD_countryID() + " in continent " + l_country.getD_continentID());
         } catch (Exception e) {
