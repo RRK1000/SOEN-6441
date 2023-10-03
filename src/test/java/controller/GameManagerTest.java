@@ -1,17 +1,18 @@
 package controller;
 
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Player;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import util.MapUtil;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import models.Continent;
+import models.Country;
+import models.Map;
+import models.Player;
+import util.MapUtil;
 
 /**
  * This class contains the test methods for GameManager.java.
@@ -31,20 +32,25 @@ class GameManagerTest {
         // Create test players
         String player1Name = "Player1";
         String player2Name = "Player2";
-        Player player1 = new Player("Player1");
-        Player player2 = new Player("Player2");
+      //  Player player1 = new Player("Player1");
+       // Player player2 = new Player("Player2");
+        player1 = new Player(player1Name);  
+        player2 = new Player(player2Name);  
 
+        
         // Create test countries and continents
         int country1ID = 1;
         int country2ID = 2;
         int continent1ID = 1;
-        Country country1 = new Country(1, new ArrayList<>(), 0);
-        Country country2 = new Country(2, new ArrayList<>(), 0);
+        Country country1 = new Country(1, new ArrayList<>(), 3);
+        Country country2 = new Country(2, new ArrayList<>(), 3);
         Continent continent1 = new Continent(1, 3);
 
         // Add countries and continents to players
+        List<Continent> continentList = new ArrayList<>();
+        continentList.add(continent1);
         player1.addCountry(country1);
-        player1.setD_continentList((List<Continent>) continent1);
+        player1.setD_continentList(continentList);
 
         player2.addCountry(country2);
 
@@ -54,7 +60,9 @@ class GameManagerTest {
         countriesToAdd.add(country1);
         countriesToAdd.add(country2);
 
-        GameManager gameManager = new GameManager(map);
+       // GameManager gameManager = new GameManager(map);
+        gameManager = new GameManager(map);  // Use class field directly
+
 
         MapUtil.addCountry(map, country1ID, continent1ID);
         MapUtil.addCountry(map, country2ID, continent1ID);
@@ -65,7 +73,7 @@ class GameManagerTest {
         gameManager.addPlayer(player2Name);
 
         // Set the game phase to AssignReinforcements for testing
-        gameManager.setD_gamePhase(GameManager.GamePhase.AssignReinforcements);
+        gameManager.setD_gamePhase(GamePhase.AssignReinforcements);
 
         // Assign test data to class fields for use in test methods
         this.gameManager = gameManager;
@@ -84,6 +92,7 @@ class GameManagerTest {
         // Calculate the expected number of reinforcements for each player
         int expectedPlayer1Armies = (int) Math.min((double) (map.getD_countryMapGraph().vertexSet().size() / 3), 3) + 3; // 3 for continent value
         int expectedPlayer2Armies = (int) Math.min((double) (map.getD_countryMapGraph().vertexSet().size() / 3), 3); // No continents
+        System.out.println(expectedPlayer1Armies);
 
         // Call the assignReinforcements method
 
