@@ -25,11 +25,11 @@ class CommandParserTest {
 		d_order = new Order(d_country, 3);
 		d_player.setD_currentOrder(d_order);
 	}
+	
 
 	/**
 	 * Tests the scenario where a player attempts to deploy more armies than
-	 * available in their reinforcement pool
-	 *
+	 * available in their reinforcement pool.
 	 * The test first ensures that the player starts with a specific number of
 	 * armies. After issuing an order to deploy a certain number of armies, the test
 	 * checks that the player's remaining armies are as expected
