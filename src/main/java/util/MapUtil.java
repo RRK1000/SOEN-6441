@@ -14,13 +14,19 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the Map Utility class.
+ * This class is used to load, create, validate and show the map.
+ *
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
+ */
 public class MapUtil {
     /**
      * Loads the map from a given file, and stores it into {@link models.Map}
      *
      * @param p_filename The name of the file to load the map from
      * @return {@link models.Map}
-     * @author Rishi Ravikumar
      */
     public static Map loadMap(String p_filename) {
         Map l_map = new Map();
@@ -111,7 +117,6 @@ public class MapUtil {
      *
      * @param p_filename The name of the file to load the map from
      * @return {@link models.Map}
-     * @author Rishi Ravikumar
      */
     public static Map editMap(String p_filename) {
         Map l_map;
@@ -131,7 +136,6 @@ public class MapUtil {
      * @param p_map      The {@link models.Map} from which a file would be generated
      * @param p_filename The file name which would be generated
      * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
-     * @author Rishi Ravikumar
      */
     public static Boolean saveMap(Map p_map, String p_filename) {
         if (!isValidMap(p_map)) {
@@ -179,7 +183,6 @@ public class MapUtil {
      *
      * @param p_graphMap The Map object
      * @return A boolean value - True if map is valid, otherwise false
-     * @author Anuja-Somthankar
      */
     public static Boolean isValidMap(Map p_graphMap) {
         if (p_graphMap == null) {
@@ -247,7 +250,6 @@ public class MapUtil {
      * This method displays the map, i.e., it shows all continents and countries and their respective neighbors
      *
      * @param p_graphMap Object of the Map graph
-     * @author Anuja-Somthankar
      */
     public static void showMap(Map p_graphMap) {
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
@@ -265,6 +267,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds continent to the game map.
      * @param p_map            {@link models.Map}
      * @param p_continentID    Continent ID of the new continent
      * @param p_continentValue Continent Value of the new continent
@@ -283,6 +286,7 @@ public class MapUtil {
     }
 
     /**
+     * This method removes the continent from the game map.
      * @param p_map         {@link models.Map}
      * @param p_continentID Continent ID of the continent to be deleted
      */
@@ -298,6 +302,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds country to the game map.
      * @param p_map         {@link models.Map}
      * @param p_countryID   Country ID of the new country
      * @param p_continentID Continent ID of the continent of which the country belongs to
@@ -319,6 +324,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds country to the game map.
      * @param p_map       {@link models.Map}
      * @param p_countryID Country ID of the country to be deleted
      */
@@ -338,6 +344,7 @@ public class MapUtil {
     }
 
     /**
+     * This method adds neighbour country to the game map.
      * @param p_map                {@link models.Map}
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex
@@ -361,6 +368,7 @@ public class MapUtil {
     }
 
     /**
+     * This method removes neighbour country to the game map.
      * @param p_map                {@link models.Map}
      * @param p_countryID          Country ID of the source country vertex
      * @param p_neighbourCountryID Country ID of the neighbouring country vertex

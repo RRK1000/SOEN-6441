@@ -6,23 +6,34 @@ import models.Map;
 import models.Player;
 import util.MapUtil;
 
+/** Represents the command parser.
+ * It handles the commands entered by player and validates it.
+ *
+ * @author Rishi Ravikumar
+ * @author Anuja Somthankar
+ * @author Abhigyan Singh
+ * @author Nimisha Jadav
+ * @author Yusuke
+ */
 public class CommandParser {
-
-    /**
+     /**
      * Validates the provided input string.
      * <p>
-     * This method checks if the input string is null or empty. If the input is invalid,
-     * it throws an IllegalArgumentException.
+     * This method checks if the input string is null or empty.
      * </p>
      *
      * @param p_input The input string to be validated.
-     * @throws IllegalArgumentException if the input string is null or empty.
-     * @author Yusuke
+     * @return Boolean - true if the input string is not null else false.
      */
     public static Boolean isvalidInput(String p_input) {
         return p_input != null && !p_input.trim().isEmpty();
     }
 
+    /**
+     * Checks the initial phase of the game.
+     * @param p_gameManager Instance of Game Manager class
+     * @return Boolean true if current phase is initial phase or else retuen false.
+     */
     public static Boolean isValidMapInitInput(GameManager p_gameManager) {
         if (p_gameManager.getD_gamePhase() != GamePhase.Map_Init) {
             System.out.println(Constants.CMD_ERROR);
@@ -32,6 +43,10 @@ public class CommandParser {
         return true;
     }
 
+    /**
+     * Displays the current phase of the game
+     * @param p_gameManager {@link GameManager}
+     */
     public static void displayInstructions(GameManager p_gameManager) {
         switch (p_gameManager.getD_gamePhase()) {
             case Map_Init:
@@ -49,15 +64,12 @@ public class CommandParser {
         System.out.println(Constants.GAME_EXIT);
     }
 
-
     /**
      * This method is used to read the command given by the player and validates if the syntax
      * of the command is correct and then takes the action accordingly
      *
      * @param p_input - Command entered by the player
-     * @author - Abhigyan
-     * @author - Nimisha
-     * @author - Yusuke
+     * @param p_gameManager {@link GameManager}
      */
     public static void inputParser(GameManager p_gameManager, String p_input) {
         String[] l_cmdSplit = p_input.split(" ");
@@ -78,7 +90,6 @@ public class CommandParser {
                     p_gameManager.showMap();
                 }
                 break;
-
 
             case "editneighbor":
                 if (isValidMapInitInput(p_gameManager)) {
@@ -147,7 +158,6 @@ public class CommandParser {
                     System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
-
 
             case "editcountry":
                 if (isValidMapInitInput(p_gameManager)) {
@@ -296,7 +306,6 @@ public class CommandParser {
                 System.out.println(Constants.CMD_ERROR);
                 System.out.println(Constants.HELP_MESSAGE);
         }
-
     }
 }
 
