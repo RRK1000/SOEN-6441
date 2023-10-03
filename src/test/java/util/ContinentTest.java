@@ -17,6 +17,7 @@ import models.Map;
 
 /**
  * Tests functionalities related to continents.
+ * @author Yusuke Ishii
  */
 public class ContinentTest {
 
@@ -25,7 +26,7 @@ public class ContinentTest {
     private Country d_country1, d_country2, d_country3, d_country4;
 
     /**
-     * Setup for the test cases.
+     * Setup for the test cases
      */
     @BeforeEach
     public void setup() {
@@ -148,3 +149,4 @@ public class ContinentTest {
         return l_inspector.isConnected();
     }
 }
+
