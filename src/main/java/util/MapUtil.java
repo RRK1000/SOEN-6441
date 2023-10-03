@@ -29,7 +29,7 @@ public class MapUtil {
 
         System.out.println("Loading the map from " + p_filename + "...");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(p_filename))) {
             String line;
             line = reader.readLine();
 
@@ -134,7 +134,7 @@ public class MapUtil {
             return false;
         }
 
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/" + p_filename))) {
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_filename))) {
             l_writer.write("[continents]\n");
             for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
                 l_writer.write(l_continent.getD_continentID() + " " + l_continent.getD_continentValue() + " blue\n");
