@@ -31,5 +31,5 @@ public class Constants {
             "\t\t\t\t\t\t\t\t enables efficient game play";
 
     public static String IN_GAME_HELP = "\n\t showmap :\tshow all countries and continents, armies on each country, ownership, and connectivity\n";
-    public static String CMD_ERROR = "unknown command/option";
+    public static String CMD_ERROR = "invalid command/option";
 }
