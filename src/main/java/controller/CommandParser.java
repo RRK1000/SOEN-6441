@@ -64,7 +64,6 @@ public class CommandParser {
         System.out.println(Constants.GAME_EXIT);
     }
 
-
     /**
      * This method is used to read the command given by the player and validates if the syntax
      * of the command is correct and then takes the action accordingly
@@ -91,7 +90,6 @@ public class CommandParser {
                     p_gameManager.showMap();
                 }
                 break;
-
 
             case "editneighbor":
                 if (isValidMapInitInput(p_gameManager)) {
@@ -160,7 +158,6 @@ public class CommandParser {
                     System.out.println(Constants.HELP_MESSAGE);
                 }
                 break;
-
 
             case "editcountry":
                 if (isValidMapInitInput(p_gameManager)) {
@@ -309,7 +306,6 @@ public class CommandParser {
                 System.out.println(Constants.CMD_ERROR);
                 System.out.println(Constants.HELP_MESSAGE);
         }
-
     }
 }
 

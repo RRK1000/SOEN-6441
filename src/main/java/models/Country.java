@@ -60,13 +60,11 @@ public class Country {
         this.d_countryID = p_countryID;
     }
 
-
     /**
      * Gets the country Name.
      *
      * @return the country Name.
      */
-
     public String getD_countryName() {
         return d_countryName;
     }
@@ -76,7 +74,6 @@ public class Country {
      *
      * @param d_countryName The new name of the country.
      */
-
     public void setD_countryName(String d_countryName) {
         this.d_countryName = d_countryName;
     }
@@ -86,7 +83,6 @@ public class Country {
      *
      * @return The continent ID.
      */
-
     public int getD_continentID() {
         return d_continentID;
     }

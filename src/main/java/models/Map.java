@@ -18,7 +18,6 @@ import org.jgrapht.graph.DefaultEdge;
  * @author Yusuke
  */
 public class Map {
-
     private DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph;
     private DefaultDirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
 
@@ -37,7 +36,6 @@ public class Map {
      * @param p_countryID The ID of the country to retrieve.
      * @return The country with the specified ID, or null if not found.
      */
-
     public Country getD_countryByID(int p_countryID) {
         for (Country c : d_countryMapGraph.vertexSet()) {
             if (c.getD_countryID() == p_countryID)
@@ -52,7 +50,6 @@ public class Map {
      * @param p_continentID The ID of the continent to retrieve.
      * @return The continent with the specified ID, or null if not found.
      */
-
     public Continent getD_continentByID(int p_continentID) {
         for (Continent c : d_continentMapGraph.vertexSet()) {
             if (c.getD_continentID() == p_continentID)
@@ -66,7 +63,6 @@ public class Map {
      *
      * @return The directed graph of countries.
      */
-
     public DefaultDirectedGraph<Country, DefaultEdge> getD_countryMapGraph() {
         return d_countryMapGraph;
     }
@@ -76,7 +72,6 @@ public class Map {
      *
      * @param d_countryMapGraph The new directed graph of countries.
      */
-
     public void setD_countryMapGraph(DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph) {
         this.d_countryMapGraph = d_countryMapGraph;
     }

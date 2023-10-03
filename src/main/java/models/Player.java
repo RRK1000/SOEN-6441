@@ -20,13 +20,11 @@ public class Player {
     private List<Order> d_orderList;
     private Order d_currentOrder;
 
-
     /**
      * Default constructor for Player class
      *
      * @param p_playerName Name of the player
      */
-
     public Player(String p_playerName) {
         this.d_playerName = p_playerName;
         this.d_countryList = new ArrayList<>();
@@ -56,7 +54,6 @@ public class Player {
      *
      * @param p_country The country to be added
      */
-
     public void addCountry(Country p_country) {
         this.d_countryList.add(p_country);
     }

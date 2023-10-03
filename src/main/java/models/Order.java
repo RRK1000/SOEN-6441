@@ -13,14 +13,12 @@ public class Order {
     private Country d_country;
     private int d_num;
 
-
     /**
      * Constructor for the Order class.
      *
      * @param country The country on which the order is to be executed.
      * @param num     The number of armies to be deployed.
      */
-
     public Order(Country country, int num) {
         this.d_country = country;
         this.d_num = num;
@@ -34,7 +32,6 @@ public class Order {
     public Country getD_country() {
         return d_country;
     }
-
 
     /**
      * Sets the country specified in the order.
@@ -68,6 +65,5 @@ public class Order {
      */
     public void execute() {
         d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
-
     }
 }

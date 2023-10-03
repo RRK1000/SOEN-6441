@@ -38,7 +38,6 @@ public class GameManager {
     /**
      * Default constructor for GameManager.
      */
-
     public GameManager() {
         this.d_gamePhase = GamePhase.Map_Init;
         this.d_playerList = new ArrayList<>();
@@ -94,7 +93,6 @@ public class GameManager {
         this.d_map = d_map;
     }
 
-
     /**
      * check if enough armies are
      * left to be assigned for the player
@@ -109,7 +107,6 @@ public class GameManager {
         }
         return true;
     }
-
 
     /**
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
@@ -144,7 +141,6 @@ public class GameManager {
         } else {
             System.out.println("You have reached the limit to add players");
         }
-
     }
 
     /**
@@ -168,8 +164,6 @@ public class GameManager {
      *
      * @param p_countryID The country to which the order pertains.
      * @param p_num       The number associated with the order.
-     * @author Rishi Ravikumar
-     * @author Abhigyan
      */
     public void issueOrder(Country p_countryID, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
@@ -206,8 +200,6 @@ public class GameManager {
      * Displays the {@link models.Map}, and the current game state
      * It shows all continents, countries, armies on each country, ownership, and connectivity.
      */
-
-
     public void showMap() {
 
         Map l_map = this.getD_map();
@@ -231,7 +223,6 @@ public class GameManager {
             System.out.println("\n");
         }
     }
-
 
     /**
      * Gets the list of players in the current active game
@@ -273,11 +264,10 @@ public class GameManager {
 
     /**
      * Gets the game's current phase.
-     * <p>
+     *
      * @param d_gamePhase Possible values defined by {@link GamePhase}
      */
     public void setD_gamePhase(GamePhase d_gamePhase) {
         this.d_gamePhase = d_gamePhase;
     }
-
 }

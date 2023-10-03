@@ -18,7 +18,6 @@ public class Continent {
     private int d_continentValue;
     private List<Country> d_countryList;
 
-
     /**
      * Default constructor for Continent class.
      */
@@ -91,7 +90,6 @@ public class Continent {
     public void setD_continentName(String p_continentName) {
         this.d_continentName = p_continentName;
     }
-
 
     /**
      * Gets the continent value.
