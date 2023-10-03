@@ -17,11 +17,11 @@ Austria-Hungary 5 #80ffb5
 Prussia 5 #9e80ff
 Northern_Italy 5 #80e9ff
 Southern_Italy 5 #eeff80
+Southern_France 5 #eeff80
 
 [countries]
 1 s1 1 66 28
 2 s2 1 384 39
-2 r82 2 433 49
 3 s3 1 459 61
 4 s4 1 494 34
 5 s5 1 607 24

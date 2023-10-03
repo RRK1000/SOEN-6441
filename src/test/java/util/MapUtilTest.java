@@ -1,7 +1,6 @@
 package util;
 
 import models.Map;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,23 +8,18 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class contains the test methods for MapUtil.java.
  * The tested functions are loadMap, validateMap.
+ *
  * @author Anuja-Somthankar Rishi Ravikumar
  */
 class MapUtilTest {
-    private static MapUtil d_mapUtil;
-
-    @BeforeAll
-    static void setUp() {
-        d_mapUtil = new MapUtil();
-    }
 
     /**
      * This test loads a valid map and checks if the countryMapGraph and the continentMapGraph is initialized
      */
     @Test
     void loadMapTest1() {
-        Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
-        d_mapUtil.showMap(l_map);
+        Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
+        MapUtil.showMap(l_map);
 
         assertFalse(l_map.getD_countryMapGraph().vertexSet().isEmpty());
         assertFalse(l_map.getD_continentMapGraph().vertexSet().isEmpty());
@@ -36,9 +30,8 @@ class MapUtilTest {
      */
     @Test
     void editMapTest1() {
-        MapUtil mapUtil = new MapUtil();
-        Map map = mapUtil.editMap("src/test/resources/InvalidMap1.txt");
-        mapUtil.showMap(map);
+        Map map = MapUtil.editMap("src/test/resources/InvalidMap1.txt");
+        MapUtil.showMap(map);
 
         assertNotNull(map);
     }
@@ -48,9 +41,8 @@ class MapUtilTest {
      */
     @Test
     void editMapTest2() {
-        MapUtil mapUtil = new MapUtil();
-        Map map = mapUtil.editMap("src/test/resources/invalid.txt");
-        mapUtil.showMap(map);
+        Map map = MapUtil.editMap("src/test/resources/invalid.txt");
+        MapUtil.showMap(map);
 
         assertNotNull(map);
     }
@@ -62,10 +54,10 @@ class MapUtilTest {
      * Expected Results: The map is invalid, hence false should be returned, with the message "Country x doesn't have neighbours"
      */
     @Test
-     void isValidMapTest1() {
-        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap1.txt");
+    void isValidMapTest1() {
+        Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap1.txt");
 
-        assertFalse(d_mapUtil.isValidMap(l_map));
+        assertFalse(MapUtil.isValidMap(l_map));
     }
 
     /**
@@ -76,9 +68,9 @@ class MapUtilTest {
      */
     @Test
     void isValidMapTest2() {
-        Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
+        Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
 
-        assertTrue(d_mapUtil.isValidMap(l_map));
+        assertTrue(MapUtil.isValidMap(l_map));
     }
 
     /**
@@ -91,20 +83,20 @@ class MapUtilTest {
     void isValidMapTest3() {
         Map l_map = null;
 
-        assertFalse(d_mapUtil.isValidMap(l_map));
+        assertFalse(MapUtil.isValidMap(l_map));
     }
 
     /**
      * This test tests the validateMap function. It takes a map object and passes it to validateMap() to check if validation is correct.
      * In this test, one neighbour is mapped to another, but that neighbour is not mapped to it.
      * Context: A map object is passed.
-     * Expected Results: The map is invalid, hence false should be returned.
+     * Expected Results: The map is invalid, hence false should be returned, with message saying that there is a neighbour mismatch.
      */
     @Test
-    void isValidMapTest4() {  //neighbour mismatch
-        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap3.txt");
+    void isValidMapTest4() {
+        Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap3.txt");
 
-        assertFalse(d_mapUtil.isValidMap(l_map));
+        assertFalse(MapUtil.isValidMap(l_map));
     }
 
     /**
@@ -114,31 +106,30 @@ class MapUtilTest {
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
-    void isValidMapTest5() {  //neighbour mismatch
-        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap4.txt");
+    void isValidMapTest5() {
+        Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap4.txt");
 
-        assertFalse(d_mapUtil.isValidMap(l_map));
+        assertFalse(MapUtil.isValidMap(l_map));
     }
 
     /**
      * This test tests the validateMap function. It takes a map object and passes it to validateMap() to check if validation is correct.
-     * In this test, there is a duplicate country.
+     * In this test, there is a disconnected continent.
      * Context: A map object is passed.
      * Expected Results: The map is invalid, hence false should be returned.
      */
     @Test
-    void isValidMapTest6() {  //neighbour mismatch
-        Map l_map = d_mapUtil.loadMap("src/test/resources/InvalidMap5.txt");
+    void isValidMapTest6() {
+        Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap5.txt");
 
-        assertFalse(d_mapUtil.isValidMap(l_map));
+        assertFalse(MapUtil.isValidMap(l_map));
     }
-
     /**
      * This test checks the saveMap() function for a valid map
      */
     @Test
     void saveMap() {
-        Map l_map = d_mapUtil.loadMap("src/test/resources/validMap2.txt");
-        assertTrue(d_mapUtil.saveMap(l_map));
+        Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
+        assertTrue(MapUtil.saveMap(l_map, "src/test/resources/savedMap.txt"));
     }
 }

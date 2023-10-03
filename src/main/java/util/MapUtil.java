@@ -84,6 +84,10 @@ public class MapUtil {
                             l_neighbourhoodCountryIDList.add(Integer.valueOf(borderData[l_id]));
                             Country l_neighbour = l_map.getD_countryByID(Integer.parseInt(borderData[l_id]));
                             l_countryMapGraph.addEdge(l_currentCountry, l_neighbour);
+                            if(l_currentCountry.getD_continentID()!=l_neighbour.getD_continentID()){
+                                l_continentMapGraph.addEdge(l_map.getD_continentByID(l_currentCountry.getD_continentID()),l_map.getD_continentByID(l_neighbour.getD_continentID()));
+                                l_continentMapGraph.addEdge(l_map.getD_continentByID(l_neighbour.getD_continentID()), l_map.getD_continentByID(l_currentCountry.getD_continentID()));
+                            }
                         }
                         l_currentCountry.setD_neighbourCountryIDList(l_neighbourhoodCountryIDList);
                         line = reader.readLine();
@@ -124,15 +128,17 @@ public class MapUtil {
     /**
      * Saves the contents {@link models.Map} to a "domination" map file
      *
-     * @param p_map The {@link models.Map} from which a file would be generated
+     * @param p_map      The {@link models.Map} from which a file would be generated
+     * @param p_filename The file name which would be generated
      * @return true if the file was saved successfully, false in case the {@link models.Map} is invalid
      * @author Rishi Ravikumar
      */
-    public static Boolean saveMap(Map p_map) {
+    public static Boolean saveMap(Map p_map, String p_filename) {
         if (!isValidMap(p_map)) {
             return false;
         }
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter("src/main/resources/saveMap.txt"))) {
+
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_filename))) {
             l_writer.write("[continents]\n");
             for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
                 l_writer.write(l_continent.getD_continentID() + " " + l_continent.getD_continentValue() + " blue\n");
@@ -201,7 +207,7 @@ public class MapUtil {
         }
 
         for (Country l_country : l_countryMapGraph.vertexSet()) {
-            if (l_country.getD_neighbourCountryIDList() == null) {
+            if (l_country.getD_neighbourCountryIDList().isEmpty()) {
                 System.out.println("Country " + l_country.getD_countryID() + " doesnt have neighbours");
                 return false;
             }
@@ -219,7 +225,7 @@ public class MapUtil {
             }
         }
 
-        if (!GraphTests.isSimple(l_continentMapGraph)) {
+        if (!GraphTests.isWeaklyConnected(l_continentMapGraph)|| !GraphTests.isSimple(l_continentMapGraph)) {
             System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
             System.out.println("Reasons for the following could be either a duplicate continent or some continent is not connected with others.");
             System.out.println("Also possible that some continent has itself as a neighbour or some neighbour is stated more than once for a continent.");
@@ -320,6 +326,10 @@ public class MapUtil {
         try {
             DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
             Country l_country = p_map.getD_countryByID(p_countryID);
+
+            Continent l_continent = p_map.getD_continentByID(l_country.getD_continentID());
+            l_continent.removeCountry(l_country);
+
             l_countryMapGraph.removeVertex(l_country);
             System.out.println("Removed country " + l_country.getD_countryID() + " in continent " + l_country.getD_continentID());
         } catch (Exception e) {
@@ -335,10 +345,15 @@ public class MapUtil {
     public static void addNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
         try {
             DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
             Country l_country = p_map.getD_countryByID(p_countryID);
             Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
             l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
-            l_countryMapGraph.addEdge(l_neighbourCountry,l_country);
+            l_countryMapGraph.addEdge(l_neighbourCountry, l_country);
+            if(l_country.getD_continentID()!=l_neighbourCountry.getD_continentID()){
+                l_continentMapGraph.addEdge(p_map.getD_continentByID(l_country.getD_continentID()),p_map.getD_continentByID(l_neighbourCountry.getD_continentID()));
+                l_continentMapGraph.addEdge(p_map.getD_continentByID(l_neighbourCountry.getD_continentID()), p_map.getD_continentByID(l_country.getD_continentID()));
+            }
             System.out.println("Added " + l_neighbourCountry.getD_countryID() + " and " + l_country.getD_countryID() + " as neighbors.");
         } catch (Exception e) {
             System.out.println("Unable to add neighbour");
@@ -353,10 +368,15 @@ public class MapUtil {
     public static void removeNeighbour(Map p_map, int p_countryID, int p_neighbourCountryID) {
         try {
             DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
+            DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_map.getD_continentMapGraph();
             Country l_country = p_map.getD_countryByID(p_countryID);
             Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
             l_countryMapGraph.removeEdge(l_country, l_neighbourCountry);
             l_countryMapGraph.removeEdge(l_neighbourCountry, l_country);
+            if(l_country.getD_continentID()!=l_neighbourCountry.getD_continentID()){
+                l_continentMapGraph.removeEdge(p_map.getD_continentByID(l_country.getD_continentID()),p_map.getD_continentByID(l_neighbourCountry.getD_continentID()));
+                l_continentMapGraph.removeEdge(p_map.getD_continentByID(l_neighbourCountry.getD_continentID()), p_map.getD_continentByID(l_country.getD_continentID()));
+            }
             System.out.println("Removed " + l_country.getD_countryID() + " and " + l_neighbourCountry.getD_countryID() + " as neighbors.");
         } catch (Exception e) {
             System.out.println("Unable to remove neighbour");

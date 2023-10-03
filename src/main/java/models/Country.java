@@ -18,7 +18,7 @@ public class Country {
     private int d_continentID;
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
-    private Player d_owner;  
+    private Player d_owner;
 
     /**
      * Default constructor for Country class.
@@ -64,11 +64,11 @@ public class Country {
      *
      * @return the country Name.
      */
-    
+
     public String getD_countryName() {
         return d_countryName;
     }
-    
+
     /**
      * Sets the name of the country.
      *
@@ -78,7 +78,7 @@ public class Country {
     public void setD_countryName(String d_countryName) {
         this.d_countryName = d_countryName;
     }
-    
+
     /**
      * Gets the ID of the continent to which the country belongs.
      *
@@ -133,7 +133,7 @@ public class Country {
     public void setD_numArmies(int p_numArmies) {
         this.d_numArmies = p_numArmies;
     }
-    
+
     /**
      * Gets the owner of the country.
      *
@@ -142,7 +142,7 @@ public class Country {
     public Player getD_owner() {
         return d_owner;
     }
-    
+
     /**
      * Sets the owner of the country.
      *

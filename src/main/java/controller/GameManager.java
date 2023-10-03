@@ -5,7 +5,6 @@ import models.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Represents the Game Manager
@@ -14,8 +13,7 @@ import java.util.Random;
  * @author Rishi Ravikumar
  */
 public class GameManager {
-    private static Player d_player;
-    public GamePhase d_gamePhase;
+    private GamePhase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
     private Map d_map;
@@ -40,40 +38,35 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
     }
 
-
-    /**
-     * Constructor that initializes the GameManager with a player.
-     *
-     * @param p_player The player to be managed.
-     */
-
-    public GameManager(Player p_player) {
-        d_player = p_player;
-    }
-
     /**
      * Used in the Game_Startup game phase to assign countries to the players in the game
      *
      * @author Nimisha Jadav
      */
     public void assignCountries() {
-        Random l_random = new Random();
-
+        if (d_playerList.size() < 2) {
+            System.out.println("Too few players added. Minimum players required is 2");
+            return;
+        }
+        int l_playerIndex = 0;
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
-            int l_playerIndex = l_random.nextInt(d_playerList.size());
             Player l_player = d_playerList.get(l_playerIndex);
             l_player.addCountry(l_country);
             l_country.setD_owner(l_player);
+            l_playerIndex = ((l_playerIndex+1) % d_playerList.size());
         }
         System.out.println("Assigned countries to the players");
+        setD_gamePhase(GamePhase.IssueOrder);
+        System.out.println("Game has Started!");
         assignReinforcements();
 
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
+        System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
     }
 
     public void updatePlayerTurn() {
-        d_currentPlayerTurn = (++d_currentPlayerTurn) % d_playerList.size();
+        d_currentPlayerTurn = (d_currentPlayerTurn+1) % d_playerList.size();
     }
 
     /**
@@ -111,14 +104,14 @@ public class GameManager {
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      */
     public void assignReinforcements() {
-        int l_numArmies = (int) Math.min((double) (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
+        int l_numArmies = Math.min((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
             l_player.setD_numArmies(l_player.getD_numArmies() + l_numArmies);
             for (Continent l_c : l_player.getD_continentList()) {
                 l_player.setD_numArmies(l_player.getD_numArmies() + l_c.getD_continentValue());
             }
         }
-        System.out.println("Reinforcement armies have been assigned to each player");
+        System.out.println("Reinforcement armies have been assigned to each player\n");
     }
 
     /**
@@ -165,14 +158,14 @@ public class GameManager {
      * Adds an order to the current player’s list of orders
      *
      * @param p_countryID The country to which the order pertains.
-     * @param p_num         The number associated with the order.
+     * @param p_num       The number associated with the order.
      * @author Rishi Ravikumar
      * @author Abhigyan
      */
     public void issueOrder(Country p_countryID, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
         if (l_currentPlayer != null) {
-            if(l_currentPlayer.getD_numArmies() < p_num) {
+            if (l_currentPlayer.getD_numArmies() < p_num) {
                 System.out.println("Cannot issue order");
                 return;
             }
@@ -196,12 +189,11 @@ public class GameManager {
      * @author Nimisha Jadav
      */
     public void executeOrder() {
-        Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
-
-        for (int i = 0; i <= d_playerList.size(); i++) {
-            Order l_order = l_currentPlayer.nextOrder();
+        for(Player l_player: d_playerList){
+            Order l_order = l_player.nextOrder();
             l_order.execute();
         }
+        System.out.println("Orders have been executed for this round.");
     }
 
     /**
@@ -285,14 +277,5 @@ public class GameManager {
         this.d_gamePhase = d_gamePhase;
     }
 
-    /**
-     * Represents the different phases of the game.
-     */
-    public enum GamePhase {
-        Map_Init,
-        Game_Startup,
-        AssignReinforcements,
-        IssueOrder,
-        ExecuteOrder
-    }
+
 }
