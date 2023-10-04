@@ -37,9 +37,9 @@ public class Map {
      * @return The country with the specified ID, or null if not found.
      */
     public Country getD_countryByID(int p_countryID) {
-        for (Country c : d_countryMapGraph.vertexSet()) {
-            if (c.getD_countryID() == p_countryID)
-                return c;
+        for (Country l_c : d_countryMapGraph.vertexSet()) {
+            if (l_c.getD_countryID() == p_countryID)
+                return l_c;
         }
         return null;
     }
@@ -51,9 +51,9 @@ public class Map {
      * @return The continent with the specified ID, or null if not found.
      */
     public Continent getD_continentByID(int p_continentID) {
-        for (Continent c : d_continentMapGraph.vertexSet()) {
-            if (c.getD_continentID() == p_continentID)
-                return c;
+        for (Continent l_c : d_continentMapGraph.vertexSet()) {
+            if (l_c.getD_continentID() == p_continentID)
+                return l_c;
         }
         return null;
     }
@@ -70,10 +70,10 @@ public class Map {
     /**
      * Sets the directed graph representing the countries in the map.
      *
-     * @param d_countryMapGraph The new directed graph of countries.
+     * @param p_countryMapGraph The new directed graph of countries.
      */
-    public void setD_countryMapGraph(DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph) {
-        this.d_countryMapGraph = d_countryMapGraph;
+    public void setD_countryMapGraph(DefaultDirectedGraph<Country, DefaultEdge> p_countryMapGraph) {
+        this.d_countryMapGraph = p_countryMapGraph;
     }
 
     /**
@@ -88,9 +88,9 @@ public class Map {
     /**
      * Sets the directed graph representing the continents in the map.
      *
-     * @param d_continentMapGraph The new directed graph of continents.
+     * @param p_continentMapGraph The new directed graph of continents.
      */
-    public void setD_continentMapGraph(DefaultDirectedGraph<Continent, DefaultEdge> d_continentMapGraph) {
-        this.d_continentMapGraph = d_continentMapGraph;
+    public void setD_continentMapGraph(DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph) {
+        this.d_continentMapGraph = p_continentMapGraph;
     }
 }

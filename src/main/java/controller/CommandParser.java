@@ -17,32 +17,20 @@ import util.MapUtil;
  * @author Yusuke
  */
 public class CommandParser {
-    /**
-     * Validates the provided input string.
-     * <p>
-     * This method checks if the input string is null or empty.
-     * </p>
-     *
-     * @param p_input The input string to be validated.
-     * @return Boolean - true if the input string is not null else false.
-     */
-    public static Boolean isvalidInput(String p_input) {
-        return p_input != null && !p_input.trim().isEmpty();
-    }
 
     /**
      * Checks the initial phase of the game.
      *
      * @param p_gameManager Instance of Game Manager class
-     * @return Boolean true if current phase is initial phase or else retuen false.
+     * @return Boolean true if current phase is initial phase or else return false.
      */
-    public static Boolean isValidMapInitInput(GameManager p_gameManager) {
-        if (p_gameManager.getD_gamePhase() != GamePhase.Map_Init) {
-            System.out.println(Constants.CMD_ERROR);
-            System.out.println(Constants.HELP_MESSAGE);
-            return false;
-        }
-        return true;
+    public static Boolean isGamePhaseMapInit(GameManager p_gameManager) {
+        return p_gameManager.getD_gamePhase() == GamePhase.Map_Init;
+    }
+
+    private static void displayError() {
+        System.out.println(Constants.CMD_ERROR);
+        System.out.println(Constants.HELP_MESSAGE);
     }
 
     /**
@@ -105,7 +93,7 @@ public class CommandParser {
                 break;
 
             case "editneighbor":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_editNeighbourInput = p_input.split(" -");
                     for (int i = 1; i < l_editNeighbourInput.length; i++) {
                         //Handles the command to add the neighbour country
@@ -140,13 +128,12 @@ public class CommandParser {
                     }
                 } else {
                     //Displays error if the command is invalid
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "editcontinent":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_inputSplit = p_input.split(" -");
                     for (int i = 1; i < l_inputSplit.length; i++) {
                         //Handles the command to add continent
@@ -178,13 +165,12 @@ public class CommandParser {
                         }
                     }
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "editcountry":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_editCountryInput = p_input.split(" -");
                     for (int i = 1; i < l_editCountryInput.length; i++) {
                         //checks if add is followed by countryID and continentID
@@ -213,14 +199,13 @@ public class CommandParser {
                         }
                     }
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "savemap":
                 //Checks if the savemap command is followed by the filename
-                if (l_cmdSplit.length == 2 && isValidMapInitInput(p_gameManager)) {
+                if (l_cmdSplit.length == 2 && isGamePhaseMapInit(p_gameManager)) {
                     System.out.println("Saving the map");
                     //calls saveMap() function
                     Boolean l_isMapSaved = MapUtil.saveMap(l_map, l_cmdSplit[1]);
@@ -232,24 +217,22 @@ public class CommandParser {
                         System.out.println("The map was not saved");
                     }
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "editmap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (isGamePhaseMapInit(p_gameManager)) {
                     //calls the editMap() function
                     p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
                     System.out.println("Map loaded to be edited...");
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "validatemap":
-                if (l_map != null && isValidMapInitInput(p_gameManager)) {
+                if (l_map != null && isGamePhaseMapInit(p_gameManager)) {
                     System.out.println("Validating the map");
                     //Checks if the map is valid or not
                     if (MapUtil.isValidMap(l_map)) {
@@ -258,13 +241,12 @@ public class CommandParser {
                         System.out.println("Map validation unsuccessful");
                     }
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
             case "loadmap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (isGamePhaseMapInit(p_gameManager)) {
                     //calls loadMap() function
                     l_map = MapUtil.loadMap(l_cmdSplit[1]);
                     if (!l_map.getD_countryMapGraph().vertexSet().isEmpty() && MapUtil.isValidMap(l_map)) {
@@ -274,13 +256,12 @@ public class CommandParser {
 
                         System.out.println("Next, add players to the game");
                     } else {
-                        //If map doesn't exist. create a new map
-                        l_map = new Map();
+                        System.out.println("Map validation unsuccessful");
+                        break;
                     }
                     System.out.println(Constants.HELP_MESSAGE);
                 } else {
-                    System.out.println(Constants.CMD_ERROR);
-                    System.out.println(Constants.HELP_MESSAGE);
+                    displayError();
                 }
                 break;
 
@@ -318,7 +299,7 @@ public class CommandParser {
 
                 //checks deploy command is followed by countryID and num
                 if (l_cmdSplit.length < 3) {
-                    System.out.println(Constants.CMD_ERROR);
+                    displayError();
                     break;
                 }
                 //Getting the countryID
@@ -348,8 +329,7 @@ public class CommandParser {
 
                 break;
             default:
-                System.out.println(Constants.CMD_ERROR);
-                System.out.println(Constants.HELP_MESSAGE);
+                displayError();
         }
     }
 }

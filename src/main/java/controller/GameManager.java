@@ -99,21 +99,6 @@ public class GameManager {
     }
 
     /**
-     * check if enough armies are
-     * left to be assigned for the player
-     *
-     * @return true if all players have assigned all their armies, false otherwise.
-     */
-    public boolean check_armies() {
-        for (Player l_player : d_playerList) {
-            if (l_player.getD_numArmies() != 0) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      */
     public void assignReinforcements() {

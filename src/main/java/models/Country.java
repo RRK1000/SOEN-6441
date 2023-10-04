@@ -72,10 +72,10 @@ public class Country {
     /**
      * Sets the name of the country.
      *
-     * @param d_countryName The new name of the country.
+     * @param p_countryName The new name of the country.
      */
-    public void setD_countryName(String d_countryName) {
-        this.d_countryName = d_countryName;
+    public void setD_countryName(String p_countryName) {
+        this.d_countryName = p_countryName;
     }
 
     /**
@@ -90,10 +90,10 @@ public class Country {
     /**
      * Sets the ID of the continent to which the country belongs.
      *
-     * @param d_continentID The new continent ID.
+     * @param p_continentID The new continent ID.
      */
-    public void setD_continentID(int d_continentID) {
-        this.d_continentID = d_continentID;
+    public void setD_continentID(int p_continentID) {
+        this.d_continentID = p_continentID;
     }
 
     /**
