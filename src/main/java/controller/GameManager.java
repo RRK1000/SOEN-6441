@@ -47,10 +47,13 @@ public class GameManager {
      * Used in the Game_Startup game phase to assign countries to the players in the game
      */
     public void assignCountries() {
+        //Checks the condition where the armies cannot be assigned if the number of players is less than 2.
         if (d_playerList.size() < 2) {
             System.out.println("Too few players added. Minimum players required is 2");
             return;
         }
+
+        //Assigning countries to the player
         int l_playerIndex = 0;
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             Player l_player = d_playerList.get(l_playerIndex);
@@ -58,11 +61,13 @@ public class GameManager {
             l_country.setD_owner(l_player);
             l_playerIndex = ((l_playerIndex+1) % d_playerList.size());
         }
+        //Setting the game phase to Issue Order and assign armies to the players
         System.out.println("Assigned countries to the players");
         setD_gamePhase(GamePhase.IssueOrder);
         System.out.println("Game has Started!");
         assignReinforcements();
 
+        //Displaying the current player's name and the armies
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
         System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
@@ -128,13 +133,16 @@ public class GameManager {
      * @param p_playerName name of the player to be added
      */
     public void addPlayer(String p_playerName) {
+        //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
             for (Player l_p : d_playerList) {
+                //Checks if the player already exist
                 if (Objects.equals(l_p.getD_playerName(), p_playerName)) {
                     System.out.println("Player " + p_playerName + " already exists");
                     return;
                 }
             }
+            //Adding new player to the game
             Player l_player = new Player(p_playerName);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
@@ -205,6 +213,7 @@ public class GameManager {
         Map l_map = this.getD_map();
         System.out.println("---- MAP DISPLAY ----");
 
+        //Displaying the name and ID of the continent
         System.out.println("List of Continents:");
         for (Continent l_continent : l_map.getD_continentMapGraph().vertexSet()) {
             System.out.println("Continent ID: " + l_continent.getD_continentID() + ", Name: " + l_continent.getD_continentName() + ", Value: " + l_continent.getD_continentValue());
@@ -212,9 +221,12 @@ public class GameManager {
 
         System.out.println("\nList of Countries, their Owners, Armies, and Neighbours:");
         for (Country l_country : l_map.getD_countryMapGraph().vertexSet()) {
+            //Countries owned by the player
             Player l_owner = l_country.getD_owner();
+            //Handles the case where player owns a country or not
             String l_ownerName = (l_owner != null) ? l_owner.getD_playerName() : "Unowned";
             System.out.println("Country ID: " + l_country.getD_countryID() + ", Name: " + l_country.getD_countryName() + ", Owner: " + l_ownerName + ", Armies: " + l_country.getD_numArmies());
+            //Displaying the neighbourhood country name and ID
             System.out.print("Neighbours: ");
             for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
                 Country l_neighbour = l_map.getD_countryByID(l_neighbourID);

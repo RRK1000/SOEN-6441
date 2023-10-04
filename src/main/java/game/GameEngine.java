@@ -30,6 +30,7 @@ public class GameEngine {
         System.out.println(Constants.HELP_MESSAGE);
 
         String l_inputCommand;
+        //Takes input from user, until the exit command
         do {
             System.out.print("\n> ");
             l_inputCommand = l_scanner.nextLine();
