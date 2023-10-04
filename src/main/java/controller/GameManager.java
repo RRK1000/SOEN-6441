@@ -206,26 +206,18 @@ public class GameManager {
 
 
     public void showMap() {
-
-        Map l_map = this.getD_map();
-        System.out.println("---- MAP DISPLAY ----");
-
-        System.out.println("List of Continents:");
-        for (Continent l_continent : l_map.getD_continentMapGraph().vertexSet()) {
-            System.out.println("Continent ID: " + l_continent.getD_continentID() + ", Name: " + l_continent.getD_continentName() + ", Value: " + l_continent.getD_continentValue());
-        }
-
-        System.out.println("\nList of Countries, their Owners, Armies, and Neighbours:");
-        for (Country l_country : l_map.getD_countryMapGraph().vertexSet()) {
+        System.out.printf("------------------------------------------------------------------------------------------------%n");
+        System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
+        System.out.printf("------------------------------------------------------------------------------------------------%n");
+        for(Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             Player l_owner = l_country.getD_owner();
-            String l_ownerName = (l_owner != null) ? l_owner.getD_playerName() : "Unowned";
-            System.out.println("Country ID: " + l_country.getD_countryID() + ", Name: " + l_country.getD_countryName() + ", Owner: " + l_ownerName + ", Armies: " + l_country.getD_numArmies());
-            System.out.print("Neighbours: ");
+            StringBuilder l_neighbors = new StringBuilder();
             for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
-                Country l_neighbour = l_map.getD_countryByID(l_neighbourID);
-                System.out.print(l_neighbour.getD_countryID() + ", ");
+                l_neighbors.append(l_neighbourID);
+                l_neighbors.append(" ");
             }
-            System.out.println("\n");
+            System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
+                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_owner.getD_playerName(), l_country.getD_numArmies());
         }
     }
 

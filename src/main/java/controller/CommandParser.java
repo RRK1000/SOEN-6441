@@ -71,10 +71,17 @@ public class CommandParser {
                 break;
 
             case "showmap":
-                System.out.println("Showing map");
-                if (isValidMapInitInput(p_gameManager)) {
+                if(l_map == null){
+                    System.out.println("Map not loaded");
+                    System.out.println(Constants.HELP_MESSAGE);
+                    break;
+                }
+
+                if (p_gameManager.getD_gamePhase() == GamePhase.Map_Init
+                        || p_gameManager.getD_gamePhase() == GamePhase.Game_Startup ) {
                     MapUtil.showMap(l_map);
-                } else {
+                } else if (p_gameManager.getD_gamePhase() == GamePhase.AssignReinforcements
+                || p_gameManager.getD_gamePhase() == GamePhase.IssueOrder){
                     p_gameManager.showMap();
                 }
                 break;
@@ -209,10 +216,10 @@ public class CommandParser {
                 break;
 
             case "validatemap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (l_map != null && isValidMapInitInput(p_gameManager)) {
                     System.out.println("Validating the map");
                     if (MapUtil.isValidMap(l_map)) {
-                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                        p_gameManager.setD_map(l_map);
                     } else {
                         System.out.println("Map validation unsuccessful");
                     }
@@ -241,10 +248,10 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                if(p_gameManager.getD_map() != null){
-                    p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
-                } else {
-                    System.out.println("Map not initialized");
+                p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                if(p_gameManager.getD_map() == null){
+                    System.out.println("Map not loaded");
+                    System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
 
@@ -262,6 +269,7 @@ public class CommandParser {
                 break;
 
             case "assigncountries":
+                p_gameManager.setD_gamePhase(GamePhase.AssignReinforcements);
                 p_gameManager.assignCountries();
                 break;
 
