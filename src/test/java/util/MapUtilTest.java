@@ -1,9 +1,8 @@
 package util;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Arrays;
-
+import models.Continent;
+import models.Country;
+import models.Map;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
@@ -11,9 +10,9 @@ import org.jgrapht.graph.SimpleGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import models.Continent;
-import models.Country;
-import models.Map;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class contains the test methods for MapUtil.java. The tested functions
@@ -154,7 +153,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void loadMapTest1() {
-		Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
+		Map l_map = MapUtil.loadMap("validMap2.txt");
 		MapUtil.showMap(l_map);
 
 		assertFalse(l_map.getD_countryMapGraph().vertexSet().isEmpty());
@@ -166,7 +165,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest1() {
-		Map map = MapUtil.editMap("src/test/resources/InvalidMap1.txt");
+		Map map = MapUtil.editMap("InvalidMap1.txt");
 		MapUtil.showMap(map);
 
 		assertNotNull(map);
@@ -177,7 +176,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest2() {
-		Map map = MapUtil.editMap("src/test/resources/invalid.txt");
+		Map map = MapUtil.editMap("invalid.txt");
 		MapUtil.showMap(map);
 
 		assertNotNull(map);
@@ -193,7 +192,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void isValidMapTest1() {
-		Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap1.txt");
+		Map l_map = MapUtil.loadMap("InvalidMap1.txt");
 
 		assertFalse(MapUtil.isValidMap(l_map));
 	}
@@ -206,7 +205,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void isValidMapTest2() {
-		Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
+		Map l_map = MapUtil.loadMap("validMap2.txt");
 
 		assertTrue(MapUtil.isValidMap(l_map));
 	}
@@ -235,7 +234,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void isValidMapTest4() {
-		Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap3.txt");
+		Map l_map = MapUtil.loadMap("InvalidMap3.txt");
 
 		assertFalse(MapUtil.isValidMap(l_map));
 	}
@@ -248,7 +247,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void isValidMapTest5() {
-		Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap4.txt");
+		Map l_map = MapUtil.loadMap("InvalidMap4.txt");
 
 		assertFalse(MapUtil.isValidMap(l_map));
 	}
@@ -261,7 +260,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void isValidMapTest6() {
-		Map l_map = MapUtil.loadMap("src/test/resources/InvalidMap5.txt");
+		Map l_map = MapUtil.loadMap("InvalidMap5.txt");
 
 		assertFalse(MapUtil.isValidMap(l_map));
 	}
@@ -271,7 +270,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void saveMap() {
-		Map l_map = MapUtil.loadMap("src/test/resources/validMap2.txt");
-		assertTrue(MapUtil.saveMap(l_map, "src/test/resources/savedMap.txt"));
+		Map l_map = MapUtil.loadMap("validMap2.txt");
+		assertTrue(MapUtil.saveMap(l_map, "savedMap.txt"));
 	}
 }

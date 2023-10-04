@@ -1,17 +1,16 @@
 package controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import models.Country;
 import models.Map;
 import models.Order;
 import models.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import util.MapUtil;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CommandParserTest {
 	GameManager d_gameManager;
@@ -31,7 +30,7 @@ class CommandParserTest {
 		String player1Name = "Player1";
 		String player2Name = "Player2";
 
-		d_map = MapUtil.loadMap("src/test/resources/europe.map");
+		d_map = MapUtil.loadMap("europe.map");
 
 		d_gameManager = new GameManager(d_map);
 		d_gameManager.addPlayer(player1Name);
@@ -93,7 +92,7 @@ class CommandParserTest {
 	 */
 	@Test
 	void inputParser1() {
-		String l_input = "loadmap src/test/resources/validMap2.txt";
+		String l_input = "loadmap validMap2.txt";
 		CommandParser.inputParser(d_gameManager, l_input);
 		assertNotNull(d_gameManager.getD_map());
 		assertNotEquals(0, d_gameManager.getD_map().getD_countryMapGraph().vertexSet().size());
@@ -105,7 +104,7 @@ class CommandParserTest {
 	 */
 	@Test
 	void inputParse2() {
-		String l_input = "editmap src/test/resources/validMap2.txt";
+		String l_input = "editmap validMap2.txt";
 		CommandParser.inputParser(d_gameManager, l_input);
 		assertNotNull(d_gameManager.getD_map());
 		assertNotEquals(0, d_gameManager.getD_map().getD_countryMapGraph().vertexSet().size());
@@ -117,7 +116,7 @@ class CommandParserTest {
 	 */
 	@Test
 	void inputParse3() {
-		String l_input = "editmap src/test/resources/InvalidMap1.txt";
+		String l_input = "editmap InvalidMap1.txt";
 		CommandParser.inputParser(d_gameManager, l_input);
 		assertNotNull(d_gameManager.getD_map());
 		assertNotEquals(0, d_gameManager.getD_map().getD_countryMapGraph().vertexSet().size());

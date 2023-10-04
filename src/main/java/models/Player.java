@@ -12,7 +12,6 @@ import java.util.List;
  * @author Rishi Ravikumar
  */
 public class Player {
-    // Data Members
     private String d_playerName;
     private int d_numArmies;
     private List<Country> d_countryList;
