@@ -112,7 +112,7 @@ public class GameManager {
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      */
     public void assignReinforcements() {
-        int l_numArmies = Math.min((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
+        int l_numArmies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
             l_player.setD_numArmies(l_player.getD_numArmies() + l_numArmies);
             for (Continent l_c : l_player.getD_continentList()) {

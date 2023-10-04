@@ -1,15 +1,14 @@
 package controller;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import models.Country;
 import models.Order;
 import models.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class CommandParserTest {
 	GameManager d_gameManager;
@@ -25,7 +24,7 @@ class CommandParserTest {
 		d_order = new Order(d_country, 3);
 		d_player.setD_currentOrder(d_order);
 	}
-	
+
 
 	/**
 	 * Tests the scenario where a player attempts to deploy more armies than
@@ -33,11 +32,11 @@ class CommandParserTest {
 	 * The test first ensures that the player starts with a specific number of
 	 * armies. After issuing an order to deploy a certain number of armies, the test
 	 * checks that the player's remaining armies are as expected
-	 * 
+	 *
 	 * The test then tries to issue another order to deploy more armies than the
 	 * player has available. This should result in an IllegalArgumentException. The
 	 * test checks that the exception message matches the expected message
-	 * 
+	 *
 	 */
 
 	@Test
@@ -58,7 +57,7 @@ class CommandParserTest {
 		String l_expectedMessage = "Cannot deploy more armies than available in reinforcement pool.";
 		String l_actualMessage = l_exception.getMessage();
 
-		assertTrue(l_actualMessage.contains(l_expectedMessage));
+		assertEquals(l_actualMessage, l_expectedMessage);
 	}
 
 	/**
