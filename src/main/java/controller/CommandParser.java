@@ -214,7 +214,7 @@ public class CommandParser {
                         System.out.println("Map is saved");
                         System.out.println("Load the map to start the game.");
                     } else {
-                        System.out.println("The map was not saved");
+                        System.out.println("Map Invalid");
                     }
                 } else {
                     displayError();

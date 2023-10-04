@@ -252,7 +252,7 @@ public class MapUtil {
 
         //Handles the case where there are duplicated continents or unconnected continents or wrong neighbours
         if (!GraphTests.isWeaklyConnected(l_continentMapGraph) || !GraphTests.isSimple(l_continentMapGraph)) {
-            System.out.println("Continent Graph is not weakly connected or it has self loops/multiple edges.");
+            System.out.println("Continent Graph is not connected or it has self loops/multiple edges.");
             System.out.println("Reasons for the following could be either a duplicate continent or some continent is not connected with others.");
             System.out.println("Also possible that some continent has itself as a neighbour or some neighbour is stated more than once for a continent.");
             return false;
@@ -260,7 +260,7 @@ public class MapUtil {
 
         //Handles the case where there are duplicated country or unconnected country or wrong neighbours
         if (!GraphTests.isWeaklyConnected(l_countryMapGraph) || !GraphTests.isSimple(l_countryMapGraph)) {
-            System.out.println("Country Graph is not weakly connected  or it has self loops/multiple edges.");
+            System.out.println("Country Graph is not connected  or it has self loops/multiple edges.");
             System.out.println("Reasons for the following could be either a duplicate country or some country is not connected with others.");
             System.out.println("Also possible that some country has itself as a neighbour or some neighbour is stated more than once for a country.");
             return false;
@@ -338,7 +338,10 @@ public class MapUtil {
         try {
             DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_map.getD_countryMapGraph();
             Continent l_continent = p_map.getD_continentByID(p_continentID);
-
+            if (p_map.getD_countryByID(p_countryID) != null) {
+                System.out.println("CountryID " + p_countryID + " already exists");
+                return;
+            }
             Country l_country = new Country();
             l_country.setD_countryID(p_countryID);
             l_country.setD_continentID(p_continentID);
@@ -365,6 +368,10 @@ public class MapUtil {
             l_continent.removeCountry(l_country);
 
             l_countryMapGraph.removeVertex(l_country);
+            for(int l_neighborID: l_country.getD_neighbourCountryIDList()){
+                Country l_neighbor = p_map.getD_countryByID(l_neighborID);
+                l_neighbor.getD_neighbourCountryIDList().remove((Integer) p_countryID);
+            }
             System.out.println("Removed country " + l_country.getD_countryID() + " in continent " + l_country.getD_continentID());
         } catch (Exception l_e) {
             System.out.println("Unable to remove country");
@@ -385,8 +392,14 @@ public class MapUtil {
             Country l_country = p_map.getD_countryByID(p_countryID);
             Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
             //Adding edge in the graph between the country and neighbouring country
-            l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
-            l_countryMapGraph.addEdge(l_neighbourCountry, l_country);
+
+            if(!l_countryMapGraph.containsEdge(l_country, l_neighbourCountry)) {
+                l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
+                l_countryMapGraph.addEdge(l_neighbourCountry, l_country);
+                l_country.getD_neighbourCountryIDList().add(l_neighbourCountry.getD_countryID());
+                l_neighbourCountry.getD_neighbourCountryIDList().add(l_country.getD_countryID());
+            } else return;
+
             //Handles the case where the new neighbour country should belong to the same continent as the country
             if (l_country.getD_continentID() != l_neighbourCountry.getD_continentID()) {
                 l_continentMapGraph.addEdge(p_map.getD_continentByID(l_country.getD_continentID()), p_map.getD_continentByID(l_neighbourCountry.getD_continentID()));
@@ -414,6 +427,8 @@ public class MapUtil {
             //Removing the edge in the graph between the country and it's neighbour country
             l_countryMapGraph.removeEdge(l_country, l_neighbourCountry);
             l_countryMapGraph.removeEdge(l_neighbourCountry, l_country);
+            l_country.getD_neighbourCountryIDList().remove((Integer) l_neighbourCountry.getD_countryID());
+            l_neighbourCountry.getD_neighbourCountryIDList().remove((Integer) l_country.getD_countryID());
             //Handles the case where the neighbour country to be removed belongs to the same continent as the country
             if (l_country.getD_continentID() != l_neighbourCountry.getD_continentID()) {
                 l_continentMapGraph.removeEdge(p_map.getD_continentByID(l_country.getD_continentID()), p_map.getD_continentByID(l_neighbourCountry.getD_continentID()));
