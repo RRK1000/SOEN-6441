@@ -155,19 +155,19 @@ public class GameManager {
     /**
      * Adds an order to the current player’s list of orders
      *
-     * @param p_countryID The country to which the order pertains.
+     * @param p_country The country to which the order pertains.
      * @param p_num       The number associated with the order.
      */
-    public void issueOrder(Country p_countryID, int p_num) {
+    public void issueOrder(Country p_country, int p_num) {
         Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
         if (l_currentPlayer != null) {
-            if (l_currentPlayer.getD_numArmies() < p_num) {
-                System.out.println("Cannot issue order");
+            if (!l_currentPlayer.getD_countryList().contains(p_country) || l_currentPlayer.getD_numArmies() < p_num) {
+                System.out.println("Invalid order, cannot be issued");
                 return;
             }
 
             // Create an order using the provided parameters (p_countryID and num)
-            Order order = new Order(p_countryID, p_num);
+            Order order = new Order(p_country, p_num);
             l_currentPlayer.setD_currentOrder(order);
             // Call the issue_order() method of the current player to add the order
             l_currentPlayer.issueOrder();
