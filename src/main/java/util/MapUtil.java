@@ -209,14 +209,14 @@ public class MapUtil {
         //Handles the case where the continents are not present in the map
         DefaultDirectedGraph<Continent, DefaultEdge> l_continentMapGraph = p_graphMap.getD_continentMapGraph();
         if (l_continentMapGraph.vertexSet().isEmpty()) {
-            System.out.println("Continent Graph is Empty");
+            System.out.println("Continent Graph is Invalid");
             return false;
         }
 
         //Handles the case where the countries are not present in the map
         DefaultDirectedGraph<Country, DefaultEdge> l_countryMapGraph = p_graphMap.getD_countryMapGraph();
         if (GraphTests.isEmpty(l_countryMapGraph)) {
-            System.out.println("Country Graph is Empty");
+            System.out.println("Country Graph is Invalid");
             return false;
         }
 
