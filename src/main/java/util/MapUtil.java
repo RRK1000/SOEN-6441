@@ -184,7 +184,6 @@ public class MapUtil {
                 l_writer.write(String.valueOf(l_borderData));
                 l_writer.write("\n");
             }
-            l_writer.write("\n");
             System.out.println("Map saved successfully!");
             return true;
         } catch (Exception l_e) {
