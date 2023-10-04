@@ -59,7 +59,7 @@ public class GameManager {
             Player l_player = d_playerList.get(l_playerIndex);
             l_player.addCountry(l_country);
             l_country.setD_owner(l_player);
-            l_playerIndex = ((l_playerIndex+1) % d_playerList.size());
+            l_playerIndex = ((l_playerIndex + 1) % d_playerList.size());
         }
         //Setting the game phase to Issue Order and assign armies to the players
         System.out.println("Assigned countries to the players");
@@ -77,7 +77,7 @@ public class GameManager {
      * Method to update the turn of the player.
      */
     public void updatePlayerTurn() {
-        d_currentPlayerTurn = (d_currentPlayerTurn+1) % d_playerList.size();
+        d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
     }
 
     /**
@@ -197,7 +197,7 @@ public class GameManager {
      * Executes all the orders from all the players for the current turn, updating the game state
      */
     public void executeOrder() {
-        for(Player l_player: d_playerList){
+        for (Player l_player : d_playerList) {
             Order l_order = l_player.nextOrder();
             l_order.execute();
         }
@@ -209,30 +209,18 @@ public class GameManager {
      * It shows all continents, countries, armies on each country, ownership, and connectivity.
      */
     public void showMap() {
-
-        Map l_map = this.getD_map();
-        System.out.println("---- MAP DISPLAY ----");
-
-        //Displaying the name and ID of the continent
-        System.out.println("List of Continents:");
-        for (Continent l_continent : l_map.getD_continentMapGraph().vertexSet()) {
-            System.out.println("Continent ID: " + l_continent.getD_continentID() + ", Name: " + l_continent.getD_continentName() + ", Value: " + l_continent.getD_continentValue());
-        }
-
-        System.out.println("\nList of Countries, their Owners, Armies, and Neighbours:");
-        for (Country l_country : l_map.getD_countryMapGraph().vertexSet()) {
-            //Countries owned by the player
+        System.out.printf("------------------------------------------------------------------------------------------------%n");
+        System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
+        System.out.printf("------------------------------------------------------------------------------------------------%n");
+        for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             Player l_owner = l_country.getD_owner();
-            //Handles the case where player owns a country or not
-            String l_ownerName = (l_owner != null) ? l_owner.getD_playerName() : "Unowned";
-            System.out.println("Country ID: " + l_country.getD_countryID() + ", Name: " + l_country.getD_countryName() + ", Owner: " + l_ownerName + ", Armies: " + l_country.getD_numArmies());
-            //Displaying the neighbourhood country name and ID
-            System.out.print("Neighbours: ");
+            StringBuilder l_neighbors = new StringBuilder();
             for (int l_neighbourID : l_country.getD_neighbourCountryIDList()) {
-                Country l_neighbour = l_map.getD_countryByID(l_neighbourID);
-                System.out.print(l_neighbour.getD_countryID() + ", ");
+                l_neighbors.append(l_neighbourID);
+                l_neighbors.append(" ");
             }
-            System.out.println("\n");
+            System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
+                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_owner.getD_playerName(), l_country.getD_numArmies());
         }
     }
 

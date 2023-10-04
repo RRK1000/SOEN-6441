@@ -6,7 +6,8 @@ import models.Map;
 import models.Player;
 import util.MapUtil;
 
-/** Represents the command parser.
+/**
+ * Represents the command parser.
  * It handles the commands entered by player and validates it.
  *
  * @author Rishi Ravikumar
@@ -16,7 +17,7 @@ import util.MapUtil;
  * @author Yusuke
  */
 public class CommandParser {
-     /**
+    /**
      * Validates the provided input string.
      * <p>
      * This method checks if the input string is null or empty.
@@ -31,6 +32,7 @@ public class CommandParser {
 
     /**
      * Checks the initial phase of the game.
+     *
      * @param p_gameManager Instance of Game Manager class
      * @return Boolean true if current phase is initial phase or else retuen false.
      */
@@ -45,6 +47,7 @@ public class CommandParser {
 
     /**
      * Displays the current phase of the game
+     *
      * @param p_gameManager {@link GameManager}
      */
     public static void displayInstructions(GameManager p_gameManager) {
@@ -68,7 +71,7 @@ public class CommandParser {
      * This method is used to read the command given by the player and validates if the syntax
      * of the command is correct and then takes the action accordingly
      *
-     * @param p_input - Command entered by the player
+     * @param p_input       - Command entered by the player
      * @param p_gameManager {@link GameManager}
      */
     public static void inputParser(GameManager p_gameManager, String p_input) {
@@ -86,11 +89,17 @@ public class CommandParser {
                 break;
 
             case "showmap":
-                System.out.println("Showing map");
-                if (isValidMapInitInput(p_gameManager)) {
-                    //calls the showMap() function
+                if (l_map == null) {
+                    System.out.println("Map not loaded");
+                    System.out.println(Constants.HELP_MESSAGE);
+                    break;
+                }
+
+                if (p_gameManager.getD_gamePhase() == GamePhase.Map_Init
+                        || p_gameManager.getD_gamePhase() == GamePhase.Game_Startup) {
                     MapUtil.showMap(l_map);
-                } else {
+                } else if (p_gameManager.getD_gamePhase() == GamePhase.AssignReinforcements
+                        || p_gameManager.getD_gamePhase() == GamePhase.IssueOrder) {
                     p_gameManager.showMap();
                 }
                 break;
@@ -112,7 +121,7 @@ public class CommandParser {
                             } else {
                                 System.out.println(Constants.CMD_ERROR);
                             }
-                        //Handles the command to remove the neighbour country
+                            //Handles the command to remove the neighbour country
                         } else if (l_editNeighbourInput[i].startsWith("remove")) {
                             String[] removeParams = l_editNeighbourInput[i].split(" ");
                             //checks if remove is followed by countryID and neighborcountryID
@@ -240,12 +249,11 @@ public class CommandParser {
                 break;
 
             case "validatemap":
-                if (isValidMapInitInput(p_gameManager)) {
+                if (l_map != null && isValidMapInitInput(p_gameManager)) {
                     System.out.println("Validating the map");
                     //Checks if the map is valid or not
                     if (MapUtil.isValidMap(l_map)) {
-                        //If a valid map, set the game phase to start up phase
-                        p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                        p_gameManager.setD_map(l_map);
                     } else {
                         System.out.println("Map validation unsuccessful");
                     }
@@ -277,10 +285,10 @@ public class CommandParser {
                 break;
 
             case "gameplayer":
-                if(p_gameManager.getD_map() != null){
-                    p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
-                } else {
-                    System.out.println("Map not initialized");
+                p_gameManager.setD_gamePhase(GamePhase.Game_Startup);
+                if (p_gameManager.getD_map() == null) {
+                    System.out.println("Map not loaded");
+                    System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
                 //Handles the case to add or remove player
@@ -301,6 +309,7 @@ public class CommandParser {
 
             case "assigncountries":
                 //assign countries to the players
+                p_gameManager.setD_gamePhase(GamePhase.AssignReinforcements);
                 p_gameManager.assignCountries();
                 break;
 
