@@ -5,6 +5,7 @@
 This project is a command line implementation of the [warzone](https://www.warzone.com/) game for [Concordia University's](https://www.concordia.ca/) SOEN 6441 course, Advanced Programming Practices.
 Warzone applies the concept of Risk, where a world map is defined as a connected graph and the goal of the players is to take over all the countries. Each player is assigned a certain number of armies at each turn and they can attack their neighboring countries to capture them. The orders given by players are executed in a round-robin fashion, until 1 player owns all the countries. 
 
+
 ## Architectural Design 
 
 ![image](https://github.com/RRK1000/SOEN-6441/assets/38955457/0d6c3b1d-c2df-4603-9926-2314d2164f6d)
