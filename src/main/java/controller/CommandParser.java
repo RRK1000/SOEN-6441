@@ -95,14 +95,14 @@ public class CommandParser {
             case "editneighbor":
                 if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_editNeighbourInput = p_input.split(" -");
-                    for (int i = 1; i < l_editNeighbourInput.length; i++) {
+                    for (int l_i = 1; l_i < l_editNeighbourInput.length; l_i++) {
                         //Handles the command to add the neighbour country
-                        if (l_editNeighbourInput[i].startsWith("add")) {
-                            String[] addParams = l_editNeighbourInput[i].split(" ");
+                        if (l_editNeighbourInput[l_i].startsWith("add")) {
+                            String[] l_addParams = l_editNeighbourInput[l_i].split(" ");
                             //checks if add is followed by countryID and neighborcountryID
-                            if (addParams.length == 3) {
-                                int l_countryID = Integer.parseInt(addParams[1]);
-                                int l_neighbourID = Integer.parseInt(addParams[2]);
+                            if (l_addParams.length == 3) {
+                                int l_countryID = Integer.parseInt(l_addParams[1]);
+                                int l_neighbourID = Integer.parseInt(l_addParams[2]);
                                 System.out.println("adding neighbor country: " + l_neighbourID);
                                 //Calls addNeighbour() for adding the neighbour country
                                 MapUtil.addNeighbour(l_map, l_countryID, l_neighbourID);
@@ -110,12 +110,12 @@ public class CommandParser {
                                 System.out.println(Constants.CMD_ERROR);
                             }
                             //Handles the command to remove the neighbour country
-                        } else if (l_editNeighbourInput[i].startsWith("remove")) {
-                            String[] removeParams = l_editNeighbourInput[i].split(" ");
+                        } else if (l_editNeighbourInput[l_i].startsWith("remove")) {
+                            String[] l_removeParams = l_editNeighbourInput[l_i].split(" ");
                             //checks if remove is followed by countryID and neighborcountryID
-                            if (removeParams.length == 3) {
-                                int l_countryID = Integer.parseInt(removeParams[1]);
-                                int l_neighbourID = Integer.parseInt(removeParams[2]);
+                            if (l_removeParams.length == 3) {
+                                int l_countryID = Integer.parseInt(l_removeParams[1]);
+                                int l_neighbourID = Integer.parseInt(l_removeParams[2]);
                                 System.out.println("removing neighbour country: " + l_neighbourID);
                                 //Calls removeNeighbour() for removing the neighbour country
                                 MapUtil.removeNeighbour(l_map, l_countryID, l_neighbourID);
@@ -135,10 +135,10 @@ public class CommandParser {
             case "editcontinent":
                 if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_inputSplit = p_input.split(" -");
-                    for (int i = 1; i < l_inputSplit.length; i++) {
+                    for (int l_i = 1; l_i < l_inputSplit.length; l_i++) {
                         //Handles the command to add continent
-                        if (l_inputSplit[i].startsWith("add")) {
-                            String[] l_addParams = l_inputSplit[i].split(" ");
+                        if (l_inputSplit[l_i].startsWith("add")) {
+                            String[] l_addParams = l_inputSplit[l_i].split(" ");
                             //checks if add is followed by continentID and continentvalue
                             if (l_addParams.length == 3) {
                                 int l_continentID = Integer.parseInt(l_addParams[1]);
@@ -149,8 +149,8 @@ public class CommandParser {
                                 System.out.println(Constants.CMD_ERROR);
                             }
                             //Handles the command to remove the continent
-                        } else if (l_inputSplit[i].startsWith("remove")) {
-                            String[] l_removeParams = l_inputSplit[i].split(" ");
+                        } else if (l_inputSplit[l_i].startsWith("remove")) {
+                            String[] l_removeParams = l_inputSplit[l_i].split(" ");
                             //checks if remove is followed by continentID
                             if (l_removeParams.length == 2) {
                                 int l_continentID = Integer.parseInt(l_removeParams[1]);
@@ -172,23 +172,23 @@ public class CommandParser {
             case "editcountry":
                 if (isGamePhaseMapInit(p_gameManager)) {
                     String[] l_editCountryInput = p_input.split(" -");
-                    for (int i = 1; i < l_editCountryInput.length; i++) {
+                    for (int l_i = 1; l_i < l_editCountryInput.length; l_i++) {
                         //checks if add is followed by countryID and continentID
-                        if (l_editCountryInput[i].startsWith("add")) {
-                            String[] addParams = l_editCountryInput[i].split(" ");
-                            if (addParams.length == 3) {
-                                int l_countryID = Integer.parseInt(addParams[1]);
-                                int l_continentID = Integer.parseInt(addParams[2]);
+                        if (l_editCountryInput[l_i].startsWith("add")) {
+                            String[] l_addParams = l_editCountryInput[l_i].split(" ");
+                            if (l_addParams.length == 3) {
+                                int l_countryID = Integer.parseInt(l_addParams[1]);
+                                int l_continentID = Integer.parseInt(l_addParams[2]);
                                 System.out.println("adding country: " + l_countryID);
                                 MapUtil.addCountry(l_map, l_countryID, l_continentID);
                             } else {
                                 System.out.println(Constants.CMD_ERROR);
                             }
-                        } else if (l_editCountryInput[i].startsWith("remove")) {
+                        } else if (l_editCountryInput[l_i].startsWith("remove")) {
                             //checks if remove is followed by countryID
-                            String[] removeParams = l_editCountryInput[i].split(" ");
-                            if (removeParams.length == 2) {
-                                int l_countryID = Integer.parseInt(removeParams[1]);
+                            String[] l_removeParams = l_editCountryInput[l_i].split(" ");
+                            if (l_removeParams.length == 2) {
+                                int l_countryID = Integer.parseInt(l_removeParams[1]);
                                 System.out.println("removing country: " + l_countryID);
                                 MapUtil.removeCountry(l_map, l_countryID);
                             } else {
@@ -273,15 +273,15 @@ public class CommandParser {
                     break;
                 }
                 //Handles the case to add or remove player
-                for (int i = 1; i < l_cmdSplit.length - 1; i++) {
-                    if (l_cmdSplit[i].startsWith("-add") && i + 1 < l_cmdSplit.length
-                            && !l_cmdSplit[i + 1].startsWith("-")) {
-                        String l_playername = l_cmdSplit[i + 1];
+                for (int l_i = 1; l_i < l_cmdSplit.length - 1; l_i++) {
+                    if (l_cmdSplit[l_i].startsWith("-add") && l_i + 1 < l_cmdSplit.length
+                            && !l_cmdSplit[l_i + 1].startsWith("-")) {
+                        String l_playername = l_cmdSplit[l_i + 1];
                         //calls addPlayer() to add the Player in the game
                         p_gameManager.addPlayer(l_playername);
-                    } else if (l_cmdSplit[i].startsWith("-remove") && i + 1 < l_cmdSplit.length
-                            && !l_cmdSplit[i + 1].startsWith("-")) {
-                        String l_playername = l_cmdSplit[i + 1];
+                    } else if (l_cmdSplit[l_i].startsWith("-remove") && l_i + 1 < l_cmdSplit.length
+                            && !l_cmdSplit[l_i + 1].startsWith("-")) {
+                        String l_playername = l_cmdSplit[l_i + 1];
                         //calls removePlayer() to remove Player from the game
                         p_gameManager.removePlayer(l_playername);
                     }
