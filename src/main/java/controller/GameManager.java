@@ -92,10 +92,10 @@ public class GameManager {
     /**
      * Sets the current map.
      *
-     * @param d_map Sets the current map.
+     * @param p_map Sets the current map.
      */
-    public void setD_map(Map d_map) {
-        this.d_map = d_map;
+    public void setD_map(Map p_map) {
+        this.d_map = p_map;
     }
 
     /**
@@ -167,8 +167,8 @@ public class GameManager {
             }
 
             // Create an order using the provided parameters (p_countryID and num)
-            Order order = new Order(p_country, p_num);
-            l_currentPlayer.setD_currentOrder(order);
+            Order l_order = new Order(p_country, p_num);
+            l_currentPlayer.setD_currentOrder(l_order);
             // Call the issue_order() method of the current player to add the order
             l_currentPlayer.issueOrder();
             System.out.println("Issued Order");
@@ -221,10 +221,10 @@ public class GameManager {
     /**
      * Sets the list of players in the current active game
      *
-     * @param d_playerList List of players.
+     * @param p_playerList List of players.
      */
-    public void setD_playerList(List<Player> d_playerList) {
-        this.d_playerList = d_playerList;
+    public void setD_playerList(List<Player> p_playerList) {
+        this.d_playerList = p_playerList;
     }
 
     /**
@@ -250,9 +250,9 @@ public class GameManager {
     /**
      * Gets the game's current phase.
      *
-     * @param d_gamePhase Possible values defined by {@link GamePhase}
+     * @param p_gamePhase Possible values defined by {@link GamePhase}
      */
-    public void setD_gamePhase(GamePhase d_gamePhase) {
-        this.d_gamePhase = d_gamePhase;
+    public void setD_gamePhase(GamePhase p_gamePhase) {
+        this.d_gamePhase = p_gamePhase;
     }
 }

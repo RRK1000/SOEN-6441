@@ -2,6 +2,7 @@ package controller;
 
 /**
  * Represents the different phases of the game.
+ * @author Rishi Ravikumar, Nimisha Jadav
  */
 enum GamePhase {
     /**
