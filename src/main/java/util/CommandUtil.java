@@ -1,7 +1,7 @@
 package util;
 
-import controller.GamePhase;
 import global.Commands;
+import phases.*;
 
 import java.util.HashMap;
 
@@ -90,26 +90,25 @@ public class CommandUtil {
      * @param p_gamePhase current GamePhase set by the GameManager
      * @return boolean result of the GamePhase command validation check
      */
-    private static Boolean isValidGamePhaseCmd(String p_input, GamePhase p_gamePhase) {
-        switch (p_gamePhase) {
-            case Map_Init:
-                return p_input.startsWith(Commands.EDIT_CONTINENT) ||
-                        p_input.startsWith(Commands.EDIT_COUNTRY) ||
-                        p_input.startsWith(Commands.EDIT_NEIGHBOR) ||
-                        p_input.startsWith(Commands.SHOW_MAP) ||
-                        p_input.startsWith(Commands.SAVE_MAP) ||
-                        p_input.startsWith(Commands.EDIT_MAP) ||
-                        p_input.startsWith(Commands.VALIDATE_MAP) ||
-                        p_input.startsWith(Commands.LOAD_MAP);
-
-            case Game_Startup:
-                return  p_input.startsWith(Commands.GAME_PLAYER) ||
-                        p_input.startsWith(Commands.ASSIGN_COUNTRIES) ||
-                        p_input.startsWith(Commands.SHOW_MAP);
-
-            case IssueOrder:
-                return p_input.startsWith(Commands.DEPLOY_ORDER) ||
-                        p_input.startsWith(Commands.SHOW_MAP);
+    private static Boolean isValidGamePhaseCmd(String p_input, Phase p_gamePhase) {
+        if (p_gamePhase.getClass().equals(InitMapPhase.class)) {
+            return p_input.startsWith(Commands.EDIT_CONTINENT) ||
+                    p_input.startsWith(Commands.EDIT_COUNTRY) ||
+                    p_input.startsWith(Commands.EDIT_NEIGHBOR) ||
+                    p_input.startsWith(Commands.SHOW_MAP) ||
+                    p_input.startsWith(Commands.SAVE_MAP) ||
+                    p_input.startsWith(Commands.EDIT_MAP) ||
+                    p_input.startsWith(Commands.VALIDATE_MAP) ||
+                    p_input.startsWith(Commands.LOAD_MAP);
+        } else if (p_gamePhase.getClass().equals(StartupPhase.class)) {
+            return p_input.startsWith(Commands.GAME_PLAYER) ||
+                    p_input.startsWith(Commands.ASSIGN_COUNTRIES) ||
+                    p_input.startsWith(Commands.SHOW_MAP);
+        } else if (p_gamePhase.getClass().equals(IssueOrderPhase.class)) {
+            return p_input.startsWith(Commands.DEPLOY_ORDER) ||
+                    p_input.startsWith(Commands.SHOW_MAP);
+        } else if (p_gamePhase.getClass().equals(ExecuteOrderPhase.class)) {
+            return p_input.startsWith(Commands.SHOW_MAP);
         }
         return false;
     }
@@ -121,7 +120,7 @@ public class CommandUtil {
      * @param p_gamePhase current gamePhase set by the GameManager
      * @return boolean result of the command validation check
      */
-    public static Boolean isValidCmd(String p_input, GamePhase p_gamePhase) {
+    public static Boolean isValidCmd(String p_input, Phase p_gamePhase) {
         return p_input.equals(Commands.HELP) ||
                 (isValidSemantic(p_input) && isValidGamePhaseCmd(p_input, p_gamePhase));
     }

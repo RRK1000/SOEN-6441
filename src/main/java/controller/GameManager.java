@@ -1,6 +1,8 @@
 package controller;
 
 import models.*;
+import phases.InitMapPhase;
+import phases.Phase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,27 +21,16 @@ public class GameManager {
     /**
      * GamePhase instance
      */
-    private GamePhase d_gamePhase;
+    public Phase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
     private Map d_map;
 
     /**
-     * Constructor that initializes the GameManager with a map.
-     *
-     * @param p_map The map to be used for the game.
-     */
-    public GameManager(Map p_map) {
-        this.d_gamePhase = GamePhase.Map_Init;
-        this.d_playerList = new ArrayList<>();
-        this.d_map = p_map;
-    }
-
-    /**
      * Default constructor for GameManager.
      */
     public GameManager() {
-        this.d_gamePhase = GamePhase.Map_Init;
+        this.d_gamePhase = new InitMapPhase();
         this.d_playerList = new ArrayList<>();
     }
 
@@ -63,7 +54,6 @@ public class GameManager {
         }
         //Setting the game phase to Issue Order and assign armies to the players
         System.out.println("Assigned countries to the players");
-        setD_gamePhase(GamePhase.IssueOrder);
         System.out.println("Game has Started!");
         assignReinforcements();
 
@@ -152,31 +142,7 @@ public class GameManager {
         System.out.println("Player " + p_playerName + " does not exist");
     }
 
-    /**
-     * Adds an order to the current player’s list of orders
-     *
-     * @param p_country The country to which the order pertains.
-     * @param p_num       The number associated with the order.
-     */
-    public void issueOrder(Country p_country, int p_num) {
-        Player l_currentPlayer = d_playerList.get(d_currentPlayerTurn);
-        if (l_currentPlayer != null) {
-            if (!l_currentPlayer.getD_countryList().contains(p_country) || l_currentPlayer.getD_numArmies() < p_num) {
-                System.out.println("Invalid order, cannot be issued");
-                return;
-            }
 
-            // Create an order using the provided parameters (p_countryID and num)
-            Order l_order = new Order(p_country, p_num);
-            l_currentPlayer.setD_currentOrder(l_order);
-            // Call the issue_order() method of the current player to add the order
-            l_currentPlayer.issueOrder();
-            System.out.println("Issued Order");
-        } else {
-            // Handle the case where there is no current player or it's not their turn
-            System.out.println("No current player or it's not their turn to issue orders.");
-        }
-    }
 
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
@@ -243,16 +209,16 @@ public class GameManager {
      *
      * @return The current game phase.
      */
-    public GamePhase getD_gamePhase() {
-        return d_gamePhase;
-    }
+//    public Phase getD_gamePhase() {
+//        return d_gamePhase;
+//    }
 
     /**
      * Gets the game's current phase.
      *
      * @param p_gamePhase Possible values defined by {@link GamePhase}
      */
-    public void setD_gamePhase(GamePhase p_gamePhase) {
-        this.d_gamePhase = p_gamePhase;
-    }
+//    public void setD_gamePhase(Phase p_gamePhase) {
+//        this.d_gamePhase = p_gamePhase;
+//    }
 }
