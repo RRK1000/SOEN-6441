@@ -21,7 +21,7 @@ public class GameManager {
     /**
      * GamePhase instance
      */
-    public Phase d_gamePhase;
+    private Phase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
     private Map d_map;
@@ -205,20 +205,20 @@ public class GameManager {
     /**
      * Gets the game's current phase.
      * <p>
-     * Possible values defined by {@link GamePhase}
+     * Possible values defined by {@link phases}
      *
      * @return The current game phase.
      */
-//    public Phase getD_gamePhase() {
-//        return d_gamePhase;
-//    }
+    public Phase getD_gamePhase() {
+        return d_gamePhase;
+    }
 
     /**
      * Gets the game's current phase.
      *
-     * @param p_gamePhase Possible values defined by {@link GamePhase}
+     * @param p_gamePhase Possible values defined by {@link phases}
      */
-//    public void setD_gamePhase(Phase p_gamePhase) {
-//        this.d_gamePhase = p_gamePhase;
-//    }
+    public void setD_gamePhase(Phase p_gamePhase) {
+        this.d_gamePhase = p_gamePhase;
+    }
 }

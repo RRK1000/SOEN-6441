@@ -39,6 +39,6 @@ class StartupPhaseTest {
         String[] l_cmdSplit = {"gameplayer", "-add", "p1", "-add", "p2"};
         d_gamePhase.gamePlayer(l_cmdSplit, d_gameManager);
         d_gamePhase.assignCountries(d_gameManager);
-        assertEquals(d_gameManager.d_gamePhase.getClass(), IssueOrderPhase.class);
+        assertEquals(d_gameManager.getD_gamePhase().getClass(), IssueOrderPhase.class);
     }
 }

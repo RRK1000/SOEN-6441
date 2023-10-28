@@ -200,7 +200,7 @@ public class InitMapPhase implements Phase {
         Map l_map = MapUtil.loadMap(p_fileName);
         if (MapUtil.isValidMap(l_map)) {
             //Set the game phase to start up phase
-            p_gameManager.d_gamePhase = this.nextPhase();
+            p_gameManager.setD_gamePhase(this.nextPhase());
             p_gameManager.setD_map(l_map);
 
             System.out.println("Next, add players to the game");

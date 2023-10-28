@@ -7,10 +7,8 @@ import models.Map;
 import models.Player;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
-import phases.Phase;
 import phases.StartupPhase;
 import util.CommandUtil;
-import util.MapUtil;
 
 /**
  * Represents the command parser.
@@ -34,11 +32,11 @@ public class CommandParser {
      * @param p_gameManager {@link GameManager}
      */
     public static void displayInstructions(GameManager p_gameManager) {
-        if (p_gameManager.d_gamePhase.getClass().equals(InitMapPhase.class)) {
+        if (p_gameManager.getD_gamePhase().getClass().equals(InitMapPhase.class)) {
             System.out.println(Constants.MAP_INIT_HELP);
-        } else if (p_gameManager.d_gamePhase.getClass().equals(StartupPhase.class)) {
+        } else if (p_gameManager.getD_gamePhase().getClass().equals(StartupPhase.class)) {
             System.out.println(Constants.GAME_STARTUP_HELP);
-        } else if (p_gameManager.d_gamePhase.getClass().equals(IssueOrderPhase.class)) {
+        } else if (p_gameManager.getD_gamePhase().getClass().equals(IssueOrderPhase.class)) {
             System.out.println(Constants.ISSUE_ORDER_HELP);
         } else {
             System.out.println(Constants.IN_GAME_HELP);
@@ -56,7 +54,7 @@ public class CommandParser {
     public static void inputParser(GameManager p_gameManager, String p_input) {
         //Breaks the input command around space.
         String[] l_cmdSplit = p_input.split(" ");
-        if (!CommandUtil.isValidCmd(p_input, p_gameManager.d_gamePhase)) {
+        if (!CommandUtil.isValidCmd(p_input, p_gameManager.getD_gamePhase())) {
             displayError();
             return;
         }
@@ -77,43 +75,43 @@ public class CommandParser {
                     System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
-                p_gameManager.d_gamePhase.showMap(l_map, p_gameManager);
+                p_gameManager.getD_gamePhase().showMap(l_map, p_gameManager);
                 break;
 
             case Commands.EDIT_NEIGHBOR:
 
                 String[] l_editNeighbourInput = p_input.split(" -");
-                p_gameManager.d_gamePhase.editNeighbor(l_editNeighbourInput, l_map);
+                p_gameManager.getD_gamePhase().editNeighbor(l_editNeighbourInput, l_map);
                 break;
 
             case Commands.EDIT_CONTINENT:
                 String[] l_inputSplit = p_input.split(" -");
-                p_gameManager.d_gamePhase.editContinent(l_inputSplit, l_map);
+                p_gameManager.getD_gamePhase().editContinent(l_inputSplit, l_map);
                 break;
 
             case Commands.EDIT_COUNTRY:
                 String[] l_editCountryInput = p_input.split(" -");
-                p_gameManager.d_gamePhase.editCountry(l_editCountryInput, l_map);
+                p_gameManager.getD_gamePhase().editCountry(l_editCountryInput, l_map);
                 break;
 
             case Commands.SAVE_MAP:
-                p_gameManager.d_gamePhase.saveMap(l_map, l_cmdSplit);
+                p_gameManager.getD_gamePhase().saveMap(l_map, l_cmdSplit);
                 break;
 
             case Commands.EDIT_MAP:
-                p_gameManager.d_gamePhase.editMap(p_gameManager, l_cmdSplit);
+                p_gameManager.getD_gamePhase().editMap(p_gameManager, l_cmdSplit);
                 break;
 
             case Commands.VALIDATE_MAP:
                 if (l_map != null) {
-                    p_gameManager.d_gamePhase.validateMap(l_map, p_gameManager);
+                    p_gameManager.getD_gamePhase().validateMap(l_map, p_gameManager);
                 } else {
                     displayError();
                 }
                 break;
 
             case Commands.LOAD_MAP:
-                p_gameManager.d_gamePhase.loadMap(l_cmdSplit[1], p_gameManager);
+                p_gameManager.getD_gamePhase().loadMap(l_cmdSplit[1], p_gameManager);
                 break;
 
             case Commands.GAME_PLAYER:
@@ -122,11 +120,11 @@ public class CommandParser {
                     System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
-                p_gameManager.d_gamePhase.gamePlayer(l_cmdSplit, p_gameManager);
+                p_gameManager.getD_gamePhase().gamePlayer(l_cmdSplit, p_gameManager);
                 break;
 
             case Commands.ASSIGN_COUNTRIES:
-                p_gameManager.d_gamePhase.assignCountries(p_gameManager);
+                p_gameManager.getD_gamePhase().assignCountries(p_gameManager);
                 break;
 
             case Commands.DEPLOY_ORDER:
@@ -139,7 +137,7 @@ public class CommandParser {
                 //Getting number of armies
                 int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
                 //call issueOrder()
-                p_gameManager.d_gamePhase.deploy(l_currentPlayer, l_country, l_numArmies);
+                p_gameManager.getD_gamePhase().deploy(l_currentPlayer, l_country, l_numArmies);
 
                 //If the current player has zero armies, move to the next player.
                 if (l_currentPlayer.getD_numArmies() == 0) {
@@ -152,7 +150,7 @@ public class CommandParser {
                         p_gameManager.executeOrder();
                         //Assigning armies to the player
                         p_gameManager.assignReinforcements();
-                        p_gameManager.d_gamePhase = p_gameManager.d_gamePhase.nextPhase();
+                        p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
                     }
                     l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                     System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
