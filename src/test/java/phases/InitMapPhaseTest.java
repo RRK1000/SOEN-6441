@@ -1,11 +1,11 @@
 package phases;
 
 import controller.GameManager;
-import models.Map;
-import org.junit.jupiter.api.*;
-import util.MapUtil;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InitMapPhaseTest {
 
@@ -25,7 +25,7 @@ class InitMapPhaseTest {
     @Test
     void loadMapTest(){
         d_gamePhase.loadMap("europe.map", d_gameManager);
-        assertEquals(d_gameManager.d_gamePhase.getClass(), StartupPhase.class);
+        assertEquals(d_gameManager.getD_gamePhase().getClass(), StartupPhase.class);
     }
 
 }

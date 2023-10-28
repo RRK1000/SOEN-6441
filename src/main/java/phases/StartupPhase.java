@@ -150,6 +150,6 @@ public class StartupPhase implements Phase {
     @Override
     public void assignCountries(GameManager p_gameManager) {
         p_gameManager.assignCountries();
-        p_gameManager.d_gamePhase = this.nextPhase();
+        p_gameManager.setD_gamePhase(this.nextPhase());
     }
 }
