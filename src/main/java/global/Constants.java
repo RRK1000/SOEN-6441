@@ -56,4 +56,9 @@ public class Constants {
      * Displayed when the player enters incorrect input
      */
     public static final String CMD_ERROR = "invalid command/option";
+
+    /**
+     * Displayed when incorrect command from a different phase is given.
+     */
+    public static final String INVALID_PHASE_ERROR = "invalid command for the current phase.";
 }

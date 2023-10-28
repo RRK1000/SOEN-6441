@@ -2,6 +2,7 @@ package phases;
 
 import controller.CommandParser;
 import controller.GameManager;
+import global.Constants;
 import models.Country;
 import models.Map;
 import models.Player;
@@ -20,42 +21,42 @@ public class StartupPhase implements Phase {
 
     @Override
     public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void editCountry(String[] p_editCountryInput, Map p_map) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void editContinent(String[] p_inputSplit, Map p_map) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void editNeighbor(String[] p_editNeighbourInput, Map p_map) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void validateMap(Map p_map, GameManager p_gameManager) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void saveMap(Map p_map, String[] l_cmdSplit) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void editMap(GameManager p_gameManager, String[] l_cmdSplit) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void loadMap(String p_fileName, GameManager p_gameManager) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
