@@ -1,0 +1,18 @@
+loadmap newmap.txt
+help
+gameplayer -add p1 -add p2 -add p3
+gameplayer -remove p3
+gameplayer -add p1 -remove p3
+help
+assigncountries
+help
+showmap
+deploy 2 99
+deploy 2
+deploy 2 3
+deploy 3 3
+showmap
+deploy 2 3
+deploy 3 3
+showmap
+editcountry -add 5 3
