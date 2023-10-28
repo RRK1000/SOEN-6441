@@ -1,6 +1,7 @@
 package util;
 
 import org.junit.jupiter.api.Test;
+import phases.InitMapPhase;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +20,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertTrue(CommandUtil.isValidCmd(command, GamePhase.Map_Init));
+            assertTrue(CommandUtil.isValidCmd(command, new InitMapPhase()));
         }
     }
 
@@ -35,7 +36,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, GamePhase.Map_Init));
+            assertFalse(CommandUtil.isValidCmd(command, new InitMapPhase()));
         }
     }
 }
