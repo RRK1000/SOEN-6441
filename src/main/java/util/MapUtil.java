@@ -367,7 +367,7 @@ public class MapUtil {
             l_continent.removeCountry(l_country);
 
             l_countryMapGraph.removeVertex(l_country);
-            for(int l_neighborID: l_country.getD_neighbourCountryIDList()){
+            for (int l_neighborID : l_country.getD_neighbourCountryIDList()) {
                 Country l_neighbor = p_map.getD_countryByID(l_neighborID);
                 l_neighbor.getD_neighbourCountryIDList().remove((Integer) p_countryID);
             }
@@ -392,7 +392,7 @@ public class MapUtil {
             Country l_neighbourCountry = p_map.getD_countryByID(p_neighbourCountryID);
             //Adding edge in the graph between the country and neighbouring country
 
-            if(!l_countryMapGraph.containsEdge(l_country, l_neighbourCountry)) {
+            if (!l_countryMapGraph.containsEdge(l_country, l_neighbourCountry)) {
                 l_countryMapGraph.addEdge(l_country, l_neighbourCountry);
                 l_countryMapGraph.addEdge(l_neighbourCountry, l_country);
                 l_country.getD_neighbourCountryIDList().add(l_neighbourCountry.getD_countryID());

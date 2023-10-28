@@ -8,12 +8,6 @@ import util.MapUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 
 class GameManagerTest {
     private GameManager d_gameManager;
@@ -29,7 +23,8 @@ class GameManagerTest {
 
         Map d_map = MapUtil.loadMap("europe.map");
 
-        d_gameManager = new GameManager(d_map);
+        d_gameManager = new GameManager();
+        d_gameManager.setD_map(d_map);
         d_gameManager.addPlayer(player1Name);
         d_gameManager.addPlayer(player2Name);
     }
