@@ -7,11 +7,12 @@ package models;
  *
  * @author Anuja Somthankar
  * @author Rishi Ravikumar
- * @author Anuja Somthankar
+ * @author Nimisha Jadav
  */
-public class Order {
+public abstract class Order {
     private Country d_country;
     private int d_num;
+    private String d_Type;
 
     /**
      * Constructor for the Order class.
@@ -19,28 +20,10 @@ public class Order {
      * @param p_country The country on which the order is to be executed.
      * @param p_num     The number of armies to be deployed.
      */
-    public Order(Country p_country, int p_num) {
+    /**public Order(Country p_country, int p_num) {
         this.d_country = p_country;
         this.d_num = p_num;
-    }
-
-    /**
-     * Gets the country specified in the order
-     *
-     * @return d_num country on which armies on deployed
-     */
-    public Country getD_country() {
-        return d_country;
-    }
-
-    /**
-     * Sets the country specified in the order.
-     *
-     * @param p_country The country on which armies are to be deployed.
-     */
-    public void setD_country(Country p_country) {
-        this.d_country = p_country;
-    }
+    }*/
 
     /**
      * Gets the number of armies deployed
@@ -52,18 +35,33 @@ public class Order {
     }
 
     /**
-     * Sets the number of armies deployed
-     *
-     * @param p_num Number of armies deployed on the country ID
+     * Sets the type of Order
+     * @param p_Type Indicates the type of order
      */
-    public void setD_num(int p_num) {
-        this.d_num = p_num;
+    public void setD_type(String p_Type){
+        this.d_Type = p_Type;
     }
 
     /**
+     * Gets the type of order
+     * @return type of order
+     */
+    public String getD_Type(){
+        return d_Type;
+    }
+    /**
      * Executes an Order
      */
-    public void execute() {
-        d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
-    }
+    public abstract void execute();
+
+    /**
+     * Function to validate the command
+     * @return true if the command is valid, else returns false
+     */
+    public abstract boolean validate();
+
+    /**
+     * Print an order
+     */
+    public abstract void printOrder();
 }
