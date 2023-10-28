@@ -6,6 +6,10 @@ import models.Country;
 import models.Map;
 import models.Player;
 
+/**
+ * This class is an implements the orders from execute phase like attack, bomb, etc.
+ * @author Anuja-Somthankar
+ */
 public class ExecuteOrderPhase implements Phase {
 
     /**

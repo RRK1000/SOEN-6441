@@ -7,6 +7,10 @@ import models.Map;
 import models.Player;
 import util.MapUtil;
 
+/**
+ * This class is an implements the orders from map initialization phase like editcountry, editmap etc.
+ * @author Anuja-Somthankar
+ */
 public class InitMapPhase implements Phase {
     /**
      * This method shifts the game phase to the next phase.

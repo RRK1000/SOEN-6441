@@ -7,6 +7,10 @@ import models.Map;
 import models.Order;
 import models.Player;
 
+/**
+ * This class is an implements the orders from issue orders phase like deploy
+ * @author Anuja-Somthankar
+ */
 public class IssueOrderPhase implements Phase {
     /**
      * This method shifts the game phase to the next phase.

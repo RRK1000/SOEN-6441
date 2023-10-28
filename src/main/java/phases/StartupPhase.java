@@ -6,6 +6,10 @@ import models.Country;
 import models.Map;
 import models.Player;
 
+/**
+ * This class is an implements the orders from startup phase like add/remove gameplayer etc.
+ * @author Anuja-Somthankar
+ */
 public class StartupPhase implements Phase {
 
     /**

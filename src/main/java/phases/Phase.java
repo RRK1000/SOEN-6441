@@ -5,6 +5,10 @@ import models.Country;
 import models.Map;
 import models.Player;
 
+/**
+ * This interface depicts all the possible functions that are applied in every phase of the game.
+ * @author Anuja-Somthankar
+ */
 public interface Phase {
 
     /**
