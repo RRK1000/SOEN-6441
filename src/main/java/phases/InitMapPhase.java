@@ -16,7 +16,7 @@ public class InitMapPhase implements Phase {
 
     @Override
     public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
@@ -154,11 +154,11 @@ public class InitMapPhase implements Phase {
 
     @Override
     public void gamePlayer(String[] p_cmdSplit, GameManager p_gameManager) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override
     public void assignCountries(GameManager p_gameManager) {
-        CommandParser.displayError();
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 }
