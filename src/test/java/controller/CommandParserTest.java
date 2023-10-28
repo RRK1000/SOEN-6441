@@ -32,7 +32,8 @@ class CommandParserTest {
 
 		d_map = MapUtil.loadMap("europe.map");
 
-		d_gameManager = new GameManager(d_map);
+		d_gameManager = new GameManager();
+		d_gameManager.setD_map(d_map);
 		d_gameManager.addPlayer(player1Name);
 		d_gameManager.addPlayer(player2Name);
 	}
