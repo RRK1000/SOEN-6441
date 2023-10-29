@@ -15,7 +15,7 @@ public class CommandUtil {
     /**
      * Checks the given input against a HashMap of valid option types and valid parameter lengths
      *
-     * @param p_input input string from the CommandParser
+     * @param p_input      input string from the CommandParser
      * @param p_optionSpec HashMap of valid option types and the accepted parameter length
      * @return boolean result of option validity check
      */
@@ -28,7 +28,7 @@ public class CommandUtil {
                     continue;
 
                 if (l_inputOptionList[l_i].startsWith(l_option) &&
-                                l_inputOptionList[l_i].split(" ").length != p_optionSpec.get(l_option) + 1
+                        l_inputOptionList[l_i].split(" ").length != p_optionSpec.get(l_option) + 1
                 ) {
                     return false;
                 }
@@ -51,14 +51,14 @@ public class CommandUtil {
             case Commands.EDIT_CONTINENT:
 
             case Commands.EDIT_COUNTRY:
-                l_optionSpec= new HashMap<>();
+                l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 2);
                 l_optionSpec.put("remove", 1);
 
                 return hasValidOptions(p_input, l_optionSpec);
 
             case Commands.EDIT_NEIGHBOR:
-                l_optionSpec= new HashMap<>();
+                l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 2);
                 l_optionSpec.put("remove", 2);
 
@@ -70,7 +70,7 @@ public class CommandUtil {
                 return l_cmdSplit.length == 2;
 
             case Commands.GAME_PLAYER:
-                l_optionSpec= new HashMap<>();
+                l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 1);
                 l_optionSpec.put("remove", 1);
 
@@ -86,7 +86,8 @@ public class CommandUtil {
 
     /**
      * Checks whether the given input command is applicable against the given game phase
-     * @param p_input input string from the CommandParser
+     *
+     * @param p_input     input string from the CommandParser
      * @param p_gamePhase current GamePhase set by the GameManager
      * @return boolean result of the GamePhase command validation check
      */
@@ -116,7 +117,7 @@ public class CommandUtil {
     /**
      * Checks the validity of the input command
      *
-     * @param p_input input string from the CommandParser
+     * @param p_input     input string from the CommandParser
      * @param p_gamePhase current gamePhase set by the GameManager
      * @return boolean result of the command validation check
      */

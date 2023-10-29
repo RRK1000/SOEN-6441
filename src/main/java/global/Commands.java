@@ -2,6 +2,7 @@ package global;
 
 /**
  * List of valid commands
+ *
  * @author Rishi Ravikumar
  */
 public class Commands {
