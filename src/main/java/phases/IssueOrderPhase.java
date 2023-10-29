@@ -6,6 +6,7 @@ import models.Country;
 import models.Map;
 import models.Order;
 import models.Player;
+import orders.DeployOrder;
 
 public class IssueOrderPhase implements Phase {
     /**
@@ -39,13 +40,11 @@ public class IssueOrderPhase implements Phase {
     @Override
     public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
         if (p_currentPlayer != null) {
-            if (!p_currentPlayer.getD_countryList().contains(p_country) || p_currentPlayer.getD_numArmies() < p_num) {
-                System.out.println("Invalid order, cannot be issued");
-                return;
-            }
-
             // Create an order using the provided parameters (p_countryID and num)
-            Order l_order = new Order(p_country, p_num);
+            Order l_order = new DeployOrder(p_country, p_num);
+            if (!l_order.isValid(p_currentPlayer)) {
+                throw new IllegalArgumentException("Cannot deploy more armies than available in reinforcement pool.");
+            }
             p_currentPlayer.setD_currentOrder(l_order);
             // Call the issue_order() method of the current player to add the order
             p_currentPlayer.issueOrder();

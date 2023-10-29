@@ -1,19 +1,18 @@
 package orders;
 
-import models.Country;
 import models.Order;
+import models.Player;
 
 /**
  * This class handles the advance type order.
+ *
  * @author Nimisha Jadav
  */
-public class Advance extends Order {
+public class AdvanceOrder implements Order {
     /**
      * Constructor for the Order class.
      */
-    public Advance() {
-        super();
-        setD_type("advance");
+    public AdvanceOrder() {
     }
 
     @Override
@@ -22,12 +21,7 @@ public class Advance extends Order {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid(Player p_player) {
         return false;
-    }
-
-    @Override
-    public void printOrder() {
-
     }
 }

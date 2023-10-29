@@ -1,19 +1,18 @@
 package orders;
 
-import models.Country;
 import models.Order;
+import models.Player;
 
 /**
  * This class handles the bomb type order.
+ *
  * @author Nimisha Jadav
  */
-public class Bomb extends Order {
+public class BombOrder implements Order {
     /**
      * Constructor for the Order class.
      */
-    public Bomb() {
-        super();
-        setD_type("bomb");
+    public BombOrder() {
     }
 
     /**
@@ -28,15 +27,8 @@ public class Bomb extends Order {
      * @return
      */
     @Override
-    public boolean validate() {
+    public boolean isValid(Player p_player) {
         return false;
     }
 
-    /**
-     *
-     */
-    @Override
-    public void printOrder() {
-
-    }
 }
