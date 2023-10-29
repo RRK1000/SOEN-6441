@@ -1,13 +1,18 @@
 package controller;
 
-import models.*;
-import phases.InitMapPhase;
-import phases.Phase;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
+import models.Continent;
+import models.Country;
+import models.Map;
+import models.Order;
+import models.Player;
+import phases.InitMapPhase;
+import phases.Phase;
 /**
  * Represents the Game Manager
  * Manages game state, and the player actions involved during the game play
@@ -26,12 +31,25 @@ public class GameManager {
     private int d_currentPlayerTurn;
     private Map d_map;
 
+
+    private LogEntryBuffer d_logBuffer;
+    private LogFileWriter d_logWriter;
+
     /**
      * Default constructor for GameManager.
      */
     public GameManager() {
         this.d_gamePhase = new InitMapPhase();
         this.d_playerList = new ArrayList<>();
+        
+
+        this.d_logBuffer = new LogEntryBuffer();
+        this.d_logWriter = new LogFileWriter("/risk/src/main/resources/game.log");
+        this.d_logBuffer.addObserver(d_logWriter);
+    }
+    
+    private void logAction(String action) {
+        d_logBuffer.setActionInfo(action);
     }
 
     /**
@@ -61,6 +79,9 @@ public class GameManager {
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
         System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
+        
+        logAction("Assigned countries to the players. Game has Started!");
+
     }
 
     /**
@@ -68,6 +89,9 @@ public class GameManager {
      */
     public void updatePlayerTurn() {
         d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
+        logAction("Player turn updated to " + d_playerList.get(d_currentPlayerTurn).getD_playerName());
+
+        
     }
 
     /**
@@ -100,6 +124,8 @@ public class GameManager {
             }
         }
         System.out.println("Reinforcement armies have been assigned to each player\n");
+        logAction("Reinforcement armies have been assigned to each player");
+
     }
 
     /**
@@ -121,6 +147,11 @@ public class GameManager {
             Player l_player = new Player(p_playerName);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
+            System.out.println("Added " + p_playerName + " to the game!");
+            logAction("Added " + p_playerName + " to the game!");
+
+            
+
         } else {
             System.out.println("You have reached the limit to add players");
         }
@@ -136,6 +167,7 @@ public class GameManager {
             if (Objects.equals(l_p.getD_playerName(), p_playerName)) {
                 System.out.println("Player " + p_playerName + " removed from the game");
                 d_playerList.remove(l_p);
+                logAction("Player " + p_playerName + " removed from the game");
                 return;
             }
         }
@@ -153,6 +185,8 @@ public class GameManager {
             l_order.execute();
         }
         System.out.println("Orders have been executed for this round.");
+        logAction("Orders have been executed for this round.");
+
     }
 
     /**
@@ -172,6 +206,8 @@ public class GameManager {
             }
             System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
                     l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_owner.getD_playerName(), l_country.getD_numArmies());
+            logAction("Displayed the current game map and state.");
+
         }
     }
 
