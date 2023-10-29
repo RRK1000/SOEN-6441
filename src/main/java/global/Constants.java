@@ -2,6 +2,7 @@ package global;
 
 /**
  * Displays the messages in the game.
+ *
  * @author Rishi Ravikumar
  */
 public class Constants {

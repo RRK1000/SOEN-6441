@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class IssueOrderPhaseTest {
     static GameManager d_gameManager;
@@ -38,4 +39,21 @@ class IssueOrderPhaseTest {
         d_gameManager.getD_gamePhase().deploy(l_p1, l_country, 1);
         assertEquals(l_p1.getD_numArmies(), 2); // 3 -> 2
     }
+
+    @Test
+	void testCannotDeployMoreArmiesThanInReinforcementPool() {
+        Player l_p1 = d_gameManager.getD_playerList().get(0);
+        Country l_country = l_p1.getD_countryList().get(0);
+        int l_num = 55;
+
+		Exception l_exception = assertThrows(IllegalArgumentException.class, () -> {
+            IssueOrderPhase l_currentPhase = (IssueOrderPhase) d_gameManager.getD_gamePhase();
+            l_currentPhase.deploy(l_p1, l_country, l_num);
+		});
+
+		String l_expectedMessage = "Cannot deploy more armies than available in reinforcement pool.";
+		String l_actualMessage = l_exception.getMessage();
+
+		assertEquals(l_actualMessage, l_expectedMessage);
+	}
 }

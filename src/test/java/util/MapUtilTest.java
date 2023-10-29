@@ -1,16 +1,15 @@
 package util;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import models.Continent;
+import models.Country;
+import models.Map;
 import org.jgrapht.Graph;
 import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import org.junit.jupiter.api.Test;
 
-import models.Continent;
-import models.Country;
-import models.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class contains the test methods for MapUtil.java. The tested functions
@@ -56,7 +55,7 @@ class MapUtilTest {
 
 	/**
 	 * Checks if a list of countries form a connected subgraph within the given
-	 * graph This method is to validate that a continent (represented by a list of
+	 * graph This method is to isValid that a continent (represented by a list of
 	 * countries) is a connected subgraph It constructs a subgraph from the given
 	 * list of countries and checks its connectivity
 	 * 

@@ -7,7 +7,6 @@ help
 assigncountries
 help
 showmap
-deploy 2 99
 deploy 2
 deploy 2 3
 deploy 3 3

@@ -143,7 +143,6 @@ public class GameManager {
     }
 
 
-
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
      */
