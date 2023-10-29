@@ -1,19 +1,18 @@
 package orders;
 
-import models.Country;
 import models.Order;
+import models.Player;
 
 /**
  * This class handles the airlift type order.
+ *
  * @author Nimisha Jadav
  */
-public class Airlift extends Order {
+public class AirliftOrder implements Order {
     /**
      * Constructor for the Order class.
      */
-    public Airlift() {
-        super();
-        setD_type("airlift");
+    public AirliftOrder() {
     }
 
     @Override
@@ -22,12 +21,7 @@ public class Airlift extends Order {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid(Player p_player) {
         return false;
-    }
-
-    @Override
-    public void printOrder() {
-
     }
 }

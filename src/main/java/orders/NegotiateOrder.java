@@ -1,19 +1,18 @@
 package orders;
 
-import models.Country;
 import models.Order;
+import models.Player;
 
 /**
  * This class handles the negotiation.
+ *
  * @author Nimisha Jadav
  */
-public class Negotiate extends Order {
+public class NegotiateOrder implements Order {
     /**
      * Constructor for the Order class.
      */
-    public Negotiate() {
-        super();
-        setD_type("negotiate");
+    public NegotiateOrder() {
     }
 
     @Override
@@ -22,12 +21,7 @@ public class Negotiate extends Order {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid(Player p_player) {
         return false;
-    }
-
-    @Override
-    public void printOrder() {
-
     }
 }

@@ -1,19 +1,18 @@
 package orders;
 
-import models.Country;
 import models.Order;
+import models.Player;
 
 /**
  * This class handles the blockade type order.
+ *
  * @author Nimisha Jadav
  */
-public class Blockade extends Order {
+public class BlockadeOrder implements Order {
     /**
      * Constructor for the Order class.
      */
-    public Blockade() {
-        super();
-        setD_type("blockade");
+    public BlockadeOrder() {
     }
 
     @Override
@@ -22,12 +21,7 @@ public class Blockade extends Order {
     }
 
     @Override
-    public boolean validate() {
+    public boolean isValid(Player p_player) {
         return false;
-    }
-
-    @Override
-    public void printOrder() {
-
     }
 }

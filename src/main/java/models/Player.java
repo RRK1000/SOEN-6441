@@ -1,5 +1,7 @@
 package models;
 
+import orders.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Player {
     private List<Continent> d_continentList;
     private List<Order> d_orderList;
     private Order d_currentOrder;
+    private List<String> d_playerCardList;
 
     /**
      * Default constructor for Player class
@@ -61,11 +64,22 @@ public class Player {
      * Issues an order Adds the current order issued by the player to their order list
      */
     public void issueOrder() {
-        if (d_currentOrder.getD_num() > d_numArmies) {
-            throw new IllegalArgumentException("Cannot deploy more armies than available in reinforcement pool.");
-        }
         d_orderList.add(d_currentOrder);
-        d_numArmies -= d_currentOrder.getD_num();
+
+        if (d_currentOrder instanceof AdvanceOrder) {
+
+        } else if (d_currentOrder instanceof AirliftOrder) {
+
+        } else if (d_currentOrder instanceof BlockadeOrder) {
+
+        } else if (d_currentOrder instanceof BombOrder) {
+
+        } else if (d_currentOrder instanceof DeployOrder) {
+            DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
+            d_numArmies -= l_deployOrder.getD_num();
+        } else if (d_currentOrder instanceof NegotiateOrder) {
+
+        }
     }
 
 
