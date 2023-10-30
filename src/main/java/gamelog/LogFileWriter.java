@@ -3,7 +3,6 @@ package gamelog;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 /**
@@ -11,16 +10,19 @@ import java.nio.file.StandardOpenOption;
  * @author Yusuke Ishii
  */
 public class LogFileWriter implements Observer {
-    private String d_logFileName;
+    private Path d_logFilePath;
+
+
 
     /**
      * Constructor for LogFileWriter.
-     *
-     * @param p_fileName The name of the log file.
+     * 
+     * @param p_logFilePath The complete path to the log file.
      */
-    public LogFileWriter(String p_fileName) {
-        this.d_logFileName = p_fileName;
+    public LogFileWriter(Path p_logFilePath) {
+        this.d_logFilePath = p_logFilePath;
     }
+
 
     @Override
     public void update(Observable p_observable, Object p_arg) {
@@ -36,9 +38,8 @@ public class LogFileWriter implements Observer {
      * @param p_info The info to write.
      */
     private void writeToLogFile(String p_info) {
-        Path l_path = Paths.get("/risk/src/main/resources", d_logFileName);
         try {
-            Files.write(l_path, (p_info + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.write(d_logFilePath, (p_info + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException l_e) {
             System.err.println("Error writing to log file: " + l_e.getMessage());
         }
