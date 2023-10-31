@@ -1,7 +1,6 @@
 package orders;
 
 import models.Order;
-import models.Player;
 
 /**
  * This class handles the blockade type order.
@@ -21,7 +20,7 @@ public class BlockadeOrder implements Order {
     }
 
     @Override
-    public boolean isValid(Player p_player) {
+    public boolean isValid() {
         return false;
     }
 }

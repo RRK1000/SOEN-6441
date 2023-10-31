@@ -10,13 +10,15 @@ import models.Player;
  * @author Nimisha Jadav
  */
 public class DeployOrder implements Order {
+    private final Player d_player;
     private final Country d_country;
     private final int d_num;
 
     /**
      * Constructor for the Order class.
      */
-    public DeployOrder(Country p_country, int p_num) {
+    public DeployOrder(Player p_player, Country p_country, int p_num) {
+        this.d_player = p_player;
         this.d_country = p_country;
         this.d_num = p_num;
     }
@@ -31,7 +33,7 @@ public class DeployOrder implements Order {
     }
 
     @Override
-    public boolean isValid(Player p_player) {
-        return p_player.getD_countryList().contains(d_country) && p_player.getD_numArmies() >= d_num;
+    public boolean isValid() {
+        return d_player.getD_countryList().contains(d_country) && d_player.getD_numArmies() >= d_num;
     }
 }

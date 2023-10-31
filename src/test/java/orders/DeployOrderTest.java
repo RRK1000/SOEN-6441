@@ -38,7 +38,7 @@ class DeployOrderTest {
     void execute() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_country = l_p1.getD_countryList().get(0);
-        Order l_order = new DeployOrder(l_country, 3);
+        Order l_order = new DeployOrder(l_p1, l_country, 3);
         l_order.execute();
         assertEquals(l_country.getD_numArmies(), 3);
     }
@@ -47,15 +47,15 @@ class DeployOrderTest {
     void isValidTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_country = l_p1.getD_countryList().get(0);
-        Order l_order = new DeployOrder(l_country, 3);
-        assertTrue(l_order.isValid(l_p1));
+        Order l_order = new DeployOrder(l_p1, l_country, 3);
+        assertTrue(l_order.isValid());
     }
 
     @Test
     void isValidTest2() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_country = l_p1.getD_countryList().get(0);
-        Order l_order = new DeployOrder(l_country, 4);
-        assertFalse(l_order.isValid(l_p1));
+        Order l_order = new DeployOrder(l_p1, l_country, 4);
+        assertFalse(l_order.isValid());
     }
 }

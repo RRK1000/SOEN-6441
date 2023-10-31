@@ -54,12 +54,11 @@ public class AdvanceOrder implements Order {
 
     /**
      * Validates the AdvanceOrder command against the player
-     * @param p_player The player issuing the command
      * @return boolean value whether the command can be executed or not
      */
     @Override
-    public boolean isValid(Player p_player) {
-        if(!p_player.getD_countryList().contains(d_countryfrom)){
+    public boolean isValid() {
+        if(!d_player.getD_countryList().contains(d_countryfrom)){
             System.out.println("Player does not own country: " + d_countryfrom.getD_countryName());
             return false;
         } else if (d_num == d_countryfrom.getD_numArmies()) {

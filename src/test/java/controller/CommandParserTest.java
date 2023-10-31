@@ -25,7 +25,7 @@ class CommandParserTest {
 		d_gameManager = new GameManager();
 		d_player = new Player("John", 5, new ArrayList<>(), new ArrayList<>(), null);
 		d_country = new Country();
-		d_order = new DeployOrder(d_country, 3);
+		d_order = new DeployOrder(d_player, d_country, 3);
 		d_player.setD_currentOrder(d_order);
 
 		String player1Name = "Player1";

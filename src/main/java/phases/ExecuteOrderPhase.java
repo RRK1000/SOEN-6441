@@ -55,6 +55,18 @@ public class ExecuteOrderPhase implements Phase {
     }
 
     /**
+     * Bomb an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
      * This method prints the invalid phase error as it is not a valid command for this phase.
      *
      * @param p_editCountryInput The input given by the user to add/remove countries
