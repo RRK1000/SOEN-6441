@@ -41,7 +41,12 @@ public class AdvanceOrder implements Order {
 
         // after the attack
         if(l_attackingArmies >= l_defendingArmies) {
+            Player l_formerOwner = d_countryto.getD_owner();
+            l_formerOwner.getD_countryList().remove(d_countryto);
             d_countryto.setD_owner(d_player);
+            d_player.getD_countryList().add(d_countryto);
+            d_player.addRandomCard();
+
         }
         d_countryto.setD_numArmies(Math.max(0, l_attackingArmies - l_defendingArmies));
         d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - l_attackingArmies);

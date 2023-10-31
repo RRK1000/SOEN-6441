@@ -3,7 +3,9 @@ package models;
 import orders.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a Player in the game.
@@ -32,6 +34,7 @@ public class Player {
         this.d_countryList = new ArrayList<>();
         this.d_continentList = new ArrayList<>();
         this.d_orderList = new ArrayList<>();
+        this.d_playerCardList = new ArrayList<>();
     }
 
     /**
@@ -49,6 +52,14 @@ public class Player {
         this.d_countryList = p_countryList;
         this.d_orderList = p_orderList;
         this.d_currentOrder = p_currentOrder;
+    }
+
+    public List<String> getD_playerCardList() {
+        return d_playerCardList;
+    }
+
+    public void setD_playerCardList(List<String> d_playerCardList) {
+        this.d_playerCardList = d_playerCardList;
     }
 
     /**
@@ -205,5 +216,13 @@ public class Player {
      */
     public void setD_continentList(List<Continent> p_continentList) {
         this.d_continentList = p_continentList;
+    }
+
+    public void addRandomCard () {
+        List<String> l_cardsList = Arrays.asList("BOMB_CARD", "BLOCKADE_CARD", "AIRLIFT_CARD", "DIPLOMACY_CARD");
+        Random l_rndm = new Random();
+        int randomIndex = l_rndm.nextInt(l_cardsList.size());
+        String l_card = l_cardsList.get(randomIndex);
+        this.d_playerCardList.add(l_card);
     }
 }
