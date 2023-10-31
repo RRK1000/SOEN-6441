@@ -37,7 +37,7 @@ public class StartupPhase implements Phase {
      * @param p_num           The number of armies to be deployed
      */
     @Override
-    public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
+    public void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
@@ -50,7 +50,7 @@ public class StartupPhase implements Phase {
      * @param p_num           Number of armies attacking
      */
     @Override
-    public void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+    public void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 

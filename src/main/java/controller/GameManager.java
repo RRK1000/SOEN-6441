@@ -91,10 +91,16 @@ public class GameManager {
      * Method to update the turn of the player.
      */
     public void updatePlayerTurn() {
-        d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
-        logAction("Player turn updated to " + d_playerList.get(d_currentPlayerTurn).getD_playerName());
+        String l_currentPlayerName = this.getD_playerList().get(this.getD_currentPlayerTurn()).getD_playerName();
+        System.out.println("Player " + l_currentPlayerName + " turn over. ");
+        System.out.println();
 
+        d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
         
+        
+        l_currentPlayerName = this.getD_playerList().get(this.getD_currentPlayerTurn()).getD_playerName();
+        System.out.println("Player " + l_currentPlayerName  + "'s turn ");
+        logAction("Player turn updated to " + l_currentPlayerName);
     }
 
     /**
@@ -184,6 +190,7 @@ public class GameManager {
     public void executeOrder() {
         for (Player l_player : d_playerList) {
             Order l_order = l_player.nextOrder();
+            if(null == l_order) return;
             l_order.execute();
         }
         System.out.println("Orders have been executed for this round.");

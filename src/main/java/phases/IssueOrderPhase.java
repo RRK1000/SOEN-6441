@@ -39,7 +39,7 @@ public class IssueOrderPhase implements Phase {
      * @param p_num           The number of armies to be deployed
      */
     @Override
-    public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
+    public void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num) {
         if (p_currentPlayer != null) {
             // Create an order using the provided parameters (p_countryID and num)
             Order l_order = new DeployOrder(p_country, p_num);
@@ -51,6 +51,8 @@ public class IssueOrderPhase implements Phase {
             // Call the issue_order() method of the current player to add the order
             p_currentPlayer.issueOrder();
             System.out.println("Issued Deploy Order");
+
+            p_gameManager.updatePlayerTurn();
         } else {
             // Handle the case where there is no current player or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");
@@ -66,7 +68,7 @@ public class IssueOrderPhase implements Phase {
      * @param p_num           Number of armies attacking
      */
     @Override
-    public void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+    public void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         Order l_order = new AdvanceOrder(p_currentPlayer, p_countryFrom, p_countryTo, p_num);
         if (!l_order.isValid(p_currentPlayer)) {
             return;
@@ -74,6 +76,8 @@ public class IssueOrderPhase implements Phase {
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
         System.out.println("Issued Advance Order");
+
+        p_gameManager.updatePlayerTurn();
     }
 
     /**
