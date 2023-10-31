@@ -35,6 +35,9 @@ class AdvanceOrderTest {
         d_gameManager = null;
     }
 
+    /**
+     * Tests an execute command where the attacking army conquers the country
+     */
     @Test
     void executeTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -53,6 +56,9 @@ class AdvanceOrderTest {
         assertFalse(l_p1.getD_playerCardList().isEmpty());
     }
 
+    /**
+     * Tests an execute command where the attacking army cannot conquer
+     */
     @Test
     void executeTest2() {
         List<String> l_cardsList = Arrays.asList("BOMB_CARD", "BLOCKADE_CARD", "AIRLIFT_CARD", "DIPLOMACY_CARD");
