@@ -35,7 +35,7 @@ class IssueOrderPhaseTest {
     void deployTest() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_country = l_p1.getD_countryList().get(0);
-        d_gameManager.getD_gamePhase().deploy(l_p1, l_country, 1);
+        d_gameManager.getD_gamePhase().deploy(d_gameManager, l_p1, l_country, 1);
         assertEquals(l_p1.getD_numArmies(), 2); // 3 -> 2
     }
 
