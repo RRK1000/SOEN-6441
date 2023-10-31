@@ -43,7 +43,7 @@ public class AdvanceOrder implements Order {
         if(l_attackingArmies >= l_defendingArmies) {
             d_countryto.setD_owner(d_player);
         }
-        d_countryto.setD_numArmies(l_attackingArmies-l_defendingArmies);
+        d_countryto.setD_numArmies(Math.max(0, l_attackingArmies - l_defendingArmies));
         d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - l_attackingArmies);
     }
 
@@ -55,7 +55,7 @@ public class AdvanceOrder implements Order {
     @Override
     public boolean isValid(Player p_player) {
         if(!p_player.getD_countryList().contains(d_countryfrom)){
-            System.out.println("Player does not own country: " + d_countryfrom);
+            System.out.println("Player does not own country: " + d_countryfrom.getD_countryName());
             return false;
         } else if (d_num == d_countryfrom.getD_numArmies()) {
             System.out.println("Invalid order, one army must remain on all territories");

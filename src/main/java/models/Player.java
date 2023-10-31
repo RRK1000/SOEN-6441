@@ -64,10 +64,10 @@ public class Player {
      * Issues an order Adds the current order issued by the player to their order list
      */
     public void issueOrder() {
-        d_orderList.add(d_currentOrder);
 
         if (d_currentOrder instanceof AdvanceOrder) {
-
+            AdvanceOrder l_advanceOrder = (AdvanceOrder) d_currentOrder;
+            d_orderList.add(l_advanceOrder);
         } else if (d_currentOrder instanceof AirliftOrder) {
 
         } else if (d_currentOrder instanceof BlockadeOrder) {
@@ -77,6 +77,7 @@ public class Player {
         } else if (d_currentOrder instanceof DeployOrder) {
             DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
             d_numArmies -= l_deployOrder.getD_num();
+            d_orderList.add(l_deployOrder);
         } else if (d_currentOrder instanceof NegotiateOrder) {
 
         }

@@ -31,7 +31,7 @@ public interface Phase {
      * @param p_country       The country in the order
      * @param p_num           The number of armies to be deployed
      */
-    void deploy(Player p_currentPlayer, Country p_country, int p_num);
+    void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num);
 
     /**
      * Advances(attack) armies from an owned country to an opponents
@@ -41,7 +41,7 @@ public interface Phase {
      * @param p_countryTo     Country on which the attack occurs
      * @param p_num           Number of armies attacking
      */
-    void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
+    void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
 
     // Execute Order Phase
 
