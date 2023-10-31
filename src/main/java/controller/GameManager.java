@@ -109,8 +109,8 @@ public class GameManager {
         }
 
         l_currentPlayerName = this.getD_playerList().get(this.getD_currentPlayerTurn()).getD_playerName();
-        System.out.println("Player " + l_currentPlayerName  + "'s turn ");
         logAction("Player turn updated to " + l_currentPlayerName);
+        System.out.println("Player " + l_currentPlayerName  + "'s turn ");
     }
 
     /**
