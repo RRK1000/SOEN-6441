@@ -1,5 +1,7 @@
 package controller;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,10 +44,11 @@ public class GameManager {
         this.d_gamePhase = new InitMapPhase();
         this.d_playerList = new ArrayList<>();
         
-
+        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
-        this.d_logWriter = new LogFileWriter("/risk/src/main/resources/game.log");
+        this.d_logWriter = new LogFileWriter(logPath);
         this.d_logBuffer.addObserver(d_logWriter);
+
     }
     
     private void logAction(String action) {
@@ -193,6 +196,7 @@ public class GameManager {
      * It shows all continents, countries, armies on each country, ownership, and connectivity.
      */
     public void showMap() {
+    	
         System.out.printf("------------------------------------------------------------------------------------------------%n");
         System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
         System.out.printf("------------------------------------------------------------------------------------------------%n");
