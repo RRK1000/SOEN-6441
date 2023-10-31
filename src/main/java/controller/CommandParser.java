@@ -139,25 +139,35 @@ public class CommandParser {
                 //call issueOrder()
                 p_gameManager.getD_gamePhase().deploy(l_currentPlayer, l_country, l_numArmies);
 
-                //If the current player has zero armies, move to the next player.
-                if (l_currentPlayer.getD_numArmies() == 0) {
-                    System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
-                    System.out.println();
-                    //Updating the player turn.
-                    p_gameManager.updatePlayerTurn();
-                    if (p_gameManager.getD_currentPlayerTurn() == 0) {
-                        //Execute the order given by the player
-                        p_gameManager.executeOrder();
-                        //Assigning armies to the player
-                        p_gameManager.assignReinforcements();
-                        p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
-                    }
-                    l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
-                    System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
-                }
                 System.out.println("Available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
 
                 break;
+
+            case Commands.ADVANCE_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                Country l_countryfrom = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
+                Country l_countryto = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[2]));
+                int numArmies = Integer.parseInt(l_cmdSplit[2]);
+                p_gameManager.getD_gamePhase().advance(l_currentPlayer, l_countryfrom, l_countryto, numArmies);
+                break;
+
+            case Commands.END_TURN:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+
+                System.out.println("Player " + l_currentPlayer.getD_playerName() + " turn over. ");
+                System.out.println();
+                //Updating the player turn.
+                p_gameManager.updatePlayerTurn();
+                if (p_gameManager.getD_currentPlayerTurn() == 0) {
+                    //Execute the order given by the player
+                    p_gameManager.executeOrder();
+                    //Assigning armies to the player
+                    p_gameManager.assignReinforcements();
+//                    p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
+                }
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
+
             default:
                 displayError();
         }

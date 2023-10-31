@@ -25,13 +25,23 @@ public interface Phase {
     // Issue Order Phase
 
     /**
-     * Deploys an order
+     * Deploys armies to a country
      *
      * @param p_currentPlayer The current player
      * @param p_country       The country in the order
      * @param p_num           The number of armies to be deployed
      */
     void deploy(Player p_currentPlayer, Country p_country, int p_num);
+
+    /**
+     * Advances(attack) armies from an owned country to an opponents
+     *
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
 
     // Execute Order Phase
 
