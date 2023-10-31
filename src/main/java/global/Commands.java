@@ -30,4 +30,13 @@ public class Commands {
      * Issue order phase
      */
     public static final String DEPLOY_ORDER = "deploy";
+    public static final String ADVANCE_ORDER = "advance";
+    public static final String BOMB_ORDER = "bomb";
+    public static final String BLOCKADE_ORDER = "blockade";
+    public static final String AIRLIFT_ORDER = "airlift";
+    public static final String DIPLOMACY_ORDER = "airlift";
+    public static final String END_TURN = "endturn";
+
+
+
 }

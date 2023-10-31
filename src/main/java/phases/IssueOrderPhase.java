@@ -6,6 +6,7 @@ import models.Country;
 import models.Map;
 import models.Order;
 import models.Player;
+import orders.AdvanceOrder;
 import orders.DeployOrder;
 
 public class IssueOrderPhase implements Phase {
@@ -43,16 +44,36 @@ public class IssueOrderPhase implements Phase {
             // Create an order using the provided parameters (p_countryID and num)
             Order l_order = new DeployOrder(p_country, p_num);
             if (!l_order.isValid(p_currentPlayer)) {
-                throw new IllegalArgumentException("Cannot deploy more armies than available in reinforcement pool.");
+                System.out.println("Cannot deploy more armies than available in reinforcement pool.");
+                return;
             }
             p_currentPlayer.setD_currentOrder(l_order);
             // Call the issue_order() method of the current player to add the order
             p_currentPlayer.issueOrder();
-            System.out.println("Issued Order");
+            System.out.println("Issued Deploy Order");
         } else {
             // Handle the case where there is no current player or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");
         }
+    }
+
+    /**
+     * Advances(attack) armies from an owned country to an opponents
+     *
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    @Override
+    public void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        Order l_order = new AdvanceOrder(p_currentPlayer, p_countryFrom, p_countryTo, p_num);
+        if (!l_order.isValid(p_currentPlayer)) {
+            return;
+        }
+        p_currentPlayer.setD_currentOrder(l_order);
+        p_currentPlayer.issueOrder();
+        System.out.println("Issued Advance Order");
     }
 
     /**

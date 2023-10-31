@@ -42,6 +42,19 @@ public class StartupPhase implements Phase {
     }
 
     /**
+     * Advances(attack) armies from an owned country to an opponents
+     *
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    @Override
+    public void advance(Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
      * This method prints the invalid phase error as it is not a valid command for this phase.
      *
      * @param p_editCountryInput The input given by the user to add/remove countries

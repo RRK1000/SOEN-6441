@@ -54,39 +54,6 @@ class CommandParserTest {
 		assertEquals(expectedPlayer2Armies, d_gameManager.getD_playerList().get(1).getD_numArmies());
 	}
 
-	/**
-	 * Tests the scenario where a player attempts to deploy more armies than
-	 * available in their reinforcement pool. The test first ensures that the player
-	 * starts with a specific number of armies. After issuing an order to deploy a
-	 * certain number of armies, the test checks that the player's remaining armies
-	 * are as expected
-	 *
-	 * The test then tries to issue another order to deploy more armies than the
-	 * player has available. This should result in an IllegalArgumentException. The
-	 * test checks that the exception message matches the expected message
-	 *
-	 */
-// To move to game phase tests
-//	@Test
-//	void testCannotDeployMoreArmiesThanInReinforcementPool() {
-//		assertEquals(5, d_player.getD_numArmies());
-//
-//		d_player.issueOrder();
-//
-//		assertEquals(2, d_player.getD_numArmies());
-//
-//		Order l_anotherOrder = new DeployOrder(d_country, 4);
-//		d_player.setD_currentOrder(l_anotherOrder);
-//
-//		Exception l_exception = assertThrows(IllegalArgumentException.class, () -> {
-//			l_anotherOrder.issueOrder();
-//		});
-//
-//		String l_expectedMessage = "Cannot deploy more armies than available in reinforcement pool.";
-//		String l_actualMessage = l_exception.getMessage();
-//
-//		assertEquals(l_actualMessage, l_expectedMessage);
-//	}
 
 	/**
 	 * Test switch case "loadmap". Checks whether map object is set, and the country

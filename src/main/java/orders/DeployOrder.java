@@ -10,8 +10,8 @@ import models.Player;
  * @author Nimisha Jadav
  */
 public class DeployOrder implements Order {
-    private Country d_country;
-    private int d_num;
+    private final Country d_country;
+    private final int d_num;
 
     /**
      * Constructor for the Order class.

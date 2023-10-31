@@ -79,6 +79,9 @@ public class CommandUtil {
             case Commands.DEPLOY_ORDER:
                 return l_cmdSplit.length == 3;
 
+            case Commands.ADVANCE_ORDER:
+                return l_cmdSplit.length == 4;
+
             default:
                 return true;
         }
@@ -107,6 +110,8 @@ public class CommandUtil {
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase.getClass().equals(IssueOrderPhase.class)) {
             return p_input.startsWith(Commands.DEPLOY_ORDER) ||
+                    p_input.startsWith(Commands.ADVANCE_ORDER) ||
+                    p_input.startsWith(Commands.END_TURN) ||
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase.getClass().equals(ExecuteOrderPhase.class)) {
             return p_input.startsWith(Commands.SHOW_MAP);
