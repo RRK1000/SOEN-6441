@@ -42,12 +42,12 @@ class AdvanceOrderTest {
     void executeTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
-        Order l_deployOrder1 = new DeployOrder(l_countryFrom, 6);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 6);
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_countryTo, 1);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 5);
@@ -64,12 +64,12 @@ class AdvanceOrderTest {
         List<String> l_cardsList = Arrays.asList("BOMB_CARD", "BLOCKADE_CARD", "AIRLIFT_CARD", "DIPLOMACY_CARD");
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
-        Order l_deployOrder1 = new DeployOrder(l_countryFrom, 10);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 10);
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_countryTo, 5);
+        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 5);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 1);
@@ -86,16 +86,16 @@ class AdvanceOrderTest {
     void isValidTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
-        Order l_deployOrder1 = new DeployOrder(l_countryFrom, 3);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 3);
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
-        Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_countryTo, 1);
+        Country l_countryTo = l_p2.getD_countryList().get(1);
+        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 1);
-        assertTrue(l_advanceOrder.isValid(l_p1));
+        assertTrue(l_advanceOrder.isValid());
     }
 
     /**
@@ -105,16 +105,16 @@ class AdvanceOrderTest {
     void isValidTest2() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
-        Order l_deployOrder1 = new DeployOrder(l_countryFrom, 3);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 3);
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_countryTo, 1);
+        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 9);
-        assertFalse(l_advanceOrder.isValid(l_p1));
+        assertFalse(l_advanceOrder.isValid());
     }
 
     /**
@@ -124,15 +124,15 @@ class AdvanceOrderTest {
     void isValidTest3() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
-        Order l_deployOrder1 = new DeployOrder(l_countryFrom, 3);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 3);
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_countryTo, 1);
+        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryTo, l_countryFrom, 1);
-        assertFalse(l_advanceOrder.isValid(l_p1));
+        assertFalse(l_advanceOrder.isValid());
     }
 }

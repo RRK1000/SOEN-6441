@@ -7,6 +7,7 @@ import models.Map;
 import models.Order;
 import models.Player;
 import orders.AdvanceOrder;
+import orders.BombOrder;
 import orders.DeployOrder;
 
 public class IssueOrderPhase implements Phase {
@@ -42,8 +43,8 @@ public class IssueOrderPhase implements Phase {
     public void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num) {
         if (p_currentPlayer != null) {
             // Create an order using the provided parameters (p_countryID and num)
-            Order l_order = new DeployOrder(p_country, p_num);
-            if (!l_order.isValid(p_currentPlayer)) {
+            Order l_order = new DeployOrder(p_currentPlayer, p_country, p_num);
+            if (!l_order.isValid()) {
                 System.out.println("Cannot deploy more armies than available in reinforcement pool.");
                 return;
             }
@@ -70,12 +71,32 @@ public class IssueOrderPhase implements Phase {
     @Override
     public void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         Order l_order = new AdvanceOrder(p_currentPlayer, p_countryFrom, p_countryTo, p_num);
-        if (!l_order.isValid(p_currentPlayer)) {
+        if (!l_order.isValid()) {
             return;
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
         System.out.println("Issued Advance Order");
+
+        p_gameManager.updatePlayerTurn();
+    }
+
+    /**
+     * Bomb an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        Order l_order = new BombOrder(p_currentPlayer, p_country);
+        if (!l_order.isValid()) {
+            return;
+        }
+        p_currentPlayer.setD_currentOrder(l_order);
+        p_currentPlayer.issueOrder();
+        System.out.println("Issued Bomb Order");
 
         p_gameManager.updatePlayerTurn();
     }

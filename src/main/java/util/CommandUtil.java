@@ -67,6 +67,8 @@ public class CommandUtil {
             case Commands.SAVE_MAP:
 
             case Commands.EDIT_MAP:
+
+            case Commands.BOMB_ORDER:
                 return l_cmdSplit.length == 2;
 
             case Commands.GAME_PLAYER:
@@ -111,6 +113,7 @@ public class CommandUtil {
         } else if (p_gamePhase instanceof IssueOrderPhase) {
             return p_input.startsWith(Commands.DEPLOY_ORDER) ||
                     p_input.startsWith(Commands.ADVANCE_ORDER) ||
+                    p_input.startsWith(Commands.BOMB_ORDER) ||
                     p_input.startsWith(Commands.END_TURN) ||
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {
