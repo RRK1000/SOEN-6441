@@ -41,7 +41,8 @@ public class CommandParser {
             System.out.println(Constants.GAME_EXIT);
 
             Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
-            System.out.println("available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
+            System.out.println("player: " + l_currentPlayer.getD_playerName() + "'s turn");
+            System.out.println("\navailable reinforcement armies: " + l_currentPlayer.getD_numArmies());
             return;
         } else {
             System.out.println(Constants.IN_GAME_HELP);
@@ -143,7 +144,7 @@ public class CommandParser {
                 int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
                 //call issueOrder()
                 p_gameManager.getD_gamePhase().deploy(p_gameManager, l_currentPlayer, l_country, l_numArmies);
-                System.out.println("available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
+                System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
                 break;
 
             case Commands.ADVANCE_ORDER:
@@ -156,7 +157,7 @@ public class CommandParser {
 
             case Commands.END_TURN:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
-                if(l_currentPlayer.getD_numArmies() > 0){
+                if (l_currentPlayer.getD_numArmies() > 0) {
                     System.out.println("cannot end turn" + l_currentPlayer.getD_numArmies() + " left to be placed");
                     break;
                 }

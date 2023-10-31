@@ -68,6 +68,9 @@ public class AdvanceOrder implements Order {
         } else if (d_num > d_countryfrom.getD_numArmies()) {
             System.out.println("Invalid order, available armies on country: " + d_countryfrom.getD_numArmies());
             return false;
+        } else if (d_countryfrom.getD_neighbourCountryIDList().contains(d_countryto.getD_countryID())) {
+            System.out.println("Country being attacked is not a neighbour");
+            return false;
         }
         return true;
     }
