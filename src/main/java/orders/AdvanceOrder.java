@@ -37,7 +37,7 @@ public class AdvanceOrder implements Order {
         int l_attackingArmies = (int) ((d_num * 0.6) + luckModifier);
 
         luckModifier = (int)Math.floor(Math.random() * (max - min + 1) + min);
-        int l_defendingArmies = (int) ((d_num * 0.7) + luckModifier);
+        int l_defendingArmies = (int) ((d_countryto.getD_numArmies() * 0.7) + luckModifier);
 
         // after the attack
         if(l_attackingArmies >= l_defendingArmies) {
@@ -48,7 +48,7 @@ public class AdvanceOrder implements Order {
             d_player.addRandomCard();
 
         }
-        d_countryto.setD_numArmies(Math.max(0, l_attackingArmies - l_defendingArmies));
+        d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, l_attackingArmies - l_defendingArmies));
         d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - l_attackingArmies);
     }
 
