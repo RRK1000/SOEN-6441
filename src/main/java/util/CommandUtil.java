@@ -71,6 +71,9 @@ public class CommandUtil {
             case Commands.BOMB_ORDER:
                 return l_cmdSplit.length == 2;
 
+            case Commands.AIRLIFT_ORDER:
+                return  l_cmdSplit.length == 4;
+
             case Commands.GAME_PLAYER:
                 l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 1);
@@ -114,6 +117,7 @@ public class CommandUtil {
             return p_input.startsWith(Commands.DEPLOY_ORDER) ||
                     p_input.startsWith(Commands.ADVANCE_ORDER) ||
                     p_input.startsWith(Commands.BOMB_ORDER) ||
+                    p_input.startsWith(Commands.AIRLIFT_ORDER) ||
                     p_input.startsWith(Commands.END_TURN) ||
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {
