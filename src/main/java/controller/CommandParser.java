@@ -151,14 +151,22 @@ public class CommandParser {
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 Country l_countryfrom = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
                 Country l_countryto = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[2]));
-                int numArmies = Integer.parseInt(l_cmdSplit[3]);
-                p_gameManager.getD_gamePhase().advance(p_gameManager, l_currentPlayer, l_countryfrom, l_countryto, numArmies);
+                l_numArmies = Integer.parseInt(l_cmdSplit[3]);
+                p_gameManager.getD_gamePhase().advance(p_gameManager, l_currentPlayer, l_countryfrom, l_countryto, l_numArmies);
                 break;
 
             case Commands.BOMB_ORDER:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
                 p_gameManager.getD_gamePhase().bomb(p_gameManager, l_currentPlayer, l_country);
+                break;
+
+            case Commands.AIRLIFT_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                Country l_countryFrom = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
+                Country l_countryTo = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[2]));
+                l_numArmies = Integer.parseInt(l_cmdSplit[3]);
+                p_gameManager.getD_gamePhase().airlift(p_gameManager, l_currentPlayer, l_countryFrom, l_countryTo, l_numArmies);
                 break;
 
             case Commands.END_TURN:

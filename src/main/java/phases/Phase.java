@@ -54,6 +54,17 @@ public interface Phase {
      */
     void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
 
+    /**
+     * Airlifts armies from player's country to another of their owned countries
+     *
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
+
     // Execute Order Phase
 
 

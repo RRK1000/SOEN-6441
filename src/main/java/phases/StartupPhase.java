@@ -177,4 +177,9 @@ public class StartupPhase implements Phase {
         p_gameManager.assignCountries();
         p_gameManager.setD_gamePhase(this.nextPhase());
     }
+
+    @Override
+    public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
 }

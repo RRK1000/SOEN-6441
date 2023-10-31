@@ -256,4 +256,9 @@ public class InitMapPhase implements Phase {
     public void assignCountries(GameManager p_gameManager) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
+
+    @Override
+    public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
 }

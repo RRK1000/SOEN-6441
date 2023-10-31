@@ -7,6 +7,7 @@ import models.Map;
 import models.Order;
 import models.Player;
 import orders.AdvanceOrder;
+import orders.AirliftOrder;
 import orders.BombOrder;
 import orders.DeployOrder;
 
@@ -97,6 +98,27 @@ public class IssueOrderPhase implements Phase {
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
         System.out.println("Issued Bomb Order");
+
+        p_gameManager.updatePlayerTurn();
+    }
+
+    /**
+     * Airlifts armies from player's country to another of their owned countries
+     *
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    @Override
+    public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        Order l_order = new AirliftOrder(p_currentPlayer, p_countryFrom, p_countryTo, p_num);
+        if (!l_order.isValid()) {
+            return;
+        }
+        p_currentPlayer.setD_currentOrder(l_order);
+        p_currentPlayer.issueOrder();
+        System.out.println("Issued Airlift Order");
 
         p_gameManager.updatePlayerTurn();
     }
@@ -198,6 +220,7 @@ public class IssueOrderPhase implements Phase {
     public void assignCountries(GameManager p_gameManager) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
+
 
 
 }

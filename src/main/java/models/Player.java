@@ -1,5 +1,6 @@
 package models;
 
+import global.Cards;
 import orders.*;
 
 import java.util.ArrayList;
@@ -219,7 +220,7 @@ public class Player {
     }
 
     public void addRandomCard () {
-        List<String> l_cardsList = Arrays.asList("BOMB_CARD", "BLOCKADE_CARD", "AIRLIFT_CARD", "DIPLOMACY_CARD");
+        List<String> l_cardsList = Arrays.asList(Cards.BOMB_CARD, Cards.BLOCKADE_CARD, Cards.BOMB_CARD, Cards.DIPLOMACY_CARD);
         Random l_rndm = new Random();
         int randomIndex = l_rndm.nextInt(l_cardsList.size());
         String l_card = l_cardsList.get(randomIndex);
