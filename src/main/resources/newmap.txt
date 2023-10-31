@@ -1,0 +1,10 @@
+[continents]
+1 5 blue
+
+[countries]
+2 null 1 100 100
+3 null 1 100 100
+
+[borders]
+2 3
+3 2
