@@ -30,6 +30,7 @@ public class GameManager {
      */
     private Phase d_gamePhase;
     private List<Player> d_playerList;
+    private final List<Integer> d_skipTurnList;
     private int d_currentPlayerTurn;
     private Map d_map;
 
@@ -43,6 +44,7 @@ public class GameManager {
     public GameManager() {
         this.d_gamePhase = new InitMapPhase();
         this.d_playerList = new ArrayList<>();
+        this.d_skipTurnList = new ArrayList<>();
         
         Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
@@ -95,9 +97,17 @@ public class GameManager {
         System.out.println("Player " + l_currentPlayerName + " turn over. ");
         System.out.println();
 
-        d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
-        
-        
+        if (d_skipTurnList.toArray().length == d_playerList.toArray().length) {
+            this.executeOrder();
+            this.assignReinforcements();
+            d_skipTurnList.clear();
+            return;
+        } else {
+            do {
+                d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
+            } while(d_skipTurnList.contains(d_currentPlayerTurn));
+        }
+
         l_currentPlayerName = this.getD_playerList().get(this.getD_currentPlayerTurn()).getD_playerName();
         System.out.println("Player " + l_currentPlayerName  + "'s turn ");
         logAction("Player turn updated to " + l_currentPlayerName);
@@ -266,5 +276,13 @@ public class GameManager {
      */
     public void setD_gamePhase(Phase p_gamePhase) {
         this.d_gamePhase = p_gamePhase;
+    }
+
+    /**
+     * Adds player to the list of players skipping a round for the turn
+     * @param p_pIndex player index on d_playerList
+     */
+    protected void addPlayerToSkipList(Integer p_pIndex){
+        d_skipTurnList.add(p_pIndex);
     }
 }

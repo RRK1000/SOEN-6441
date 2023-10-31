@@ -32,16 +32,22 @@ public class CommandParser {
      * @param p_gameManager {@link GameManager}
      */
     public static void displayInstructions(GameManager p_gameManager) {
-        if (p_gameManager.getD_gamePhase().getClass().equals(InitMapPhase.class)) {
+        if (p_gameManager.getD_gamePhase() instanceof InitMapPhase) {
             System.out.println(Constants.MAP_INIT_HELP);
-        } else if (p_gameManager.getD_gamePhase().getClass().equals(StartupPhase.class)) {
+        } else if (p_gameManager.getD_gamePhase() instanceof StartupPhase) {
             System.out.println(Constants.GAME_STARTUP_HELP);
-        } else if (p_gameManager.getD_gamePhase().getClass().equals(IssueOrderPhase.class)) {
+        } else if (p_gameManager.getD_gamePhase() instanceof IssueOrderPhase) {
             System.out.println(Constants.ISSUE_ORDER_HELP);
+            System.out.println(Constants.GAME_EXIT);
+
+            Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+            System.out.println("available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
+            return;
         } else {
             System.out.println(Constants.IN_GAME_HELP);
         }
         System.out.println(Constants.GAME_EXIT);
+
     }
 
     /**
@@ -71,7 +77,7 @@ public class CommandParser {
 
             case Commands.SHOW_MAP:
                 if (l_map == null) {
-                    System.out.println("Map not loaded");
+                    System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
@@ -116,7 +122,7 @@ public class CommandParser {
 
             case Commands.GAME_PLAYER:
                 if (p_gameManager.getD_map() == null) {
-                    System.out.println("Map not loaded");
+                    System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
                     break;
                 }
@@ -137,7 +143,7 @@ public class CommandParser {
                 int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
                 //call issueOrder()
                 p_gameManager.getD_gamePhase().deploy(p_gameManager, l_currentPlayer, l_country, l_numArmies);
-                System.out.println("Available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
+                System.out.println("available Reinforcement Armies: " + l_currentPlayer.getD_numArmies());
                 break;
 
             case Commands.ADVANCE_ORDER:
@@ -149,14 +155,14 @@ public class CommandParser {
                 break;
 
             case Commands.END_TURN:
-                //Updating the player turn.
-                p_gameManager.updatePlayerTurn();
-                if (p_gameManager.getD_currentPlayerTurn() == 0) {
-                    //Execute the order given by the player
-                    p_gameManager.executeOrder();
-                    //Assigning armies to the player
-                    p_gameManager.assignReinforcements();
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                if(l_currentPlayer.getD_numArmies() > 0){
+                    System.out.println("cannot end turn" + l_currentPlayer.getD_numArmies() + " left to be placed");
+                    break;
                 }
+                //Updating the player turn.
+                p_gameManager.addPlayerToSkipList(p_gameManager.getD_currentPlayerTurn());
+                p_gameManager.updatePlayerTurn();
                 break;
 
             default:
