@@ -224,15 +224,6 @@ public class GameManager {
     }
 
     /**
-     * Sets the list of players in the current active game
-     *
-     * @param p_playerList List of players.
-     */
-    public void setD_playerList(List<Player> p_playerList) {
-        this.d_playerList = p_playerList;
-    }
-
-    /**
      * Gets the game's current turn it is to perform actions
      *
      * @return The current player index.

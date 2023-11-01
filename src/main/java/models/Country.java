@@ -70,15 +70,6 @@ public class Country {
     }
 
     /**
-     * Sets the name of the country.
-     *
-     * @param p_countryName The new name of the country.
-     */
-    public void setD_countryName(String p_countryName) {
-        this.d_countryName = p_countryName;
-    }
-
-    /**
      * Gets the ID of the continent to which the country belongs.
      *
      * @return The continent ID.
