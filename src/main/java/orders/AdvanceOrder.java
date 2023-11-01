@@ -33,14 +33,14 @@ public class AdvanceOrder implements Order {
     public void execute() {
         int max = 1;
         int min = 0;
-        int luckModifier = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        int luckModifier = (int) Math.floor(Math.random() * (max - min + 1) + min);
         int l_attackingArmies = (int) ((d_num * 0.6) + luckModifier);
 
-        luckModifier = (int)Math.floor(Math.random() * (max - min + 1) + min);
+        luckModifier = (int) Math.floor(Math.random() * (max - min + 1) + min);
         int l_defendingArmies = (int) ((d_countryto.getD_numArmies() * 0.7) + luckModifier);
 
         // after the attack
-        if(l_attackingArmies >= l_defendingArmies) {
+        if (l_attackingArmies >= l_defendingArmies) {
             Player l_formerOwner = d_countryto.getD_owner();
             l_formerOwner.getD_countryList().remove(d_countryto);
             d_countryto.setD_owner(d_player);
@@ -54,12 +54,13 @@ public class AdvanceOrder implements Order {
 
     /**
      * Validates the AdvanceOrder command against the player
+     *
      * @return boolean value whether the command can be executed or not
      */
     @Override
     public boolean isValid() {
-        if(!d_player.getD_countryList().contains(d_countryfrom)){
-            System.out.println("Player does not own country: " + d_countryfrom.getD_countryName());
+        if (!d_player.getD_countryList().contains(d_countryfrom)) {
+            System.out.println("Player does not own country: " + d_countryfrom.getD_countryID());
             return false;
         } else if (d_num == d_countryfrom.getD_numArmies()) {
             System.out.println("Invalid order, one army must remain on all territories");

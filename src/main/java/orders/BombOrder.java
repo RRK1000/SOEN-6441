@@ -1,5 +1,6 @@
 package orders;
 
+import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
@@ -27,10 +28,12 @@ public class BombOrder implements Order {
     @Override
     public void execute() {
         d_country.setD_numArmies(d_country.getD_numArmies() / 2);
+        d_player.getD_playerCardList().remove(Cards.BOMB_CARD);
     }
 
     /**
-     * Validates the AdvanceOrder command against the player
+     * Validates the Bomb Order command against the player
+     *
      * @return boolean value whether the command can be executed or not
      */
     @Override
@@ -38,6 +41,7 @@ public class BombOrder implements Order {
         for (Country l_country : d_player.getD_countryList()) {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }
+        System.out.println("Country not a neighbour");
         return false;
     }
 
