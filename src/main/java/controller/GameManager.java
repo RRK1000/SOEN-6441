@@ -90,7 +90,7 @@ public class GameManager {
     /**
      * Method to update the turn of the player.
      */
-    public void updatePlayerTurn() {
+    protected void updatePlayerTurn() {
         d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
         logAction("Player turn updated to " + d_playerList.get(d_currentPlayerTurn).getD_playerName());
 
@@ -118,7 +118,7 @@ public class GameManager {
     /**
      * Assigns to each player the number of reinforcement armies according to the Warzone rules.
      */
-    public void assignReinforcements() {
+    protected void assignReinforcements() {
         int l_numArmies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         for (Player l_player : d_playerList) {
             l_player.setD_numArmies(l_player.getD_numArmies() + l_numArmies);
@@ -181,7 +181,7 @@ public class GameManager {
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
      */
-    public void executeOrder() {
+    protected void executeOrder() {
         for (Player l_player : d_playerList) {
             Order l_order = l_player.nextOrder();
             l_order.execute();

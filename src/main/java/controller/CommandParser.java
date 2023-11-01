@@ -31,7 +31,7 @@ public class CommandParser {
      *
      * @param p_gameManager {@link GameManager}
      */
-    public static void displayInstructions(GameManager p_gameManager) {
+    private static void displayInstructions(GameManager p_gameManager) {
         if (p_gameManager.getD_gamePhase().getClass().equals(InitMapPhase.class)) {
             System.out.println(Constants.MAP_INIT_HELP);
         } else if (p_gameManager.getD_gamePhase().getClass().equals(StartupPhase.class)) {

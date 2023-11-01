@@ -107,15 +107,6 @@ public class Player {
     }
 
     /**
-     * Sets the player name
-     *
-     * @param p_playerName The new player name
-     */
-    public void setD_playerName(String p_playerName) {
-        this.d_playerName = p_playerName;
-    }
-
-    /**
      * Gets the number of armies a player holds
      *
      * @return d_numArmies Number of armies of a player
@@ -143,42 +134,6 @@ public class Player {
     }
 
     /**
-     * Sets the list of countries held by the player
-     *
-     * @param p_countryList List of Country objects under player's ownership
-     */
-    public void setD_countryList(List<Country> p_countryList) {
-        this.d_countryList = p_countryList;
-    }
-
-    /**
-     * Gets the list of orders issued by the player
-     *
-     * @return d_orderList List of orders issued by the player
-     */
-    public List<Order> getD_orderList() {
-        return d_orderList;
-    }
-
-    /**
-     * Sets the list of orders issued by the player
-     *
-     * @param p_orderList List of orders issued by the player
-     */
-    public void setD_orderList(List<Order> p_orderList) {
-        this.d_orderList = p_orderList;
-    }
-
-    /**
-     * Gets the current Order of the current player that is being issued
-     *
-     * @return current Order of the current player that is being issued
-     */
-    public Order getD_currentOrder() {
-        return d_currentOrder;
-    }
-
-    /**
      * Sets the current Order of the current player that is being issued
      *
      * @param d_currentOrder current Order of the current player that is being issued
@@ -195,14 +150,5 @@ public class Player {
 
     public List<Continent> getD_continentList() {
         return d_continentList;
-    }
-
-    /**
-     * Sets the list of continents held by the player
-     *
-     * @param p_continentList List of Continent objects under player's ownership
-     */
-    public void setD_continentList(List<Continent> p_continentList) {
-        this.d_continentList = p_continentList;
     }
 }
