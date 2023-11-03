@@ -46,7 +46,6 @@ public class NegotiateOrder implements Order {
 
     @Override
     public boolean isValid() {
-        //List<Player> allPlayers = d_player.getD_playerList();
 
         if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
             System.out.println("Players are in negotiation and cannot attack each other.");

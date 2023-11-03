@@ -61,15 +61,6 @@ class NegotiateOrderTest {
         targetPlayer.addPlayerNegotiation(issuingPlayer);
         assertFalse(negotiateOrder.isValid());
 
-       /* // Capture the console output when players are in negotiation
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
-        assertFalse(negotiateOrder.isValid());
-        System.setOut(System.out);
-
-        // Verify that the expected message is printed
-        String printedMessage = outputStream.toString().trim();
-        assertEquals("Player to negotiate doesn't exist!", printedMessage);*/
     }
     @Test
     void isValid2() {
