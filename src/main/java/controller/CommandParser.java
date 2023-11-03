@@ -32,7 +32,6 @@ public class CommandParser {
     private static LogEntryBuffer logBuffer;
     private static LogFileWriter logWriter;
     static {
-        // ログファイルのパスを設定
         Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
         logBuffer = new LogEntryBuffer();
         logWriter = new LogFileWriter(logPath);
