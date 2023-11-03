@@ -46,28 +46,19 @@ public class NegotiateOrder implements Order {
 
     @Override
     public boolean isValid() {
-        List<Player> allPlayers = d_player.getD_playerList();
-
-        // Find the target player by name
-        Player targetPlayer = null;
-        for (Player player : allPlayers) {
-            if (player.getD_playerName().equals(targetPlayerName)) {
-                targetPlayer = player;
-                break;
-            }
-        }
-
-        // Check if the target player exists in the game
-        if (targetPlayer == null) {
-            System.out.println("Player to negotiate doesn't exist!");
-            return false;
-        }
+        //List<Player> allPlayers = d_player.getD_playerList();
 
         if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
             System.out.println("Players are in negotiation and cannot attack each other.");
             return false;
         }
 
-        return true;
+        if (targetPlayer != null && targetPlayer.getD_playerName() != null && !targetPlayer.getD_playerName().isEmpty()) {
+            // Target player is not null and has a name
+            return true;
+        } else {
+            System.out.println("Player to negotiate doesn't exist!");
+            return false;
+        }
     }
 }

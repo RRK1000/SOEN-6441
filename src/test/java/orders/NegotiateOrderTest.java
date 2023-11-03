@@ -47,7 +47,7 @@ class NegotiateOrderTest {
     }
 
     @Test
-    void isValid() {
+    void isValid1() {
         // Test the validity of the order when the target player exists
         assertTrue(negotiateOrder.isValid());
 
@@ -59,6 +59,7 @@ class NegotiateOrderTest {
         // Test the validity of the order when players are in negotiation
         issuingPlayer.addPlayerNegotiation(targetPlayer);
         targetPlayer.addPlayerNegotiation(issuingPlayer);
+        assertFalse(negotiateOrder.isValid());
 
        /* // Capture the console output when players are in negotiation
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -69,5 +70,20 @@ class NegotiateOrderTest {
         // Verify that the expected message is printed
         String printedMessage = outputStream.toString().trim();
         assertEquals("Player to negotiate doesn't exist!", printedMessage);*/
+    }
+    @Test
+    void isValid2() {
+        // Test the validity of the order when the target player exists
+        assertTrue(negotiateOrder.isValid());
+
+        // Test the validity of the order when the target player exist
+        targetPlayerName = "PlayerB";
+        negotiateOrder = new NegotiateOrder(gameManager, issuingPlayer, targetPlayer, targetPlayerName);
+        assertTrue(negotiateOrder.isValid());
+
+        // Test the validity of the order when players are in negotiation
+        issuingPlayer.addPlayerNegotiation(targetPlayer);
+        targetPlayer.addPlayerNegotiation(issuingPlayer);
+        assertFalse(negotiateOrder.isValid());
     }
 }
