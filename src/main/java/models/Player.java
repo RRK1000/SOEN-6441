@@ -25,6 +25,8 @@ public class Player {
     private Order d_currentOrder;
     private List<String> d_playerCardList;
 
+    private List<Player> negotiationList;
+
     /**
      * Default constructor for Player class
      *
@@ -36,6 +38,7 @@ public class Player {
         this.d_continentList = new ArrayList<>();
         this.d_orderList = new ArrayList<>();
         this.d_playerCardList = new ArrayList<>();
+        this.negotiationList = new ArrayList<>();
     }
 
     /**
@@ -61,6 +64,10 @@ public class Player {
 
     public void setD_playerCardList(List<String> d_playerCardList) {
         this.d_playerCardList = d_playerCardList;
+    }
+
+    public void addPlayerNegotiation(Player player) {
+        negotiationList.add(player);
     }
 
     /**
@@ -225,5 +232,9 @@ public class Player {
         int randomIndex = l_rndm.nextInt(l_cardsList.size());
         String l_card = l_cardsList.get(randomIndex);
         this.d_playerCardList.add(l_card);
+    }
+
+    public boolean isInNegotiationWith(Player otherPlayer) {
+        return negotiationList.contains(otherPlayer);
     }
 }
