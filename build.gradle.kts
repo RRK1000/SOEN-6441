@@ -14,6 +14,7 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation ("org.junit.platform:junit-platform-suite-engine:1.10.0")
     implementation(group="commons-cli", name= "commons-cli", version= "1.4")
 }
 
