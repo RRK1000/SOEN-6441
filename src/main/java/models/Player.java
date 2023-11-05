@@ -70,6 +70,10 @@ public class Player {
         negotiationList.add(player);
     }
 
+    public void clearPlayerNegotiation() {
+        negotiationList.clear();
+    }
+
     /**
      * Adds a country to the player's list of countries
      *
@@ -230,15 +234,15 @@ public class Player {
         this.d_continentList = p_continentList;
     }
 
-    public void addRandomCard () {
+    public void addRandomCard() {
         List<String> l_cardsList = Arrays.asList(Cards.BOMB_CARD, Cards.BLOCKADE_CARD, Cards.BOMB_CARD, Cards.DIPLOMACY_CARD);
         Random l_rndm = new Random();
-        int randomIndex = l_rndm.nextInt(l_cardsList.size());
-        String l_card = l_cardsList.get(randomIndex);
+        int l_randomIndex = l_rndm.nextInt(l_cardsList.size());
+        String l_card = l_cardsList.get(l_randomIndex);
         this.d_playerCardList.add(l_card);
     }
 
-    public boolean isInNegotiationWith(Player otherPlayer) {
-        return negotiationList.contains(otherPlayer);
+    public boolean isInNegotiationWith(Player p_otherPlayer) {
+        return negotiationList.contains(p_otherPlayer);
     }
 }

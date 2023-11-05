@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 /**
  * Represents the Game Manager
  * Manages game state, and the player actions involved during the game play
@@ -21,18 +22,18 @@ import java.util.Objects;
  * @author Yusuke
  */
 public class GameManager {
+    private final List<Integer> d_skipTurnList;
     /**
      * GamePhase instance
      */
     private Phase d_gamePhase;
     private List<Player> d_playerList;
-    private final List<Integer> d_skipTurnList;
     private int d_currentPlayerTurn;
     private Map d_map;
 
 
-    private LogEntryBuffer d_logBuffer;
-    private LogFileWriter d_logWriter;
+    private final LogEntryBuffer d_logBuffer;
+    private final LogFileWriter d_logWriter;
 
     /**
      * Default constructor for GameManager.
@@ -41,14 +42,14 @@ public class GameManager {
         this.d_gamePhase = new InitMapPhase();
         this.d_playerList = new ArrayList<>();
         this.d_skipTurnList = new ArrayList<>();
-        
+
         Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
         this.d_logWriter = new LogFileWriter(logPath);
         this.d_logBuffer.addObserver(d_logWriter);
 
     }
-    
+
     private void logAction(String action) {
         d_logBuffer.setActionInfo(action);
     }
@@ -80,7 +81,7 @@ public class GameManager {
         d_currentPlayerTurn = 0;
         System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
         System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
-        
+
         logAction("Assigned countries to the players. Game has Started!");
 
     }
@@ -94,6 +95,9 @@ public class GameManager {
         System.out.println();
 
         if (d_skipTurnList.toArray().length == d_playerList.toArray().length) {
+            this.updateNeutralCountriesOnRoundEnd();
+            this.updatePlayerDiplomacyOnRoundEnd();
+
             this.executeOrder();
             this.assignReinforcements();
             d_skipTurnList.clear();
@@ -102,12 +106,12 @@ public class GameManager {
         } else {
             do {
                 d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
-            } while(d_skipTurnList.contains(d_currentPlayerTurn));
+            } while (d_skipTurnList.contains(d_currentPlayerTurn));
         }
 
         Player l_currentPlayer = this.getD_playerList().get(this.getD_currentPlayerTurn());
         logAction("Player turn updated to " + l_currentPlayer.getD_playerName());
-        System.out.println("Player " + l_currentPlayer.getD_playerName()  + "'s turn ");
+        System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
         System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
     }
 
@@ -166,7 +170,6 @@ public class GameManager {
             System.out.println("Added " + p_playerName + " to the game!");
             logAction("Added " + p_playerName + " to the game!");
 
-            
 
         } else {
             System.out.println("You have reached the limit to add players");
@@ -211,7 +214,7 @@ public class GameManager {
     public void executeOrder() {
         for (Player l_player : d_playerList) {
             Order l_order = l_player.nextOrder();
-            while(null != l_order){
+            while (null != l_order) {
                 l_order.execute();
                 l_order = l_player.nextOrder();
             }
@@ -219,18 +222,37 @@ public class GameManager {
         System.out.println("Orders have been executed for this round.");
         logAction("Orders have been executed for this round.");
         updatePlayerList();
-
     }
 
     /**
      * Checks if any player does not own any countries, ie, has lost, and removes them from player list.
      */
-    public void updatePlayerList(){
+    public void updatePlayerList() {
         List<Player> l_playerlist = d_playerList;
         for (Player l_player : l_playerlist) {
-            if(l_player.getD_countryList().isEmpty()){
+            if (l_player.getD_countryList().isEmpty()) {
                 d_playerList.remove(l_player);
             }
+        }
+    }
+
+    /**
+     * Updates neutral countries from the previous round
+     */
+    private void updateNeutralCountriesOnRoundEnd() {
+        for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
+            if (l_country.isD_isNeutral()) {
+                l_country.setD_isNeutral(false);
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    private void updatePlayerDiplomacyOnRoundEnd() {
+        for (Player l_player : d_playerList) {
+            l_player.clearPlayerNegotiation();
         }
     }
 
@@ -239,7 +261,7 @@ public class GameManager {
      * It shows all continents, countries, armies on each country, ownership, and connectivity.
      */
     public void showMap() {
-    	
+
         System.out.printf("------------------------------------------------------------------------------------------------%n");
         System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
         System.out.printf("------------------------------------------------------------------------------------------------%n");
@@ -306,9 +328,10 @@ public class GameManager {
 
     /**
      * Adds player to the list of players skipping a round for the turn
+     *
      * @param p_pIndex player index on d_playerList
      */
-    protected void addPlayerToSkipList(Integer p_pIndex){
+    protected void addPlayerToSkipList(Integer p_pIndex) {
         d_skipTurnList.add(p_pIndex);
     }
 }
