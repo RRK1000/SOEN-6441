@@ -21,6 +21,7 @@ public class Country {
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
     private Player d_owner;
+    private final List<Country> d_NeutralCountries = new ArrayList<>();
 
     /**
      * Default constructor for Country class.
@@ -149,4 +150,15 @@ public class Country {
     public void setD_owner(Player p_owner) {
         this.d_owner = p_owner;
     }
+
+    public List<Country> getD_NeutralCountries() {
+        return d_NeutralCountries;
+    }
+
+    public void add_NeutralCountry(Country p_Country) {
+        if (!d_NeutralCountries.contains(p_Country)) {
+            d_NeutralCountries.add(p_Country);
+        }
+    }
+
 }

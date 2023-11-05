@@ -7,15 +7,27 @@ import controller.GameManager;
 import java.util.List;
 
 /**
- * The class represents a Negotiate order.
+ * The NegotiateOrder class represents a negotiation order, allowing players to establish a peaceful agreement.
+ * If the negotiation is successful, players cannot attack each other, and a "negotiate" card is removed from the issuing player.
+ * A Negotiate order is valid if the target player exists and is not already in negotiation with the issuing player.
+ *
+ * @author Nimisha Jadav
+ * @author Abhigyan
  */
 public class NegotiateOrder implements Order {
-    private final GameManager d_player;
-    private final Player issuingPlayer;
-    private final Player targetPlayer;
-    private final String targetPlayerName;
+    private final GameManager d_player; // The game manager
+    private final Player issuingPlayer; // The player issuing the negotiation order
+    private final Player targetPlayer; // The target player for negotiation
+    private final String targetPlayerName; // The name of the target player
 
-
+    /**
+     * Constructs a new NegotiateOrder with the specified parameters.
+     *
+     * @param p_player          The game manager.
+     * @param issuingPlayer     The player issuing the negotiation order.
+     * @param targetPlayer      The target player for negotiation.
+     * @param targetPlayerName  The name of the target player.
+     */
     public NegotiateOrder(GameManager p_player, Player issuingPlayer, Player targetPlayer, String targetPlayerName) {
         d_player = p_player;
         this.issuingPlayer = issuingPlayer;
@@ -23,6 +35,9 @@ public class NegotiateOrder implements Order {
         this.targetPlayerName = targetPlayerName;
     }
 
+    /**
+     * Executes the negotiation order. If the negotiation is successful, players are unable to attack each other, and the "negotiate" card is removed from the issuing player.
+     */
     @Override
     public void execute() {
         if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
@@ -42,11 +57,13 @@ public class NegotiateOrder implements Order {
         }
     }
 
-
-
+    /**
+     * Checks the validity of the Negotiate order.
+     *
+     * @return True if the order is valid; false otherwise.
+     */
     @Override
     public boolean isValid() {
-
         if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
             System.out.println("Players are in negotiation and cannot attack each other.");
             return false;
