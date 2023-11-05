@@ -112,6 +112,11 @@ public class GameManager {
         logAction("Player turn updated to " + l_currentPlayer.getD_playerName());
         System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
         System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
+        if(!l_currentPlayer.getD_playerCardList().isEmpty()){
+            System.out.println("Cards available for Player " + l_currentPlayer.getD_playerName() + ": " + l_currentPlayer.getD_playerCardList());
+        }else{
+            System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
+        }
     }
 
     /**

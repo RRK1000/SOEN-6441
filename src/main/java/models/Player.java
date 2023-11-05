@@ -240,6 +240,7 @@ public class Player {
         int l_randomIndex = l_rndm.nextInt(l_cardsList.size());
         String l_card = l_cardsList.get(l_randomIndex);
         this.d_playerCardList.add(l_card);
+        System.out.println("Card " + l_card + " gained by player " + this.d_playerName);
     }
 
     public boolean isInNegotiationWith(Player p_otherPlayer) {
