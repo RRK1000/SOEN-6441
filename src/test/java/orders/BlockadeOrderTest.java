@@ -64,7 +64,7 @@ class BlockadeOrderTest {
         player.setD_numArmies(3);
 
         // Create a BlockadeOrder
-        BlockadeOrder blockadeOrder = new BlockadeOrder(country, player);
+        BlockadeOrder blockadeOrder = new BlockadeOrder(player, country);
 
         // Ensuring the initial state of the Player
         assertEquals(3, player.getD_numArmies()); // The player has 3 armies before the blockade
@@ -101,20 +101,20 @@ class BlockadeOrderTest {
         Player player1 = new Player("TestPlayer");
         player1.setD_playerCardList(Arrays.asList(Cards.BLOCKADE_CARD));
         country1.setD_owner(player1);
-        BlockadeOrder validBlockadeOrder = new BlockadeOrder(country1, player1);
+        BlockadeOrder validBlockadeOrder = new BlockadeOrder(player1, country1);
 
         // Test scenario with an invalid player
         Country country2 = new Country();
         country2.setD_countryName("India");
         Player player2 = null; // Player is null
-        BlockadeOrder invalidPlayerBlockadeOrder = new BlockadeOrder(country2, player2);
+        BlockadeOrder invalidPlayerBlockadeOrder = new BlockadeOrder(player2, country2);
 
         // Test scenario with invalid ownership
         Country country3 = new Country();
         country3.setD_countryName("India");
         Player player3 = new Player("TestPlayer");
         country3.setD_owner(new Player("OtherPlayer")); // Country is owned by a different player
-        BlockadeOrder invalidOwnershipBlockadeOrder = new BlockadeOrder(country3, player3);
+        BlockadeOrder invalidOwnershipBlockadeOrder = new BlockadeOrder(player3, country3);
 
         // Test scenario with invalid cards
         Country country4 = new Country();
@@ -122,7 +122,7 @@ class BlockadeOrderTest {
         Player player4 = new Player("TestPlayer");
         player4.setD_playerCardList(Arrays.asList(Cards.BOMB_CARD, Cards.DIPLOMACY_CARD));
         country4.setD_owner(player4);
-        BlockadeOrder invalidCardBlockadeOrder = new BlockadeOrder(country4, player4);
+        BlockadeOrder invalidCardBlockadeOrder = new BlockadeOrder(player4, country4);
 
         assertTrue(validBlockadeOrder.isValid());
         assertFalse(invalidPlayerBlockadeOrder.isValid());

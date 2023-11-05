@@ -43,7 +43,6 @@ public class IssueOrderPhase implements Phase {
             // Create an order using the provided parameters (p_countryID and num)
             Order l_order = new DeployOrder(p_currentPlayer, p_country, p_num);
             if (!l_order.isValid()) {
-                System.out.println("Cannot deploy more armies than available in reinforcement pool.");
                 return;
             }
             p_currentPlayer.setD_currentOrder(l_order);

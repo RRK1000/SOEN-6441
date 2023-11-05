@@ -1,14 +1,10 @@
 package orders;
 
-import models.Player;
 import controller.GameManager;
-import org.junit.jupiter.api.BeforeEach;
+import models.Player;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +28,7 @@ class NegotiateOrderTest {
         gameManager.addPlayer(targetPlayerName);
 
         // Initialize the NegotiateOrder
-        negotiateOrder = new NegotiateOrder(gameManager, issuingPlayer, targetPlayer, targetPlayerName);
+        negotiateOrder = new NegotiateOrder(issuingPlayer, targetPlayer);
     }
 
     @AfterEach
@@ -53,7 +49,7 @@ class NegotiateOrderTest {
 
         // Test the validity of the order when the target player doesn't exist
         targetPlayerName = "NonExistentPlayer";
-        negotiateOrder = new NegotiateOrder(gameManager, issuingPlayer, null, targetPlayerName);
+        negotiateOrder = new NegotiateOrder(issuingPlayer, null);
         assertFalse(negotiateOrder.isValid());
 
         // Test the validity of the order when players are in negotiation
@@ -69,7 +65,7 @@ class NegotiateOrderTest {
 
         // Test the validity of the order when the target player exist
         targetPlayerName = "PlayerB";
-        negotiateOrder = new NegotiateOrder(gameManager, issuingPlayer, targetPlayer, targetPlayerName);
+        negotiateOrder = new NegotiateOrder(issuingPlayer, targetPlayer);
         assertTrue(negotiateOrder.isValid());
 
         // Test the validity of the order when players are in negotiation
