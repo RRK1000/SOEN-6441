@@ -31,13 +31,9 @@ public class AdvanceOrder implements Order {
      */
     @Override
     public void execute() {
-        int max = 1;
-        int min = 0;
-        int luckModifier = 0;
-        int l_attackingArmies = (int) ((d_num * 0.6) + luckModifier);
+        int l_attackingArmies = (int) (d_num * 0.6);
 
-        luckModifier = 0;
-        int l_defendingArmies = (int) ((d_countryto.getD_numArmies() * 0.7) + luckModifier);
+        int l_defendingArmies = (int) (d_countryto.getD_numArmies() * 0.7);
 
 
         // after the attack
