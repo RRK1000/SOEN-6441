@@ -218,7 +218,20 @@ public class GameManager {
         }
         System.out.println("Orders have been executed for this round.");
         logAction("Orders have been executed for this round.");
+        updatePlayerList();
 
+    }
+
+    /**
+     * Checks if any player does not own any countries, ie, has lost, and removes them from player list.
+     */
+    public void updatePlayerList(){
+        List<Player> l_playerlist = d_playerList;
+        for (Player l_player : l_playerlist) {
+            if(l_player.getD_countryList().isEmpty()){
+                d_playerList.remove(l_player);
+            }
+        }
     }
 
     /**
