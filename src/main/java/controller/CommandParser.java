@@ -48,7 +48,6 @@ public class CommandParser {
             System.out.println(Constants.IN_GAME_HELP);
         }
         System.out.println(Constants.GAME_EXIT);
-
     }
 
     /**
