@@ -1,6 +1,7 @@
 package orders;
 
 import controller.GameManager;
+import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
@@ -9,6 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import phases.InitMapPhase;
 import phases.Phase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,13 +48,14 @@ class BombOrderTest {
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
-        Country l_country2 = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_p1, l_country2, 1);
+        Country l_country2 = l_p2.getD_countryList().get(1);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_country2, 2);
         l_deployOrder2.execute();
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.BOMB_CARD)));
 
         Order l_bombOrder = new BombOrder(l_p1, l_country2);
         l_bombOrder.execute();
-        assertTrue(l_bombOrder.isValid());
+        assertEquals(1, l_country2.getD_numArmies());
     }
 
     @Test
@@ -63,6 +69,7 @@ class BombOrderTest {
         Country l_country2 = l_p2.getD_countryList().get(0);
         Order l_deployOrder2 = new DeployOrder(l_p1, l_country2, 1);
         l_deployOrder2.execute();
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.BOMB_CARD)));
 
         Order l_bombOrder = new BombOrder(l_p1, l_country2);
         assertTrue(l_bombOrder.isValid());
@@ -79,6 +86,8 @@ class BombOrderTest {
         Country l_country2 = l_p2.getD_countryList().get(1);
         Order l_deployOrder2 = new DeployOrder(l_p1, l_country2, 1);
         l_deployOrder2.execute();
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.BOMB_CARD)));
+
 
         Order l_bombOrder = new BombOrder(l_p1, l_country1);
         assertFalse(l_bombOrder.isValid());
