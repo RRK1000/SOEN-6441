@@ -123,7 +123,7 @@ public class CommandUtil {
                     p_input.startsWith(Commands.AIRLIFT_ORDER) ||
                     p_input.startsWith(Commands.BLOCKADE_ORDER) ||
                     p_input.startsWith(Commands.DIPLOMACY_ORDER) ||
-                    p_input.startsWith(Commands.END_TURN) ||
+                    p_input.startsWith(Commands.COMMIT) ||
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {
             return p_input.startsWith(Commands.SHOW_MAP);
