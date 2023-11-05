@@ -46,7 +46,6 @@ public class AdvanceOrder implements Order {
             d_countryto.setD_owner(d_player);
             d_player.getD_countryList().add(d_countryto);
             d_player.addRandomCard();
-
         }
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, l_attackingArmies - l_defendingArmies));
         d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - l_attackingArmies);
@@ -71,6 +70,8 @@ public class AdvanceOrder implements Order {
         } else if (d_countryfrom.getD_neighbourCountryIDList().contains(d_countryto.getD_countryID())) {
             System.out.println("Country being attacked is not a neighbour");
             return false;
+        } else if(d_player.isInNegotiationWith(d_countryto.getD_owner())) {
+            System.out.println("Diplomacy Card played, peace enforced between players");
         }
         return true;
     }
