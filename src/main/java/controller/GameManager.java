@@ -102,7 +102,6 @@ public class GameManager {
             this.assignReinforcements();
             d_skipTurnList.clear();
             this.d_currentPlayerTurn = 0;
-            return;
         } else {
             do {
                 d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
