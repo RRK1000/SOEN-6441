@@ -1,76 +1,73 @@
 package orders;
 
 import controller.GameManager;
+import global.Cards;
+import models.Order;
 import models.Player;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import phases.InitMapPhase;
+import phases.Phase;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NegotiateOrderTest {
-    private GameManager gameManager;
-    private Player issuingPlayer;
-    private Player targetPlayer;
-    private String targetPlayerName;
-    private NegotiateOrder negotiateOrder;
+    static GameManager d_gameManager;
+    static Phase d_gamePhase;
 
     @BeforeEach
     void setUp() {
-        // Initialize the GameManager and players
-        gameManager = new GameManager();
-        issuingPlayer = new Player("PlayerA");
-        targetPlayerName = "PlayerB";
-        targetPlayer = new Player(targetPlayerName);
+        d_gameManager = new GameManager();
+        d_gamePhase = new InitMapPhase();
 
-        // Add players to the game manager
-        gameManager.addPlayer(issuingPlayer.getD_playerName());
-        gameManager.addPlayer(targetPlayerName);
-
-        // Initialize the NegotiateOrder
-        negotiateOrder = new NegotiateOrder(issuingPlayer, targetPlayer);
+        d_gamePhase.loadMap("validMap2.txt", d_gameManager);
+        String player1Name = "Player1";
+        String player2Name = "Player2";
+        d_gameManager.addPlayer(player1Name);
+        d_gameManager.addPlayer(player2Name);
+        d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
     @AfterEach
     void tearDown() {
-        gameManager = null;
+        d_gameManager = null;
     }
 
     @Test
     void execute() {
-        // Ensure that the execute method works without errors
-        assertDoesNotThrow(() -> negotiateOrder.execute());
+        Player l_p1 = d_gameManager.getD_playerList().get(0);
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.DIPLOMACY_CARD)));
+
+        Player l_p2 = d_gameManager.getD_playerList().get(1);
+
+        Order l_negotiate = new NegotiateOrder(l_p1, l_p2);
+        l_negotiate.execute();
+        assertTrue(l_p1.isInNegotiationWith(l_p2));
     }
 
     @Test
     void isValid1() {
-        // Test the validity of the order when the target player exists
-        assertTrue(negotiateOrder.isValid());
+        Player l_p1 = d_gameManager.getD_playerList().get(0);
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.DIPLOMACY_CARD)));
 
-        // Test the validity of the order when the target player doesn't exist
-        targetPlayerName = "NonExistentPlayer";
-        negotiateOrder = new NegotiateOrder(issuingPlayer, null);
-        assertFalse(negotiateOrder.isValid());
+        Player l_p2 = d_gameManager.getD_playerList().get(1);
 
-        // Test the validity of the order when players are in negotiation
-        issuingPlayer.addPlayerNegotiation(targetPlayer);
-        targetPlayer.addPlayerNegotiation(issuingPlayer);
-        assertFalse(negotiateOrder.isValid());
-
+        Order l_negotiate = new NegotiateOrder(l_p1, l_p2);
+        assertTrue(l_negotiate.isValid());
     }
     @Test
     void isValid2() {
-        // Test the validity of the order when the target player exists
-        assertTrue(negotiateOrder.isValid());
+        Player l_p1 = d_gameManager.getD_playerList().get(0);
+        l_p1.setD_playerCardList(new ArrayList<>(Arrays.asList(Cards.DIPLOMACY_CARD)));
 
-        // Test the validity of the order when the target player exist
-        targetPlayerName = "PlayerB";
-        negotiateOrder = new NegotiateOrder(issuingPlayer, targetPlayer);
-        assertTrue(negotiateOrder.isValid());
+        Player l_p2 = null;
 
-        // Test the validity of the order when players are in negotiation
-        issuingPlayer.addPlayerNegotiation(targetPlayer);
-        targetPlayer.addPlayerNegotiation(issuingPlayer);
-        assertFalse(negotiateOrder.isValid());
+        Order l_negotiate = new NegotiateOrder(l_p1, l_p2);
+        assertFalse(l_negotiate.isValid());
     }
 }
