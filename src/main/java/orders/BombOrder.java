@@ -38,6 +38,11 @@ public class BombOrder implements Order {
      */
     @Override
     public boolean isValid() {
+        if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
+            System.out.println("Player doesn't have Bomb Card.");
+            return false;
+        }
+
         for (Country l_country : d_player.getD_countryList()) {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }

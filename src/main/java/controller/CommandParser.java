@@ -169,6 +169,18 @@ public class CommandParser {
                 p_gameManager.getD_gamePhase().airlift(p_gameManager, l_currentPlayer, l_countryFrom, l_countryTo, l_numArmies);
                 break;
 
+            case Commands.BLOCKADE_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
+                p_gameManager.getD_gamePhase().blockade(p_gameManager, l_currentPlayer, l_country);
+                break;
+
+            case Commands.DIPLOMACY_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                Player l_targetPlayer = p_gameManager.findPlayerByName(l_cmdSplit[1]);
+                p_gameManager.getD_gamePhase().negotiate(p_gameManager, l_currentPlayer, l_targetPlayer);
+                break;
+
             case Commands.END_TURN:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 if (l_currentPlayer.getD_numArmies() > 0) {

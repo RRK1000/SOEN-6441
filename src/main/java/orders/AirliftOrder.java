@@ -48,6 +48,9 @@ public class AirliftOrder implements Order {
         } else if (!d_player.getD_countryList().contains(d_targetCountry)) {
             System.out.println("Player does not own country: " + d_targetCountry.getD_countryID());
             return false;
+        } else if (!d_player.getD_playerCardList().contains(Cards.AIRLIFT_CARD)) {
+            System.out.println("Player doesn't have Airlift Card.");
+            return false;
         }
         return true;
     }

@@ -1,10 +1,8 @@
 package orders;
 
-import models.Player;
+import global.Cards;
 import models.Order;
-import controller.GameManager;
-
-import java.util.List;
+import models.Player;
 
 /**
  * The NegotiateOrder class represents a negotiation order, allowing players to establish a peaceful agreement.
@@ -15,24 +13,18 @@ import java.util.List;
  * @author Abhigyan
  */
 public class NegotiateOrder implements Order {
-    private final GameManager d_player; // The game manager
-    private final Player issuingPlayer; // The player issuing the negotiation order
+    private final Player d_player;
     private final Player targetPlayer; // The target player for negotiation
-    private final String targetPlayerName; // The name of the target player
 
     /**
      * Constructs a new NegotiateOrder with the specified parameters.
      *
-     * @param p_player          The game manager.
-     * @param issuingPlayer     The player issuing the negotiation order.
+     * @param p_player     The player issuing the negotiation order.
      * @param targetPlayer      The target player for negotiation.
-     * @param targetPlayerName  The name of the target player.
      */
-    public NegotiateOrder(GameManager p_player, Player issuingPlayer, Player targetPlayer, String targetPlayerName) {
-        d_player = p_player;
-        this.issuingPlayer = issuingPlayer;
+    public NegotiateOrder(Player p_player, Player targetPlayer) {
+        this.d_player = p_player;
         this.targetPlayer = targetPlayer;
-        this.targetPlayerName = targetPlayerName;
     }
 
     /**
@@ -40,21 +32,16 @@ public class NegotiateOrder implements Order {
      */
     @Override
     public void execute() {
-        if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
-            System.out.println("Players are in negotiation and cannot attack each other.");
-        } else {
-            // Enforce peace between the players
-            issuingPlayer.addPlayerNegotiation(targetPlayer);
-            targetPlayer.addPlayerNegotiation(issuingPlayer);
+        // Enforce peace between the players
+        d_player.addPlayerNegotiation(targetPlayer);
+        targetPlayer.addPlayerNegotiation(d_player);
 
-            // Remove the "negotiate" card from the issuing player
-            // Assuming you have a method to remove the card in your Player class
-            issuingPlayer.getD_playerCardList().remove("negotiate");
+        // Remove the "negotiate" card from the issuing player
+        // Assuming you have a method to remove the card in your Player class
+        d_player.getD_playerCardList().remove(Cards.DIPLOMACY_CARD);
 
-            // Access the player names and print the negotiation message to the console
-            String executionLog = "Negotiation with " + targetPlayer.getD_playerName() + " approached by " + issuingPlayer.getD_playerName() + " successful!";
-            System.out.println(executionLog);
-        }
+        String executionLog = "Negotiation with " + targetPlayer.getD_playerName() + " approached by " + d_player.getD_playerName() + " successful!";
+        System.out.println(executionLog);
     }
 
     /**
@@ -64,17 +51,14 @@ public class NegotiateOrder implements Order {
      */
     @Override
     public boolean isValid() {
-        if (issuingPlayer.isInNegotiationWith(targetPlayer)) {
-            System.out.println("Players are in negotiation and cannot attack each other.");
-            return false;
-        }
-
-        if (targetPlayer != null && targetPlayer.getD_playerName() != null && !targetPlayer.getD_playerName().isEmpty()) {
-            // Target player is not null and has a name
-            return true;
-        } else {
+        if (targetPlayer == null) {
             System.out.println("Player to negotiate doesn't exist!");
             return false;
+        } else if (!d_player.getD_playerCardList().contains(Cards.DIPLOMACY_CARD)) {
+            System.out.println("Player doesn't have Diplomacy Card.");
+            return false;
+        } else {
+            return true;
         }
     }
 }

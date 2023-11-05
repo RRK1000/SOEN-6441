@@ -1,20 +1,16 @@
 package controller;
 
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
+import models.*;
+import phases.InitMapPhase;
+import phases.Phase;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Order;
-import models.Player;
-import phases.InitMapPhase;
-import phases.Phase;
 /**
  * Represents the Game Manager
  * Manages game state, and the player actions involved during the game play
@@ -191,6 +187,20 @@ public class GameManager {
             }
         }
         System.out.println("Player " + p_playerName + " does not exist");
+    }
+
+    /**
+     * Finds a {@link models.Player} using the playerName/PlayerID
+     *
+     * @param p_playerName PLayer if exists, else null
+     */
+    public Player findPlayerByName(String p_playerName) {
+        for (Player l_p : d_playerList) {
+            if (l_p.getD_playerName().equals(p_playerName)) {
+                return l_p;
+            }
+        }
+        return null;
     }
 
 
