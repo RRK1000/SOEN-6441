@@ -66,6 +66,30 @@ public class ExecuteOrderPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * Blockade an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Enforces negotiation for a turn
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_otherPlayer   The opponent
+     */
+    @Override
+    public void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
     @Override
     public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);

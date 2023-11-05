@@ -25,6 +25,8 @@ public class Player {
     private Order d_currentOrder;
     private List<String> d_playerCardList;
 
+    private List<Player> negotiationList;
+
     /**
      * Default constructor for Player class
      *
@@ -36,6 +38,7 @@ public class Player {
         this.d_continentList = new ArrayList<>();
         this.d_orderList = new ArrayList<>();
         this.d_playerCardList = new ArrayList<>();
+        this.negotiationList = new ArrayList<>();
     }
 
     /**
@@ -63,6 +66,14 @@ public class Player {
         this.d_playerCardList = d_playerCardList;
     }
 
+    public void addPlayerNegotiation(Player player) {
+        negotiationList.add(player);
+    }
+
+    public void clearPlayerNegotiation() {
+        negotiationList.clear();
+    }
+
     /**
      * Adds a country to the player's list of countries
      *
@@ -81,17 +92,21 @@ public class Player {
             AdvanceOrder l_advanceOrder = (AdvanceOrder) d_currentOrder;
             d_orderList.add(l_advanceOrder);
         } else if (d_currentOrder instanceof AirliftOrder) {
-
+            AirliftOrder l_airliftOrder = (AirliftOrder) d_currentOrder;
+            d_orderList.add(l_airliftOrder);
         } else if (d_currentOrder instanceof BlockadeOrder) {
-
+            BlockadeOrder l_blockadeOrder = (BlockadeOrder) d_currentOrder;
+            d_orderList.add(l_blockadeOrder);
         } else if (d_currentOrder instanceof BombOrder) {
-
+            BombOrder l_bombOrder = (BombOrder) d_currentOrder;
+            d_orderList.add(l_bombOrder);
         } else if (d_currentOrder instanceof DeployOrder) {
             DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
             d_numArmies -= l_deployOrder.getD_num();
             d_orderList.add(l_deployOrder);
         } else if (d_currentOrder instanceof NegotiateOrder) {
-
+            NegotiateOrder l_negotiateOrder = (NegotiateOrder) d_currentOrder;
+            d_orderList.add(l_negotiateOrder);
         }
     }
 
@@ -219,11 +234,16 @@ public class Player {
         this.d_continentList = p_continentList;
     }
 
-    public void addRandomCard () {
+    public void addRandomCard() {
         List<String> l_cardsList = Arrays.asList(Cards.BOMB_CARD, Cards.BLOCKADE_CARD, Cards.BOMB_CARD, Cards.DIPLOMACY_CARD);
         Random l_rndm = new Random();
-        int randomIndex = l_rndm.nextInt(l_cardsList.size());
-        String l_card = l_cardsList.get(randomIndex);
+        int l_randomIndex = l_rndm.nextInt(l_cardsList.size());
+        String l_card = l_cardsList.get(l_randomIndex);
         this.d_playerCardList.add(l_card);
+        System.out.println(l_card + " gained by " + this.d_playerName);
+    }
+
+    public boolean isInNegotiationWith(Player p_otherPlayer) {
+        return negotiationList.contains(p_otherPlayer);
     }
 }

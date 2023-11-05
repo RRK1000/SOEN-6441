@@ -31,13 +31,10 @@ public class AdvanceOrder implements Order {
      */
     @Override
     public void execute() {
-        int max = 1;
-        int min = 0;
-        int luckModifier = (int) Math.floor(Math.random() * (max - min + 1) + min);
-        int l_attackingArmies = (int) ((d_num * 0.6) + luckModifier);
+        int l_attackingArmies = (int) (d_num * 0.6);
 
-        luckModifier = (int) Math.floor(Math.random() * (max - min + 1) + min);
-        int l_defendingArmies = (int) ((d_countryto.getD_numArmies() * 0.7) + luckModifier);
+        int l_defendingArmies = (int) (d_countryto.getD_numArmies() * 0.7);
+
 
         // after the attack
         if (l_attackingArmies >= l_defendingArmies) {
@@ -45,11 +42,11 @@ public class AdvanceOrder implements Order {
             l_formerOwner.getD_countryList().remove(d_countryto);
             d_countryto.setD_owner(d_player);
             d_player.getD_countryList().add(d_countryto);
+            d_countryto.setD_numArmies(0);
             d_player.addRandomCard();
-
         }
-        d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, l_attackingArmies - l_defendingArmies));
-        d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - l_attackingArmies);
+        d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
+        d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - d_num);
     }
 
     /**
@@ -68,9 +65,11 @@ public class AdvanceOrder implements Order {
         } else if (d_num > d_countryfrom.getD_numArmies()) {
             System.out.println("Invalid order, available armies on country: " + d_countryfrom.getD_numArmies());
             return false;
-        } else if (d_countryfrom.getD_neighbourCountryIDList().contains(d_countryto.getD_countryID())) {
+        } else if (!d_countryfrom.getD_neighbourCountryIDList().contains(d_countryto.getD_countryID())) {
             System.out.println("Country being attacked is not a neighbour");
             return false;
+        } else if(d_player.isInNegotiationWith(d_countryto.getD_owner())) {
+            System.out.println("Diplomacy Card played, peace enforced between players");
         }
         return true;
     }

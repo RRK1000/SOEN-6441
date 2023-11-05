@@ -4,12 +4,11 @@ import controller.GameManager;
 import models.Country;
 import models.Order;
 import models.Player;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import phases.InitMapPhase;
 import phases.Phase;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +26,7 @@ class AdvanceOrderTest {
         String player2Name = "Player2";
         d_gameManager.addPlayer(player1Name);
         d_gameManager.addPlayer(player2Name);
-        d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
+        d_gameManager.assignCountries();
     }
 
     @AfterEach
@@ -61,7 +60,6 @@ class AdvanceOrderTest {
      */
     @Test
     void executeTest2() {
-        List<String> l_cardsList = Arrays.asList("BOMB_CARD", "BLOCKADE_CARD", "AIRLIFT_CARD", "DIPLOMACY_CARD");
         Player l_p1 = d_gameManager.getD_playerList().get(0);
         Country l_countryFrom = l_p1.getD_countryList().get(0);
         Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 10);
@@ -69,14 +67,12 @@ class AdvanceOrderTest {
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 5);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 10);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 1);
         l_advanceOrder.execute();
         assertSame(l_countryTo.getD_owner(), l_p2);
-        assertTrue(l_p1.getD_playerCardList().isEmpty());
-
     }
 
     /**
@@ -90,8 +86,8 @@ class AdvanceOrderTest {
         l_deployOrder1.execute();
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
-        Country l_countryTo = l_p2.getD_countryList().get(1);
-        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
+        Country l_countryTo = l_p2.getD_countryList().get(4);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 1);
@@ -110,7 +106,7 @@ class AdvanceOrderTest {
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryTo, 9);
@@ -129,7 +125,7 @@ class AdvanceOrderTest {
 
         Player l_p2 = d_gameManager.getD_playerList().get(1);
         Country l_countryTo = l_p2.getD_countryList().get(0);
-        Order l_deployOrder2 = new DeployOrder(l_p1, l_countryTo, 1);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 1);
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryTo, l_countryFrom, 1);

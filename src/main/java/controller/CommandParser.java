@@ -62,14 +62,13 @@ public class CommandParser {
             System.out.println(Constants.GAME_EXIT);
 
             Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
-            System.out.println("player: " + l_currentPlayer.getD_playerName() + "'s turn");
-            System.out.println("\navailable reinforcement armies: " + l_currentPlayer.getD_numArmies());
+            System.out.println("\nplayer: " + l_currentPlayer.getD_playerName() + "'s turn");
+            System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
             return;
         } else {
             System.out.println(Constants.IN_GAME_HELP);
         }
         System.out.println(Constants.GAME_EXIT);
-
     }
 
     /**
@@ -186,8 +185,9 @@ public class CommandParser {
                 int l_numArmies = Integer.parseInt(l_cmdSplit[2]);
                 //call issueOrder()
                 p_gameManager.getD_gamePhase().deploy(p_gameManager, l_currentPlayer, l_country, l_numArmies);
-                System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
+
                 logAction(l_playerName + " deployed " + l_numArmies + " armies to country ID " + l_countryID);
+
                 break;
 
             case Commands.ADVANCE_ORDER:
@@ -215,11 +215,26 @@ public class CommandParser {
                 logAction("Airlift order issued by " + l_currentPlayer.getD_playerName());
                 break;
 
+            case Commands.BLOCKADE_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
+                p_gameManager.getD_gamePhase().blockade(p_gameManager, l_currentPlayer, l_country);
+                break;
+
+            case Commands.DIPLOMACY_ORDER:
+                l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+                Player l_targetPlayer = p_gameManager.findPlayerByName(l_cmdSplit[1]);
+                p_gameManager.getD_gamePhase().negotiate(p_gameManager, l_currentPlayer, l_targetPlayer);
+                break;
+
             case Commands.END_TURN:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 if (l_currentPlayer.getD_numArmies() > 0) {
-                    System.out.println("cannot end turn" + l_currentPlayer.getD_numArmies() + " left to be placed");
-                    logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
+
+                    System.out.println("cannot end turn\n" + l_currentPlayer.getD_numArmies()
+                            + " reinforcement army/armies left to be placed");
+logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
+
                     break;
                 }
                 //Updating the player turn.

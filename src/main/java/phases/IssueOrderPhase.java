@@ -6,10 +6,7 @@ import models.Country;
 import models.Map;
 import models.Order;
 import models.Player;
-import orders.AdvanceOrder;
-import orders.AirliftOrder;
-import orders.BombOrder;
-import orders.DeployOrder;
+import orders.*;
 
 public class IssueOrderPhase implements Phase {
     /**
@@ -46,7 +43,6 @@ public class IssueOrderPhase implements Phase {
             // Create an order using the provided parameters (p_countryID and num)
             Order l_order = new DeployOrder(p_currentPlayer, p_country, p_num);
             if (!l_order.isValid()) {
-                System.out.println("Cannot deploy more armies than available in reinforcement pool.");
                 return;
             }
             p_currentPlayer.setD_currentOrder(l_order);
@@ -119,6 +115,46 @@ public class IssueOrderPhase implements Phase {
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
         System.out.println("Issued Airlift Order");
+
+        p_gameManager.updatePlayerTurn();
+    }
+
+    /**
+     * Blockade an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        Order l_order = new BlockadeOrder(p_currentPlayer, p_country);
+        if (!l_order.isValid()) {
+            return;
+        }
+        p_currentPlayer.setD_currentOrder(l_order);
+        p_currentPlayer.issueOrder();
+        System.out.println("Issued Blockade Order");
+
+        p_gameManager.updatePlayerTurn();
+    }
+
+    /**
+     * Enforces negotiation for a turn
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_otherPlayer   The opponent
+     */
+    @Override
+    public void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer) {
+        Order l_order = new NegotiateOrder(p_currentPlayer, p_otherPlayer);
+        if (!l_order.isValid()) {
+            return;
+        }
+        p_currentPlayer.setD_currentOrder(l_order);
+        p_currentPlayer.issueOrder();
+        System.out.println("Issued Diplomacy Order");
 
         p_gameManager.updatePlayerTurn();
     }

@@ -55,6 +55,24 @@ public interface Phase {
     void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
 
     /**
+     * Blockade an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
+
+    /**
+     * Enforces negotiation for a turn
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_otherPlayer      The opponent
+     */
+    void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer);
+
+    /**
      * Airlifts armies from player's country to another of their owned countries
      *
      * @param p_gameManager The game manager

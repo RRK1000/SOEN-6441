@@ -5,6 +5,8 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.util.List;
+
 /**
  * This class handles the bomb type order.
  *
@@ -28,7 +30,9 @@ public class BombOrder implements Order {
     @Override
     public void execute() {
         d_country.setD_numArmies(d_country.getD_numArmies() / 2);
-        d_player.getD_playerCardList().remove(Cards.BOMB_CARD);
+        List<String> l_playerCardList = d_player.getD_playerCardList();
+        l_playerCardList.remove(Cards.BOMB_CARD);
+        d_player.setD_playerCardList(l_playerCardList);
     }
 
     /**
@@ -38,6 +42,11 @@ public class BombOrder implements Order {
      */
     @Override
     public boolean isValid() {
+        if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
+            System.out.println("Player doesn't have Bomb Card.");
+            return false;
+        }
+
         for (Country l_country : d_player.getD_countryList()) {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }
