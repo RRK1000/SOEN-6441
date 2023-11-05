@@ -5,6 +5,8 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.util.List;
+
 /**
  * This class handles the airlift type order.
  *
@@ -36,7 +38,9 @@ public class AirliftOrder implements Order {
 
         d_sourceCountry.setD_numArmies(d_sourceCountry.getD_numArmies() - d_numArmies);
         d_targetCountry.setD_numArmies(d_targetCountry.getD_numArmies() + d_numArmies);
-        d_player.getD_playerCardList().remove(Cards.AIRLIFT_CARD);
+        List<String> l_playerCardList = d_player.getD_playerCardList();
+        l_playerCardList.remove(Cards.BOMB_CARD);
+        d_player.setD_playerCardList(l_playerCardList);
     }
 
     @Override
