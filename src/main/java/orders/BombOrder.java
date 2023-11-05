@@ -27,6 +27,11 @@ public class BombOrder implements Order {
      */
     @Override
     public void execute() {
+        if(!d_player.getD_countryList().contains(d_country)) {
+            System.out.println("Player no longer owns country: " + d_country.getD_countryID());
+            return;
+        }
+
         d_country.setD_numArmies(d_country.getD_numArmies() / 2);
         d_player.getD_playerCardList().remove(Cards.BOMB_CARD);
     }

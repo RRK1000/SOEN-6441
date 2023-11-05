@@ -29,6 +29,11 @@ public class AirliftOrder implements Order {
 
     @Override
     public void execute() {
+        if(!d_player.getD_countryList().contains(d_sourceCountry)) {
+            System.out.println("Player no longer owns country: " + d_sourceCountry.getD_countryID());
+            return;
+        }
+
         d_sourceCountry.setD_numArmies(d_sourceCountry.getD_numArmies() - d_numArmies);
         d_targetCountry.setD_numArmies(d_targetCountry.getD_numArmies() + d_numArmies);
         d_player.getD_playerCardList().remove(Cards.AIRLIFT_CARD);

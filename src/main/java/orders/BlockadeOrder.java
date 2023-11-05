@@ -36,6 +36,11 @@ public class BlockadeOrder implements Order {
      * Makes a country neutral and removes it from the player's list if the Blockade order is valid.
      */
     public void execute() {
+        if(!d_player.getD_countryList().contains(d_country)) {
+            System.out.println("Player no longer owns country: " + d_country.getD_countryID());
+            return;
+        }
+
         this.neutralizeCountry();
         d_player.getD_playerCardList().remove(Cards.BLOCKADE_CARD);
         System.out.println("Blockade on " + d_country.getD_countryName() + " by " + d_player.getD_playerName());
