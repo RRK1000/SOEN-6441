@@ -88,17 +88,21 @@ public class Player {
             AdvanceOrder l_advanceOrder = (AdvanceOrder) d_currentOrder;
             d_orderList.add(l_advanceOrder);
         } else if (d_currentOrder instanceof AirliftOrder) {
-
+            AirliftOrder l_airliftOrder = (AirliftOrder) d_currentOrder;
+            d_orderList.add(l_airliftOrder);
         } else if (d_currentOrder instanceof BlockadeOrder) {
-
+            BlockadeOrder l_blockadeOrder = (BlockadeOrder) d_currentOrder;
+            d_orderList.add(l_blockadeOrder);
         } else if (d_currentOrder instanceof BombOrder) {
-
+            BombOrder l_bombOrder = (BombOrder) d_currentOrder;
+            d_orderList.add(l_bombOrder);
         } else if (d_currentOrder instanceof DeployOrder) {
             DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
             d_numArmies -= l_deployOrder.getD_num();
             d_orderList.add(l_deployOrder);
         } else if (d_currentOrder instanceof NegotiateOrder) {
-
+            NegotiateOrder l_negotiateOrder = (NegotiateOrder) d_currentOrder;
+            d_orderList.add(l_negotiateOrder);
         }
     }
 

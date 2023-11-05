@@ -97,6 +97,7 @@ public class GameManager {
             this.executeOrder();
             this.assignReinforcements();
             d_skipTurnList.clear();
+            this.d_currentPlayerTurn = 0;
             return;
         } else {
             do {
@@ -104,9 +105,10 @@ public class GameManager {
             } while(d_skipTurnList.contains(d_currentPlayerTurn));
         }
 
-        l_currentPlayerName = this.getD_playerList().get(this.getD_currentPlayerTurn()).getD_playerName();
-        logAction("Player turn updated to " + l_currentPlayerName);
-        System.out.println("Player " + l_currentPlayerName  + "'s turn ");
+        Player l_currentPlayer = this.getD_playerList().get(this.getD_currentPlayerTurn());
+        logAction("Player turn updated to " + l_currentPlayer.getD_playerName());
+        System.out.println("Player " + l_currentPlayer.getD_playerName()  + "'s turn ");
+        System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
     }
 
     /**
@@ -162,7 +164,6 @@ public class GameManager {
             Player l_player = new Player(p_playerName);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
-            System.out.println("Added " + p_playerName + " to the game!");
             logAction("Added " + p_playerName + " to the game!");
 
             
@@ -210,8 +211,10 @@ public class GameManager {
     public void executeOrder() {
         for (Player l_player : d_playerList) {
             Order l_order = l_player.nextOrder();
-            if(null == l_order) return;
-            l_order.execute();
+            while(null != l_order){
+                l_order.execute();
+                l_order = l_player.nextOrder();
+            }
         }
         System.out.println("Orders have been executed for this round.");
         logAction("Orders have been executed for this round.");

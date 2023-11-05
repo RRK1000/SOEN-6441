@@ -34,6 +34,14 @@ public class DeployOrder implements Order {
 
     @Override
     public boolean isValid() {
-        return d_player.getD_countryList().contains(d_country) && d_player.getD_numArmies() >= d_num;
+        if(d_player.getD_countryList().contains(d_country)) {
+            System.out.println("Player does not own country: " + d_country.getD_countryID());
+            return false;
+        } else if(d_player.getD_numArmies() >= d_num) {
+            System.out.println("Cannot deploy more armies than available in reinforcement pool.");
+            return false;
+        }
+
+        return true;
     }
 }
