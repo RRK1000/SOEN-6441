@@ -215,7 +215,7 @@ public class CommandParser {
                 LogManager.logAction("Diplomacy order issued by " + l_currentPlayer.getD_playerName() + " towards player " + l_cmdSplit[1]);
                 break;
 
-            case Commands.END_TURN:
+            case Commands.COMMIT:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 if (l_currentPlayer.getD_numArmies() > 0) {
 

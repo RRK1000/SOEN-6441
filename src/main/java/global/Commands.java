@@ -35,7 +35,7 @@ public class Commands {
     public static final String BLOCKADE_ORDER = "blockade";
     public static final String AIRLIFT_ORDER = "airlift";
     public static final String DIPLOMACY_ORDER = "negotiate";
-    public static final String END_TURN = "endturn";
+    public static final String COMMIT = "commit";
 
 
 
