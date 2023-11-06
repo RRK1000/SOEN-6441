@@ -26,18 +26,6 @@ public class Continent {
     }
 
     /**
-     * Constructor with parameters for Continent class.
-     *
-     * @param p_continentID    The ID of the continent
-     * @param p_continentValue The value of the continent
-     */
-    public Continent(int p_continentID, int p_continentValue) {
-        this.d_continentID = p_continentID;
-        this.d_continentValue = p_continentValue;
-        d_countryList = new ArrayList<>();
-    }
-
-    /**
      * Adds a country to the continent.
      *
      * @param p_country The country to be added.
@@ -74,15 +62,6 @@ public class Continent {
     }
 
     /**
-     * Gets the continent name
-     *
-     * @return The continent name
-     */
-    public String getD_continentName() {
-        return d_continentName;
-    }
-
-    /**
      * Sets the continent name
      *
      * @param p_continentName Sets the continent name
@@ -116,14 +95,5 @@ public class Continent {
      */
     public List<Country> getD_countryList() {
         return d_countryList;
-    }
-
-    /**
-     * Sets the country list.
-     *
-     * @param p_countryList Sets the country list.
-     */
-    public void setD_countryList(List<Country> p_countryList) {
-        this.d_countryList = p_countryList;
     }
 }

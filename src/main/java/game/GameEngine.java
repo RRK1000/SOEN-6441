@@ -38,5 +38,3 @@ public class GameEngine {
         } while (!Objects.equals(l_inputCommand, "exit"));
     }
 }
-
-

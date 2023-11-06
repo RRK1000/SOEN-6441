@@ -21,7 +21,8 @@ class MapUtilTest {
 	private Map d_map;
 
 	/**
-	 * Tests if there are edges between the first two countries in the map. This
+	 *
+	 *  Tests if there are edges between the first two countries in the map. This
 	 * ensures that countries within a continent are interconnected, which is a
 	 * first step towards validating that a continent is a connected subgraph
 	 */
@@ -91,6 +92,7 @@ class MapUtilTest {
 		assertFalse(l_map.getD_countryMapGraph().vertexSet().isEmpty());
 		assertFalse(l_map.getD_continentMapGraph().vertexSet().isEmpty());
 	}
+
 
 	/**
 	 * This test checks the editMap() function for a valid file
@@ -204,5 +206,47 @@ class MapUtilTest {
 	void saveMap() {
 		Map l_map = MapUtil.loadMap("validMap2.txt");
 		assertTrue(MapUtil.saveMap(l_map, "savedMap.txt"));
+	}
+
+	/**
+	 * This test checks if the continents from the saved map is loaded sucessfully
+	 * or not. A valid map is passed. To check if the map was loaded sucessfully,
+	 * we check for total number of continents in the saved map and
+	 * the continentValue by the continentByID.
+	 */
+	@Test
+	void loadContinents() {
+		Map l_map = MapUtil.loadMap("validMap2.txt");
+		assertEquals(18, l_map.getD_continentMapGraph().vertexSet().size());
+
+		Continent scandinavia = l_map.getD_continentByID(1);
+		assertNotNull(scandinavia);
+		assertEquals(5, scandinavia.getD_continentValue());
+	}
+
+	/**
+	 * This test checks if the continents from the saved map is loaded sucessfully
+	 * or not.A valid map is passed. To check if the map was loaded sucessfully,
+	 * we check for total number of countries in the saved map and check the continentID
+	 * by using the countryID.
+	 */
+	@Test
+	void loadCountries() {
+		Map l_map = MapUtil.loadMap("validMap2.txt");
+		assertEquals(180, l_map.getD_countryMapGraph().vertexSet().size());
+		assertEquals(1, l_map.getD_countryByID(1).getD_continentID());
+	}
+
+	/**
+	 * This test checks if the borders of the saved map is loaded successfully
+	 * or not. A valid map is passed. It checks for the border between two countries
+	 * in the loaded map.
+	 */
+	@Test
+	void loadBorders() {
+		Map l_map = MapUtil.loadMap("validMap2.txt");
+		Country l_country1 = l_map.getD_countryByID(1);
+		Country l_country2 = l_map.getD_countryByID(2);
+		assertTrue(l_map.getD_countryMapGraph().containsEdge(l_country1,l_country2));
 	}
 }
