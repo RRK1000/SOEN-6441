@@ -50,8 +50,8 @@ public class GameManager {
 
     }
 
-    private void logAction(String action) {
-        d_logBuffer.setActionInfo(action);
+    private void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
     }
 
     /**
