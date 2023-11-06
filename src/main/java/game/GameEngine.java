@@ -1,11 +1,12 @@
 package game;
 
-import controller.CommandParser;
-import controller.GameManager;
-import global.Constants;
-
 import java.util.Objects;
 import java.util.Scanner;
+
+import controller.CommandParser;
+import controller.GameManager;
+import gamelog.LogManager;
+import global.Constants;
 
 /**
  * Represents the Game Engine.
@@ -15,6 +16,8 @@ import java.util.Scanner;
  * @author Nimisha Jadav
  */
 public class GameEngine {
+	
+
 
     /**
      * Main method to drive the game logic.
@@ -28,7 +31,7 @@ public class GameEngine {
         System.out.println("WELCOME TO WARZONE");
         System.out.println("First, load a map / build a new map");
         System.out.println(Constants.HELP_MESSAGE);
-
+        LogManager.logAction("The Game started");
         String l_inputCommand;
         //Takes input from user, until the exit command
         do {

@@ -1,11 +1,6 @@
 package phases;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import controller.GameManager;
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
 import global.Constants;
 import models.Country;
 import models.Map;
@@ -14,20 +9,6 @@ import util.MapUtil;
 
 public class InitMapPhase implements Phase {
 	
-	  private static LogEntryBuffer d_logBuffer;
-	  private static LogFileWriter d_logWriter;
-
-	  static {
-	        Path l_logPath = Paths.get(System.getProperty("user.dir"), "logs", "game.log");
-	        d_logBuffer = new LogEntryBuffer();
-	        d_logWriter = new LogFileWriter(l_logPath);
-	        d_logBuffer.addObserver(d_logWriter);
-	    }
-
-	    private static void logAction(String p_action) {
-	        d_logBuffer.setActionInfo(p_action);
-	        d_logBuffer.notifyObservers();
-	    }
 	
     /**
      * This method shifts the game phase to the next phase.
@@ -128,7 +109,6 @@ public class InitMapPhase implements Phase {
             } else {
                 System.out.println(Constants.CMD_ERROR);
             }
-            logAction("Country edited: " + p_editCountryInput.toString());
 
         }
     }

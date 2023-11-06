@@ -1,12 +1,9 @@
 package controller;
 
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
+import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
 import models.Country;
@@ -29,23 +26,10 @@ import util.CommandUtil;
  */
 public class CommandParser {
 	
-    private static LogEntryBuffer d_logBuffer;
-    private static LogFileWriter d_logWriter;
-    static {
-        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
-        d_logBuffer = new LogEntryBuffer();
-        d_logWriter = new LogFileWriter(l_logPath);
-        d_logBuffer.addObserver(d_logWriter);
-    }
-    
-    private static void logAction(String p_action) {
-        d_logBuffer.setActionInfo(p_action);
-        d_logBuffer.notifyObservers(); 
 
-    }
     public static void displayError() {
         System.out.println(Constants.CMD_ERROR);
-        logAction(Constants.CMD_ERROR);
+        LogManager.logAction(Constants.CMD_ERROR);
         System.out.println(Constants.HELP_MESSAGE);
     }
 
@@ -85,7 +69,7 @@ public class CommandParser {
         String[] l_cmdSplit = p_input.split(" ");
         if (!CommandUtil.isValidCmd(p_input, p_gameManager.getD_gamePhase())) {
             displayError();
-            logAction("Invalid command input: " + p_input);
+            LogManager.logAction("Invalid command input: " + p_input);
             return;
         }
 
@@ -97,7 +81,7 @@ public class CommandParser {
             //Displays the help command
             case Commands.HELP:
                 displayInstructions(p_gameManager);
-                logAction("Requested help instructions.");
+                LogManager.logAction("Requested help instructions.");
 
                 break;
 
@@ -105,11 +89,11 @@ public class CommandParser {
                 if (l_map == null) {
                     System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
-                    logAction("Attempted to display map but map was not loaded.");
+                    LogManager.logAction("Attempted to display map but map was not loaded.");
                     break;
                 }
                 p_gameManager.getD_gamePhase().showMap(l_map, p_gameManager);
-                logAction(" Displayed the map.");
+                LogManager.logAction(" Displayed the map.");
 
                 break;
 
@@ -117,63 +101,63 @@ public class CommandParser {
 
                 String[] l_editNeighbourInput = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editNeighbor(l_editNeighbourInput, l_map);
-                logAction(" Edited neighbors with input: " +String.join(" ", l_cmdSplit));
+                LogManager.logAction(" Edited neighbors with input: " +String.join(" ", l_cmdSplit));
 
                 break;
 
             case Commands.EDIT_CONTINENT:
                 String[] l_inputSplit = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editContinent(l_inputSplit, l_map);
-                logAction(" Edited continents with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction(" Edited continents with input: " + String.join(" ", l_cmdSplit));
                 break;
 
             case Commands.EDIT_COUNTRY:
                 String[] l_editCountryInput = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editCountry(l_editCountryInput, l_map);
-                logAction(" Edited countries with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction(" Edited countries with input: " + String.join(" ", l_cmdSplit));
 
                 break;
 
             case Commands.SAVE_MAP:
                 p_gameManager.getD_gamePhase().saveMap(l_map, l_cmdSplit);
-                logAction("Saved the map with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction("Saved the map with input: " + String.join(" ", l_cmdSplit));
                 break;
 
             case Commands.EDIT_MAP:
                 p_gameManager.getD_gamePhase().editMap(p_gameManager, l_cmdSplit);
-                logAction("Edited the map with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction("Edited the map with input: " + String.join(" ", l_cmdSplit));
                 break;
 
             case Commands.VALIDATE_MAP:
                 if (l_map != null) {
                     p_gameManager.getD_gamePhase().validateMap(l_map, p_gameManager);
-                    logAction("Validated the map.");
+                    LogManager.logAction("Validated the map.");
 
                 } else {
                     displayError();
-                    logAction("Attempted to validate map but map was not loaded.");
+                    LogManager.logAction("Attempted to validate map but map was not loaded.");
                 }
                 break;
 
             case Commands.LOAD_MAP:
                 p_gameManager.getD_gamePhase().loadMap(l_cmdSplit[1], p_gameManager);
-                logAction("Loaded a map with input: " + l_cmdSplit[1]);
+                LogManager.logAction("Loaded a map with input: " + l_cmdSplit[1]);
                 break;
 
             case Commands.GAME_PLAYER:
                 if (p_gameManager.getD_map() == null) {
                     System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
-                    logAction(" Attempted to modify players but map was not loaded.");
+                    LogManager.logAction(" Attempted to modify players but map was not loaded.");
                     break;
                 }
                 p_gameManager.getD_gamePhase().gamePlayer(l_cmdSplit, p_gameManager);
-                logAction(" Modified players with input: " + Arrays.toString(l_cmdSplit));
+                LogManager.logAction(" Modified players with input: " + Arrays.toString(l_cmdSplit));
                 break;
 
             case Commands.ASSIGN_COUNTRIES:
                 p_gameManager.getD_gamePhase().assignCountries(p_gameManager);
-                logAction("Countries were assigned to players.");
+                LogManager.logAction("Countries were assigned to players.");
 
                 break;
 
@@ -188,7 +172,7 @@ public class CommandParser {
                 //call issueOrder()
                 p_gameManager.getD_gamePhase().deploy(p_gameManager, l_currentPlayer, l_country, l_numArmies);
 
-                logAction(l_playerName + " deployed " + l_numArmies + " armies to country ID " + l_countryID);
+                LogManager.logAction(l_playerName + " deployed " + l_numArmies + " armies to country ID " + l_countryID);
 
                 break;
 
@@ -198,14 +182,14 @@ public class CommandParser {
                 Country l_countryto = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[2]));
                 l_numArmies = Integer.parseInt(l_cmdSplit[3]);
                 p_gameManager.getD_gamePhase().advance(p_gameManager, l_currentPlayer, l_countryfrom, l_countryto, l_numArmies);
-                logAction("Advance order issued by " + l_currentPlayer.getD_playerName());
+                LogManager.logAction("Advance order issued by " + l_currentPlayer.getD_playerName());
                 break;
 
             case Commands.BOMB_ORDER:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
                 p_gameManager.getD_gamePhase().bomb(p_gameManager, l_currentPlayer, l_country);
-                logAction("Bomb order issued by " + l_currentPlayer.getD_playerName());
+                LogManager.logAction("Bomb order issued by " + l_currentPlayer.getD_playerName());
                 break;
 
             case Commands.AIRLIFT_ORDER:
@@ -214,21 +198,21 @@ public class CommandParser {
                 Country l_countryTo = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[2]));
                 l_numArmies = Integer.parseInt(l_cmdSplit[3]);
                 p_gameManager.getD_gamePhase().airlift(p_gameManager, l_currentPlayer, l_countryFrom, l_countryTo, l_numArmies);
-                logAction("Airlift order issued by " + l_currentPlayer.getD_playerName());
+                LogManager.logAction("Airlift order issued by " + l_currentPlayer.getD_playerName());
                 break;
 
             case Commands.BLOCKADE_ORDER:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
                 p_gameManager.getD_gamePhase().blockade(p_gameManager, l_currentPlayer, l_country);
-                logAction("Blockade order issued by " + l_currentPlayer.getD_playerName() + " on country ID " + l_cmdSplit[1]);
+                LogManager.logAction("Blockade order issued by " + l_currentPlayer.getD_playerName() + " on country ID " + l_cmdSplit[1]);
                 break;
 
             case Commands.DIPLOMACY_ORDER:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 Player l_targetPlayer = p_gameManager.findPlayerByName(l_cmdSplit[1]);
                 p_gameManager.getD_gamePhase().negotiate(p_gameManager, l_currentPlayer, l_targetPlayer);
-                logAction("Diplomacy order issued by " + l_currentPlayer.getD_playerName() + " towards player " + l_cmdSplit[1]);
+                LogManager.logAction("Diplomacy order issued by " + l_currentPlayer.getD_playerName() + " towards player " + l_cmdSplit[1]);
                 break;
 
             case Commands.END_TURN:
@@ -237,19 +221,19 @@ public class CommandParser {
 
                     System.out.println("cannot end turn\n" + l_currentPlayer.getD_numArmies()
                             + " reinforcement army/armies left to be placed");
-logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
+LogManager.logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
 
                     break;
                 }
                 //Updating the player turn.
                 p_gameManager.addPlayerToSkipList(p_gameManager.getD_currentPlayerTurn());
                 p_gameManager.updatePlayerTurn();
-                logAction("Turn ended by " + l_currentPlayer.getD_playerName());
+                LogManager.logAction("Turn ended by " + l_currentPlayer.getD_playerName());
                 break;
 
             default:
                 displayError();
-                logAction("Unknown command: " + p_input);
+                LogManager.logAction("Unknown command: " + p_input);
 
         }
     }
