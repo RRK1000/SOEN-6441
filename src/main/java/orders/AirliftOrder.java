@@ -7,6 +7,7 @@ import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
+
 /**
  * This class handles the airlift type order.
  *

@@ -34,7 +34,7 @@ public class DeployOrder implements Order {
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_country)) {
-            System.out.println("Player no longer owns country: " + d_country.getD_countryID());
+            System.out.println("Player no longer owns country: " + d_country.getD_countryID()); //log action instead of sout
             return;
         }
         d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
