@@ -20,3 +20,11 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.withType<Javadoc> {
+    options {
+        this as StandardJavadocDocletOptions
+        addStringOption("Xdoclint:missing")
+        addStringOption("Xwerror", "-quiet")
+    }
+}
