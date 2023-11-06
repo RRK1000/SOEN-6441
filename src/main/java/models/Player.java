@@ -1,12 +1,21 @@
 package models;
 
-import global.Cards;
-import orders.*;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
+import global.Cards;
+import orders.AdvanceOrder;
+import orders.AirliftOrder;
+import orders.BlockadeOrder;
+import orders.BombOrder;
+import orders.DeployOrder;
+import orders.NegotiateOrder;
 
 /**
  * Represents a Player in the game.
@@ -26,6 +35,18 @@ public class Player {
     private List<String> d_playerCardList;
 
     private List<Player> negotiationList;
+    
+
+    private static LogEntryBuffer d_logBuffer;
+    private static LogFileWriter d_logWriter;
+
+    static {
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "game.log");
+        d_logBuffer = new LogEntryBuffer();
+        d_logWriter = new LogFileWriter(l_logPath);
+        d_logBuffer.addObserver(d_logWriter);
+    }
+
 
     /**
      * Default constructor for Player class
@@ -56,6 +77,11 @@ public class Player {
         this.d_countryList = p_countryList;
         this.d_orderList = p_orderList;
         this.d_currentOrder = p_currentOrder;
+    }
+    
+    private static void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
+        d_logBuffer.notifyObservers();
     }
 
     public List<String> getD_playerCardList() {
@@ -108,6 +134,8 @@ public class Player {
             NegotiateOrder l_negotiateOrder = (NegotiateOrder) d_currentOrder;
             d_orderList.add(l_negotiateOrder);
         }
+        logAction(this.d_playerName + " issued an order: " + d_currentOrder.getClass().getSimpleName());
+
     }
 
 
@@ -241,6 +269,8 @@ public class Player {
         String l_card = l_cardsList.get(l_randomIndex);
         this.d_playerCardList.add(l_card);
         System.out.println(l_card + " gained by " + this.d_playerName);
+        logAction(this.d_playerName + " gained a " + l_card + " card.");
+
     }
 
     public boolean isInNegotiationWith(Player p_otherPlayer) {
