@@ -1,12 +1,15 @@
 package orders;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
 import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
-
-import java.util.List;
-
 /**
  * This class handles the airlift type order.
  *
@@ -19,6 +22,18 @@ public class AirliftOrder implements Order {
     private final Country d_sourceCountry;
     private final Country d_targetCountry;
     private final int d_numArmies;
+
+
+    private static LogEntryBuffer d_logBuffer;
+    private static LogFileWriter d_logWriter;
+    
+    static {
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        d_logBuffer = new LogEntryBuffer();
+        d_logWriter = new LogFileWriter(l_logPath);
+        d_logBuffer.addObserver(d_logWriter);
+    }
+    
     /**
      * Constructor for the Order class.
      */
@@ -27,12 +42,20 @@ public class AirliftOrder implements Order {
         d_sourceCountry = p_sourceCountry;
         d_targetCountry = p_targetCountry;
         d_numArmies = p_numArmies;
+        
     }
 
+
+    private static void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
+        d_logBuffer.notifyObservers(); 
+    }
+    
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)) {
             System.out.println("Player no longer owns country: " + d_sourceCountry.getD_countryID());
+            logAction("Player no longer owns country:" + d_sourceCountry.getD_countryID());
             return;
         }
 
@@ -41,24 +64,32 @@ public class AirliftOrder implements Order {
         List<String> l_playerCardList = d_player.getD_playerCardList();
         l_playerCardList.remove(Cards.BOMB_CARD);
         d_player.setD_playerCardList(l_playerCardList);
+        logAction("Airlift order executed: " + d_numArmies + " armies moved from " +
+                d_sourceCountry.getD_countryID() + " to " + d_targetCountry.getD_countryID());
+  
     }
 
     @Override
     public boolean isValid() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)){
             System.out.println("Player does not own country: " + d_sourceCountry.getD_countryID());
+            logAction("Player does not own country: " + d_sourceCountry.getD_countryID());
             return false;
         } else if (d_numArmies == d_sourceCountry.getD_numArmies()) {
             System.out.println("Invalid order, one army must remain on all territories");
+            logAction("Invalid Airlift Order: Player does not own the source country " + d_sourceCountry.getD_countryID());
             return false;
         } else if (d_numArmies > d_sourceCountry.getD_numArmies()) {
             System.out.println("Invalid order, available armies on country: " + d_sourceCountry.getD_numArmies());
+            logAction("Invalid Airlift Order: Player does not own the target country " + d_targetCountry.getD_countryID());
             return false;
         } else if (!d_player.getD_countryList().contains(d_targetCountry)) {
             System.out.println("Player does not own country: " + d_targetCountry.getD_countryID());
+            logAction("Invalid Airlift Order: Player doesn't have an Airlift Card.");
             return false;
         } else if (!d_player.getD_playerCardList().contains(Cards.AIRLIFT_CARD)) {
             System.out.println("Player doesn't have Airlift Card.");
+            logAction("Invalid Airlift Order: Player doesn't have an Airlift Card.");
             return false;
         }
         return true;

@@ -29,17 +29,19 @@ import util.CommandUtil;
  */
 public class CommandParser {
 	
-    private static LogEntryBuffer logBuffer;
-    private static LogFileWriter logWriter;
+    private static LogEntryBuffer d_logBuffer;
+    private static LogFileWriter d_logWriter;
     static {
-        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
-        logBuffer = new LogEntryBuffer();
-        logWriter = new LogFileWriter(logPath);
-        logBuffer.addObserver(logWriter);
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        d_logBuffer = new LogEntryBuffer();
+        d_logWriter = new LogFileWriter(l_logPath);
+        d_logBuffer.addObserver(d_logWriter);
     }
     
-    private static void logAction(String action) {
-        logBuffer.setActionInfo(action);
+    private static void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
+        d_logBuffer.notifyObservers(); 
+
     }
     public static void displayError() {
         System.out.println(Constants.CMD_ERROR);
@@ -219,12 +221,14 @@ public class CommandParser {
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 l_country = p_gameManager.getD_map().getD_countryByID(Integer.parseInt(l_cmdSplit[1]));
                 p_gameManager.getD_gamePhase().blockade(p_gameManager, l_currentPlayer, l_country);
+                logAction("Blockade order issued by " + l_currentPlayer.getD_playerName() + " on country ID " + l_cmdSplit[1]);
                 break;
 
             case Commands.DIPLOMACY_ORDER:
                 l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
                 Player l_targetPlayer = p_gameManager.findPlayerByName(l_cmdSplit[1]);
                 p_gameManager.getD_gamePhase().negotiate(p_gameManager, l_currentPlayer, l_targetPlayer);
+                logAction("Diplomacy order issued by " + l_currentPlayer.getD_playerName() + " towards player " + l_cmdSplit[1]);
                 break;
 
             case Commands.END_TURN:

@@ -43,9 +43,9 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
         this.d_skipTurnList = new ArrayList<>();
 
-        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
-        this.d_logWriter = new LogFileWriter(logPath);
+        this.d_logWriter = new LogFileWriter(l_logPath);
         this.d_logBuffer.addObserver(d_logWriter);
 
     }

@@ -1,11 +1,16 @@
 package orders;
 
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
 import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
-
-import java.util.List;
 
 /**
  * This class handles the bomb type order.
@@ -15,7 +20,16 @@ import java.util.List;
 public class BombOrder implements Order {
     private final Player d_player;
     private final Country d_country;
+    private static LogEntryBuffer d_logBuffer;
+    private static LogFileWriter d_logWriter;
 
+    static {
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        d_logBuffer = new LogEntryBuffer();
+        d_logWriter = new LogFileWriter(l_logPath);
+        d_logBuffer.addObserver(d_logWriter);
+    }
+    
     /**
      * Constructor for the BombOrder class
      */
@@ -24,6 +38,10 @@ public class BombOrder implements Order {
         this.d_country = p_country;
     }
 
+    private static void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
+        d_logBuffer.notifyObservers();
+    }
     /**
      * Executes the bomb order command
      */
@@ -33,6 +51,7 @@ public class BombOrder implements Order {
         List<String> l_playerCardList = d_player.getD_playerCardList();
         l_playerCardList.remove(Cards.BOMB_CARD);
         d_player.setD_playerCardList(l_playerCardList);
+        logAction("Bomb order executed: Halved armies in " + d_country.getD_countryName());
     }
 
     /**
@@ -44,6 +63,8 @@ public class BombOrder implements Order {
     public boolean isValid() {
         if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
             System.out.println("Player doesn't have Bomb Card.");
+            logAction("Player doesn't have Bomb Card.");
+
             return false;
         }
 
@@ -51,6 +72,7 @@ public class BombOrder implements Order {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }
         System.out.println("Country not a neighbour");
+        logAction("Country not a neighbour for Bomb Order.");
         return false;
     }
 
