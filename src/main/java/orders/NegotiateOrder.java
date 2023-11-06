@@ -35,13 +35,14 @@ public class NegotiateOrder implements Order {
      */
     @Override
     public void execute() {
+        if (targetPlayer == null) {
+            System.out.println("Player to negotiate doesn't exist"); //log action
+            return;
+        }
+
         // Enforce peace between the players
         d_player.addPlayerNegotiation(targetPlayer);
         targetPlayer.addPlayerNegotiation(d_player);
-
-        // Remove the "negotiate" card from the issuing player
-        // Assuming you have a method to remove the card in your Player class
-        d_player.getD_playerCardList().remove(Cards.DIPLOMACY_CARD);
 
         String executionLog = "Negotiation with " + targetPlayer.getD_playerName() + " approached by " + d_player.getD_playerName() + " successful!";
         System.out.println(executionLog);

@@ -13,6 +13,11 @@ import models.Player;
  */
 public class AdvanceOrder implements Order {
     private final Player d_player;
+
+    public Country getD_countryfrom() {
+        return d_countryfrom;
+    }
+
     private final Country d_countryfrom;
     private final Country d_countryto;
     private final int d_num;
@@ -30,14 +35,23 @@ public class AdvanceOrder implements Order {
         this.d_num = p_num;
     }
 
+    public int getD_num() {
+        return d_num;
+    }
 
-    
-    
     /**
      * Executes the AdvanceOrder command
      */
     @Override
     public void execute() {
+        if (d_num == d_countryfrom.getD_numArmies()) {
+            System.out.println("Invalid order, one army must remain on all territories"); //log action instead of sout
+            return;
+        } else if (d_num > d_countryfrom.getD_numArmies()) {
+            System.out.println("Invalid order, available armies on country: " + d_countryfrom.getD_numArmies()); //log action instead of sout
+            return;
+        }
+
         int l_attackingArmies = (int) (d_num * 0.6);
 
         int l_defendingArmies = (int) (d_countryto.getD_numArmies() * 0.7);
@@ -84,7 +98,7 @@ public class AdvanceOrder implements Order {
             LogManager.logAction("Invalid Order:Country being attacked is not a neighbour" );
 
             return false;
-        } else if(d_player.isInNegotiationWith(d_countryto.getD_owner())) {
+        } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
             System.out.println("Diplomacy Card played, peace enforced between players");
             LogManager.logAction("Invalid Order: Diplomacy Card played, peace enforced between players");
 

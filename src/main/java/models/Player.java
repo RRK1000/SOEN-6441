@@ -116,15 +116,21 @@ public class Player {
 
         if (d_currentOrder instanceof AdvanceOrder) {
             AdvanceOrder l_advanceOrder = (AdvanceOrder) d_currentOrder;
+
+            Country l_countryFrom = l_advanceOrder.getD_countryfrom();
+            l_countryFrom.setD_numArmies(l_countryFrom.getD_numArmies() - l_advanceOrder.getD_num());
             d_orderList.add(l_advanceOrder);
         } else if (d_currentOrder instanceof AirliftOrder) {
             AirliftOrder l_airliftOrder = (AirliftOrder) d_currentOrder;
+            d_playerCardList.remove(Cards.AIRLIFT_CARD);
             d_orderList.add(l_airliftOrder);
         } else if (d_currentOrder instanceof BlockadeOrder) {
             BlockadeOrder l_blockadeOrder = (BlockadeOrder) d_currentOrder;
+            d_playerCardList.remove(Cards.BLOCKADE_CARD);
             d_orderList.add(l_blockadeOrder);
         } else if (d_currentOrder instanceof BombOrder) {
             BombOrder l_bombOrder = (BombOrder) d_currentOrder;
+            d_playerCardList.remove(Cards.BOMB_CARD);
             d_orderList.add(l_bombOrder);
         } else if (d_currentOrder instanceof DeployOrder) {
             DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
@@ -132,6 +138,7 @@ public class Player {
             d_orderList.add(l_deployOrder);
         } else if (d_currentOrder instanceof NegotiateOrder) {
             NegotiateOrder l_negotiateOrder = (NegotiateOrder) d_currentOrder;
+            d_playerCardList.remove(Cards.DIPLOMACY_CARD);
             d_orderList.add(l_negotiateOrder);
         }
         logAction(this.d_playerName + " issued an order: " + d_currentOrder.getClass().getSimpleName());
