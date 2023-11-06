@@ -25,6 +25,8 @@ import phases.Phase;
  */
 public class GameManager {
     private final List<Integer> d_skipTurnList;
+    private final LogEntryBuffer d_logBuffer;
+    private final LogFileWriter d_logWriter;
     /**
      * GamePhase instance
      */
@@ -43,39 +45,15 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
         this.d_skipTurnList = new ArrayList<>();
 
-   
+        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        this.d_logBuffer = new LogEntryBuffer();
+        this.d_logWriter = new LogFileWriter(logPath);
+        this.d_logBuffer.addObserver(d_logWriter);
+
     }
 
-    /**
-     * Used in the Game_Startup game phase to assign countries to the players in the game
-     */
-    public void assignCountries() {
-        //Checks the condition where the armies cannot be assigned if the number of players is less than 2.
-        if (d_playerList.size() < 2) {
-            System.out.println("Too few players added. Minimum players required is 2");
-            return;
-        }
-
-        //Assigning countries to the player
-        int l_playerIndex = 0;
-        for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
-            Player l_player = d_playerList.get(l_playerIndex);
-            l_player.addCountry(l_country);
-            l_country.setD_owner(l_player);
-            l_playerIndex = ((l_playerIndex + 1) % d_playerList.size());
-        }
-        //Setting the game phase to Issue Order and assign armies to the players
-        System.out.println("Assigned countries to the players");
-        System.out.println("Game has Started!");
-        assignReinforcements();
-
-        //Displaying the current player's name and the armies
-        d_currentPlayerTurn = 0;
-        System.out.println("Player " + d_playerList.get(d_currentPlayerTurn).getD_playerName() + "'s turn");
-        System.out.println("Available Reinforcement Armies: " + d_playerList.get(d_currentPlayerTurn).getD_numArmies());
-
-        LogManager.logAction("Assigned countries to the players. Game has Started!");
-
+    public void logAction(String action) {
+        d_logBuffer.setActionInfo(action);
     }
 
     /**
@@ -104,9 +82,9 @@ public class GameManager {
         LogManager.logAction("Player turn updated to " + l_currentPlayer.getD_playerName());
         System.out.println("Player " + l_currentPlayer.getD_playerName() + "'s turn ");
         System.out.println("available reinforcement armies: " + l_currentPlayer.getD_numArmies());
-        if(!l_currentPlayer.getD_playerCardList().isEmpty()){
+        if (!l_currentPlayer.getD_playerCardList().isEmpty()) {
             System.out.println("Cards available for Player " + l_currentPlayer.getD_playerName() + ": " + l_currentPlayer.getD_playerCardList());
-        }else{
+        } else {
             System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
         }
     }
@@ -202,7 +180,6 @@ public class GameManager {
         }
         return null;
     }
-
 
     /**
      * Executes all the orders from all the players for the current turn, updating the game state
@@ -300,6 +277,10 @@ public class GameManager {
      */
     public int getD_currentPlayerTurn() {
         return d_currentPlayerTurn;
+    }
+
+    public void setD_currentPlayerTurn(int d_currentPlayerTurn) {
+        this.d_currentPlayerTurn = d_currentPlayerTurn;
     }
 
     /**

@@ -7,6 +7,7 @@ import models.Player;
 import orders.DeployOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import phases.StartupPhase;
 import util.MapUtil;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ class CommandParserTest {
 		d_gameManager.setD_map(d_map);
 		d_gameManager.addPlayer(player1Name);
 		d_gameManager.addPlayer(player2Name);
+
 	}
 
 	/**
@@ -48,7 +50,8 @@ class CommandParserTest {
 	void assignReinforcements() {
 		int expectedPlayer1Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
 		int expectedPlayer2Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
-		d_gameManager.assignCountries(); // calls assignReinforcements internally
+		d_gameManager.setD_gamePhase(new StartupPhase());
+		d_gameManager.getD_gamePhase().assignCountries(d_gameManager); // calls assignReinforcements internally
 
 		assertEquals(expectedPlayer1Armies, d_gameManager.getD_playerList().get(0).getD_numArmies());
 		assertEquals(expectedPlayer2Armies, d_gameManager.getD_playerList().get(1).getD_numArmies());
