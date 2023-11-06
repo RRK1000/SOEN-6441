@@ -1,17 +1,17 @@
 package controller;
 
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
+import gamelog.LogManager;
+import models.*;
+import phases.InitMapPhase;
+import phases.Phase;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import gamelog.LogManager;
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Order;
-import models.Player;
-import phases.InitMapPhase;
-import phases.Phase;
 
 
 /**
