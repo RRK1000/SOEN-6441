@@ -21,6 +21,7 @@ public class Country {
     private List<Integer> d_neighbourCountryIDList;
     private int d_numArmies;
     private Player d_owner;
+    private boolean d_isNeutral;
 
     /**
      * Default constructor for Country class.
@@ -40,6 +41,7 @@ public class Country {
         this.d_countryID = p_countryID;
         this.d_neighbourCountryIDList = p_neighbourCountryIDList;
         this.d_numArmies = p_numArmies;
+        this.d_isNeutral = false;
     }
 
     /**
@@ -139,5 +141,14 @@ public class Country {
      */
     public void setD_owner(Player p_owner) {
         this.d_owner = p_owner;
+    }
+
+
+    public boolean isD_isNeutral() {
+        return d_isNeutral;
+    }
+
+    public void setD_isNeutral(boolean d_isNeutral) {
+        this.d_isNeutral = d_isNeutral;
     }
 }

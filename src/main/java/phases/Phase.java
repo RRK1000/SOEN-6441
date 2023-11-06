@@ -25,13 +25,63 @@ public interface Phase {
     // Issue Order Phase
 
     /**
-     * Deploys an order
+     * Deploys armies to a country
      *
+     * @param p_gameManager The game manager
      * @param p_currentPlayer The current player
      * @param p_country       The country in the order
      * @param p_num           The number of armies to be deployed
      */
-    void deploy(Player p_currentPlayer, Country p_country, int p_num);
+    void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num);
+
+    /**
+     * Advances(attack) armies from an owned country to an opponents
+     *
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
+
+    /**
+     * Bomb an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country The opponent's country
+     */
+    void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
+
+    /**
+     * Blockade an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
+
+    /**
+     * Enforces negotiation for a turn
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_otherPlayer      The opponent
+     */
+    void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer);
+
+    /**
+     * Airlifts armies from player's country to another of their owned countries
+     *
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
 
     // Execute Order Phase
 

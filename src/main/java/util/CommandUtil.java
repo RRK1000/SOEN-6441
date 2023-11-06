@@ -67,7 +67,18 @@ public class CommandUtil {
             case Commands.SAVE_MAP:
 
             case Commands.EDIT_MAP:
+
+            case Commands.BOMB_ORDER:
+
+            case Commands.BLOCKADE_ORDER:
+
+            case Commands.DIPLOMACY_ORDER:
                 return l_cmdSplit.length == 2;
+
+            case Commands.AIRLIFT_ORDER:
+
+            case Commands.ADVANCE_ORDER:
+                return l_cmdSplit.length == 4;
 
             case Commands.GAME_PLAYER:
                 l_optionSpec = new HashMap<>();
@@ -92,7 +103,7 @@ public class CommandUtil {
      * @return boolean result of the GamePhase command validation check
      */
     private static Boolean isValidGamePhaseCmd(String p_input, Phase p_gamePhase) {
-        if (p_gamePhase.getClass().equals(InitMapPhase.class)) {
+        if (p_gamePhase instanceof InitMapPhase) {
             return p_input.startsWith(Commands.EDIT_CONTINENT) ||
                     p_input.startsWith(Commands.EDIT_COUNTRY) ||
                     p_input.startsWith(Commands.EDIT_NEIGHBOR) ||
@@ -101,14 +112,20 @@ public class CommandUtil {
                     p_input.startsWith(Commands.EDIT_MAP) ||
                     p_input.startsWith(Commands.VALIDATE_MAP) ||
                     p_input.startsWith(Commands.LOAD_MAP);
-        } else if (p_gamePhase.getClass().equals(StartupPhase.class)) {
+        } else if (p_gamePhase instanceof StartupPhase) {
             return p_input.startsWith(Commands.GAME_PLAYER) ||
                     p_input.startsWith(Commands.ASSIGN_COUNTRIES) ||
                     p_input.startsWith(Commands.SHOW_MAP);
-        } else if (p_gamePhase.getClass().equals(IssueOrderPhase.class)) {
+        } else if (p_gamePhase instanceof IssueOrderPhase) {
             return p_input.startsWith(Commands.DEPLOY_ORDER) ||
+                    p_input.startsWith(Commands.ADVANCE_ORDER) ||
+                    p_input.startsWith(Commands.BOMB_ORDER) ||
+                    p_input.startsWith(Commands.AIRLIFT_ORDER) ||
+                    p_input.startsWith(Commands.BLOCKADE_ORDER) ||
+                    p_input.startsWith(Commands.DIPLOMACY_ORDER) ||
+                    p_input.startsWith(Commands.END_TURN) ||
                     p_input.startsWith(Commands.SHOW_MAP);
-        } else if (p_gamePhase.getClass().equals(ExecuteOrderPhase.class)) {
+        } else if (p_gamePhase instanceof ExecuteOrderPhase) {
             return p_input.startsWith(Commands.SHOW_MAP);
         }
         return false;

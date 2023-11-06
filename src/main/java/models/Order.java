@@ -20,5 +20,5 @@ public interface Order {
      *
      * @return true if the command is valid, else returns false
      */
-    public boolean isValid(Player p_player);
+    public boolean isValid();
 }

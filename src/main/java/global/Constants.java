@@ -45,6 +45,11 @@ public class Constants {
      */
     public static final String ISSUE_ORDER_HELP = "usage: " +
             "\n\t deploy <countryID> <num> \t: deploys armies to owned countries" +
+            "\n\t advance <countryfromID> <<countrytoID> <num> \t: attacks an unowned country" +
+            "\n\t bomb <countryID> \t: attacks an unowned country which loses half of its army units" +
+            "\n\t blockade <countryID> \t: triple the number of armies on an owned country and makes it a neutral territory in the next turn" +
+            "\n\t airlift <sourcecountryID> <targetcountryID> <numarmies> \t: move a number of armies from source country to target country, both owned by current player" +
+            "\n\t negotiate <playerID> \t: prevent attacks between the current player and another player until the end of the turn" +
             "\n\t showmap \t\t\t\t\t: show all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
             "\t\t\t\t\t\t\t\t enables efficient game play";
 

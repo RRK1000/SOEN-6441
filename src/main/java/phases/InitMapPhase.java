@@ -26,7 +26,56 @@ public class InitMapPhase implements Phase {
      * @param p_num           The number of armies to be deployed
      */
     @Override
-    public void deploy(Player p_currentPlayer, Country p_country, int p_num) {
+    public void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Advances(attack) armies from an owned country to an opponents
+     *
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
+    @Override
+    public void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Bomb an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Blockade an opponent's country neighbouring the current player
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_country       The opponent's country
+     */
+    @Override
+    public void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Enforces negotiation for a turn
+     *
+     * @param p_gameManager   The game manager
+     * @param p_currentPlayer The current player
+     * @param p_otherPlayer   The opponent
+     */
+    @Override
+    public void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
@@ -229,6 +278,11 @@ public class InitMapPhase implements Phase {
      */
     @Override
     public void assignCountries(GameManager p_gameManager) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    @Override
+    public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 }

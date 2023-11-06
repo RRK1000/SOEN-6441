@@ -1,9 +1,12 @@
 package models;
 
+import global.Cards;
 import orders.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a Player in the game.
@@ -22,6 +25,8 @@ public class Player {
     private Order d_currentOrder;
     private List<String> d_playerCardList;
 
+    private List<Player> negotiationList;
+
     /**
      * Default constructor for Player class
      *
@@ -32,6 +37,8 @@ public class Player {
         this.d_countryList = new ArrayList<>();
         this.d_continentList = new ArrayList<>();
         this.d_orderList = new ArrayList<>();
+        this.d_playerCardList = new ArrayList<>();
+        this.negotiationList = new ArrayList<>();
     }
 
     /**
@@ -51,6 +58,22 @@ public class Player {
         this.d_currentOrder = p_currentOrder;
     }
 
+    public List<String> getD_playerCardList() {
+        return d_playerCardList;
+    }
+
+    public void setD_playerCardList(List<String> d_playerCardList) {
+        this.d_playerCardList = d_playerCardList;
+    }
+
+    public void addPlayerNegotiation(Player player) {
+        negotiationList.add(player);
+    }
+
+    public void clearPlayerNegotiation() {
+        negotiationList.clear();
+    }
+
     /**
      * Adds a country to the player's list of countries
      *
@@ -64,21 +87,26 @@ public class Player {
      * Issues an order Adds the current order issued by the player to their order list
      */
     public void issueOrder() {
-        d_orderList.add(d_currentOrder);
 
         if (d_currentOrder instanceof AdvanceOrder) {
-
+            AdvanceOrder l_advanceOrder = (AdvanceOrder) d_currentOrder;
+            d_orderList.add(l_advanceOrder);
         } else if (d_currentOrder instanceof AirliftOrder) {
-
+            AirliftOrder l_airliftOrder = (AirliftOrder) d_currentOrder;
+            d_orderList.add(l_airliftOrder);
         } else if (d_currentOrder instanceof BlockadeOrder) {
-
+            BlockadeOrder l_blockadeOrder = (BlockadeOrder) d_currentOrder;
+            d_orderList.add(l_blockadeOrder);
         } else if (d_currentOrder instanceof BombOrder) {
-
+            BombOrder l_bombOrder = (BombOrder) d_currentOrder;
+            d_orderList.add(l_bombOrder);
         } else if (d_currentOrder instanceof DeployOrder) {
             DeployOrder l_deployOrder = (DeployOrder) d_currentOrder;
             d_numArmies -= l_deployOrder.getD_num();
+            d_orderList.add(l_deployOrder);
         } else if (d_currentOrder instanceof NegotiateOrder) {
-
+            NegotiateOrder l_negotiateOrder = (NegotiateOrder) d_currentOrder;
+            d_orderList.add(l_negotiateOrder);
         }
     }
 
@@ -104,6 +132,15 @@ public class Player {
      */
     public String getD_playerName() {
         return d_playerName;
+    }
+
+    /**
+     * Sets the player name
+     *
+     * @param p_playerName The new player name
+     */
+    public void setD_playerName(String p_playerName) {
+        this.d_playerName = p_playerName;
     }
 
     /**
@@ -134,6 +171,42 @@ public class Player {
     }
 
     /**
+     * Sets the list of countries held by the player
+     *
+     * @param p_countryList List of Country objects under player's ownership
+     */
+    public void setD_countryList(List<Country> p_countryList) {
+        this.d_countryList = p_countryList;
+    }
+
+    /**
+     * Gets the list of orders issued by the player
+     *
+     * @return d_orderList List of orders issued by the player
+     */
+    public List<Order> getD_orderList() {
+        return d_orderList;
+    }
+
+    /**
+     * Sets the list of orders issued by the player
+     *
+     * @param p_orderList List of orders issued by the player
+     */
+    public void setD_orderList(List<Order> p_orderList) {
+        this.d_orderList = p_orderList;
+    }
+
+    /**
+     * Gets the current Order of the current player that is being issued
+     *
+     * @return current Order of the current player that is being issued
+     */
+    public Order getD_currentOrder() {
+        return d_currentOrder;
+    }
+
+    /**
      * Sets the current Order of the current player that is being issued
      *
      * @param d_currentOrder current Order of the current player that is being issued
@@ -150,5 +223,27 @@ public class Player {
 
     public List<Continent> getD_continentList() {
         return d_continentList;
+    }
+
+    /**
+     * Sets the list of continents held by the player
+     *
+     * @param p_continentList List of Continent objects under player's ownership
+     */
+    public void setD_continentList(List<Continent> p_continentList) {
+        this.d_continentList = p_continentList;
+    }
+
+    public void addRandomCard() {
+        List<String> l_cardsList = Arrays.asList(Cards.BOMB_CARD, Cards.BLOCKADE_CARD, Cards.BOMB_CARD, Cards.DIPLOMACY_CARD);
+        Random l_rndm = new Random();
+        int l_randomIndex = l_rndm.nextInt(l_cardsList.size());
+        String l_card = l_cardsList.get(l_randomIndex);
+        this.d_playerCardList.add(l_card);
+        System.out.println(l_card + " gained by " + this.d_playerName);
+    }
+
+    public boolean isInNegotiationWith(Player p_otherPlayer) {
+        return negotiationList.contains(p_otherPlayer);
     }
 }
