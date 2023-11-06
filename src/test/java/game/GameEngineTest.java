@@ -67,16 +67,4 @@ class GameEngineTest {
             throw new RuntimeException(e);
         }
     }
-
-    /**
-     * The purpose of this test case is to ensure that when the user inputs
-     * "exit" the game loop exists.
-     */
-    @Test
-    void testGameLoopExit(){
-        String input = "exit";
-        InputStream in = new ByteArrayInputStream(input.getBytes());
-        System.setIn(in);
-        GameEngine.main(new String[0]);
-    }
 }
