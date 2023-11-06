@@ -4,6 +4,7 @@ import models.Map;
 import models.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import phases.StartupPhase;
 import util.MapUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,9 +25,11 @@ class GameManagerTest {
         Map d_map = MapUtil.loadMap("europe.map");
 
         d_gameManager = new GameManager();
+        d_gameManager.setD_gamePhase(new StartupPhase());
         d_gameManager.setD_map(d_map);
         d_gameManager.addPlayer(player1Name);
         d_gameManager.addPlayer(player2Name);
+
     }
 
     /**
@@ -40,7 +43,7 @@ class GameManagerTest {
         int expectedPlayer1Armies = Math.max( (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
         int expectedPlayer2Armies = Math.max( (d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
 //        System.out.println(expectedPlayer1Armies);
-        d_gameManager.assignCountries(); // calls assignReinforcements internally
+        d_gameManager.getD_gamePhase().assignCountries(d_gameManager); // calls assignReinforcements internally
 
         // Check if the number of armies for each player matches the expected value
         assertEquals(expectedPlayer1Armies, d_gameManager.getD_playerList().get(0).getD_numArmies());

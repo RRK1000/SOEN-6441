@@ -26,7 +26,7 @@ class AdvanceOrderTest {
         String player2Name = "Player2";
         d_gameManager.addPlayer(player1Name);
         d_gameManager.addPlayer(player2Name);
-        d_gameManager.assignCountries();
+        d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
     @AfterEach
