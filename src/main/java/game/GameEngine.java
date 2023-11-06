@@ -31,12 +31,15 @@ public class GameEngine {
 
         String l_inputCommand;
         //Takes input from user, until the exit command
-        do {
+        boolean l_gameRunning = true;
+        while (l_gameRunning) {
             System.out.print("\n> ");
             l_inputCommand = l_scanner.nextLine();
             CommandParser.inputParser(d_gameManager, l_inputCommand);
-        } while (!Objects.equals(l_inputCommand, "exit"));
+            if(Objects.equals(l_inputCommand, "exit")) {
+                l_gameRunning = false;
+            }
+        }
     }
 }
-
 
