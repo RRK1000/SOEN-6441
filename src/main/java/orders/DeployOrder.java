@@ -1,11 +1,7 @@
 package orders;
 
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
+import gamelog.LogManager;
 import models.Country;
 import models.Order;
 import models.Player;
@@ -18,16 +14,7 @@ public class DeployOrder implements Order {
     private final Player d_player;
     private final Country d_country;
     private final int d_num;
-    
-    private static LogEntryBuffer d_logBuffer;
-    private static LogFileWriter d_logWriter;
 
-    static {
-        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
-        d_logBuffer = new LogEntryBuffer();
-        d_logWriter = new LogFileWriter(l_logPath);
-        d_logBuffer.addObserver(d_logWriter);
-    }
     /**
      * Constructor for the Order class.
      */
@@ -37,10 +24,7 @@ public class DeployOrder implements Order {
         this.d_num = p_num;
     }
     
-    private static void logAction(String p_action) {
-        d_logBuffer.setActionInfo(p_action);
-        d_logBuffer.notifyObservers();
-    }
+
 
     
     public int getD_num() {
@@ -54,7 +38,7 @@ public class DeployOrder implements Order {
             return;
         }
         d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
-        logAction("Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryName());
+        LogManager.logAction("Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryName());
 
     }
 
@@ -62,11 +46,11 @@ public class DeployOrder implements Order {
     public boolean isValid() {
         if(!d_player.getD_countryList().contains(d_country)) {
             System.out.println("Player does not own country: " + d_country.getD_countryID());
-            logAction("Invalid Deploy Order: Player does not own country: " + d_country.getD_countryID());
+            LogManager.logAction("Invalid Deploy Order: Player does not own country: " + d_country.getD_countryID());
             return false;
         } else if(d_player.getD_numArmies() < d_num) {
             System.out.println("Cannot deploy more armies than available in reinforcement pool.");
-            logAction("Invalid Deploy Order: Cannot deploy more armies than available in reinforcement pool.");
+            LogManager.logAction("Invalid Deploy Order: Cannot deploy more armies than available in reinforcement pool.");
             return false;
         }
 

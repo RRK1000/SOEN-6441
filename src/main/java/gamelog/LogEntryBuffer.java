@@ -29,7 +29,7 @@ public class LogEntryBuffer implements Observable {
     }
 
     @Override
-    public void notifyObservers() {
+    public synchronized void notifyObservers() {
         for (Observer l_observer : d_observers) {
             l_observer.update(this, null);
         }
@@ -40,7 +40,7 @@ public class LogEntryBuffer implements Observable {
      *
      * @param p_info The action info to set.
      */
-    public void setActionInfo(String p_info) {
+    public synchronized void setActionInfo(String p_info) {
         this.d_actionInfo = p_info;
         notifyObservers();
     }
