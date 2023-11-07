@@ -1,13 +1,13 @@
 package orders;
 
 
-import java.util.List;
-
 import gamelog.LogManager;
 import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
+
+import java.util.List;
 
 /**
  * This class handles the bomb type order.
@@ -50,17 +50,19 @@ public class BombOrder implements Order {
     @Override
     public boolean isValid() {
         if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
-            System.out.println("Player doesn't have Bomb Card.");
-            LogManager.logAction("Player doesn't have Bomb Card.");
-
+            String l_err = "err: Invalid Bomb Order. Player doesn't have Bomb Card.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         }
 
         for (Country l_country : d_player.getD_countryList()) {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }
-        System.out.println("Country not a neighbour");
-        LogManager.logAction("Country not a neighbour for Bomb Order.");
+
+        String l_err = "err: Invalid Bomb Order. Country not a neighbour";
+        System.out.println(l_err);
+        LogManager.logAction(l_err);
         return false;
     }
 

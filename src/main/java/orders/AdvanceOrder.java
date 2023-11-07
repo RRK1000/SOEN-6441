@@ -49,10 +49,10 @@ public class AdvanceOrder implements Order {
     @Override
     public void execute() {
         if (d_num == d_countryfrom.getD_numArmies()) {
-            System.out.println("Invalid order, one army must remain on all territories"); //log action instead of sout
+            LogManager.logAction("err: one army must remain on all territories");
             return;
         } else if (d_num > d_countryfrom.getD_numArmies()) {
-            System.out.println("Invalid order, available armies on country: " + d_countryfrom.getD_numArmies()); //log action instead of sout
+            LogManager.logAction("err: Invalid order, armies unavailable on country.");
             return;
         }
 
@@ -85,27 +85,29 @@ public class AdvanceOrder implements Order {
     @Override
     public boolean isValid() {
         if (!d_player.getD_countryList().contains(d_countryfrom)) {
-            System.out.println("Player does not own country: " + d_countryfrom.getD_countryID());
-            LogManager.logAction("Player does not own country: " + d_countryfrom.getD_countryID());
+            String l_err = "err: Invalid Advance Order. Player does not own country: " + d_countryfrom.getD_countryID();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (d_num == d_countryfrom.getD_numArmies()) {
-            System.out.println("Invalid order, one army must remain on all territories");
-            LogManager.logAction("Invalid Order: One army must remain on all territories ");
+            String l_err = "err: Invalid Advance Order. Invalid order, one army must remain on all territories";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (d_num > d_countryfrom.getD_numArmies()) {
-            System.out.println("Invalid order, available armies on country: " + d_countryfrom.getD_numArmies());
-            LogManager.logAction("Invalid Order:  available armies on country"  + d_countryfrom.getD_numArmies()  );
-
+            String l_err = "err: Invalid Advance Order. Player does not own country: " + d_countryfrom.getD_countryID();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (!d_countryfrom.getD_neighbourCountryIDList().contains(d_countryto.getD_countryID())) {
-            System.out.println("Country being attacked is not a neighbour");
-            LogManager.logAction("Invalid Order:Country being attacked is not a neighbour" );
-
+            String l_err = "err: Invalid Advance Order. Country being attacked is not a neighbour";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
-            System.out.println("Diplomacy Card played, peace enforced between players");
-            LogManager.logAction("Invalid Order: Diplomacy Card played, peace enforced between players");
-
+            String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
         }
         return true;
     }

@@ -1,8 +1,6 @@
 package controller;
 
 
-import java.util.Arrays;
-
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
@@ -13,6 +11,8 @@ import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
 import util.CommandUtil;
+
+import java.util.Arrays;
 
 /**
  * Represents the command parser.
@@ -25,7 +25,7 @@ import util.CommandUtil;
  * @author Yusuke
  */
 public class CommandParser {
-	
+
 
     public static void displayError() {
         System.out.println(Constants.CMD_ERROR);
@@ -93,7 +93,7 @@ public class CommandParser {
                     break;
                 }
                 p_gameManager.getD_gamePhase().showMap(l_map, p_gameManager);
-                LogManager.logAction(" Displayed the map.");
+                LogManager.logAction("Displayed the map.");
 
                 break;
 
@@ -101,20 +101,20 @@ public class CommandParser {
 
                 String[] l_editNeighbourInput = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editNeighbor(l_editNeighbourInput, l_map);
-                LogManager.logAction(" Edited neighbors with input: " +String.join(" ", l_cmdSplit));
+                LogManager.logAction("Edited neighbors with input: " + String.join(" ", l_cmdSplit));
 
                 break;
 
             case Commands.EDIT_CONTINENT:
                 String[] l_inputSplit = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editContinent(l_inputSplit, l_map);
-                LogManager.logAction(" Edited continents with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction("Edited continents with input: " + String.join(" ", l_cmdSplit));
                 break;
 
             case Commands.EDIT_COUNTRY:
                 String[] l_editCountryInput = p_input.split(" -");
                 p_gameManager.getD_gamePhase().editCountry(l_editCountryInput, l_map);
-                LogManager.logAction(" Edited countries with input: " + String.join(" ", l_cmdSplit));
+                LogManager.logAction("Edited countries with input: " + String.join(" ", l_cmdSplit));
 
                 break;
 
@@ -148,11 +148,11 @@ public class CommandParser {
                 if (p_gameManager.getD_map() == null) {
                     System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
-                    LogManager.logAction(" Attempted to modify players but map was not loaded.");
+                    LogManager.logAction("Attempted to modify players but map was not loaded.");
                     break;
                 }
                 p_gameManager.getD_gamePhase().gamePlayer(l_cmdSplit, p_gameManager);
-                LogManager.logAction(" Modified players with input: " + Arrays.toString(l_cmdSplit));
+                LogManager.logAction("Modified players with input: " + Arrays.toString(l_cmdSplit));
                 break;
 
             case Commands.ASSIGN_COUNTRIES:
@@ -221,7 +221,7 @@ public class CommandParser {
 
                     System.out.println("cannot end turn\n" + l_currentPlayer.getD_numArmies()
                             + " reinforcement army/armies left to be placed");
-LogManager.logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
+                    LogManager.logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
 
                     break;
                 }

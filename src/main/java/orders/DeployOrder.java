@@ -37,23 +37,25 @@ public class DeployOrder implements Order {
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_country)) {
-            System.out.println("Player no longer owns country: " + d_country.getD_countryID()); //log action instead of sout
+            LogManager.logAction("err: Execute order failed. Player no longer owns country:" + d_country.getD_countryID());
             return;
         }
         d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
-        LogManager.logAction("Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryName());
+        LogManager.logAction("Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryID());
 
     }
 
     @Override
     public boolean isValid() {
         if(!d_player.getD_countryList().contains(d_country)) {
-            System.out.println("Player does not own country: " + d_country.getD_countryID());
-            LogManager.logAction("Invalid Deploy Order: Player does not own country: " + d_country.getD_countryID());
+            String l_err = "err: Invalid Deploy Order. Player does not own country: " + d_country.getD_countryID();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if(d_player.getD_numArmies() < d_num) {
-            System.out.println("Cannot deploy more armies than available in reinforcement pool.");
-            LogManager.logAction("Invalid Deploy Order: Cannot deploy more armies than available in reinforcement pool.");
+            String l_err = "err: Invalid Deploy Order. Cannot deploy more armies than available in reinforcement pool.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         }
 
