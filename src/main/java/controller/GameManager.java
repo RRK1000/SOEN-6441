@@ -67,7 +67,7 @@ public class GameManager {
             this.updateNeutralCountriesOnRoundEnd();
             this.updatePlayerDiplomacyOnRoundEnd();
 
-            this.executeOrder();
+            this.getD_gamePhase().executeOrder(this);
             this.assignReinforcements();
             d_skipTurnList.clear();
             this.d_currentPlayerTurn = 0;
@@ -181,21 +181,7 @@ public class GameManager {
         return null;
     }
 
-    /**
-     * Executes all the orders from all the players for the current turn, updating the game state
-     */
-    public void executeOrder() {
-        for (Player l_player : d_playerList) {
-            Order l_order = l_player.nextOrder();
-            while (null != l_order) {
-                l_order.execute();
-                l_order = l_player.nextOrder();
-            }
-        }
-        System.out.println("Orders have been executed for this round.");
-        LogManager.logAction("Orders have been executed for this round.");
-        updatePlayerList();
-    }
+
 
     /**
      * Checks if any player does not own any countries, ie, has lost, and removes them from player list.

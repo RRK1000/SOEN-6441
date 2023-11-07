@@ -283,6 +283,16 @@ public class InitMapPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * This method is used to execute orders
+     *
+     * @param p_gameManager The game manager object
+     */
+    @Override
+    public void executeOrder(GameManager p_gameManager) {
+
+    }
+
     @Override
     public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);

@@ -160,4 +160,11 @@ public interface Phase {
      * @param p_gameManager The game manager object
      */
     void assignCountries(GameManager p_gameManager);
+
+    /**
+     * This method is used to execute orders
+     *
+     * @param p_gameManager The game manager object
+     */
+    void executeOrder(GameManager p_gameManager);
 }

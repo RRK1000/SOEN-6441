@@ -1,9 +1,11 @@
 package phases;
 
 import controller.GameManager;
+import gamelog.LogManager;
 import global.Constants;
 import models.Country;
 import models.Map;
+import models.Order;
 import models.Player;
 
 public class ExecuteOrderPhase implements Phase {
@@ -191,5 +193,21 @@ public class ExecuteOrderPhase implements Phase {
     @Override
     public void assignCountries(GameManager p_gameManager) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Executes all the orders from all the players for the current turn, updating the game state
+     */
+    public void executeOrder(GameManager p_gameManager) {
+        for (Player l_player : p_gameManager.getD_playerList()) {
+            Order l_order = l_player.nextOrder();
+            while (null != l_order) {
+                l_order.execute();
+                l_order = l_player.nextOrder();
+            }
+        }
+        System.out.println("Orders have been executed for this round.");
+        LogManager.logAction("Orders have been executed for this round.");
+        p_gameManager.updatePlayerList();
     }
 }

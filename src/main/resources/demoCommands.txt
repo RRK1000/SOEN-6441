@@ -56,11 +56,21 @@ deploy 3 3
 commit
 commit
 commit
+showmap
 deploy 4 3
 deploy 2 3
 deploy 3 3
 commit
+advance 2 1 8
+advance 2 1 6
 advance 2 1 5
 commit
+commit
+deploy 4 3
+<test card>
+deploy <>
+deploy 3 3
+commit
+deploy 1 3
 commit
 commit

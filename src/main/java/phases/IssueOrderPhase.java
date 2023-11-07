@@ -263,6 +263,15 @@ public class IssueOrderPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * This method is used to execute orders
+     *
+     * @param p_gameManager The game manager object
+     */
+    @Override
+    public void executeOrder(GameManager p_gameManager) {
+
+    }
 
 
 }
