@@ -15,7 +15,7 @@ public class Constants {
      */
     public static final String MAP_INIT_HELP = "usage: " +
             "\n\t loadmap <filename> :\tLoads a map from the given file path " +
-            "\n\t editmap <filename> :\tLoads a map from an existing “domination” map file, or create a new map from scratch if the file does not exist." +
+            "\n\t editmap <filename> :\tLoads a map from an existing 'domination' map file, or create a new map from scratch if the file does not exist." +
 
             "\n\n\t editcontinent -add <continentID> <continentvalue> -remove <continentI>" +
             "\t: Add/Remove continents to the map" +

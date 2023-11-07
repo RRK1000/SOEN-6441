@@ -135,7 +135,7 @@ public class MapUtil {
     }
 
     /**
-     * Loads a {@link models.Map} from an existing “domination” map file, or create a new {@link models.Map}
+     * Loads a {@link models.Map} from an existing 'domination' map file, or create a new {@link models.Map}
      * if the file does not exist
      *
      * @param p_filename The name of the file to load the map from
