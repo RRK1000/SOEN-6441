@@ -17,6 +17,9 @@ public class DeployOrder implements Order {
 
     /**
      * Constructor for the Order class.
+     * @param p_player The player giving the order
+     * @param p_country The country on which armies are deployed
+     * @param p_num The number of armies to be deployed
      */
     public DeployOrder(Player p_player, Country p_country, int p_num) {
         this.d_player = p_player;

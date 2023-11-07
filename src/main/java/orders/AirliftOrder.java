@@ -25,6 +25,10 @@ public class AirliftOrder implements Order {
     
     /**
      * Constructor for the Order class.
+     * @param p_player The player giving the order
+     * @param p_sourceCountry The country from which armies would be airlifted
+     * @param p_targetCountry The country to which armies would be airlifted
+     * @param p_numArmies The number of armies to be airlifted
      */
     public AirliftOrder(Player p_player, Country p_sourceCountry, Country p_targetCountry, int p_numArmies) {
         d_player = p_player;
