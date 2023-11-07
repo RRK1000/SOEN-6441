@@ -171,6 +171,7 @@ public class GameManager {
      * Finds a {@link models.Player} using the playerName/PlayerID
      *
      * @param p_playerName PLayer if exists, else null
+     * @return Player object associated with the String provided, else null
      */
     public Player findPlayerByName(String p_playerName) {
         for (Player l_p : d_playerList) {

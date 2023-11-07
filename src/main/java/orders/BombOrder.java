@@ -21,6 +21,8 @@ public class BombOrder implements Order {
     
     /**
      * Constructor for the BombOrder class
+     * @param p_player The player giving the order
+     * @param p_country The country to be bombed
      */
     public BombOrder(Player p_player, Country p_country) {
         this.d_player = p_player;

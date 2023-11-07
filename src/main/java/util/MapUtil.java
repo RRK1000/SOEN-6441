@@ -64,10 +64,10 @@ public class MapUtil {
 
     /**
      * Loads the continents from a given file
-     * @param p_reader
-     * @param p_continentMapGraph
-     * @param p_map
-     * @throws IOException
+     * @param p_reader The buffered reader object
+     * @param p_continentMapGraph The continent map graph
+     * @param p_map The map object
+     * @throws IOException Input Output Exception
      */
     public static void loadContinents(BufferedReader p_reader, DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph, Map p_map) throws IOException {
         int l_continentID = 1;
@@ -85,10 +85,10 @@ public class MapUtil {
 
     /**
      * Loads the countries from a given file
-     * @param p_reader
-     * @param p_countryMapGraph
-     * @param p_map
-     * @throws IOException
+     * @param p_reader The buffered reader object
+     * @param p_countryMapGraph The country map graph
+     * @param p_map The map object
+     * @throws IOException Input Output Exception
      */
     public static void loadCountries(BufferedReader p_reader, DefaultDirectedGraph<Country, DefaultEdge> p_countryMapGraph, Map p_map) throws IOException {
         String l_line;
@@ -106,11 +106,11 @@ public class MapUtil {
 
     /**
      * Loads the borders from a given file
-     * @param p_reader
-     * @param p_countryMapGraph
-     * @param p_continentMapGraph
-     * @param p_map
-     * @throws IOException
+     * @param p_reader The buffered reader object
+     * @param p_countryMapGraph The country map graph
+     * @param p_continentMapGraph The continent map graph
+     * @param p_map The map object
+     * @throws IOException Input Output Exception
      */
     public static void loadBorders(BufferedReader p_reader, DefaultDirectedGraph<Country, DefaultEdge> p_countryMapGraph, DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph, Map p_map) throws IOException {
         String l_line;

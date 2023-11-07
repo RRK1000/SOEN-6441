@@ -27,6 +27,10 @@ public class AdvanceOrder implements Order {
 
     /**
      * Constructor for the AdvanceOrder class
+     * @param p_player The player giving the advance order
+     * @param p_countryfrom The country from which armies would be advanced
+     * @param p_countryto The country to which armies would be advanced
+     * @param p_num The number of armies involved
      */
     public AdvanceOrder(Player p_player, Country p_countryfrom, Country p_countryto, int p_num) {
         this.d_player = p_player;
