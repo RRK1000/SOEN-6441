@@ -35,6 +35,12 @@ public class BombOrder implements Order {
      */
     @Override
     public void execute() {
+        if (d_player.isInNegotiationWith(d_country.getD_owner())) {
+            String l_err = "err: Invalid Bomb Order, Diplomacy Card played, peace enforced between players";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return;
+        }
         d_country.setD_numArmies(d_country.getD_numArmies() / 2);
         List<String> l_playerCardList = d_player.getD_playerCardList();
         l_playerCardList.remove(Cards.BOMB_CARD);
@@ -51,6 +57,11 @@ public class BombOrder implements Order {
     public boolean isValid() {
         if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
             String l_err = "err: Invalid Bomb Order, Player doesn't have Bomb Card.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
+        } else if(d_country.isD_isNeutral()) {
+            String l_err = "err: Invalid Bomb Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
