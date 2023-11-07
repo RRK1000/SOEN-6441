@@ -72,6 +72,11 @@ public class BlockadeOrder implements Order {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
+        } else if(d_country.isD_isNeutral()) {
+            String l_err = "err: Invalid Blockade Order, Cannot deploy on a neutral country.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
         }
         return true;
     }

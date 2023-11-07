@@ -56,6 +56,11 @@ public class AdvanceOrder implements Order {
             d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
             LogManager.logAction("err: Invalid order, armies unavailable on country.");
             return;
+        } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
+            String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return;
         }
 
         int l_attackingArmies = (int) (d_num * 0.6);
@@ -106,8 +111,8 @@ public class AdvanceOrder implements Order {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
-            String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
+        } else if(d_countryfrom.isD_isNeutral()) {
+            String l_err = "err: Invalid Advance Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;

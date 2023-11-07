@@ -53,7 +53,12 @@ public class DeployOrder implements Order {
             LogManager.logAction(l_err);
             return false;
         } else if(d_player.getD_numArmies() < d_num) {
-            String l_err = "err: Invalid Deploy Order. Cannot deploy more armies than available in reinforcement pool.";
+            String l_err = "err: Invalid Deploy Order, Cannot deploy more armies than available in reinforcement pool.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
+        } else if(d_country.isD_isNeutral()) {
+            String l_err = "err: Invalid Deploy Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;

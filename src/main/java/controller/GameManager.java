@@ -232,7 +232,7 @@ public class GameManager {
                 l_neighbors.append(" ");
             }
             System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
-                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_owner.getD_playerName(), l_country.getD_numArmies());
+                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_country.isD_isNeutral()?"neutral":l_owner.getD_playerName(), l_country.getD_numArmies());
             LogManager.logAction("Displayed the current game map and state.");
 
         }
