@@ -26,7 +26,9 @@ import java.util.Arrays;
  */
 public class CommandParser {
 
-
+    /**
+     * Prints error on console and in game log
+     */
     public static void displayError() {
         System.out.println(Constants.CMD_ERROR);
         LogManager.logAction(Constants.CMD_ERROR);

@@ -23,7 +23,11 @@ public class LogFileWriter implements Observer {
         this.d_logFilePath = p_logFilePath;
     }
 
-
+    /**
+     * Writes the log info to the game log file
+     * @param p_observable Observable object
+     * @param p_arg Argument object
+     */
     @Override
     public void update(Observable p_observable, Object p_arg) {
         if (p_observable instanceof LogEntryBuffer) {

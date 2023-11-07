@@ -27,9 +27,6 @@ public class GameManager {
     private final List<Integer> d_skipTurnList;
     private final LogEntryBuffer d_logBuffer;
     private final LogFileWriter d_logWriter;
-    /**
-     * GamePhase instance
-     */
     private Phase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
@@ -51,6 +48,10 @@ public class GameManager {
 
     }
 
+    /**
+     * Sets the action in the log buffer
+     * @param action The action string by player
+     */
     public void logAction(String action) {
         d_logBuffer.setActionInfo(action);
     }
@@ -207,7 +208,7 @@ public class GameManager {
     }
 
     /**
-     *
+     * Clears the negotiation between players after end of round
      */
     private void updatePlayerDiplomacyOnRoundEnd() {
         for (Player l_player : d_playerList) {
@@ -265,6 +266,10 @@ public class GameManager {
         return d_currentPlayerTurn;
     }
 
+    /**
+     * Sets the current player's turn number
+     * @param d_currentPlayerTurn current player turn
+     */
     public void setD_currentPlayerTurn(int d_currentPlayerTurn) {
         this.d_currentPlayerTurn = d_currentPlayerTurn;
     }
