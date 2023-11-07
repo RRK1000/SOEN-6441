@@ -45,8 +45,7 @@ public class BlockadeOrder implements Order {
      */
     public void execute() {
         if(!d_player.getD_countryList().contains(d_country)) {
-            System.out.println("Player no longer owns country: " + d_country.getD_countryID());
-            LogManager.logAction("Player no longer owns country: " + d_country.getD_countryID());
+            LogManager.logAction("err: Execute failed. Player no longer owns country: " + d_country.getD_countryID());
             return;
         }
 
@@ -64,12 +63,14 @@ public class BlockadeOrder implements Order {
     @Override
     public boolean isValid() {
         if (d_country.getD_owner() != d_player) {
-            System.out.println("The country does not belong to the player");
-            LogManager.logAction(" Invalid Blockade Order: The country does not belong to the player");
+            String l_err = "err: Invalid Blockade Order. The country does not belong to the player";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (!d_player.getD_playerCardList().contains(Cards.BLOCKADE_CARD)) {
-            System.out.println("Player doesn't have Blockade Card.");
-            LogManager.logAction("Invalid Blockade Order: Player doesn't have Blockade Card.");
+            String l_err = "err: Invalid Blockade Order. Player doesn't have Blockade Card.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         }
         return true;

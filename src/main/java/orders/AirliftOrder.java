@@ -1,12 +1,12 @@
 package orders;
 
-import java.util.List;
-
 import gamelog.LogManager;
 import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
+
+import java.util.List;
 
 /**
  * This class handles the airlift type order.
@@ -44,8 +44,7 @@ public class AirliftOrder implements Order {
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)) {
-            System.out.println("Player no longer owns country: " + d_sourceCountry.getD_countryID());
-            LogManager.logAction("Player no longer owns country:" + d_sourceCountry.getD_countryID());
+            LogManager.logAction("err: Execute failed. Player no longer owns country:" + d_sourceCountry.getD_countryID());
             return;
         }
 
@@ -62,24 +61,29 @@ public class AirliftOrder implements Order {
     @Override
     public boolean isValid() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)){
-            System.out.println("Player does not own country: " + d_sourceCountry.getD_countryID());
-            LogManager.logAction("Player does not own country: " + d_sourceCountry.getD_countryID());
+            String l_err = "err: Invalid Airlift Order. Player does not own source country: " + d_sourceCountry.getD_countryID();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (d_numArmies == d_sourceCountry.getD_numArmies()) {
-            System.out.println("Invalid order, one army must remain on all territories");
-            LogManager.logAction("Invalid Airlift Order: Player does not own the source country " + d_sourceCountry.getD_countryID());
+            String l_err = "err: Invalid order: one army must remain on all territories";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (d_numArmies > d_sourceCountry.getD_numArmies()) {
-            System.out.println("Invalid order, available armies on country: " + d_sourceCountry.getD_numArmies());
-            LogManager.logAction("Invalid Airlift Order: Player does not own the target country " + d_targetCountry.getD_countryID());
+            String l_err = "err: Invalid Airlift Order, available armies on country: " + d_sourceCountry.getD_numArmies();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (!d_player.getD_countryList().contains(d_targetCountry)) {
-            System.out.println("Player does not own country: " + d_targetCountry.getD_countryID());
-            LogManager.logAction("Invalid Airlift Order: Player doesn't have an Airlift Card.");
+            String l_err = "err: Invalid Airlift Order. Player does not own target country: " + d_targetCountry.getD_countryID();
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (!d_player.getD_playerCardList().contains(Cards.AIRLIFT_CARD)) {
-            System.out.println("Player doesn't have Airlift Card.");
-            LogManager.logAction("Invalid Airlift Order: Player doesn't have an Airlift Card.");
+            String l_err = "err: Invalid Airlift Order. Player doesn't have Airlift Card.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         }
         return true;

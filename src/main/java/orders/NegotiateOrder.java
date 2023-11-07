@@ -36,7 +36,7 @@ public class NegotiateOrder implements Order {
     @Override
     public void execute() {
         if (targetPlayer == null) {
-            System.out.println("Player to negotiate doesn't exist"); //log action
+            LogManager.logAction("err: Execute order failed. Player to negotiate doesn't exist");
             return;
         }
 
@@ -58,12 +58,14 @@ public class NegotiateOrder implements Order {
     @Override
     public boolean isValid() {
         if (targetPlayer == null) {
-            System.out.println("Player to negotiate doesn't exist!");
-            LogManager.logAction("Invalid Negotiate Order: Player to negotiate doesn't exist!");
+            String l_err = "err: Invalid Negotiate Order. Player to negotiate doesn't exist!";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else if (!d_player.getD_playerCardList().contains(Cards.DIPLOMACY_CARD)) {
-            System.out.println("Player doesn't have Diplomacy Card.");
-            LogManager.logAction("Invalid Negotiate Order: Player doesn't have Diplomacy Card.");
+            String l_err = "err: Invalid Negotiate Order. Player doesn't have Diplomacy Card.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
             return false;
         } else {
             return true;
