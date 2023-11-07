@@ -48,10 +48,12 @@ public class AdvanceOrder implements Order {
      */
     @Override
     public void execute() {
-        if (d_num == d_countryfrom.getD_numArmies()) {
+        if (d_num == d_countryfrom.getD_numArmies() + d_num) {
+            d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
             LogManager.logAction("err: one army must remain on all territories");
             return;
-        } else if (d_num > d_countryfrom.getD_numArmies()) {
+        } else if (d_num > d_countryfrom.getD_numArmies() + d_num) {
+            d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
             LogManager.logAction("err: Invalid order, armies unavailable on country.");
             return;
         }
@@ -71,8 +73,8 @@ public class AdvanceOrder implements Order {
             d_player.addRandomCard();
         }
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
-        d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - d_num);
-        
+//        d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - d_num);
+
         LogManager.logAction("Advance order executed: " + d_num + " armies moved from " +
                 d_countryfrom.getD_countryID() + " to " + d_countryto.getD_countryID());
     }
@@ -95,7 +97,7 @@ public class AdvanceOrder implements Order {
             LogManager.logAction(l_err);
             return false;
         } else if (d_num > d_countryfrom.getD_numArmies()) {
-            String l_err = "err: Invalid Advance Order. Player does not own country: " + d_countryfrom.getD_countryID();
+            String l_err = "err: Invalid Advance Order. Available armies " + d_countryfrom.getD_numArmies();
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
@@ -108,6 +110,7 @@ public class AdvanceOrder implements Order {
             String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
             System.out.println(l_err);
             LogManager.logAction(l_err);
+            return false;
         }
         return true;
     }

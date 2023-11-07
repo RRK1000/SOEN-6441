@@ -1,21 +1,16 @@
 package models;
 
+import gamelog.LogEntryBuffer;
+import gamelog.LogFileWriter;
+import global.Cards;
+import orders.*;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
-import global.Cards;
-import orders.AdvanceOrder;
-import orders.AirliftOrder;
-import orders.BlockadeOrder;
-import orders.BombOrder;
-import orders.DeployOrder;
-import orders.NegotiateOrder;
 
 /**
  * Represents a Player in the game.
@@ -34,7 +29,7 @@ public class Player {
     private Order d_currentOrder;
     private List<String> d_playerCardList;
 
-    private List<Player> negotiationList;
+    private List<Player> d_negotiationList;
     
 
     private static LogEntryBuffer d_logBuffer;
@@ -59,7 +54,8 @@ public class Player {
         this.d_continentList = new ArrayList<>();
         this.d_orderList = new ArrayList<>();
         this.d_playerCardList = new ArrayList<>();
-        this.negotiationList = new ArrayList<>();
+        this.d_negotiationList = new ArrayList<>();
+        d_playerCardList.add(Cards.AIRLIFT_CARD);
     }
 
     /**
@@ -93,11 +89,11 @@ public class Player {
     }
 
     public void addPlayerNegotiation(Player player) {
-        negotiationList.add(player);
+        d_negotiationList.add(player);
     }
 
     public void clearPlayerNegotiation() {
-        negotiationList.clear();
+        d_negotiationList.clear();
     }
 
     /**
@@ -281,6 +277,6 @@ public class Player {
     }
 
     public boolean isInNegotiationWith(Player p_otherPlayer) {
-        return negotiationList.contains(p_otherPlayer);
+        return d_negotiationList.contains(p_otherPlayer);
     }
 }

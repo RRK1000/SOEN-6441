@@ -50,7 +50,7 @@ public class BombOrder implements Order {
     @Override
     public boolean isValid() {
         if (!d_player.getD_playerCardList().contains(Cards.BOMB_CARD)) {
-            String l_err = "err: Invalid Bomb Order. Player doesn't have Bomb Card.";
+            String l_err = "err: Invalid Bomb Order, Player doesn't have Bomb Card.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
@@ -60,7 +60,7 @@ public class BombOrder implements Order {
             if (l_country.getD_neighbourCountryIDList().contains(d_country.getD_countryID())) return true;
         }
 
-        String l_err = "err: Invalid Bomb Order. Country not a neighbour";
+        String l_err = "err: Invalid Bomb Order, Country not a neighbour";
         System.out.println(l_err);
         LogManager.logAction(l_err);
         return false;
