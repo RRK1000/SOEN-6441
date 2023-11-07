@@ -18,16 +18,27 @@ public class LogEntryBuffer implements Observable {
         d_observers = new ArrayList<>();
     }
 
+    /**
+     * Adds an observer
+     * @param p_observer Observer object
+     */
     @Override
     public void addObserver(Observer p_observer) {
         d_observers.add(p_observer);
     }
 
+    /**
+     * Removes an observer
+     * @param p_observer Observer object
+     */
     @Override
     public void removeObserver(Observer p_observer) {
         d_observers.remove(p_observer);
     }
 
+    /**
+     * Notifies each observer
+     */
     @Override
     public synchronized void notifyObservers() {
         for (Observer l_observer : d_observers) {
