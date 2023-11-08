@@ -290,7 +290,7 @@ public class InitMapPhase implements Phase {
      */
     @Override
     public void executeOrder(GameManager p_gameManager) {
-
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
     @Override

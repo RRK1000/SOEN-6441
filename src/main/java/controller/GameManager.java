@@ -41,7 +41,7 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
         this.d_skipTurnList = new ArrayList<>();
 
-        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources", "game.log");
+        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources/logs", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
         this.d_logWriter = new LogFileWriter(logPath);
         this.d_logBuffer.addObserver(d_logWriter);
@@ -68,10 +68,14 @@ public class GameManager {
             this.updateNeutralCountriesOnRoundEnd();
             this.updatePlayerDiplomacyOnRoundEnd();
 
+            this.d_gamePhase = this.getD_gamePhase().nextPhase();
             this.getD_gamePhase().executeOrder(this);
+            this.d_gamePhase = this.getD_gamePhase().nextPhase();
+
             this.assignReinforcements();
             d_skipTurnList.clear();
             this.d_currentPlayerTurn = 0;
+            LogManager.logAction("Round end. \n");
         } else {
             do {
                 d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
@@ -208,7 +212,7 @@ public class GameManager {
     }
 
     /**
-     * Clears the negotiation between players after end of round
+     * Resets player diplomacy on round end
      */
     private void updatePlayerDiplomacyOnRoundEnd() {
         for (Player l_player : d_playerList) {
@@ -237,6 +241,7 @@ public class GameManager {
             LogManager.logAction("Displayed the current game map and state.");
 
         }
+        LogManager.logAction("Displayed the current game map and state.");
     }
 
     /**

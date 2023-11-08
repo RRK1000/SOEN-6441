@@ -36,8 +36,7 @@ public class BlockadeOrder implements Order {
     private void neutralizeCountry() {
         d_country.setD_numArmies(d_country.getD_numArmies() * 3);
         d_country.setD_isNeutral(true);
-        LogManager.logAction("Country neutralized: " + d_country.getD_countryID());
-
+        LogManager.logAction("Country made neutral: " + d_country.getD_countryID());
     }
 
     /**
@@ -45,7 +44,7 @@ public class BlockadeOrder implements Order {
      */
     public void execute() {
         if(!d_player.getD_countryList().contains(d_country)) {
-            LogManager.logAction("err: Execute failed. Player no longer owns country: " + d_country.getD_countryID());
+            LogManager.logAction("err: Blockade Order Execute failed. Player no longer owns country: " + d_country.getD_countryID());
             return;
         }
 
@@ -63,12 +62,12 @@ public class BlockadeOrder implements Order {
     @Override
     public boolean isValid() {
         if (d_country.getD_owner() != d_player) {
-            String l_err = "err: Invalid Blockade Order. The country does not belong to the player";
+            String l_err = "err: Invalid Blockade Order, The country does not belong to the player";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
         } else if (!d_player.getD_playerCardList().contains(Cards.BLOCKADE_CARD)) {
-            String l_err = "err: Invalid Blockade Order. Player doesn't have Blockade Card.";
+            String l_err = "err: Invalid Blockade Order, Player doesn't have Blockade Card.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;

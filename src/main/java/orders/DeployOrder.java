@@ -47,7 +47,12 @@ public class DeployOrder implements Order {
 
     @Override
     public boolean isValid() {
-        if(!d_player.getD_countryList().contains(d_country)) {
+        if(null == d_country) {
+            String l_err = "err: Invalid Deploy Order, Country does not exist";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
+        } else if(!d_player.getD_countryList().contains(d_country)) {
             String l_err = "err: Invalid Deploy Order, Player does not own country: " + d_country.getD_countryID();
             System.out.println(l_err);
             LogManager.logAction(l_err);

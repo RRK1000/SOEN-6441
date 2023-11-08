@@ -1,6 +1,7 @@
 package phases;
 
 import controller.GameManager;
+import gamelog.LogManager;
 import global.Constants;
 import models.Country;
 import models.Map;
@@ -22,6 +23,7 @@ public class IssueOrderPhase implements Phase {
      */
     @Override
     public Phase nextPhase() {
+        LogManager.logAction("Phase changed from IssueOrderPhase to ExecuteOrderPhase\n");
         return new ExecuteOrderPhase();
     }
 
@@ -270,7 +272,7 @@ public class IssueOrderPhase implements Phase {
      */
     @Override
     public void executeOrder(GameManager p_gameManager) {
-
+        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
 

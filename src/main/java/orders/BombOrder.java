@@ -45,7 +45,7 @@ public class BombOrder implements Order {
         List<String> l_playerCardList = d_player.getD_playerCardList();
         l_playerCardList.remove(Cards.BOMB_CARD);
         d_player.setD_playerCardList(l_playerCardList);
-        LogManager.logAction("Bomb order executed: Halved armies in " + d_country.getD_countryName());
+        LogManager.logAction("Bomb order executed: Halved armies in " + d_country.getD_countryID());
     }
 
     /**

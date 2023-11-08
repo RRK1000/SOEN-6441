@@ -36,7 +36,7 @@ public class NegotiateOrder implements Order {
     @Override
     public void execute() {
         if (targetPlayer == null) {
-            LogManager.logAction("err: Execute order failed. Player to negotiate doesn't exist");
+            LogManager.logAction("err: Execute Negotiate order failed. Player to negotiate doesn't exist");
             return;
         }
 
