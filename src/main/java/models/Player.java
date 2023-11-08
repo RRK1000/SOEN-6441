@@ -55,7 +55,6 @@ public class Player {
         this.d_orderList = new ArrayList<>();
         this.d_playerCardList = new ArrayList<>();
         this.d_negotiationList = new ArrayList<>();
-        d_playerCardList.add(Cards.AIRLIFT_CARD);
     }
 
     /**

@@ -44,7 +44,7 @@ public class AirliftOrder implements Order {
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)) {
-            LogManager.logAction("err: Execute failed. Player no longer owns country:" + d_sourceCountry.getD_countryID());
+            LogManager.logAction("err: Execute Airlift Order failed. Player no longer owns country:" + d_sourceCountry.getD_countryID());
             return;
         }
 

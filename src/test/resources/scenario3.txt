@@ -1,0 +1,26 @@
+loadmap europe.map
+help
+gameplayer -add p1 -add p2 -add p3
+assigncountries
+deploy 4 3
+deploy 2 3
+deploy 3 3
+commit
+commit
+commit
+deploy 4 3
+deploy 2 1
+deploy 3 3
+commit
+deploy 2 2
+commit
+commit
+showmap
+deploy 4 3
+deploy 2 3
+deploy 3 3
+commit
+advance 2 1 5
+commit
+commit
+deploy 4 3

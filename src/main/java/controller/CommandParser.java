@@ -12,8 +12,6 @@ import phases.IssueOrderPhase;
 import phases.StartupPhase;
 import util.CommandUtil;
 
-import java.util.Arrays;
-
 /**
  * Represents the command parser.
  * It handles the commands entered by player and validates it.
@@ -71,7 +69,6 @@ public class CommandParser {
         String[] l_cmdSplit = p_input.split(" ");
         if (!CommandUtil.isValidCmd(p_input, p_gameManager.getD_gamePhase())) {
             displayError();
-            LogManager.logAction("Invalid command input: " + p_input);
             return;
         }
 
@@ -83,15 +80,12 @@ public class CommandParser {
             //Displays the help command
             case Commands.HELP:
                 displayInstructions(p_gameManager);
-                LogManager.logAction("Requested help instructions.");
-
                 break;
 
             case Commands.SHOW_MAP:
                 if (l_map == null) {
                     System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
-                    LogManager.logAction("Attempted to display map but map was not loaded.");
                     break;
                 }
                 p_gameManager.getD_gamePhase().showMap(l_map, p_gameManager);
@@ -137,24 +131,21 @@ public class CommandParser {
 
                 } else {
                     displayError();
-                    LogManager.logAction("Attempted to validate map but map was not loaded.");
                 }
                 break;
 
             case Commands.LOAD_MAP:
                 p_gameManager.getD_gamePhase().loadMap(l_cmdSplit[1], p_gameManager);
-                LogManager.logAction("Loaded a map with input: " + l_cmdSplit[1]);
+                LogManager.logAction("Loaded a map: " + l_cmdSplit[1]);
                 break;
 
             case Commands.GAME_PLAYER:
                 if (p_gameManager.getD_map() == null) {
                     System.out.println("map not loaded");
                     System.out.println(Constants.HELP_MESSAGE);
-                    LogManager.logAction("Attempted to modify players but map was not loaded.");
                     break;
                 }
                 p_gameManager.getD_gamePhase().gamePlayer(l_cmdSplit, p_gameManager);
-                LogManager.logAction("Modified players with input: " + Arrays.toString(l_cmdSplit));
                 break;
 
             case Commands.ASSIGN_COUNTRIES:
@@ -223,7 +214,6 @@ public class CommandParser {
 
                     System.out.println("cannot end turn\n" + l_currentPlayer.getD_numArmies()
                             + " reinforcement army/armies left to be placed");
-                    LogManager.logAction("End turn attempted by " + l_currentPlayer.getD_playerName() + " with unplaced armies remaining.");
 
                     break;
                 }
@@ -235,7 +225,6 @@ public class CommandParser {
 
             default:
                 displayError();
-                LogManager.logAction("Unknown command: " + p_input);
 
         }
     }

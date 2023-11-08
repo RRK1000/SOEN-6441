@@ -50,11 +50,11 @@ public class AdvanceOrder implements Order {
     public void execute() {
         if (d_num == d_countryfrom.getD_numArmies() + d_num) {
             d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
-            LogManager.logAction("err: one army must remain on all territories");
+            LogManager.logAction("err: Invalid advance order, one army must remain on all territories");
             return;
         } else if (d_num > d_countryfrom.getD_numArmies() + d_num) {
             d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
-            LogManager.logAction("err: Invalid order, armies unavailable on country.");
+            LogManager.logAction("err: Invalid advance order, armies unavailable on country.");
             return;
         } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
             String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
@@ -76,9 +76,11 @@ public class AdvanceOrder implements Order {
             d_player.getD_countryList().add(d_countryto);
             d_countryto.setD_numArmies(0);
             d_player.addRandomCard();
+
+            LogManager.logAction("CountryID " + d_countryto.getD_countryID() + " conquered by " +d_player.getD_playerName());
         }
+
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
-//        d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - d_num);
 
         LogManager.logAction("Advance order executed: " + d_num + " armies moved from " +
                 d_countryfrom.getD_countryID() + " to " + d_countryto.getD_countryID());
