@@ -153,9 +153,9 @@ public class Country {
 
     /**
      * Marks a country as neutral
-     * @param d_isNeutral boolean that indicates if country is neutral or not
+     * @param p_isNeutral boolean that indicates if country is neutral or not
      */
-    public void setD_isNeutral(boolean d_isNeutral) {
-        this.d_isNeutral = d_isNeutral;
+    public void setD_isNeutral(boolean p_isNeutral) {
+        this.d_isNeutral = p_isNeutral;
     }
 }

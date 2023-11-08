@@ -16,14 +16,14 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd1() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "editcontinent -add 2 1",
                 "editcountry -add 1 1 -add 2 1 -add 3 1 -add 4 1",
                 "editcountry -remove 4",
                 "editneighbor -add 1 2 -add 1 2 -add 2 3 -add 3 1"
         };
 
-        for (String command: cmdList) {
+        for (String command: l_cmdList) {
             assertTrue(CommandUtil.isValidCmd(command, new InitMapPhase()));
         }
     }
@@ -33,13 +33,13 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd2() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "editcontinent -add 2 ",
                 "editcountry -remove ",
                 "editneighbor -add 1 2 3"
         };
 
-        for (String command: cmdList) {
+        for (String command: l_cmdList) {
             assertFalse(CommandUtil.isValidCmd(command, new InitMapPhase()));
         }
     }

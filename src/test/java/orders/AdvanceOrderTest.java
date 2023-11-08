@@ -29,10 +29,10 @@ class AdvanceOrderTest {
         d_gamePhase = new InitMapPhase();
 
         d_gamePhase.loadMap("validMap2.txt", d_gameManager);
-        String player1Name = "Player1";
-        String player2Name = "Player2";
-        d_gameManager.addPlayer(player1Name);
-        d_gameManager.addPlayer(player2Name);
+        String l_player1Name = "Player1";
+        String l_player2Name = "Player2";
+        d_gameManager.addPlayer(l_player1Name);
+        d_gameManager.addPlayer(l_player2Name);
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
