@@ -17,11 +17,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the Deploy order command
+ * @author Anuja Somthankar
+ */
 class AirliftOrderTest {
 
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before all tests, initialises game manager, map etc.
+     */
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -35,11 +42,17 @@ class AirliftOrderTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterEach
     void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Tests if the airlift order is working as expected
+     */
     @Test
     void executeTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -58,6 +71,9 @@ class AirliftOrderTest {
         assertEquals(3, l_countryFrom.getD_numArmies());
     }
 
+    /**
+     * Test to check a correct airlift order
+     */
     @Test
     void isValidTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -74,6 +90,9 @@ class AirliftOrderTest {
         assertTrue(l_airlift.isValid());
     }
 
+    /**
+     * Test to check an invalid airlift order, when play does not own target country
+     */
     @Test
     void isValidTest2() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -92,6 +111,9 @@ class AirliftOrderTest {
         assertFalse(l_airlift.isValid());
     }
 
+    /**
+     * Test to check an invalid airlift order, when all armies are trying to be airlifted
+     */
     @Test
     void isValidTest3() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -109,6 +131,9 @@ class AirliftOrderTest {
         assertFalse(l_airlift.isValid());
     }
 
+    /**
+     * Test to check an invalid airlift order, when excessive armies are airlifted
+     */
     @Test
     void isValidTest4() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
