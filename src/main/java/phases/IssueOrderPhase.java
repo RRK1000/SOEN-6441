@@ -14,6 +14,10 @@ import orders.BombOrder;
 import orders.DeployOrder;
 import orders.NegotiateOrder;
 
+/**
+ * This class implements the commands in the map initialization phase
+ * @author Anuja Somthankar
+ */
 public class IssueOrderPhase implements Phase {
 
     /**
