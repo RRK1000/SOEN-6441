@@ -9,10 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for the Issue orders phase
+ */
 class IssueOrderPhaseTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before all tests, initalises game manager, loads map etc.
+     */
     @BeforeAll
     static void setUp() {
         d_gameManager = new GameManager();
@@ -26,11 +32,17 @@ class IssueOrderPhaseTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets the game manager to null after tests are executed
+     */
     @AfterAll
     static void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Test for the deploy command
+     */
     @Test
     void deployTest() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
