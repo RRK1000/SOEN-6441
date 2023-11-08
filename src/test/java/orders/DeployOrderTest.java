@@ -12,10 +12,17 @@ import phases.Phase;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the Deploy order command
+ * @author Rishi Ravikumar
+ */
 class DeployOrderTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before all tests, initialises game manager, map etc.
+     */
     @BeforeAll
     static void setUp() {
         d_gameManager = new GameManager();
@@ -29,11 +36,17 @@ class DeployOrderTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterAll
     static void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Test to check the execution of deploy order
+     */
     @Test
     void execute() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -43,6 +56,9 @@ class DeployOrderTest {
         assertEquals(l_country.getD_numArmies(), 3);
     }
 
+    /**
+     * Test to check the validation of a valid deploy order
+     */
     @Test
     void isValidTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -51,6 +67,9 @@ class DeployOrderTest {
         assertTrue(l_order.isValid());
     }
 
+    /**
+     * Test to check the validation of an invalid deploy order, when excessive armies are deployed
+     */
     @Test
     void isValidTest2() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);

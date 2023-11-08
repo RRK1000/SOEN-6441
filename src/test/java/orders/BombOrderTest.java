@@ -17,10 +17,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for the Bomb order command
+ * @author Rishi Ravikumar
+ */
 class BombOrderTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before all tests, initialises game manager, map etc.
+     */
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -34,12 +41,17 @@ class BombOrderTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterEach
     void tearDown() {
         d_gameManager = null;
     }
 
-
+    /**
+     * Test to check the execution of bomb order
+     */
     @Test
     void execute() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -58,6 +70,9 @@ class BombOrderTest {
         assertEquals(1, l_country2.getD_numArmies());
     }
 
+    /**
+     * Test to check the validation of valid bomb order
+     */
     @Test
     void isValidTest1() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -75,6 +90,9 @@ class BombOrderTest {
         assertTrue(l_bombOrder.isValid());
     }
 
+    /**
+     * Test to cehck the validation of invalid bomb order, when country is not a neighbour
+     */
     @Test
     void isValidTest2() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);

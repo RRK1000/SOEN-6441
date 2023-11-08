@@ -17,10 +17,17 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for the Blockade order command
+ * @author Rishi Ravikumar
+ */
 class BlockadeOrderTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before all tests, initialises game manager, map etc.
+     */
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -34,11 +41,17 @@ class BlockadeOrderTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterEach
     void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Test to validate execution of blockade order
+     */
     @Test
     void execute() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
@@ -53,6 +66,9 @@ class BlockadeOrderTest {
         assertEquals(15, l_country.getD_numArmies());
     }
 
+    /**
+     * Test to check the validation of correct blockade order
+     */
     @Test
     public void isValid() {
         Player l_p1 = d_gameManager.getD_playerList().get(0);
