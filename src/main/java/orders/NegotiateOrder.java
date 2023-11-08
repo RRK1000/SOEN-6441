@@ -16,17 +16,17 @@ import models.Player;
  */
 public class NegotiateOrder implements Order {
     private final Player d_player;
-    private final Player targetPlayer; // The target player for negotiation
+    private final Player d_targetPlayer; // The target player for negotiation
     
     /**
      * Constructs a new NegotiateOrder with the specified parameters.
      *
      * @param p_player     The player issuing the negotiation order.
-     * @param targetPlayer      The target player for negotiation.
+     * @param p_targetPlayer      The target player for negotiation.
      */
-    public NegotiateOrder(Player p_player, Player targetPlayer) {
+    public NegotiateOrder(Player p_player, Player p_targetPlayer) {
         this.d_player = p_player;
-        this.targetPlayer = targetPlayer;
+        this.d_targetPlayer = p_targetPlayer;
     }
 
     
@@ -35,18 +35,18 @@ public class NegotiateOrder implements Order {
      */
     @Override
     public void execute() {
-        if (targetPlayer == null) {
+        if (d_targetPlayer == null) {
             LogManager.logAction("err: Execute Negotiate order failed. Player to negotiate doesn't exist");
             return;
         }
 
         // Enforce peace between the players
-        d_player.addPlayerNegotiation(targetPlayer);
-        targetPlayer.addPlayerNegotiation(d_player);
+        d_player.addPlayerNegotiation(d_targetPlayer);
+        d_targetPlayer.addPlayerNegotiation(d_player);
 
-        String executionLog = "Negotiation with " + targetPlayer.getD_playerName() + " approached by " + d_player.getD_playerName() + " successful!";
-        System.out.println(executionLog);
-        LogManager.logAction(executionLog);
+        String l_executionLog = "Negotiation with " + d_targetPlayer.getD_playerName() + " approached by " + d_player.getD_playerName() + " successful!";
+        System.out.println(l_executionLog);
+        LogManager.logAction(l_executionLog);
 
     }
 
@@ -57,7 +57,7 @@ public class NegotiateOrder implements Order {
      */
     @Override
     public boolean isValid() {
-        if (targetPlayer == null) {
+        if (d_targetPlayer == null) {
             String l_err = "err: Invalid Negotiate Order, Player to negotiate doesn't exist!";
             System.out.println(l_err);
             LogManager.logAction(l_err);

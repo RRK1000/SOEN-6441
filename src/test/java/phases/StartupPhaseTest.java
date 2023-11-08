@@ -25,8 +25,8 @@ class StartupPhaseTest {
         d_gameManager = new GameManager();
         d_gamePhase = new StartupPhase();
 
-        Map d_map = MapUtil.loadMap("europe.map");
-        d_gameManager.setD_map(d_map);
+        Map l_map = MapUtil.loadMap("europe.map");
+        d_gameManager.setD_map(l_map);
     }
 
     /**

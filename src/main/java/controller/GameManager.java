@@ -44,9 +44,9 @@ public class GameManager {
         this.d_playerList = new ArrayList<>();
         this.d_skipTurnList = new ArrayList<>();
 
-        Path logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources/logs", "game.log");
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources/logs", "game.log");
         this.d_logBuffer = new LogEntryBuffer();
-        this.d_logWriter = new LogFileWriter(logPath);
+        this.d_logWriter = new LogFileWriter(l_logPath);
         this.d_logBuffer.addObserver(d_logWriter);
 
     }
@@ -54,10 +54,10 @@ public class GameManager {
     /**
      * Sets the action in the log buffer
      *
-     * @param action The action string by player
+     * @param p_action The action string by player
      */
-    public void logAction(String action) {
-        d_logBuffer.setActionInfo(action);
+    public void logAction(String p_action) {
+        d_logBuffer.setActionInfo(p_action);
     }
 
     /**
@@ -288,10 +288,10 @@ public class GameManager {
     /**
      * Sets the current player's turn number
      *
-     * @param d_currentPlayerTurn current player turn
+     * @param p_currentPlayerTurn current player turn
      */
-    public void setD_currentPlayerTurn(int d_currentPlayerTurn) {
-        this.d_currentPlayerTurn = d_currentPlayerTurn;
+    public void setD_currentPlayerTurn(int p_currentPlayerTurn) {
+        this.d_currentPlayerTurn = p_currentPlayerTurn;
     }
 
     /**

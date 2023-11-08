@@ -219,10 +219,10 @@ public class IssueOrderPhase implements Phase {
      * This method prints the invalid phase error as it is not a valid command for this phase.
      *
      * @param p_map      The Map object
-     * @param l_cmdSplit The input given by the user to save map
+     * @param p_cmdSplit The input given by the user to save map
      */
     @Override
-    public void saveMap(Map p_map, String[] l_cmdSplit) {
+    public void saveMap(Map p_map, String[] p_cmdSplit) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
@@ -230,10 +230,10 @@ public class IssueOrderPhase implements Phase {
      * This method prints the invalid phase error as it is not a valid command for this phase.
      *
      * @param p_gameManager The game manager object
-     * @param l_cmdSplit    The input given by the user
+     * @param p_cmdSplit    The input given by the user
      */
     @Override
-    public void editMap(GameManager p_gameManager, String[] l_cmdSplit) {
+    public void editMap(GameManager p_gameManager, String[] p_cmdSplit) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 

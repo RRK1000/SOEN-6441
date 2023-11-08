@@ -208,12 +208,12 @@ public class InitMapPhase implements Phase {
      * This method is used to save the map
      *
      * @param p_map      The Map object
-     * @param l_cmdSplit The input given by the user to save map
+     * @param p_cmdSplit The input given by the user to save map
      */
     @Override
-    public void saveMap(Map p_map, String[] l_cmdSplit) {
+    public void saveMap(Map p_map, String[] p_cmdSplit) {
         //Checks if the map was saved successfully
-        if (MapUtil.saveMap(p_map, l_cmdSplit[1])) {
+        if (MapUtil.saveMap(p_map, p_cmdSplit[1])) {
             System.out.println("Map is saved");
             System.out.println("Load the map to start the game.");
         } else {
@@ -225,11 +225,11 @@ public class InitMapPhase implements Phase {
      * This method is used to edit the map
      *
      * @param p_gameManager The game manager object
-     * @param l_cmdSplit    The input given by the user
+     * @param p_cmdSplit    The input given by the user
      */
     @Override
-    public void editMap(GameManager p_gameManager, String[] l_cmdSplit) {
-        p_gameManager.setD_map(MapUtil.editMap(l_cmdSplit[1]));
+    public void editMap(GameManager p_gameManager, String[] p_cmdSplit) {
+        p_gameManager.setD_map(MapUtil.editMap(p_cmdSplit[1]));
         System.out.println("Map loaded to be edited...");
     }
 

@@ -99,10 +99,10 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest1() {
-		Map map = MapUtil.editMap("InvalidMap1.txt");
-		MapUtil.showMap(map);
+		Map l_map = MapUtil.editMap("InvalidMap1.txt");
+		MapUtil.showMap(l_map);
 
-		assertNotNull(map);
+		assertNotNull(l_map);
 	}
 
 	/**
@@ -110,10 +110,10 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest2() {
-		Map map = MapUtil.editMap("invalid.txt");
-		MapUtil.showMap(map);
+		Map l_map = MapUtil.editMap("invalid.txt");
+		MapUtil.showMap(l_map);
 
-		assertNotNull(map);
+		assertNotNull(l_map);
 	}
 
 	/**

@@ -93,18 +93,18 @@ public class Player {
 
     /**
      * Sets the card list
-     * @param d_playerCardList Card list
+     * @param p_playerCardList Card list
      */
-    public void setD_playerCardList(List<String> d_playerCardList) {
-        this.d_playerCardList = d_playerCardList;
+    public void setD_playerCardList(List<String> p_playerCardList) {
+        this.d_playerCardList = p_playerCardList;
     }
 
     /**
      * Adds a player to this player's negotiation list
-     * @param player Player object
+     * @param p_player Player object
      */
-    public void addPlayerNegotiation(Player player) {
-        d_negotiationList.add(player);
+    public void addPlayerNegotiation(Player p_player) {
+        d_negotiationList.add(p_player);
     }
 
     /**
@@ -258,10 +258,10 @@ public class Player {
     /**
      * Sets the current Order of the current player that is being issued
      *
-     * @param d_currentOrder current Order of the current player that is being issued
+     * @param p_currentOrder current Order of the current player that is being issued
      */
-    public void setD_currentOrder(Order d_currentOrder) {
-        this.d_currentOrder = d_currentOrder;
+    public void setD_currentOrder(Order p_currentOrder) {
+        this.d_currentOrder = p_currentOrder;
     }
 
     /**
