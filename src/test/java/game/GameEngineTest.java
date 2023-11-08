@@ -5,10 +5,13 @@ import controller.GameManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import phases.InitMapPhase;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GameEngineTest {
     static GameManager d_gameManager;
@@ -26,6 +29,7 @@ class GameEngineTest {
     @Test
     void ScenarioTest1() {
         GameManager d_gameManager = new GameManager();
+        assertTrue(d_gameManager.getD_gamePhase() instanceof InitMapPhase);
 
         try (BufferedReader l_reader = new BufferedReader(new FileReader("src/test/resources/scenario1.txt"))) {
             String l_inputCommand;

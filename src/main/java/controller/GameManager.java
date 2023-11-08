@@ -3,7 +3,10 @@ package controller;
 import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import gamelog.LogManager;
-import models.*;
+import models.Continent;
+import models.Country;
+import models.Map;
+import models.Player;
 import phases.InitMapPhase;
 import phases.Phase;
 
@@ -50,6 +53,7 @@ public class GameManager {
 
     /**
      * Sets the action in the log buffer
+     *
      * @param action The action string by player
      */
     public void logAction(String action) {
@@ -76,6 +80,14 @@ public class GameManager {
             d_skipTurnList.clear();
             this.d_currentPlayerTurn = 0;
             LogManager.logAction("Round end. \n");
+
+            // Case where game has a winner
+            if (d_playerList.size() == 1) {
+                String l_op = "Player " + d_playerList.get(0).getD_playerName() + " wins!";
+                System.out.println(l_op);
+                LogManager.logAction(l_op);
+                System.exit(0);
+            }
         } else {
             do {
                 d_currentPlayerTurn = (d_currentPlayerTurn + 1) % d_playerList.size();
@@ -187,16 +199,20 @@ public class GameManager {
     }
 
 
-
     /**
      * Checks if any player does not own any countries, ie, has lost, and removes them from player list.
      */
     public void updatePlayerList() {
         List<Player> l_playerlist = d_playerList;
+        List<Player> l_deleteList = new ArrayList<>();
         for (Player l_player : l_playerlist) {
             if (l_player.getD_countryList().isEmpty()) {
-                d_playerList.remove(l_player);
+                l_deleteList.add(l_player);
             }
+        }
+
+        for (Player l_player : l_deleteList) {
+            l_playerlist.remove(l_player);
         }
     }
 
@@ -237,9 +253,7 @@ public class GameManager {
                 l_neighbors.append(" ");
             }
             System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
-                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_country.isD_isNeutral()?"neutral":l_owner.getD_playerName(), l_country.getD_numArmies());
-            LogManager.logAction("Displayed the current game map and state.");
-
+                    l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_country.isD_isNeutral() ? "neutral" : l_owner.getD_playerName(), l_country.getD_numArmies());
         }
         LogManager.logAction("Displayed the current game map and state.");
     }
@@ -273,6 +287,7 @@ public class GameManager {
 
     /**
      * Sets the current player's turn number
+     *
      * @param d_currentPlayerTurn current player turn
      */
     public void setD_currentPlayerTurn(int d_currentPlayerTurn) {
