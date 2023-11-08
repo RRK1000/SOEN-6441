@@ -12,10 +12,17 @@ import phases.Phase;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test for advance order
+ * @author Rishi Ravikumar
+ */
 class AdvanceOrderTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Setup before the test, initialises game manager, map etc.
+     */
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -29,6 +36,9 @@ class AdvanceOrderTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterEach
     void tearDown() {
         d_gameManager = null;

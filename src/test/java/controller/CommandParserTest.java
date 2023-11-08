@@ -14,6 +14,11 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Command Parser tests
+ * @author Rishi Ravikumar
+ * @author Yuki
+ */
 class CommandParserTest {
 	GameManager d_gameManager;
 	private Player d_player;
@@ -21,6 +26,9 @@ class CommandParserTest {
 	private Order d_order;
 	private Map d_map = new Map();
 
+	/**
+	 * Setup before tests, initialises game manager, map etc.
+	 */
 	@BeforeEach
 	void setUp() {
 		d_gameManager = new GameManager();
