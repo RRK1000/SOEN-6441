@@ -124,7 +124,7 @@ class AdvanceOrderTest {
     }
 
     /**
-     * Tests an invalid advance order command, where the country is not owned by the player
+     * Tests an invalid advance order command, where the source country is not owned by the player
      */
     @Test
     void isValidTest3() {
@@ -139,6 +139,25 @@ class AdvanceOrderTest {
         l_deployOrder2.execute();
 
         Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryTo, l_countryFrom, 1);
+        assertFalse(l_advanceOrder.isValid());
+    }
+
+    /**
+     * Tests an invalid advance order command, where the target country is owned by the player
+     */
+    @Test
+    void isValidTest4() {
+        Player l_p1 = d_gameManager.getD_playerList().get(0);
+        Country l_countryFrom = l_p1.getD_countryList().get(0);
+        Order l_deployOrder1 = new DeployOrder(l_p1, l_countryFrom, 3);
+        l_deployOrder1.execute();
+
+        Player l_p2 = d_gameManager.getD_playerList().get(1);
+        Country l_countryTo = l_p2.getD_countryList().get(0);
+        Order l_deployOrder2 = new DeployOrder(l_p2, l_countryTo, 1);
+        l_deployOrder2.execute();
+
+        Order l_advanceOrder = new AdvanceOrder(l_p1, l_countryFrom, l_countryFrom, 1);
         assertFalse(l_advanceOrder.isValid());
     }
 }

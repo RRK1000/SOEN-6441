@@ -51,7 +51,7 @@ class AirliftOrderTest {
     }
 
     /**
-     * Tests if the airlift order is working as expected
+     * Tests a valid airlift order scenario
      */
     @Test
     void executeTest1() {

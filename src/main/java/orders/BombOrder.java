@@ -65,6 +65,11 @@ public class BombOrder implements Order {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
+        } else if(d_player.getD_countryList().contains(d_country)) {
+            String l_err = "err: Invalid Bomb Order, Cannot bomb own country.";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
         }
 
         for (Country l_country : d_player.getD_countryList()) {
