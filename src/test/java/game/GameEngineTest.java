@@ -13,19 +13,31 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Tests for game engine
+ */
 class GameEngineTest {
     static GameManager d_gameManager;
 
+    /**
+     * Setup before test, initialises game manager
+     */
     @BeforeAll
     static void setUp() {
         d_gameManager = new GameManager();
     }
 
+    /**
+     * Sets game manager to null after tests are done
+     */
     @AfterAll
     static void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Tests the full game, as mentioned in scenario1.txt
+     */
     @Test
     void ScenarioTest1() {
         GameManager d_gameManager = new GameManager();
@@ -49,6 +61,9 @@ class GameEngineTest {
         }
     }
 
+    /**
+     * Tests the full game, as mentioned in scenario2.txt
+     */
     @Test
     void ScenarioTest2() {
         GameManager d_gameManager = new GameManager();
@@ -71,6 +86,9 @@ class GameEngineTest {
         }
     }
 
+    /**
+     * Tests the full game, as mentioned in scenario3.txt
+     */
     @Test
     void ScenarioTest3() {
         GameManager d_gameManager = new GameManager();

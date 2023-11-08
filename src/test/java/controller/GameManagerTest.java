@@ -9,13 +9,20 @@ import util.MapUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+/**
+ * Tests for game manager
+ * @author Abhigyan Singh
+ * @author Rishi Ravikumar
+ */
 class GameManagerTest {
     private GameManager d_gameManager;
     private Player d_player1;
     private Player d_player2;
     private Map d_map = new Map();
 
+    /**
+     * Setup before tests, initialises game manager, map etc.
+     */
     @BeforeEach
     void setUp() {
         // Create test players
