@@ -8,9 +8,8 @@ package global;
 public class Commands {
     public static final String HELP = "help";
 
-    /**
-     * Map Editor phase
-     */
+     // Map Editor phase
+
     public static final String EDIT_CONTINENT = "editcontinent";
     public static final String EDIT_COUNTRY = "editcountry";
     public static final String EDIT_NEIGHBOR = "editneighbor";
@@ -19,16 +18,14 @@ public class Commands {
     public static final String EDIT_MAP = "editmap";
     public static final String VALIDATE_MAP = "validatemap";
 
-    /**
-     * Game Startup phase
-     */
+     // Game Startup phase
+
     public static final String LOAD_MAP = "loadmap";
     public static final String GAME_PLAYER = "gameplayer";
     public static final String ASSIGN_COUNTRIES = "assigncountries";
 
-    /**
-     * Issue order phase
-     */
+     // Issue order phase
+
     public static final String DEPLOY_ORDER = "deploy";
     public static final String ADVANCE_ORDER = "advance";
     public static final String BOMB_ORDER = "bomb";

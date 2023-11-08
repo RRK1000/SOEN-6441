@@ -26,14 +26,19 @@ public class DeployOrder implements Order {
         this.d_country = p_country;
         this.d_num = p_num;
     }
-    
 
 
-    
+    /**
+     * Returns the number of armies
+     * @return number of armies
+     */
     public int getD_num() {
         return d_num;
     }
 
+    /**
+     * Executes the deploy order
+     */
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_country)) {
@@ -45,6 +50,10 @@ public class DeployOrder implements Order {
 
     }
 
+    /**
+     * Checks if the deploy order is valid
+     * @return True if command is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         if(null == d_country) {

@@ -39,8 +39,9 @@ public class AirliftOrder implements Order {
     }
 
 
-
-    
+    /**
+     * Executes the airlift order
+     */
     @Override
     public void execute() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)) {
@@ -58,6 +59,10 @@ public class AirliftOrder implements Order {
   
     }
 
+    /**
+     * Checks if the airlift order is valid
+     * @return True if the command is valid, false otherwise
+     */
     @Override
     public boolean isValid() {
         if(!d_player.getD_countryList().contains(d_sourceCountry)){

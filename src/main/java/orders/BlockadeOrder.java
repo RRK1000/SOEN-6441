@@ -30,9 +30,11 @@ public class BlockadeOrder implements Order {
         d_country = p_country;
         d_player = p_player;
     }
-    
 
 
+    /**
+     * Neutralises a country
+     */
     private void neutralizeCountry() {
         d_country.setD_numArmies(d_country.getD_numArmies() * 3);
         d_country.setD_isNeutral(true);

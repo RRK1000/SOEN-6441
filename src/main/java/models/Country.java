@@ -143,11 +143,18 @@ public class Country {
         this.d_owner = p_owner;
     }
 
-
+    /**
+     * Checks if the country is a neutral country
+     * @return true if country is neutral, false otherwise
+     */
     public boolean isD_isNeutral() {
         return d_isNeutral;
     }
 
+    /**
+     * Marks a country as neutral
+     * @param d_isNeutral boolean that indicates if country is neutral or not
+     */
     public void setD_isNeutral(boolean d_isNeutral) {
         this.d_isNeutral = d_isNeutral;
     }

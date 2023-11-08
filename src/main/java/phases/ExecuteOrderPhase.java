@@ -8,6 +8,11 @@ import models.Map;
 import models.Order;
 import models.Player;
 
+/**
+ * This class implements the commands in the execute phase
+ * @author Anuja Somthankar
+ * @author Rishi Ravikumar
+ */
 public class ExecuteOrderPhase implements Phase {
 
     /**
@@ -93,6 +98,14 @@ public class ExecuteOrderPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * This method prints the invalid phase error as it is not a valid command for this phase.
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
     @Override
     public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);

@@ -2,6 +2,7 @@ package global;
 
 /**
  * Represents the available cards types
+ * @author Rishi Ravikumar
  */
 public class Cards {
     public static final String BOMB_CARD = "bomb-card";
