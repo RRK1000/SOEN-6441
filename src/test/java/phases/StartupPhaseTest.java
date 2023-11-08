@@ -9,10 +9,17 @@ import util.MapUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for startup phase
+ * @author Rishi Ravikumar
+ */
 class StartupPhaseTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
 
+    /**
+     * Executes before any test is run, initialises game manager and loads map
+     */
     @BeforeAll
     static void setUp() {
         d_gameManager = new GameManager();
@@ -22,11 +29,18 @@ class StartupPhaseTest {
         d_gameManager.setD_map(d_map);
     }
 
+    /**
+     * Executes after all the tests are run, sets game manager to null
+     */
     @AfterAll
     static void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Tests the game player addition and removal command
+     * Expected Result: Player list of game manager should not be empty
+     */
     @Test
     void gamePlayerTest() {
         String[] l_cmdSplit = {"gameplayer", "-add", "p1", "-remove", "p2"};
@@ -34,6 +48,10 @@ class StartupPhaseTest {
         assertFalse(d_gameManager.getD_playerList().isEmpty());
     }
 
+    /**
+     * Tests the assign countries command
+     * Expected Results: Phase should be changed to issue order
+     */
     @Test
     void assignCountriesTest() {
         String[] l_cmdSplit = {"gameplayer", "-add", "p1", "-add", "p2"};

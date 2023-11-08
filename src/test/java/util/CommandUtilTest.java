@@ -5,6 +5,10 @@ import phases.InitMapPhase;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for command validation utility
+ * @author Rishi Ravikumar
+ */
 class CommandUtilTest {
 
     /**

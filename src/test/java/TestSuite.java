@@ -10,6 +10,10 @@ import util.UtilTestSuite;
 @Suite
 @SelectClasses({ControllerTestSuite.class, GameTestSuite.class, GameLogTestSuite.class, OrdersTestSuite.class,
         PhasesTestSuite.class, UtilTestSuite.class})
+/**
+ * Main Test Suite for all tests
+ * @author Anuja Somthankar
+ */
 public class TestSuite {
 }
 
