@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -87,7 +88,7 @@ class GameEngineTest {
     }
 
     /**
-     * Tests the full game, as mentioned in scenario3.txt
+     * Tests the full game, as mentioned in scenario3.txt (attack followed by deploy)
      */
     @Test
     void ScenarioTest3() {
@@ -109,5 +110,31 @@ class GameEngineTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        assertSame(d_gameManager.getD_map().getD_countryByID(1).getD_owner(), d_gameManager.findPlayerByName("p2"));
     }
+
+//    /**
+//     * Tests the full game, as mentioned in scenario4.txt (game ending)
+//     */
+//    @Test
+//    void ScenarioTest4() {
+//        GameManager d_gameManager = new GameManager();
+//
+//        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/test/resources/scenario4.txt"))) {
+//            String l_inputCommand;
+//            l_inputCommand = l_reader.readLine();
+//
+//            //Handles the case where the file is empty
+//            while (l_inputCommand != null) {
+//                if (l_inputCommand.isEmpty()) {
+//                    l_inputCommand = l_reader.readLine();
+//                    continue;
+//                }
+//                CommandParser.inputParser(d_gameManager, l_inputCommand);
+//                l_inputCommand = l_reader.readLine();
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 }
