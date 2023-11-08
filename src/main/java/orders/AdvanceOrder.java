@@ -39,6 +39,10 @@ public class AdvanceOrder implements Order {
         this.d_num = p_num;
     }
 
+    /**
+     * Gets the number of armies
+     * @return number of armies
+     */
     public int getD_num() {
         return d_num;
     }

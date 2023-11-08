@@ -73,24 +73,43 @@ public class Player {
         this.d_orderList = p_orderList;
         this.d_currentOrder = p_currentOrder;
     }
-    
+
+    /**
+     * Notifies log about action
+     * @param p_action Action done by user
+     */
     private static void logAction(String p_action) {
         d_logBuffer.setActionInfo(p_action);
         d_logBuffer.notifyObservers();
     }
 
+    /**
+     * Returns the card list of the player
+     * @return Card list
+     */
     public List<String> getD_playerCardList() {
         return d_playerCardList;
     }
 
+    /**
+     * Sets the card list
+     * @param d_playerCardList Card list
+     */
     public void setD_playerCardList(List<String> d_playerCardList) {
         this.d_playerCardList = d_playerCardList;
     }
 
+    /**
+     * Adds a player to this player's negotiation list
+     * @param player Player object
+     */
     public void addPlayerNegotiation(Player player) {
         d_negotiationList.add(player);
     }
 
+    /**
+     * Empties the negotiation list
+     */
     public void clearPlayerNegotiation() {
         d_negotiationList.clear();
     }
@@ -264,6 +283,9 @@ public class Player {
         this.d_continentList = p_continentList;
     }
 
+    /**
+     * Adds a random card to the player's card list
+     */
     public void addRandomCard() {
         List<String> l_cardsList = Arrays.asList(Cards.BOMB_CARD, Cards.BLOCKADE_CARD, Cards.BOMB_CARD, Cards.DIPLOMACY_CARD);
         Random l_rndm = new Random();
@@ -275,6 +297,11 @@ public class Player {
 
     }
 
+    /**
+     * Checks if 2 players are in negotiation with each other
+     * @param p_otherPlayer Player object
+     * @return true if players are in negotiation, false otherwise
+     */
     public boolean isInNegotiationWith(Player p_otherPlayer) {
         return d_negotiationList.contains(p_otherPlayer);
     }
