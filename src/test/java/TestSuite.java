@@ -8,8 +8,12 @@ import phases.PhasesTestSuite;
 import util.UtilTestSuite;
 
 @Suite
-@SelectClasses({ControllerTestSuite.class, GameTestSuite.class, GameLogTestSuite.class, OrdersTestSuite.class,
-        PhasesTestSuite.class, UtilTestSuite.class})
+@SelectClasses({ControllerTestSuite.class, GameLogTestSuite.class, OrdersTestSuite.class,
+        PhasesTestSuite.class, UtilTestSuite.class, GameTestSuite.class})
+/**
+ * Main Test Suite for all tests
+ * @author Anuja Somthankar
+ */
 public class TestSuite {
 }
 

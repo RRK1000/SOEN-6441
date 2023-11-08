@@ -24,5 +24,4 @@ advance 2 1 5
 commit
 commit
 deploy 4 3
-deploy 2 2
-deploy 3 3
+deploy 1 3
