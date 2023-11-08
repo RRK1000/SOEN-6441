@@ -5,6 +5,10 @@ import models.Country;
 import models.Map;
 import models.Player;
 
+/**
+ * Interface implemented by all the phases
+ * @author Anuja Somthankar
+ */
 public interface Phase {
 
     /**
@@ -83,8 +87,6 @@ public interface Phase {
      */
     void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num);
 
-    // Execute Order Phase
-
 
     // Init Map Phase
 
@@ -160,6 +162,9 @@ public interface Phase {
      * @param p_gameManager The game manager object
      */
     void assignCountries(GameManager p_gameManager);
+
+
+    // Execute Phase
 
     /**
      * This method is used to execute orders

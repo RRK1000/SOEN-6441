@@ -9,6 +9,10 @@ import models.Player;
 
 import java.util.List;
 
+/**
+ * This class implements the commands in the Start up phase
+ * @author Anuja Somthankar
+ */
 public class StartupPhase implements Phase {
 
     /**
@@ -242,6 +246,14 @@ public class StartupPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * This method prints the invalid phase error as it is not a valid command for this phase.
+     * @param p_gameManager The game manager
+     * @param p_currentPlayer The current player
+     * @param p_countryFrom   Country from where the armies would attack
+     * @param p_countryTo     Country on which the attack occurs
+     * @param p_num           Number of armies attacking
+     */
     @Override
     public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
