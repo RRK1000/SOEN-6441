@@ -23,7 +23,7 @@ public class IssueOrderPhase implements Phase {
      */
     @Override
     public Phase nextPhase() {
-        LogManager.logAction("Phase changed from IssueOrderPhase to ExecuteOrderPhase\n");
+        LogManager.logAction("\nPhase changed from IssueOrderPhase to ExecuteOrderPhase");
         return new ExecuteOrderPhase();
     }
 
