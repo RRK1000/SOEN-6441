@@ -7,16 +7,16 @@ import java.nio.file.StandardOpenOption;
 
 /**
  * Shows a writer that writes log entries to a file
+ *
  * @author Yusuke Ishii
  */
 public class LogFileWriter implements Observer {
-    private Path d_logFilePath;
-
+    private final Path d_logFilePath;
 
 
     /**
      * Constructor for LogFileWriter.
-     * 
+     *
      * @param p_logFilePath The complete path to the log file.
      */
     public LogFileWriter(Path p_logFilePath) {
@@ -25,8 +25,9 @@ public class LogFileWriter implements Observer {
 
     /**
      * Writes the log info to the game log file
+     *
      * @param p_observable Observable object
-     * @param p_arg Argument object
+     * @param p_arg        Argument object
      */
     @Override
     public void update(Observable p_observable, Object p_arg) {

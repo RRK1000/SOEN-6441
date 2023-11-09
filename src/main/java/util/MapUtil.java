@@ -64,15 +64,16 @@ public class MapUtil {
 
     /**
      * Loads the continents from a given file
-     * @param p_reader The buffered reader object
+     *
+     * @param p_reader            The buffered reader object
      * @param p_continentMapGraph The continent map graph
-     * @param p_map The map object
+     * @param p_map               The map object
      * @throws IOException Input Output Exception
      */
     public static void loadContinents(BufferedReader p_reader, DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph, Map p_map) throws IOException {
         int l_continentID = 1;
         String l_line;
-        while((l_line = p_reader.readLine()) != null && !l_line.isEmpty()) {
+        while ((l_line = p_reader.readLine()) != null && !l_line.isEmpty()) {
             String[] l_continentData = l_line.split(" ");
             Continent l_continent = new Continent();
             l_continent.setD_continentID(l_continentID++);
@@ -85,14 +86,15 @@ public class MapUtil {
 
     /**
      * Loads the countries from a given file
-     * @param p_reader The buffered reader object
+     *
+     * @param p_reader          The buffered reader object
      * @param p_countryMapGraph The country map graph
-     * @param p_map The map object
+     * @param p_map             The map object
      * @throws IOException Input Output Exception
      */
     public static void loadCountries(BufferedReader p_reader, DefaultDirectedGraph<Country, DefaultEdge> p_countryMapGraph, Map p_map) throws IOException {
         String l_line;
-        while((l_line = p_reader.readLine()) != null && !l_line.isEmpty()) {
+        while ((l_line = p_reader.readLine()) != null && !l_line.isEmpty()) {
             String[] l_countryData = l_line.split(" ");
             Country l_country = new Country();
             Continent l_continent = p_map.getD_continentByID(Integer.parseInt(l_countryData[2]));
@@ -106,26 +108,27 @@ public class MapUtil {
 
     /**
      * Loads the borders from a given file
-     * @param p_reader The buffered reader object
-     * @param p_countryMapGraph The country map graph
+     *
+     * @param p_reader            The buffered reader object
+     * @param p_countryMapGraph   The country map graph
      * @param p_continentMapGraph The continent map graph
-     * @param p_map The map object
+     * @param p_map               The map object
      * @throws IOException Input Output Exception
      */
     public static void loadBorders(BufferedReader p_reader, DefaultDirectedGraph<Country, DefaultEdge> p_countryMapGraph, DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph, Map p_map) throws IOException {
         String l_line;
-        while((l_line = p_reader.readLine()) != null) {
+        while ((l_line = p_reader.readLine()) != null) {
             String[] l_borderData = l_line.split(" ");
             Country l_currentCountry = p_map.getD_countryByID(Integer.parseInt(l_borderData[0]));
             List<Integer> l_neighbourCountryIDList = new ArrayList<>();
 
-            for(int l_id=1; l_id < l_borderData.length; l_id++) {
+            for (int l_id = 1; l_id < l_borderData.length; l_id++) {
                 int l_neighbourID = Integer.parseInt(l_borderData[l_id]);
                 l_neighbourCountryIDList.add(l_neighbourID);
                 Country l_neighbour = p_map.getD_countryByID(l_neighbourID);
                 p_countryMapGraph.addEdge(l_currentCountry, l_neighbour);
 
-                if(l_currentCountry.getD_continentID() != l_neighbour.getD_continentID()) {
+                if (l_currentCountry.getD_continentID() != l_neighbour.getD_continentID()) {
                     p_continentMapGraph.addEdge(p_map.getD_continentByID(l_currentCountry.getD_continentID()), p_map.getD_continentByID(l_neighbour.getD_continentID()));
                     p_continentMapGraph.addEdge(p_map.getD_continentByID(l_neighbour.getD_continentID()), p_map.getD_continentByID(l_currentCountry.getD_continentID()));
                 }

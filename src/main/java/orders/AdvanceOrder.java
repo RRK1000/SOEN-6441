@@ -13,24 +13,16 @@ import models.Player;
  */
 public class AdvanceOrder implements Order {
     private final Player d_player;
-
-    public Country getD_countryfrom() {
-        return d_countryfrom;
-    }
-
     private final Country d_countryfrom;
     private final Country d_countryto;
     private final int d_num;
-    
-
-
-
     /**
      * Constructor for the AdvanceOrder class
-     * @param p_player The player giving the advance order
+     *
+     * @param p_player      The player giving the advance order
      * @param p_countryfrom The country from which armies would be advanced
-     * @param p_countryto The country to which armies would be advanced
-     * @param p_num The number of armies involved
+     * @param p_countryto   The country to which armies would be advanced
+     * @param p_num         The number of armies involved
      */
     public AdvanceOrder(Player p_player, Country p_countryfrom, Country p_countryto, int p_num) {
         this.d_player = p_player;
@@ -39,8 +31,13 @@ public class AdvanceOrder implements Order {
         this.d_num = p_num;
     }
 
+    public Country getD_countryfrom() {
+        return d_countryfrom;
+    }
+
     /**
      * Gets the number of armies
+     *
      * @return number of armies
      */
     public int getD_num() {
@@ -81,7 +78,7 @@ public class AdvanceOrder implements Order {
             d_countryto.setD_numArmies(0);
             d_player.addRandomCard();
 
-            LogManager.logAction("CountryID " + d_countryto.getD_countryID() + " conquered by " +d_player.getD_playerName());
+            LogManager.logAction("CountryID " + d_countryto.getD_countryID() + " conquered by " + d_player.getD_playerName());
         }
 
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
@@ -122,7 +119,7 @@ public class AdvanceOrder implements Order {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(d_countryfrom.isD_isNeutral()) {
+        } else if (d_countryfrom.isD_isNeutral()) {
             String l_err = "err: Invalid Advance Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);

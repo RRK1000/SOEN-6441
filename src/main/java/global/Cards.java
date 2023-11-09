@@ -2,6 +2,7 @@ package global;
 
 /**
  * Represents the available cards types
+ *
  * @author Rishi Ravikumar
  */
 public class Cards {

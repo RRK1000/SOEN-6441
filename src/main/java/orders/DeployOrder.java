@@ -5,6 +5,7 @@ import gamelog.LogManager;
 import models.Country;
 import models.Order;
 import models.Player;
+
 /**
  * This class handles the DeployOrder functionality.
  *
@@ -17,9 +18,10 @@ public class DeployOrder implements Order {
 
     /**
      * Constructor for the Order class.
-     * @param p_player The player giving the order
+     *
+     * @param p_player  The player giving the order
      * @param p_country The country on which armies are deployed
-     * @param p_num The number of armies to be deployed
+     * @param p_num     The number of armies to be deployed
      */
     public DeployOrder(Player p_player, Country p_country, int p_num) {
         this.d_player = p_player;
@@ -30,6 +32,7 @@ public class DeployOrder implements Order {
 
     /**
      * Returns the number of armies
+     *
      * @return number of armies
      */
     public int getD_num() {
@@ -41,7 +44,7 @@ public class DeployOrder implements Order {
      */
     @Override
     public void execute() {
-        if(!d_player.getD_countryList().contains(d_country)) {
+        if (!d_player.getD_countryList().contains(d_country)) {
             LogManager.logAction("err: Execute order failed. Player no longer owns country:" + d_country.getD_countryID());
             return;
         }
@@ -52,26 +55,27 @@ public class DeployOrder implements Order {
 
     /**
      * Checks if the deploy order is valid
+     *
      * @return True if command is valid, false otherwise
      */
     @Override
     public boolean isValid() {
-        if(null == d_country) {
+        if (null == d_country) {
             String l_err = "err: Invalid Deploy Order, Country does not exist";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(!d_player.getD_countryList().contains(d_country)) {
+        } else if (!d_player.getD_countryList().contains(d_country)) {
             String l_err = "err: Invalid Deploy Order, Player does not own country: " + d_country.getD_countryID();
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(d_player.getD_numArmies() < d_num) {
+        } else if (d_player.getD_numArmies() < d_num) {
             String l_err = "err: Invalid Deploy Order, Cannot deploy more armies than available in reinforcement pool.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(d_country.isD_isNeutral()) {
+        } else if (d_country.isD_isNeutral()) {
             String l_err = "err: Invalid Deploy Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);

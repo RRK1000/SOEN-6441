@@ -13,12 +13,12 @@ public interface Order {
     /**
      * Executes an Order
      */
-    public void execute();
+    void execute();
 
     /**
      * Function to validate the command against the current player
      *
      * @return true if the command is valid, else returns false
      */
-    public boolean isValid();
+    boolean isValid();
 }

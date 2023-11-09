@@ -7,15 +7,11 @@ import models.Country;
 import models.Map;
 import models.Order;
 import models.Player;
-import orders.AdvanceOrder;
-import orders.AirliftOrder;
-import orders.BlockadeOrder;
-import orders.BombOrder;
-import orders.DeployOrder;
-import orders.NegotiateOrder;
+import orders.*;
 
 /**
  * This class implements the commands in the map initialization phase
+ *
  * @author Anuja Somthankar
  */
 public class IssueOrderPhase implements Phase {

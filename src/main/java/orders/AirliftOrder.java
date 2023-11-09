@@ -22,20 +22,20 @@ public class AirliftOrder implements Order {
     private final int d_numArmies;
 
 
-    
     /**
      * Constructor for the Order class.
-     * @param p_player The player giving the order
+     *
+     * @param p_player        The player giving the order
      * @param p_sourceCountry The country from which armies would be airlifted
      * @param p_targetCountry The country to which armies would be airlifted
-     * @param p_numArmies The number of armies to be airlifted
+     * @param p_numArmies     The number of armies to be airlifted
      */
     public AirliftOrder(Player p_player, Country p_sourceCountry, Country p_targetCountry, int p_numArmies) {
         d_player = p_player;
         d_sourceCountry = p_sourceCountry;
         d_targetCountry = p_targetCountry;
         d_numArmies = p_numArmies;
-        
+
     }
 
 
@@ -44,7 +44,7 @@ public class AirliftOrder implements Order {
      */
     @Override
     public void execute() {
-        if(!d_player.getD_countryList().contains(d_sourceCountry)) {
+        if (!d_player.getD_countryList().contains(d_sourceCountry)) {
             LogManager.logAction("err: Execute Airlift Order failed. Player no longer owns country:" + d_sourceCountry.getD_countryID());
             return;
         }
@@ -56,16 +56,17 @@ public class AirliftOrder implements Order {
         d_player.setD_playerCardList(l_playerCardList);
         LogManager.logAction("Airlift order executed: " + d_numArmies + " armies moved from " +
                 d_sourceCountry.getD_countryID() + " to " + d_targetCountry.getD_countryID());
-  
+
     }
 
     /**
      * Checks if the airlift order is valid
+     *
      * @return True if the command is valid, false otherwise
      */
     @Override
     public boolean isValid() {
-        if(!d_player.getD_countryList().contains(d_sourceCountry)){
+        if (!d_player.getD_countryList().contains(d_sourceCountry)) {
             String l_err = "err: Invalid Airlift Order, Player does not own source country: " + d_sourceCountry.getD_countryID();
             System.out.println(l_err);
             LogManager.logAction(l_err);
@@ -90,12 +91,12 @@ public class AirliftOrder implements Order {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(d_targetCountry.isD_isNeutral()) {
+        } else if (d_targetCountry.isD_isNeutral()) {
             String l_err = "err: Invalid Airlift Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        } else if(d_sourceCountry.isD_isNeutral()) {
+        } else if (d_sourceCountry.isD_isNeutral()) {
             String l_err = "err: Invalid Airlift Order, Cannot deploy on a neutral country.";
             System.out.println(l_err);
             LogManager.logAction(l_err);

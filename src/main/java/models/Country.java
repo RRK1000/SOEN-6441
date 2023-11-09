@@ -145,6 +145,7 @@ public class Country {
 
     /**
      * Checks if the country is a neutral country
+     *
      * @return true if country is neutral, false otherwise
      */
     public boolean isD_isNeutral() {
@@ -153,6 +154,7 @@ public class Country {
 
     /**
      * Marks a country as neutral
+     *
      * @param p_isNeutral boolean that indicates if country is neutral or not
      */
     public void setD_isNeutral(boolean p_isNeutral) {

@@ -1,12 +1,12 @@
 package game;
 
-import java.util.Objects;
-import java.util.Scanner;
-
 import controller.CommandParser;
 import controller.GameManager;
 import gamelog.LogManager;
 import global.Constants;
+
+import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Represents the Game Engine.
@@ -16,7 +16,6 @@ import global.Constants;
  * @author Nimisha Jadav
  */
 public class GameEngine {
-	
 
 
     /**

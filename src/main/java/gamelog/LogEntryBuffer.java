@@ -5,10 +5,11 @@ import java.util.List;
 
 /**
  * Shows a buffer for log entries that notifies observers when updated
+ *
  * @author Yusuke Ishii
  */
 public class LogEntryBuffer implements Observable {
-    private List<Observer> d_observers;
+    private final List<Observer> d_observers;
     private String d_actionInfo;
 
     /**
@@ -20,6 +21,7 @@ public class LogEntryBuffer implements Observable {
 
     /**
      * Adds an observer
+     *
      * @param p_observer Observer object
      */
     @Override
@@ -29,6 +31,7 @@ public class LogEntryBuffer implements Observable {
 
     /**
      * Removes an observer
+     *
      * @param p_observer Observer object
      */
     @Override
@@ -47,6 +50,15 @@ public class LogEntryBuffer implements Observable {
     }
 
     /**
+     * Retrieves the action info.
+     *
+     * @return The action info.
+     */
+    public String getActionInfo() {
+        return d_actionInfo;
+    }
+
+    /**
      * Sets the action info and notifies observers.
      *
      * @param p_info The action info to set.
@@ -54,14 +66,5 @@ public class LogEntryBuffer implements Observable {
     public synchronized void setActionInfo(String p_info) {
         this.d_actionInfo = p_info;
         notifyObservers();
-    }
-
-    /**
-     * Retrieves the action info.
-     *
-     * @return The action info.
-     */
-    public String getActionInfo() {
-        return d_actionInfo;
     }
 }

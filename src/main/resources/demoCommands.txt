@@ -3,8 +3,8 @@ loadmap europe.map
 help
 gameplayer -add p1 -add p2 -add p3
 assigncountries
-deploy 2 3 # err
-deploy 4 5 # err
+deploy 2 3
+deploy 4 5
 deploy 4 3
 deploy 2 3
 deploy 3 3
@@ -23,8 +23,8 @@ deploy 4 3
 deploy 2 3
 deploy 3 3
 commit
-advance 2 1 8 # err
-advance 2 1 6 # err
+advance 2 1 8
+advance 2 1 6
 advance 2 1 5
 commit
 commit
