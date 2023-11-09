@@ -14,7 +14,7 @@ public class LogManager {
     private static final LogFileWriter d_logWriter;
 
     static {
-        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources/logs", "gamelog-" + LocalDateTime.now() + ".log");
+        Path l_logPath = Paths.get(System.getProperty("user.dir"), "src/main/resources/logs", "gamelog-" + LocalDateTime.now().toString().replaceAll(":", ".") + ".log");
         d_logBuffer = new LogEntryBuffer();
         d_logWriter = new LogFileWriter(l_logPath);
         d_logBuffer.addObserver(d_logWriter);
