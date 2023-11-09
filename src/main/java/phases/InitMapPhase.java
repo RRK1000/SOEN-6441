@@ -9,11 +9,12 @@ import util.MapUtil;
 
 /**
  * This class implements the commands in the map initialization phase
+ *
  * @author Anuja Somthankar
  */
 public class InitMapPhase implements Phase {
-	
-	
+
+
     /**
      * This method shifts the game phase to the next phase.
      *
@@ -299,7 +300,8 @@ public class InitMapPhase implements Phase {
 
     /**
      * This method prints the invalid phase error as it is not a valid command for this phase.
-     * @param p_gameManager The game manager
+     *
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
      * @param p_countryFrom   Country from where the armies would attack
      * @param p_countryTo     Country on which the attack occurs

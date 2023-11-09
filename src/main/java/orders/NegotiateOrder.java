@@ -17,19 +17,19 @@ import models.Player;
 public class NegotiateOrder implements Order {
     private final Player d_player;
     private final Player d_targetPlayer; // The target player for negotiation
-    
+
     /**
      * Constructs a new NegotiateOrder with the specified parameters.
      *
-     * @param p_player     The player issuing the negotiation order.
-     * @param p_targetPlayer      The target player for negotiation.
+     * @param p_player       The player issuing the negotiation order.
+     * @param p_targetPlayer The target player for negotiation.
      */
     public NegotiateOrder(Player p_player, Player p_targetPlayer) {
         this.d_player = p_player;
         this.d_targetPlayer = p_targetPlayer;
     }
 
-    
+
     /**
      * Executes the negotiation order. If the negotiation is successful, players are unable to attack each other, and the "negotiate" card is removed from the issuing player.
      */

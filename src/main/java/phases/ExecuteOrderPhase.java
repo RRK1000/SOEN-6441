@@ -10,6 +10,7 @@ import models.Player;
 
 /**
  * This class implements the commands in the execute phase
+ *
  * @author Anuja Somthankar
  * @author Rishi Ravikumar
  */
@@ -100,7 +101,8 @@ public class ExecuteOrderPhase implements Phase {
 
     /**
      * This method prints the invalid phase error as it is not a valid command for this phase.
-     * @param p_gameManager The game manager
+     *
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
      * @param p_countryFrom   Country from where the armies would attack
      * @param p_countryTo     Country on which the attack occurs

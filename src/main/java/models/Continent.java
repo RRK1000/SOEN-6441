@@ -16,7 +16,7 @@ public class Continent {
     private int d_continentID;
     private String d_continentName;
     private int d_continentValue;
-    private List<Country> d_countryList;
+    private final List<Country> d_countryList;
 
     /**
      * Default constructor for Continent class.
