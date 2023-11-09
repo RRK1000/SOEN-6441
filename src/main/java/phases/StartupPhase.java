@@ -233,7 +233,6 @@ public class StartupPhase implements Phase {
         System.out.println("Player " + l_playerList.get(l_currentPlayerTurn).getD_playerName() + "'s turn");
         System.out.println("Available Reinforcement Armies: " + l_playerList.get(l_currentPlayerTurn).getD_numArmies());
 
-        p_gameManager.logAction("Assigned countries to the players. Game has Started!");
         p_gameManager.setD_gamePhase(this.nextPhase());
     }
 
