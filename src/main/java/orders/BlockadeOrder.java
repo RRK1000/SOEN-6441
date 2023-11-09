@@ -49,7 +49,7 @@ public class BlockadeOrder implements Order {
         }
 
         this.neutralizeCountry();
-        System.out.println("Blockade on " + d_country.getD_countryName() + " by " + d_player.getD_playerName());
+        System.out.println("Blockade on " + d_country.getD_countryID() + " by " + d_player.getD_playerName());
         LogManager.logAction("Blockade executed on " + d_country.getD_countryName() + " by " + d_player.getD_playerName());
 
     }
