@@ -7,6 +7,7 @@ import models.Player;
 
 /**
  * Interface implemented by all the phases
+ *
  * @author Anuja Somthankar
  */
 public interface Phase {
@@ -31,7 +32,7 @@ public interface Phase {
     /**
      * Deploys armies to a country
      *
-     * @param p_gameManager The game manager
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
      * @param p_country       The country in the order
      * @param p_num           The number of armies to be deployed
@@ -41,7 +42,7 @@ public interface Phase {
     /**
      * Advances(attack) armies from an owned country to an opponents
      *
-     * @param p_gameManager The game manager
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
      * @param p_countryFrom   Country from where the armies would attack
      * @param p_countryTo     Country on which the attack occurs
@@ -52,9 +53,9 @@ public interface Phase {
     /**
      * Bomb an opponent's country neighbouring the current player
      *
-     * @param p_gameManager The game manager
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
-     * @param p_country The opponent's country
+     * @param p_country       The opponent's country
      */
     void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country);
 
@@ -72,14 +73,14 @@ public interface Phase {
      *
      * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
-     * @param p_otherPlayer      The opponent
+     * @param p_otherPlayer   The opponent
      */
     void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer);
 
     /**
      * Airlifts armies from player's country to another of their owned countries
      *
-     * @param p_gameManager The game manager
+     * @param p_gameManager   The game manager
      * @param p_currentPlayer The current player
      * @param p_countryFrom   Country from where the armies would attack
      * @param p_countryTo     Country on which the attack occurs

@@ -21,19 +21,8 @@ import java.util.Random;
  * @author Rishi Ravikumar
  */
 public class Player {
-    private String d_playerName;
-    private int d_numArmies;
-    private List<Country> d_countryList;
-    private List<Continent> d_continentList;
-    private List<Order> d_orderList;
-    private Order d_currentOrder;
-    private List<String> d_playerCardList;
-
-    private List<Player> d_negotiationList;
-    
-
-    private static LogEntryBuffer d_logBuffer;
-    private static LogFileWriter d_logWriter;
+    private static final LogEntryBuffer d_logBuffer;
+    private static final LogFileWriter d_logWriter;
 
     static {
         Path l_logPath = Paths.get(System.getProperty("user.dir"), "game.log");
@@ -41,6 +30,15 @@ public class Player {
         d_logWriter = new LogFileWriter(l_logPath);
         d_logBuffer.addObserver(d_logWriter);
     }
+
+    private String d_playerName;
+    private int d_numArmies;
+    private List<Country> d_countryList;
+    private List<Continent> d_continentList;
+    private List<Order> d_orderList;
+    private Order d_currentOrder;
+    private List<String> d_playerCardList;
+    private List<Player> d_negotiationList;
 
 
     /**
@@ -76,6 +74,7 @@ public class Player {
 
     /**
      * Notifies log about action
+     *
      * @param p_action Action done by user
      */
     private static void logAction(String p_action) {
@@ -85,6 +84,7 @@ public class Player {
 
     /**
      * Returns the card list of the player
+     *
      * @return Card list
      */
     public List<String> getD_playerCardList() {
@@ -93,6 +93,7 @@ public class Player {
 
     /**
      * Sets the card list
+     *
      * @param p_playerCardList Card list
      */
     public void setD_playerCardList(List<String> p_playerCardList) {
@@ -101,6 +102,7 @@ public class Player {
 
     /**
      * Adds a player to this player's negotiation list
+     *
      * @param p_player Player object
      */
     public void addPlayerNegotiation(Player p_player) {
@@ -299,6 +301,7 @@ public class Player {
 
     /**
      * Checks if 2 players are in negotiation with each other
+     *
      * @param p_otherPlayer Player object
      * @return true if players are in negotiation, false otherwise
      */
