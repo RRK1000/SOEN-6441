@@ -31,6 +31,10 @@ public class AdvanceOrder implements Order {
         this.d_num = p_num;
     }
 
+    /**
+     * Getter method for d_countryfrom
+     * @return {@link Country}
+     */
     public Country getD_countryfrom() {
         return d_countryfrom;
     }
