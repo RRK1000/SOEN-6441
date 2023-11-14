@@ -3,16 +3,16 @@ package controller;
 import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import gamelog.LogManager;
-import models.Continent;
-import models.Country;
-import models.Map;
-import models.Player;
+import global.Strategies;
+import models.*;
 import phases.InitMapPhase;
 import phases.Phase;
+import strategy.HumanStrategy;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -103,6 +103,18 @@ public class GameManager {
         } else {
             System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
         }
+
+        if(!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)){
+            Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(this);
+            if(null == l_order){
+                this.addPlayerToSkipList(d_currentPlayerTurn);
+                updatePlayerTurn();
+                return;
+            }
+            l_currentPlayer.setD_currentOrder(l_order);
+            l_currentPlayer.issueOrder();
+            updatePlayerTurn();
+        }
     }
 
     /**
@@ -136,7 +148,6 @@ public class GameManager {
         }
         System.out.println("Reinforcement armies have been assigned to each player\n");
         LogManager.logAction("Reinforcement armies have been assigned to each player");
-
     }
 
     /**
@@ -145,6 +156,8 @@ public class GameManager {
      * @param p_playerName name of the player to be added
      */
     public void addPlayer(String p_playerName) {
+        List<String> l_cardsList = Arrays.asList(Strategies.CHEATER_STRATEGY, Strategies.BENEVOLENT_STRATEGY,
+                Strategies.AGGRESSIVE_STRATEGY, Strategies.HUMAN_STRATEGY, Strategies.RANDOM_STRATEGY);
         //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
             for (Player l_p : d_playerList) {
@@ -319,7 +332,7 @@ public class GameManager {
      *
      * @param p_pIndex player index on d_playerList
      */
-    protected void addPlayerToSkipList(Integer p_pIndex) {
+    public void addPlayerToSkipList(Integer p_pIndex) {
         d_skipTurnList.add(p_pIndex);
     }
 }
