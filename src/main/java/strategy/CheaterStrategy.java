@@ -3,7 +3,7 @@ package strategy;
 import controller.GameManager;
 import models.Order;
 
-public interface Strategy {
+public class CheaterStrategy implements Strategy{
 
     /**
      * Creates an order according to player strategy
@@ -11,5 +11,8 @@ public interface Strategy {
      * @param p_gameManager {@link GameManager}
      * @return {@link Order}
      */
-    Order createOrder(GameManager p_gameManager);
+    @Override
+    public Order createOrder(GameManager p_gameManager) {
+        return null;
+    }
 }
