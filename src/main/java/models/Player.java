@@ -86,14 +86,6 @@ public class Player implements Serializable {
         d_logBuffer.notifyObservers();
     }
 
-    public List<Player> getD_negotiationList() {
-        return d_negotiationList;
-    }
-
-    public void setD_negotiationList(List<Player> d_negotiationList) {
-        this.d_negotiationList = d_negotiationList;
-    }
-
     public Strategy getD_playerStrategy() {
         return d_playerStrategy;
     }
