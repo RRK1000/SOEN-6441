@@ -223,6 +223,12 @@ public class CommandParser {
                 LogManager.logAction("Turn ended by " + l_currentPlayer.getD_playerName());
                 break;
 
+            case Commands.LOAD_GAME:
+                break;
+
+            case Commands.SAVE_GAME:
+                break;
+
             default:
                 displayError();
 
