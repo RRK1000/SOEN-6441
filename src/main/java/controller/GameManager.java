@@ -55,8 +55,8 @@ public class GameManager {
         return d_skipTurnList;
     }
 
-    public void setD_skipTurnList(List<Integer> d_skipTurnList) {
-        this.d_skipTurnList = d_skipTurnList;
+    public void setD_skipTurnList(List<Integer> p_skipTurnList) {
+        this.d_skipTurnList = p_skipTurnList;
     }
 
 
@@ -64,8 +64,8 @@ public class GameManager {
         return d_mapFileName;
     }
 
-    public void setD_mapFileName(String d_mapFileName) {
-        this.d_mapFileName = d_mapFileName;
+    public void setD_mapFileName(String p_mapFileName) {
+        this.d_mapFileName = p_mapFileName;
     }
 
     /**

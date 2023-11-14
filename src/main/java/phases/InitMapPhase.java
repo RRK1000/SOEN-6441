@@ -314,12 +314,12 @@ public class InitMapPhase implements Phase {
     public void loadGame(GameManager p_gameManager, String p_filename) {
         try
         {
-            FileInputStream file = new FileInputStream("src/main/resources/games/" + p_filename);
-            ObjectInputStream in = new ObjectInputStream(file);
+            FileInputStream l_file = new FileInputStream("src/main/resources/games/" + p_filename);
+            ObjectInputStream l_in = new ObjectInputStream(l_file);
 
-            GameState l_gameState = (GameState) in.readObject();
-            in.close();
-            file.close();
+            GameState l_gameState = (GameState) l_in.readObject();
+            l_in.close();
+            l_file.close();
 
             p_gameManager.setD_playerList(l_gameState.getD_playerList());
             p_gameManager.setD_skipTurnList(l_gameState.getD_skipTurnList());
@@ -328,11 +328,11 @@ public class InitMapPhase implements Phase {
             p_gameManager.setD_map(l_gameState.getD_map());
             System.out.println("Game loaded");
             LogManager.logAction("Game loaded from file");
-        } catch(IOException ex)
+        } catch(IOException l_ex)
         {
             System.out.println("IOException is caught");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException l_e) {
+            throw new RuntimeException(l_e);
         }
     }
 

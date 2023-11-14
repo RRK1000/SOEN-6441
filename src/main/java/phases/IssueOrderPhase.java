@@ -301,15 +301,15 @@ public class IssueOrderPhase implements Phase {
 
         try
         {
-            FileOutputStream file = new FileOutputStream("src/main/resources/games/" + p_filename);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(l_gameState);
-            out.close();
-            file.close();
+            FileOutputStream l_file = new FileOutputStream("src/main/resources/games/" + p_filename);
+            ObjectOutputStream l_out = new ObjectOutputStream(l_file);
+            l_out.writeObject(l_gameState);
+            l_out.close();
+            l_file.close();
 
             System.out.println("Game state saved");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException l_e) {
+            throw new RuntimeException(l_e);
         }
     }
 
