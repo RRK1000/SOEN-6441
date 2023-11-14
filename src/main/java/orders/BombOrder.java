@@ -7,6 +7,7 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Nimisha Jadav
  */
-public class BombOrder implements Order {
+public class BombOrder implements Order, Serializable {
     private final Player d_player;
     private final Country d_country;
 

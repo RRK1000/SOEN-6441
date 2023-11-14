@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Rishi Ravikumar
  * @author Yusuke
  */
-public class Country {
+public class Country implements Serializable {
     private int d_countryID;
     private String d_countryName;
     private int d_continentID;

@@ -67,3 +67,17 @@ advance 2 4 1
 commit
 advance 1 4 3
 commit
+
+
+---
+loadmap europe.map
+help
+gameplayer -add p1 -add p2 -add p3
+assigncountries
+deploy 4 3
+deploy 2 3
+deploy 3 3
+commit
+commit
+commit
+savegame newsave.txt

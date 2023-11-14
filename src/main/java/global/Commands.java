@@ -41,6 +41,10 @@ public class Commands {
      * validatemap command
      */
     public static final String VALIDATE_MAP = "validatemap";
+    /**
+     * loadgame command
+     */
+    public static final String LOAD_GAME = "loadgame";
 
     // Game Startup phase
 
@@ -87,6 +91,10 @@ public class Commands {
      * commit command
      */
     public static final String COMMIT = "commit";
+    /**
+     * savegame command
+     */
+    public static final String SAVE_GAME = "savegame";
 
 
 }

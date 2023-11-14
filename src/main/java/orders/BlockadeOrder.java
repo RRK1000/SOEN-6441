@@ -6,13 +6,15 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
+
 /**
  * This class handles the blockade type order.
  *
  * @author Nimisha Jadav
  * @author Abhigyan
  */
-public class BlockadeOrder implements Order {
+public class BlockadeOrder implements Order, Serializable {
     private final Country d_country;
 
     private final Player d_player;

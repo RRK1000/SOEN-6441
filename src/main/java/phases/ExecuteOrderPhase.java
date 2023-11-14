@@ -226,4 +226,26 @@ public class ExecuteOrderPhase implements Phase {
         LogManager.logAction("Orders have been executed for this round.");
         p_gameManager.updatePlayerList();
     }
+
+    /**
+     * Loads a game from a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    @Override
+    public void loadGame(GameManager p_gameManager, String p_filename) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Saves a game to a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    @Override
+    public void saveGame(GameManager p_gameManager, String p_filename) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
 }

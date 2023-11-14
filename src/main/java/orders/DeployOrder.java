@@ -6,12 +6,14 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
+
 /**
  * This class handles the DeployOrder functionality.
  *
  * @author Nimisha Jadav
  */
-public class DeployOrder implements Order {
+public class DeployOrder implements Order, Serializable {
     private final Player d_player;
     private final Country d_country;
     private final int d_num;

@@ -6,6 +6,8 @@ import global.Cards;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
+
 /**
  * The NegotiateOrder class represents a negotiation order, allowing players to establish a peaceful agreement.
  * If the negotiation is successful, players cannot attack each other, and a "negotiate" card is removed from the issuing player.
@@ -14,7 +16,7 @@ import models.Player;
  * @author Nimisha Jadav
  * @author Abhigyan
  */
-public class NegotiateOrder implements Order {
+public class NegotiateOrder implements Order, Serializable {
     private final Player d_player;
     private final Player d_targetPlayer; // The target player for negotiation
 

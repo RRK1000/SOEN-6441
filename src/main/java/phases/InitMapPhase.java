@@ -1,11 +1,17 @@
 package phases;
 
 import controller.GameManager;
+import gamelog.LogManager;
 import global.Constants;
 import models.Country;
+import models.GameState;
 import models.Map;
 import models.Player;
 import util.MapUtil;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 /**
  * This class implements the commands in the map initialization phase
@@ -295,6 +301,49 @@ public class InitMapPhase implements Phase {
      */
     @Override
     public void executeOrder(GameManager p_gameManager) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Loads a game from a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename file to load the game from
+     */
+    @Override
+    public void loadGame(GameManager p_gameManager, String p_filename) {
+        try
+        {
+            FileInputStream l_file = new FileInputStream("src/main/resources/games/" + p_filename);
+            ObjectInputStream l_in = new ObjectInputStream(l_file);
+
+            GameState l_gameState = (GameState) l_in.readObject();
+            l_in.close();
+            l_file.close();
+
+            p_gameManager.setD_playerList(l_gameState.getD_playerList());
+            p_gameManager.setD_skipTurnList(l_gameState.getD_skipTurnList());
+            p_gameManager.setD_gamePhase(new IssueOrderPhase());
+            p_gameManager.setD_currentPlayerTurn(l_gameState.getD_currentPlayerTurn());
+            p_gameManager.setD_map(l_gameState.getD_map());
+            System.out.println("Game loaded");
+            LogManager.logAction("Game loaded from file");
+        } catch(IOException l_ex)
+        {
+            System.out.println("IOException is caught");
+        } catch (ClassNotFoundException l_e) {
+            throw new RuntimeException(l_e);
+        }
+    }
+
+    /**
+     * Saves a game to a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    @Override
+    public void saveGame(GameManager p_gameManager, String p_filename) {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 

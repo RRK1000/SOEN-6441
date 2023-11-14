@@ -3,11 +3,12 @@ package phases;
 import controller.GameManager;
 import gamelog.LogManager;
 import global.Constants;
-import models.Country;
-import models.Map;
-import models.Order;
-import models.Player;
+import models.*;
 import orders.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 /**
  * This class implements the commands in the map initialization phase
@@ -275,5 +276,41 @@ public class IssueOrderPhase implements Phase {
         System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 
+    /**
+     * Loads a game from a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    @Override
+    public void loadGame(GameManager p_gameManager, String p_filename) {
+        System.out.println(Constants.INVALID_PHASE_ERROR);
+    }
+
+    /**
+     * Saves a game to a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    @Override
+    public void saveGame(GameManager p_gameManager, String p_filename) {
+        GameState l_gameState = new GameState(p_gameManager.getD_skipTurnList(),
+                p_gameManager.getD_gamePhase().getClass().getName(), p_gameManager.getD_playerList(),
+                p_gameManager.getD_currentPlayerTurn(), p_gameManager.getD_map());
+
+        try
+        {
+            FileOutputStream l_file = new FileOutputStream("src/main/resources/games/" + p_filename);
+            ObjectOutputStream l_out = new ObjectOutputStream(l_file);
+            l_out.writeObject(l_gameState);
+            l_out.close();
+            l_file.close();
+
+            System.out.println("Game state saved");
+        } catch (IOException l_e) {
+            throw new RuntimeException(l_e);
+        }
+    }
 
 }
