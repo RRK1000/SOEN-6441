@@ -314,7 +314,7 @@ public class Player implements Serializable {
         return d_negotiationList;
     }
 
-    public void setD_negotiationList(List<Player> d_negotiationList) {
-        this.d_negotiationList = d_negotiationList;
+    public void setD_negotiationList(List<Player> p_negotiationList) {
+        this.d_negotiationList = p_negotiationList;
     }
 }
