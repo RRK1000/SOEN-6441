@@ -65,18 +65,16 @@ public class CommandUtil {
                 return hasValidOptions(p_input, l_optionSpec);
 
             case Commands.SAVE_MAP:
-
             case Commands.EDIT_MAP:
-
             case Commands.BOMB_ORDER:
-
             case Commands.BLOCKADE_ORDER:
+            case Commands.LOAD_GAME:
+            case Commands.SAVE_GAME:
 
             case Commands.DIPLOMACY_ORDER:
                 return l_cmdSplit.length == 2;
 
             case Commands.AIRLIFT_ORDER:
-
             case Commands.ADVANCE_ORDER:
                 return l_cmdSplit.length == 4;
 
@@ -111,11 +109,13 @@ public class CommandUtil {
                     p_input.startsWith(Commands.SAVE_MAP) ||
                     p_input.startsWith(Commands.EDIT_MAP) ||
                     p_input.startsWith(Commands.VALIDATE_MAP) ||
-                    p_input.startsWith(Commands.LOAD_MAP);
+                    p_input.startsWith(Commands.LOAD_MAP) ||
+                    p_input.startsWith(Commands.LOAD_GAME);
         } else if (p_gamePhase instanceof StartupPhase) {
             return p_input.startsWith(Commands.GAME_PLAYER) ||
                     p_input.startsWith(Commands.ASSIGN_COUNTRIES) ||
-                    p_input.startsWith(Commands.SHOW_MAP);
+                    p_input.startsWith(Commands.SHOW_MAP) ||
+                    p_input.startsWith(Commands.LOAD_GAME);
         } else if (p_gamePhase instanceof IssueOrderPhase) {
             return p_input.startsWith(Commands.DEPLOY_ORDER) ||
                     p_input.startsWith(Commands.ADVANCE_ORDER) ||
@@ -123,6 +123,7 @@ public class CommandUtil {
                     p_input.startsWith(Commands.AIRLIFT_ORDER) ||
                     p_input.startsWith(Commands.BLOCKADE_ORDER) ||
                     p_input.startsWith(Commands.DIPLOMACY_ORDER) ||
+                    p_input.startsWith(Commands.SAVE_GAME) ||
                     p_input.startsWith(Commands.COMMIT) ||
                     p_input.startsWith(Commands.SHOW_MAP);
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {

@@ -14,7 +14,8 @@ public class Constants {
      * Displays the usage of the all the commands required to play the game
      */
     public static final String MAP_INIT_HELP = "usage: " +
-            "\n\t loadmap <filename> :\tLoads a map from the given file path " +
+            "\n\t loadmap <filename> :\tLoads a map from a file " +
+            "\n\t loadgame <filename> :\tLoads a game from a file " +
             "\n\t editmap <filename> :\tLoads a map from an existing 'domination' map file, or create a new map from scratch if the file does not exist." +
 
             "\n\n\t editcontinent -add <continentID> <continentvalue> -remove <continentI>" +
@@ -51,6 +52,7 @@ public class Constants {
             "\n\t airlift <sourcecountryID> <targetcountryID> <numarmies> \t: move a number of armies from source country to target country, both owned by current player" +
             "\n\t negotiate <playerID> \t: prevent attacks between the current player and another player until the end of the turn" +
             "\n\t showmap \t\t\t\t\t: show all countries and continents, armies on each country, ownership, and connectivity in a way that\n" +
+            "\n\t savegame <filename> :\tSaves the current game state to a file " +
             "\t\t\t\t\t\t\t\t enables efficient game play";
 
     /**
