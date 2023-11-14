@@ -165,12 +165,28 @@ public interface Phase {
     void assignCountries(GameManager p_gameManager);
 
 
-    // Execute Phase
-
     /**
      * This method is used to execute orders
      *
      * @param p_gameManager The game manager object
      */
     void executeOrder(GameManager p_gameManager);
+
+    /**
+     * Loads a game from a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    void loadGame(GameManager p_gameManager, String p_filename);
+
+    /**
+     * Saves a game to a file
+     *
+     * @param p_gameManager {@link GameManager}
+     * @param p_filename    file to load the game from
+     */
+    void saveGame(GameManager p_gameManager, String p_filename);
+
+
 }

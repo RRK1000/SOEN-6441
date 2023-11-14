@@ -5,13 +5,15 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
+
 /**
  * This class handles the advance type order.
  *
  * @author Nimisha Jadav
  * @author Rishi Ravikumar
  */
-public class AdvanceOrder implements Order {
+public class AdvanceOrder implements Order, Serializable {
     private final Player d_player;
     private final Country d_countryfrom;
     private final Country d_countryto;

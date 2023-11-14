@@ -5,6 +5,7 @@ import gamelog.LogFileWriter;
 import global.Cards;
 import orders.*;
 
+import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Random;
  * @author Anuja Somthankar
  * @author Rishi Ravikumar
  */
-public class Player {
+public class Player implements Serializable {
     private static final LogEntryBuffer d_logBuffer;
     private static final LogFileWriter d_logWriter;
 
@@ -307,5 +308,13 @@ public class Player {
      */
     public boolean isInNegotiationWith(Player p_otherPlayer) {
         return d_negotiationList.contains(p_otherPlayer);
+    }
+
+    public List<Player> getD_negotiationList() {
+        return d_negotiationList;
+    }
+
+    public void setD_negotiationList(List<Player> d_negotiationList) {
+        this.d_negotiationList = d_negotiationList;
     }
 }
