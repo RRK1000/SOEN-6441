@@ -30,7 +30,7 @@ public class BenevolentStrategy implements Strategy{
             List<Integer> l_neighbours = l_weakestCountry.getD_neighbourCountryIDList();
             for (int l_neighborCountryID: l_neighbours) {
                 Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighborCountryID);
-                if(l_neighborCountry.getD_numArmies() > 1) {
+                if(l_neighborCountry.getD_numArmies() > 1 && l_neighborCountry.getD_owner().equals(l_currentPlayer)) {
                     l_order = new AdvanceOrder(l_currentPlayer, l_neighborCountry, l_weakestCountry, l_neighborCountry.getD_numArmies()-1);
                 }
             }
