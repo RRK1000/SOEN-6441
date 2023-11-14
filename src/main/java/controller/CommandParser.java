@@ -136,6 +136,7 @@ public class CommandParser {
 
             case Commands.LOAD_MAP:
                 p_gameManager.getD_gamePhase().loadMap(l_cmdSplit[1], p_gameManager);
+                p_gameManager.setD_mapFileName(l_cmdSplit[1]);
                 LogManager.logAction("Loaded a map: " + l_cmdSplit[1]);
                 break;
 
@@ -224,9 +225,11 @@ public class CommandParser {
                 break;
 
             case Commands.LOAD_GAME:
+                p_gameManager.getD_gamePhase().loadGame(p_gameManager, l_cmdSplit[1]);
                 break;
 
             case Commands.SAVE_GAME:
+                p_gameManager.getD_gamePhase().saveGame(p_gameManager, l_cmdSplit[1]);
                 break;
 
             default:

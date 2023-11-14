@@ -6,6 +6,7 @@ import models.Country;
 import models.Order;
 import models.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Nimisha Jadav
  * @author Anuja-Somthankar
  */
-public class AirliftOrder implements Order {
+public class AirliftOrder implements Order, Serializable {
 
     private final Player d_player;
     private final Country d_sourceCountry;

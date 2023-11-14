@@ -27,14 +27,14 @@ import java.util.Objects;
  * @author Yusuke
  */
 public class GameManager {
-    private final List<Integer> d_skipTurnList;
     private final LogEntryBuffer d_logBuffer;
     private final LogFileWriter d_logWriter;
+    private List<Integer> d_skipTurnList;
     private Phase d_gamePhase;
     private List<Player> d_playerList;
     private int d_currentPlayerTurn;
     private Map d_map;
-
+    private String d_mapFileName;
 
     /**
      * Default constructor for GameManager.
@@ -49,6 +49,23 @@ public class GameManager {
         this.d_logWriter = new LogFileWriter(l_logPath);
         this.d_logBuffer.addObserver(d_logWriter);
 
+    }
+
+    public List<Integer> getD_skipTurnList() {
+        return d_skipTurnList;
+    }
+
+    public void setD_skipTurnList(List<Integer> d_skipTurnList) {
+        this.d_skipTurnList = d_skipTurnList;
+    }
+
+
+    public String getD_mapFileName() {
+        return d_mapFileName;
+    }
+
+    public void setD_mapFileName(String d_mapFileName) {
+        this.d_mapFileName = d_mapFileName;
     }
 
     /**

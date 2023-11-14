@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author Rishi Ravikumar
  * @author Yusuke
  */
-public class Continent {
+public class Continent implements Serializable {
     private int d_continentID;
     private String d_continentName;
     private int d_continentValue;

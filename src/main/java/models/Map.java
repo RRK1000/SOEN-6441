@@ -3,6 +3,8 @@ package models;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import java.io.Serializable;
+
 /**
  * Represents a Map in the game. Responsible for showing and saving the map.
  * <p>
@@ -17,7 +19,7 @@ import org.jgrapht.graph.DefaultEdge;
  * @author Rishi Ravikumar
  * @author Yusuke
  */
-public class Map {
+public class Map implements Serializable {
     private DefaultDirectedGraph<Country, DefaultEdge> d_countryMapGraph;
     private DefaultDirectedGraph<Continent, DefaultEdge> d_continentMapGraph;
 
