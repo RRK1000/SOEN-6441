@@ -4,6 +4,8 @@ import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import global.Cards;
 import orders.*;
+import strategy.HumanStrategy;
+import strategy.Strategy;
 
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -40,7 +42,7 @@ public class Player implements Serializable {
     private Order d_currentOrder;
     private List<String> d_playerCardList;
     private List<Player> d_negotiationList;
-
+    private Strategy d_playerStrategy;
 
     /**
      * Default constructor for Player class
@@ -71,6 +73,7 @@ public class Player implements Serializable {
         this.d_countryList = p_countryList;
         this.d_orderList = p_orderList;
         this.d_currentOrder = p_currentOrder;
+        this.d_playerStrategy = new HumanStrategy();
     }
 
     /**
@@ -81,6 +84,22 @@ public class Player implements Serializable {
     private static void logAction(String p_action) {
         d_logBuffer.setActionInfo(p_action);
         d_logBuffer.notifyObservers();
+    }
+
+    public List<Player> getD_negotiationList() {
+        return d_negotiationList;
+    }
+
+    public void setD_negotiationList(List<Player> d_negotiationList) {
+        this.d_negotiationList = d_negotiationList;
+    }
+
+    public Strategy getD_playerStrategy() {
+        return d_playerStrategy;
+    }
+
+    public void setD_playerStrategy(Strategy d_playerStrategy) {
+        this.d_playerStrategy = d_playerStrategy;
     }
 
     /**
