@@ -10,6 +10,10 @@ import org.junit.jupiter.api.Test;
 import phases.StartupPhase;
 import util.MapUtil;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,9 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class CommandParserTest {
 	GameManager d_gameManager;
-	private Player d_player;
-	private Country d_country;
-	private Order d_order;
 	private Map d_map = new Map();
 
 	/**
@@ -32,9 +33,9 @@ class CommandParserTest {
 	@BeforeEach
 	void setUp() {
 		d_gameManager = new GameManager();
-		d_player = new Player("John", 5, new ArrayList<>(), new ArrayList<>(), null);
-		d_country = new Country();
-		d_order = new DeployOrder(d_player, d_country, 3);
+		Player d_player = new Player("John", 5, new ArrayList<>(), new ArrayList<>(), null);
+		Country d_country = new Country();
+		Order d_order = new DeployOrder(d_player, d_country, 3);
 		d_player.setD_currentOrder(d_order);
 
 		String player1Name = "Player1";
@@ -100,5 +101,55 @@ class CommandParserTest {
 		CommandParser.inputParser(d_gameManager, l_input);
 		assertNotNull(d_gameManager.getD_map());
 		assertNotEquals(0, d_gameManager.getD_map().getD_countryMapGraph().vertexSet().size());
+	}
+
+	/**
+	 * Test the loadgame command
+	 * graph is not empty
+	 */
+	@Test
+	void inputParser4() {
+		String l_input = "loadgame newsave.txt";
+		CommandParser.inputParser(d_gameManager, l_input);
+		assertNotNull(d_gameManager.getD_map());
+		assertNotNull(d_gameManager.getD_playerList());
+		assertNotEquals(0, d_gameManager.getD_map().getD_countryMapGraph().vertexSet().size());
+	}
+
+
+	/**
+	 * Test the savemap command
+	 * graph is not empty
+	 */
+	@Test
+	void inputParser5() {
+		GameManager d_gameManager = new GameManager();
+
+		try (BufferedReader l_reader = new BufferedReader(new FileReader("src/test/resources/scenario1.txt"))) {
+			String l_inputCommand;
+			l_inputCommand = l_reader.readLine();
+
+			//Handles the case where the file is empty
+			while (l_inputCommand != null) {
+				if (l_inputCommand.isEmpty()) {
+					l_inputCommand = l_reader.readLine();
+					continue;
+				}
+				CommandParser.inputParser(d_gameManager, l_inputCommand);
+				l_inputCommand = l_reader.readLine();
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		String l_input = "loadgame newsave.txt";
+		CommandParser.inputParser(d_gameManager, l_input);
+
+		try {
+			FileReader l_fr = new FileReader("src/main/resources/games/newsave.txt");
+			assertNotNull(l_fr);
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
