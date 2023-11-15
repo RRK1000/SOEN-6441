@@ -165,36 +165,27 @@ public class InitMapPhase implements Phase {
      * @param p_map                The Map object
      */
     @Override
-    public void editNeighbor(String[] p_editNeighbourInput, Map p_map) {
+    public void editNeighbor(String [] p_editNeighbourInput, Map p_map){
         for (int l_i = 1; l_i < p_editNeighbourInput.length; l_i++) {
-            //Handles the command to add the neighbour country
-            if (p_editNeighbourInput[l_i].startsWith("add")) {
-                String[] l_addParams = p_editNeighbourInput[l_i].split(" ");
-                //checks if add is followed by countryID and neighborcountryID
-
-                int l_countryID = Integer.parseInt(l_addParams[1]);
-                int l_neighbourID = Integer.parseInt(l_addParams[2]);
-                System.out.println("adding neighbor country: " + l_neighbourID);
-                //Calls addNeighbour() for adding the neighbour country
+            String[] l_params = p_editNeighbourInput[l_i].split(" ");
+            if(l_params.length <3){
+                System.out.println(Constants.CMD_ERROR);
+                continue;
+            }
+            int l_countryID = Integer.parseInt(l_params[1]);
+            int l_neighbourID = Integer.parseInt(l_params[2]);
+            if(l_params[0].startsWith("add")){
+                System.out.println("adding neighbour country: "+l_neighbourID);
                 MapUtil.addNeighbour(p_map, l_countryID, l_neighbourID);
-
-                //Handles the command to remove the neighbour country
-            } else if (p_editNeighbourInput[l_i].startsWith("remove")) {
-                String[] l_removeParams = p_editNeighbourInput[l_i].split(" ");
-                //checks if remove is followed by countryID and neighborcountryID
-
-                int l_countryID = Integer.parseInt(l_removeParams[1]);
-                int l_neighbourID = Integer.parseInt(l_removeParams[2]);
-                System.out.println("removing neighbour country: " + l_neighbourID);
-                //Calls removeNeighbour() for removing the neighbour country
+            } else if (l_params[0].startsWith("remove")) {
+                System.out.println("removing neighbour country: "+l_neighbourID);
                 MapUtil.removeNeighbour(p_map, l_countryID, l_neighbourID);
-
             } else {
                 System.out.println(Constants.CMD_ERROR);
             }
         }
     }
-
+    
     /**
      * This method is used to validate the map.
      *
