@@ -45,7 +45,7 @@ public class LogEntryBuffer implements Observable {
     @Override
     public synchronized void notifyObservers() {
         for (Observer l_observer : d_observers) {
-            l_observer.update(this, null);
+            l_observer.update(this);
         }
     }
 

@@ -70,7 +70,7 @@ public class LogEntryBufferTest {
 		 * @param p_arg Argument passed to the observer
 		 */
 		@Override
-		public void update(Observable p_o, Object p_arg) {
+		public void update(Observable p_o) {
 			d_updated = true;
 		}
 
