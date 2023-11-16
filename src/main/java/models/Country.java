@@ -73,6 +73,15 @@ public class Country implements Serializable {
     }
 
     /**
+     * Sets the Country Name
+     *
+     * @param p_countryName The new countryName
+     */
+    public void setD_countryName(String p_countryName) {
+        this.d_countryName = p_countryName;
+    }
+    
+    /**
      * Gets the ID of the continent to which the country belongs.
      *
      * @return The continent ID.
