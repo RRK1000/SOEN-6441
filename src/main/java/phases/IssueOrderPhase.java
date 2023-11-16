@@ -16,10 +16,20 @@ import java.io.ObjectOutputStream;
  */
 public class IssueOrderPhase extends Phase {
 
+    /**
+     * Singleton instance
+     */
     private static IssueOrderPhase l_instance;
 
+    /**
+     * Private constructor to present instantiation
+     */
     private IssueOrderPhase(){}
 
+    /**
+     * Get the singleton instance for IssueOrderPhase
+     * @return IssueOrderPhase instance
+     */
     public static IssueOrderPhase getInstance(){
         if(l_instance==null){
             l_instance= new IssueOrderPhase();

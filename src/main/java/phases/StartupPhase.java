@@ -16,10 +16,20 @@ import java.util.List;
  */
 public class StartupPhase extends Phase {
 
+    /**
+     * Singleton instance
+     */
     private static StartupPhase l_instance;
 
+    /**
+     * Private constructor to present instantiation
+     */
     private StartupPhase(){}
 
+    /**
+     * Get the singleton instance for StartupPhase
+     * @return StartupPhase instance
+     */
     public static StartupPhase getInstance(){
         if(l_instance==null){
             l_instance= new StartupPhase();

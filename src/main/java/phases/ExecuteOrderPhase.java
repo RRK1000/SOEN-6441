@@ -16,10 +16,20 @@ import models.Player;
  */
 public class ExecuteOrderPhase extends Phase {
 
+    /**
+     * Singleton instance
+     */
     private static ExecuteOrderPhase l_instance;
 
+    /**
+     * Private constructor to present instantiation
+     */
     private ExecuteOrderPhase(){}
 
+    /**
+     * Get the singleton instance for ExecuteOrderPhase
+     * @return ExecuteOrderPhase instance
+     */
     public static ExecuteOrderPhase getInstance(){
         if(l_instance==null){
             l_instance= new ExecuteOrderPhase();
