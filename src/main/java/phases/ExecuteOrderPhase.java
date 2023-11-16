@@ -2,9 +2,6 @@ package phases;
 
 import controller.GameManager;
 import gamelog.LogManager;
-import global.Constants;
-import models.Country;
-import models.Map;
 import models.Order;
 import models.Player;
 
