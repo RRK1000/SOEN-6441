@@ -24,7 +24,7 @@ public class ExecuteOrderPhase extends Phase {
     /**
      * Private constructor to present instantiation
      */
-    private ExecuteOrderPhase(){}
+    public ExecuteOrderPhase(){}
 
     /**
      * Get the singleton instance for ExecuteOrderPhase
