@@ -49,4 +49,18 @@ public class LogFileWriterTest {
 
         assertTrue(l_logFileContent.contains(l_testLogEntry), "The log file does not contain the expected log entry.");
     }
+
+    /**
+     * Tests the functionality of update method after removing the p_args which was not used anywhere
+     * @throws IOException
+     */
+    @Test
+    public void testRefactoredUpdate() throws IOException {
+        String l_testLogEntry = "Test Log Entry";
+        d_logEntryBuffer.setActionInfo(l_testLogEntry);
+        d_logFileWriter.update(d_logEntryBuffer);
+        Path l_logFilePath = LOG_DIR_PATH.resolve(d_testFileName);
+        String l_logFileContent = new String(Files.readAllBytes(l_logFilePath));
+        assertTrue(l_logFileContent.contains(l_testLogEntry), "The log file does not contain the expected log entry");
+    }
 }

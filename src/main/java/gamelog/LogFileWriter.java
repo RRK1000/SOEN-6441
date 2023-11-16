@@ -27,10 +27,9 @@ public class LogFileWriter implements Observer {
      * Writes the log info to the game log file
      *
      * @param p_observable Observable object
-     * @param p_arg        Argument object
      */
     @Override
-    public void update(Observable p_observable, Object p_arg) {
+    public void update(Observable p_observable) {
         if (p_observable instanceof LogEntryBuffer) {
             String l_logInfo = ((LogEntryBuffer) p_observable).getActionInfo();
             writeToLogFile(l_logInfo);

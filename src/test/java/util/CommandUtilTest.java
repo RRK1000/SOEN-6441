@@ -62,7 +62,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertTrue(CommandUtil.isValidCmd(command, new IssueOrderPhase()));
+            assertTrue(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -78,7 +78,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, new IssueOrderPhase()));
+            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -94,7 +94,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, new IssueOrderPhase()));
+            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -112,7 +112,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, new StartupPhase()));
+            assertFalse(CommandUtil.isValidCmd(command, StartupPhase.getInstance()));
         }
     }
 
@@ -130,7 +130,7 @@ class CommandUtilTest {
         };
 
         for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, new IssueOrderPhase()));
+            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
         }
     }
 }

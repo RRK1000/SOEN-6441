@@ -102,32 +102,43 @@ public class CommandUtil {
      */
     private static Boolean isValidGamePhaseCmd(String p_input, Phase p_gamePhase) {
         if (p_gamePhase instanceof InitMapPhase) {
-            return p_input.startsWith(Commands.EDIT_CONTINENT) ||
-                    p_input.startsWith(Commands.EDIT_COUNTRY) ||
-                    p_input.startsWith(Commands.EDIT_NEIGHBOR) ||
-                    p_input.startsWith(Commands.SHOW_MAP) ||
-                    p_input.startsWith(Commands.SAVE_MAP) ||
-                    p_input.startsWith(Commands.EDIT_MAP) ||
-                    p_input.startsWith(Commands.VALIDATE_MAP) ||
-                    p_input.startsWith(Commands.LOAD_MAP) ||
-                    p_input.startsWith(Commands.LOAD_GAME);
+            return isValidGameCommand(p_input, new String[] {
+                    Commands.EDIT_CONTINENT,
+                    Commands.EDIT_COUNTRY,
+                    Commands.EDIT_NEIGHBOR,
+                    Commands.SHOW_MAP,
+                    Commands.SAVE_MAP,
+                    Commands.EDIT_MAP,
+                    Commands.VALIDATE_MAP,
+                    Commands.LOAD_MAP,
+                    Commands.LOAD_GAME
+            });
+
         } else if (p_gamePhase instanceof StartupPhase) {
-            return p_input.startsWith(Commands.GAME_PLAYER) ||
-                    p_input.startsWith(Commands.ASSIGN_COUNTRIES) ||
-                    p_input.startsWith(Commands.SHOW_MAP) ||
-                    p_input.startsWith(Commands.LOAD_GAME);
+            return isValidGameCommand(p_input, new String[]{
+                    Commands.GAME_PLAYER,
+                    Commands.ASSIGN_COUNTRIES,
+                    Commands.SHOW_MAP,
+                    Commands.LOAD_GAME
+            });
+
         } else if (p_gamePhase instanceof IssueOrderPhase) {
-            return p_input.startsWith(Commands.DEPLOY_ORDER) ||
-                    p_input.startsWith(Commands.ADVANCE_ORDER) ||
-                    p_input.startsWith(Commands.BOMB_ORDER) ||
-                    p_input.startsWith(Commands.AIRLIFT_ORDER) ||
-                    p_input.startsWith(Commands.BLOCKADE_ORDER) ||
-                    p_input.startsWith(Commands.DIPLOMACY_ORDER) ||
-                    p_input.startsWith(Commands.SAVE_GAME) ||
-                    p_input.startsWith(Commands.COMMIT) ||
-                    p_input.startsWith(Commands.SHOW_MAP);
+            return isValidGameCommand(p_input, new String[]{
+                    Commands.DEPLOY_ORDER,
+                    Commands.ADVANCE_ORDER,
+                    Commands.BOMB_ORDER,
+                    Commands.AIRLIFT_ORDER,
+                    Commands.BLOCKADE_ORDER,
+                    Commands.DIPLOMACY_ORDER,
+                    Commands.SAVE_GAME,
+                    Commands.COMMIT,
+                    Commands.SHOW_MAP
+            });
+
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {
-            return p_input.startsWith(Commands.SHOW_MAP);
+            return isValidGameCommand(p_input, new String[]{
+                    Commands.SHOW_MAP
+            });
         }
         return false;
     }
@@ -144,4 +155,18 @@ public class CommandUtil {
                 (isValidSemantic(p_input) && isValidGamePhaseCmd(p_input, p_gamePhase));
     }
 
+    /**
+     * This method checks if the given input is valid against the list of valid commands
+     * @param p_input input command given by the player
+     * @param p_commands list of the valid commands
+     * @return boolean result of the command validation
+     */
+    private static boolean isValidGameCommand(String p_input, String[] p_commands){
+        for(String l_command:p_commands){
+            if(p_input.startsWith(l_command)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

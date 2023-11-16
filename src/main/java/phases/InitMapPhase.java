@@ -18,7 +18,7 @@ import java.io.ObjectInputStream;
  *
  * @author Anuja Somthankar
  */
-public class InitMapPhase implements Phase {
+public class InitMapPhase extends Phase {
 
 
     /**
@@ -28,68 +28,7 @@ public class InitMapPhase implements Phase {
      */
     @Override
     public Phase nextPhase() {
-        return new StartupPhase();
-    }
-
-    /**
-     * This method prints the invalid phase error as it is not a valid command for this phase.
-     *
-     * @param p_currentPlayer The current player
-     * @param p_country       The country in the order
-     * @param p_num           The number of armies to be deployed
-     */
-    @Override
-    public void deploy(GameManager p_gameManager, Player p_currentPlayer, Country p_country, int p_num) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * Advances(attack) armies from an owned country to an opponents
-     *
-     * @param p_currentPlayer The current player
-     * @param p_countryFrom   Country from where the armies would attack
-     * @param p_countryTo     Country on which the attack occurs
-     * @param p_num           Number of armies attacking
-     */
-    @Override
-    public void advance(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * Bomb an opponent's country neighbouring the current player
-     *
-     * @param p_gameManager   The game manager
-     * @param p_currentPlayer The current player
-     * @param p_country       The opponent's country
-     */
-    @Override
-    public void bomb(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * Blockade an opponent's country neighbouring the current player
-     *
-     * @param p_gameManager   The game manager
-     * @param p_currentPlayer The current player
-     * @param p_country       The opponent's country
-     */
-    @Override
-    public void blockade(GameManager p_gameManager, Player p_currentPlayer, Country p_country) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * Enforces negotiation for a turn
-     *
-     * @param p_gameManager   The game manager
-     * @param p_currentPlayer The current player
-     * @param p_otherPlayer   The opponent
-     */
-    @Override
-    public void negotiate(GameManager p_gameManager, Player p_currentPlayer, Player p_otherPlayer) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
+        return StartupPhase.getInstance();
     }
 
     /**
@@ -165,36 +104,27 @@ public class InitMapPhase implements Phase {
      * @param p_map                The Map object
      */
     @Override
-    public void editNeighbor(String[] p_editNeighbourInput, Map p_map) {
+    public void editNeighbor(String [] p_editNeighbourInput, Map p_map){
         for (int l_i = 1; l_i < p_editNeighbourInput.length; l_i++) {
-            //Handles the command to add the neighbour country
-            if (p_editNeighbourInput[l_i].startsWith("add")) {
-                String[] l_addParams = p_editNeighbourInput[l_i].split(" ");
-                //checks if add is followed by countryID and neighborcountryID
-
-                int l_countryID = Integer.parseInt(l_addParams[1]);
-                int l_neighbourID = Integer.parseInt(l_addParams[2]);
-                System.out.println("adding neighbor country: " + l_neighbourID);
-                //Calls addNeighbour() for adding the neighbour country
+            String[] l_params = p_editNeighbourInput[l_i].split(" ");
+            if(l_params.length <3){
+                System.out.println(Constants.CMD_ERROR);
+                continue;
+            }
+            int l_countryID = Integer.parseInt(l_params[1]);
+            int l_neighbourID = Integer.parseInt(l_params[2]);
+            if(l_params[0].startsWith("add")){
+                System.out.println("adding neighbour country: "+l_neighbourID);
                 MapUtil.addNeighbour(p_map, l_countryID, l_neighbourID);
-
-                //Handles the command to remove the neighbour country
-            } else if (p_editNeighbourInput[l_i].startsWith("remove")) {
-                String[] l_removeParams = p_editNeighbourInput[l_i].split(" ");
-                //checks if remove is followed by countryID and neighborcountryID
-
-                int l_countryID = Integer.parseInt(l_removeParams[1]);
-                int l_neighbourID = Integer.parseInt(l_removeParams[2]);
-                System.out.println("removing neighbour country: " + l_neighbourID);
-                //Calls removeNeighbour() for removing the neighbour country
+            } else if (l_params[0].startsWith("remove")) {
+                System.out.println("removing neighbour country: "+l_neighbourID);
                 MapUtil.removeNeighbour(p_map, l_countryID, l_neighbourID);
-
             } else {
                 System.out.println(Constants.CMD_ERROR);
             }
         }
     }
-
+    
     /**
      * This method is used to validate the map.
      *
@@ -274,37 +204,6 @@ public class InitMapPhase implements Phase {
     }
 
     /**
-     * This method prints the invalid phase error as it is not a valid command for this phase.
-     *
-     * @param p_cmdSplit    The input given by the user to add/remove players
-     * @param p_gameManager The game manager object
-     */
-    @Override
-    public void gamePlayer(String[] p_cmdSplit, GameManager p_gameManager) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * This method prints the invalid phase error as it is not a valid command for this phase.
-     *
-     * @param p_gameManager The game manager object
-     */
-    @Override
-    public void assignCountries(GameManager p_gameManager) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * This method is used to execute orders
-     *
-     * @param p_gameManager The game manager object
-     */
-    @Override
-    public void executeOrder(GameManager p_gameManager) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
      * Loads a game from a file
      *
      * @param p_gameManager {@link GameManager}
@@ -323,7 +222,7 @@ public class InitMapPhase implements Phase {
 
             p_gameManager.setD_playerList(l_gameState.getD_playerList());
             p_gameManager.setD_skipTurnList(l_gameState.getD_skipTurnList());
-            p_gameManager.setD_gamePhase(new IssueOrderPhase());
+            p_gameManager.setD_gamePhase(IssueOrderPhase.getInstance());
             p_gameManager.setD_currentPlayerTurn(l_gameState.getD_currentPlayerTurn());
             p_gameManager.setD_map(l_gameState.getD_map());
             System.out.println("Game loaded");
@@ -334,30 +233,5 @@ public class InitMapPhase implements Phase {
         } catch (ClassNotFoundException l_e) {
             throw new RuntimeException(l_e);
         }
-    }
-
-    /**
-     * Saves a game to a file
-     *
-     * @param p_gameManager {@link GameManager}
-     * @param p_filename    file to load the game from
-     */
-    @Override
-    public void saveGame(GameManager p_gameManager, String p_filename) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
-    }
-
-    /**
-     * This method prints the invalid phase error as it is not a valid command for this phase.
-     *
-     * @param p_gameManager   The game manager
-     * @param p_currentPlayer The current player
-     * @param p_countryFrom   Country from where the armies would attack
-     * @param p_countryTo     Country on which the attack occurs
-     * @param p_num           Number of armies attacking
-     */
-    @Override
-    public void airlift(GameManager p_gameManager, Player p_currentPlayer, Country p_countryFrom, Country p_countryTo, int p_num) {
-        System.out.println(Constants.INVALID_PHASE_ERROR);
     }
 }
