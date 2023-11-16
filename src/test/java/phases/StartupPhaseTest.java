@@ -23,7 +23,7 @@ class StartupPhaseTest {
     @BeforeAll
     static void setUp() {
         d_gameManager = new GameManager();
-        d_gamePhase = new StartupPhase();
+        d_gamePhase = StartupPhase.getInstance();
 
         Map l_map = MapUtil.loadMap("europe.map");
         d_gameManager.setD_map(l_map);

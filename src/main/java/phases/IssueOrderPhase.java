@@ -2,7 +2,6 @@ package phases;
 
 import controller.GameManager;
 import gamelog.LogManager;
-import global.Constants;
 import models.*;
 import orders.*;
 
@@ -17,6 +16,16 @@ import java.io.ObjectOutputStream;
  */
 public class IssueOrderPhase extends Phase {
 
+    private static IssueOrderPhase l_instance;
+
+    private IssueOrderPhase(){}
+
+    public static IssueOrderPhase getInstance(){
+        if(l_instance==null){
+            l_instance= new IssueOrderPhase();
+        }
+        return l_instance;
+    }
     /**
      * This method shifts the game phase to the next phase.
      *
@@ -25,7 +34,7 @@ public class IssueOrderPhase extends Phase {
     @Override
     public Phase nextPhase() {
         LogManager.logAction("\nPhase changed from IssueOrderPhase to ExecuteOrderPhase");
-        return new ExecuteOrderPhase();
+        return ExecuteOrderPhase.getInstance();
     }
 
     /**

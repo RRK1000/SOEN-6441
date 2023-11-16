@@ -59,7 +59,7 @@ class CommandParserTest {
 	void assignReinforcements() {
 		int expectedPlayer1Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
 		int expectedPlayer2Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
-		d_gameManager.setD_gamePhase(new StartupPhase());
+		d_gameManager.setD_gamePhase(StartupPhase.getInstance());
 		d_gameManager.getD_gamePhase().assignCountries(d_gameManager); // calls assignReinforcements internally
 
 		assertEquals(expectedPlayer1Armies, d_gameManager.getD_playerList().get(0).getD_numArmies());
