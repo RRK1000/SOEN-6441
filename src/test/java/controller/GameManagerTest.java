@@ -32,7 +32,7 @@ class GameManagerTest {
         Map d_map = MapUtil.loadMap("europe.map");
 
         d_gameManager = new GameManager();
-        d_gameManager.setD_gamePhase(new StartupPhase());
+        d_gameManager.setD_gamePhase(StartupPhase.getInstance());
         d_gameManager.setD_map(d_map);
         d_gameManager.addPlayer(l_player1Name);
         d_gameManager.addPlayer(l_player2Name);

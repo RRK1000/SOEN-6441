@@ -28,7 +28,7 @@ public class InitMapPhase extends Phase {
      */
     @Override
     public Phase nextPhase() {
-        return new StartupPhase();
+        return StartupPhase.getInstance();
     }
 
     /**
@@ -222,7 +222,7 @@ public class InitMapPhase extends Phase {
 
             p_gameManager.setD_playerList(l_gameState.getD_playerList());
             p_gameManager.setD_skipTurnList(l_gameState.getD_skipTurnList());
-            p_gameManager.setD_gamePhase(new IssueOrderPhase());
+            p_gameManager.setD_gamePhase(IssueOrderPhase.getInstance());
             p_gameManager.setD_currentPlayerTurn(l_gameState.getD_currentPlayerTurn());
             p_gameManager.setD_map(l_gameState.getD_map());
             System.out.println("Game loaded");

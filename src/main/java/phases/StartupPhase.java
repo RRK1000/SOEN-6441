@@ -16,6 +16,17 @@ import java.util.List;
  */
 public class StartupPhase extends Phase {
 
+    private static StartupPhase l_instance;
+
+    private StartupPhase(){}
+
+    public static StartupPhase getInstance(){
+        if(l_instance==null){
+            l_instance= new StartupPhase();
+        }
+        return l_instance;
+    }
+
     /**
      * This method shifts the game phase to the next phase.
      *
@@ -24,7 +35,7 @@ public class StartupPhase extends Phase {
     @Override
     public Phase nextPhase() {
         LogManager.logAction("Phase changed from StartupPhase to IssueOrderPhase\n");
-        return new IssueOrderPhase();
+        return IssueOrderPhase.getInstance();
     }
 
     /**

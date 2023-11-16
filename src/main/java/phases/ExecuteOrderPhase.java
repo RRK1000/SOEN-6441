@@ -16,6 +16,16 @@ import models.Player;
  */
 public class ExecuteOrderPhase extends Phase {
 
+    private static ExecuteOrderPhase l_instance;
+
+    private ExecuteOrderPhase(){}
+
+    public static ExecuteOrderPhase getInstance(){
+        if(l_instance==null){
+            l_instance= new ExecuteOrderPhase();
+        }
+        return l_instance;
+    }
     /**
      * This method shifts the game phase to the next phase.
      *
@@ -24,7 +34,7 @@ public class ExecuteOrderPhase extends Phase {
     @Override
     public Phase nextPhase() {
         LogManager.logAction("Phase changed from ExecuteOrderPhase to IssueOrderPhase\n");
-        return new IssueOrderPhase();
+        return IssueOrderPhase.getInstance();
     }
 
     /**
