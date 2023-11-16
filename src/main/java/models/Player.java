@@ -56,6 +56,7 @@ public class Player implements Serializable {
         this.d_orderList = new ArrayList<>();
         this.d_playerCardList = new ArrayList<>();
         this.d_negotiationList = new ArrayList<>();
+        this.d_playerStrategy = new HumanStrategy();
     }
 
     /**
