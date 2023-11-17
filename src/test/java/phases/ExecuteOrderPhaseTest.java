@@ -4,7 +4,7 @@ import controller.GameManager;
 import models.Country;
 import models.Player;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +16,8 @@ class ExecuteOrderPhaseTest {
     /**
      * Setup before all tests, initalises game manager, loads map etc.
      */
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         d_gameManager = new GameManager();
         d_gamePhase = new InitMapPhase();
 
