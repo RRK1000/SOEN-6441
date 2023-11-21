@@ -22,7 +22,7 @@ class TournamentGameManagerTest {
         l_strategyList.add(new RandomStrategy());
         l_strategyList.add(new CheaterStrategy());
 
-        int l_numGames = 1;
+        int l_numGames = 4;
         int l_maxTurns = 300;
 
         TournamentGameManager l_tournamentManager = new TournamentGameManager();
