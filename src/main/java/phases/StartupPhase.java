@@ -2,8 +2,11 @@ package phases;
 
 import controller.GameManager;
 import gamelog.LogManager;
+import global.Constants;
+import global.Strategies;
 import models.Country;
 import models.Player;
+import strategy.*;
 
 import java.util.List;
 
@@ -59,8 +62,30 @@ public class StartupPhase extends Phase {
             if (p_cmdSplit[l_i].startsWith("-add")
                     && !p_cmdSplit[l_i + 1].startsWith("-")) {
                 String l_playername = p_cmdSplit[l_i + 1];
+                String l_strategy = p_cmdSplit[l_i + 2];
+                Strategy l_playerStrategy;
+                switch (l_strategy) {
+                    case Strategies.HUMAN_STRATEGY:
+                        l_playerStrategy = new HumanStrategy();
+                        break;
+                    case Strategies.AGGRESSIVE_STRATEGY:
+                        l_playerStrategy = new AggressiveStrategy();
+                        break;
+                    case Strategies.BENEVOLENT_STRATEGY:
+                        l_playerStrategy = new BenevolentStrategy();
+                        break;
+                    case Strategies.CHEATER_STRATEGY:
+                        l_playerStrategy = new CheaterStrategy();
+                        break;
+                    case Strategies.RANDOM_STRATEGY:
+                        l_playerStrategy = new RandomStrategy();
+                        break;
+                    default:
+                        System.out.println(Constants.CMD_ERROR);
+                        return;
+                }
                 //calls addPlayer() to add the Player in the game
-                p_gameManager.addPlayer(l_playername);
+                p_gameManager.addPlayer(l_playername, l_playerStrategy);
             } else if (p_cmdSplit[l_i].startsWith("-remove")
                     && !p_cmdSplit[l_i + 1].startsWith("-")) {
                 String l_playername = p_cmdSplit[l_i + 1];
