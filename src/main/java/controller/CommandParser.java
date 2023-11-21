@@ -243,6 +243,7 @@ public class CommandParser {
                     l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
                     l_tournamentGameManager.setD_numGames(l_numberOfGames);
                     l_tournamentGameManager.setD_maxTurns(l_maxNumberOfTurns);
+                    l_tournamentGameManager.runTournament();
                 }
 
                 break;
