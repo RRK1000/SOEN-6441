@@ -1,13 +1,17 @@
 package strategy;
 
 import controller.GameManager;
+import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
 import orders.AdvanceOrder;
+import orders.BombOrder;
 import orders.DeployOrder;
 
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class AggressiveStrategy implements Strategy{
 
@@ -26,12 +30,22 @@ public class AggressiveStrategy implements Strategy{
 
         if(l_currentPlayer.getD_numArmies() != 0) {
             l_order = new DeployOrder(l_currentPlayer, l_strongestCountry, l_currentPlayer.getD_numArmies());
+        } else if (l_currentPlayer.getD_playerCardList().contains(Cards.BOMB_CARD) && l_currentPlayer.getD_countryList().isEmpty()) {
+            Country l_countryToBomb = getUnownedNeighbor(l_currentPlayer, p_gameManager);
+            if(l_countryToBomb != null){
+                l_order = new BombOrder(l_currentPlayer, l_countryToBomb);
+            }
         } else {
             List<Integer> l_neighbours = l_strongestCountry.getD_neighbourCountryIDList();
+            System.out.println(l_strongestCountry.getD_numArmies());
             for (int l_neighborCountryID: l_neighbours) {
                 Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighborCountryID);
                 if(!l_neighborCountry.getD_owner().equals(l_currentPlayer)) {
-                    l_order = new AdvanceOrder(l_currentPlayer, l_neighborCountry, l_strongestCountry, l_neighborCountry.getD_numArmies() - 1);
+                    if(l_neighborCountry.getD_numArmies()<1){
+                        l_order = null;
+                        continue;
+                    }
+                    l_order = new AdvanceOrder(l_currentPlayer, l_strongestCountry, l_neighborCountry, l_neighborCountry.getD_numArmies() - 1);
                     if(!l_order.isValid()){
                         l_order = null;
                         continue;
@@ -65,5 +79,19 @@ public class AggressiveStrategy implements Strategy{
             }
         }
         return l_strongestCountry;
+    }
+
+    private Country getUnownedNeighbor(Player p_currentPlayer, GameManager p_gameManager){
+        Country l_neighbor;
+        for(Country l_country: p_currentPlayer.getD_countryList()){
+            for (int l_neighborID: l_country.getD_neighbourCountryIDList()){
+                l_neighbor = p_gameManager.getD_map().getD_countryByID(l_neighborID);
+                if(!l_neighbor.getD_owner().equals(p_currentPlayer)){
+                    return l_neighbor;
+                }
+            }
+        }
+        return null;
+
     }
 }
