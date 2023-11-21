@@ -40,10 +40,10 @@ public class RandomStrategy implements Strategy {
                     break;
                 }
             }
-            if (l_randCountryFrom == -1 || l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies() <= 0)
+            if (l_randCountryFrom == -1 || l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies() == 0)
                 return null;
 
-            int l_randAttackArmies = Math.max(1, l_random.nextInt(l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies()));
+            int l_randAttackArmies = l_random.nextInt(l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies());
             List<Integer> l_neighborList = l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_neighbourCountryIDList();
             int l_randCountryTo = l_random.nextInt(l_neighborList.size());
             l_order = new AdvanceOrder(l_currentPlayer, l_currentPlayer.getD_countryList().get(l_randCountryFrom),
