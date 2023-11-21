@@ -1,8 +1,8 @@
 loadmap newmap.txt
 help
-gameplayer -add p1 -add p2 -add p3
+gameplayer -add p1 Human -add p2 Human -add p3 Human
 gameplayer -remove p3
-gameplayer -add p1 -remove p3
+gameplayer -add p1 Human -remove p3
 help
 assigncountries
 help

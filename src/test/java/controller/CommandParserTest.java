@@ -8,6 +8,7 @@ import orders.DeployOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import phases.StartupPhase;
+import strategy.HumanStrategy;
 import util.MapUtil;
 
 import java.io.BufferedReader;
@@ -45,8 +46,8 @@ class CommandParserTest {
 
 		d_gameManager = new GameManager();
 		d_gameManager.setD_map(d_map);
-		d_gameManager.addPlayer(player1Name);
-		d_gameManager.addPlayer(player2Name);
+		d_gameManager.addPlayer(player1Name, new HumanStrategy());
+		d_gameManager.addPlayer(player2Name, new HumanStrategy());
 
 	}
 
