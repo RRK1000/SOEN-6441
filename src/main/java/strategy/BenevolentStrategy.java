@@ -74,12 +74,11 @@ public class BenevolentStrategy implements Strategy{
 
     private Player getRandomPlayer(Player p_currentPlayer, GameManager p_gameManager){
         Random l_random = new Random();
-        int l_randCountry = l_random.nextInt(p_currentPlayer.getD_countryList().size());
-        Country l_country = p_currentPlayer.getD_countryList().get(l_randCountry);
-        int l_neighborID = l_random.nextInt(l_country.getD_neighbourCountryIDList().size());
-        int l_neighbor = l_country.getD_neighbourCountryIDList().get(l_neighborID);
-        Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighbor);
-        return l_neighborCountry.getD_owner();
-
+        Player l_oppPlayer;
+        do {
+            l_oppPlayer = p_gameManager.getD_playerList().get(
+                    l_random.nextInt(p_gameManager.getD_playerList().size()));
+        } while(l_oppPlayer!= p_currentPlayer);
+        return l_oppPlayer;
     }
 }
