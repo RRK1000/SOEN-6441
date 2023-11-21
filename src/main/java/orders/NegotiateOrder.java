@@ -38,9 +38,6 @@ public class NegotiateOrder implements Order, Serializable {
      */
     @Override
     public void execute() {
-        List<String> l_playerCardList = d_player.getD_playerCardList();
-        l_playerCardList.remove(Cards.DIPLOMACY_CARD);
-        d_player.setD_playerCardList(l_playerCardList);
         if (d_targetPlayer == null) {
             LogManager.logAction("err: Execute Negotiate order failed. Player to negotiate doesn't exist");
             return;

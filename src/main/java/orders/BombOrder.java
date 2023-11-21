@@ -37,9 +37,6 @@ public class BombOrder implements Order, Serializable {
      */
     @Override
     public void execute() {
-        List<String> l_playerCardList = d_player.getD_playerCardList();
-        l_playerCardList.remove(Cards.BOMB_CARD);
-        d_player.setD_playerCardList(l_playerCardList);
         if (d_player.isInNegotiationWith(d_country.getD_owner())) {
             String l_err = "err: Invalid Bomb Order, Diplomacy Card played, peace enforced between players";
             System.out.println(l_err);
