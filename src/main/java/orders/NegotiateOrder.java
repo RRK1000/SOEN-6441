@@ -7,6 +7,7 @@ import models.Order;
 import models.Player;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * The NegotiateOrder class represents a negotiation order, allowing players to establish a peaceful agreement.
@@ -37,6 +38,9 @@ public class NegotiateOrder implements Order, Serializable {
      */
     @Override
     public void execute() {
+        List<String> l_playerCardList = d_player.getD_playerCardList();
+        l_playerCardList.remove(Cards.DIPLOMACY_CARD);
+        d_player.setD_playerCardList(l_playerCardList);
         if (d_targetPlayer == null) {
             LogManager.logAction("err: Execute Negotiate order failed. Player to negotiate doesn't exist");
             return;
