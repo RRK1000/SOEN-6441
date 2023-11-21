@@ -45,6 +45,9 @@ public class AirliftOrder implements Order, Serializable {
      */
     @Override
     public void execute() {
+        List<String> l_playerCardList = d_player.getD_playerCardList();
+        l_playerCardList.remove(Cards.AIRLIFT_CARD);
+        d_player.setD_playerCardList(l_playerCardList);
         if (!d_player.getD_countryList().contains(d_sourceCountry)) {
             LogManager.logAction("err: Execute Airlift Order failed. Player no longer owns country:" + d_sourceCountry.getD_countryID());
             return;
@@ -52,9 +55,7 @@ public class AirliftOrder implements Order, Serializable {
 
         d_sourceCountry.setD_numArmies(d_sourceCountry.getD_numArmies() - d_numArmies);
         d_targetCountry.setD_numArmies(d_targetCountry.getD_numArmies() + d_numArmies);
-        List<String> l_playerCardList = d_player.getD_playerCardList();
-        l_playerCardList.remove(Cards.BOMB_CARD);
-        d_player.setD_playerCardList(l_playerCardList);
+
         LogManager.logAction("Airlift order executed: " + d_numArmies + " armies moved from " +
                 d_sourceCountry.getD_countryID() + " to " + d_targetCountry.getD_countryID());
 
