@@ -88,6 +88,9 @@ public class CommandUtil {
             case Commands.DEPLOY_ORDER:
                 return l_cmdSplit.length == 3;
 
+            case Commands.TOURNAMENT:
+                return l_cmdSplit.length == 9;
+
             default:
                 return true;
         }
@@ -111,7 +114,8 @@ public class CommandUtil {
                     Commands.EDIT_MAP,
                     Commands.VALIDATE_MAP,
                     Commands.LOAD_MAP,
-                    Commands.LOAD_GAME
+                    Commands.LOAD_GAME,
+                    Commands.TOURNAMENT
             });
 
         } else if (p_gamePhase instanceof StartupPhase) {

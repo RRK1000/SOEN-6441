@@ -4,21 +4,21 @@ public class Strategies {
     /**
      * Bomb Card Constant
      */
-    public static final String HUMAN_STRATEGY = "human-strategy";
+    public static final String HUMAN_STRATEGY = "Human";
     /**
      * Blockade Card Constant
      */
-    public static final String BENEVOLENT_STRATEGY = "benevolent-strategy";
+    public static final String BENEVOLENT_STRATEGY = "Benevolent";
     /**
      * Airlift Card Constant
      */
-    public static final String AGGRESSIVE_STRATEGY = "aggressive-strategy";
+    public static final String AGGRESSIVE_STRATEGY = "Aggressive";
     /**
      * Diplomacy Card Constant
      */
-    public static final String RANDOM_STRATEGY = "random-strategy";
+    public static final String RANDOM_STRATEGY = "Random";
     /**
      * Diplomacy Card Constant
      */
-    public static final String CHEATER_STRATEGY = "cheater-strategy";
+    public static final String CHEATER_STRATEGY = "Cheater";
 }
