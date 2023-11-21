@@ -7,12 +7,14 @@ import java.util.Scanner;
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
+import global.Strategies;
 import models.Country;
 import models.Map;
 import models.Player;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
+import strategy.*;
 import util.CommandUtil;
 import util.ConquestMapFileReaderAdapter;
 import util.DominationMapFileReader;
@@ -189,6 +191,50 @@ public class CommandParser {
                     System.out.println("Error loading the map file: " + e.getMessage());
                     LogManager.logAction("Error loading the map file: " + l_filename);
                 }
+                break;
+
+            case Commands.TOURNAMENT:
+                String[] l_tournamentInput = p_input.split(" -");
+                List<Strategy> l_listOfPlayerStrategies = new ArrayList<>();
+                for (int l_i = 1; l_i < l_tournamentInput.length; l_i++) {
+                    String[] l_params = l_tournamentInput[l_i].split(" ");
+                    if(l_params[0].startsWith("M")){
+                        String l_mapFiles = l_params[1];
+                        List<String> l_listOfMapFiles = Arrays.asList(l_mapFiles.split(","));
+                    } else if (l_params[0].startsWith("P")) {
+                        String l_playerStrategies = l_params[1];
+                        String[] l_stringOfPlayerStrategies = l_playerStrategies.split(",");
+                        for (String l_strategy: l_stringOfPlayerStrategies) {
+                            switch (l_strategy) {
+                                case Strategies.HUMAN_STRATEGY:
+                                    l_listOfPlayerStrategies.add(new HumanStrategy());
+                                    break;
+                                case Strategies.AGGRESSIVE_STRATEGY:
+                                    l_listOfPlayerStrategies.add(new AggressiveStrategy());
+                                    break;
+                                case Strategies.BENEVOLENT_STRATEGY:
+                                    l_listOfPlayerStrategies.add(new BenevolentStrategy());
+                                    break;
+                                case Strategies.CHEATER_STRATEGY:
+                                    l_listOfPlayerStrategies.add(new CheaterStrategy());
+                                    break;
+                                case Strategies.RANDOM_STRATEGY:
+                                    l_listOfPlayerStrategies.add(new RandomStrategy());
+                                    break;
+                                default:
+                                    System.out.println(Constants.CMD_ERROR);
+                            }
+                        }
+                    } else if (l_params[0].startsWith("G")) {
+                        int l_numberOfGames = Integer.parseInt(l_params[1]);
+                    } else if (l_params[0].startsWith("D")) {
+                        int l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
+                    } else {
+                        System.out.println(Constants.CMD_ERROR);
+                    }
+                    //call to tournament game class
+                }
+
                 break;
 
             case Commands.GAME_PLAYER:
