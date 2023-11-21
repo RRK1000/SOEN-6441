@@ -5,10 +5,7 @@ import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
-import orders.AdvanceOrder;
-import orders.AirliftOrder;
-import orders.DeployOrder;
-import orders.NegotiateOrder;
+import orders.*;
 
 import java.util.List;
 import java.util.Random;
@@ -32,10 +29,12 @@ public class BenevolentStrategy implements Strategy{
             l_order = new DeployOrder(l_currentPlayer, l_weakestCountry, l_currentPlayer.getD_numArmies());
         } else if (l_currentPlayer.getD_playerCardList().contains(Cards.AIRLIFT_CARD)){
             Country l_countryFrom = getStrongestCountry(l_countries);
-            l_order = new AirliftOrder(l_currentPlayer, l_countryFrom, l_weakestCountry, 2);
+            l_order = new AirliftOrder(l_currentPlayer, l_countryFrom, l_weakestCountry, l_countryFrom.getD_numArmies()-1);
         } else if(l_currentPlayer.getD_playerCardList().contains(Cards.DIPLOMACY_CARD) && !l_currentPlayer.getD_countryList().isEmpty()){
             Player l_randomPlayer = getRandomPlayer(l_currentPlayer, p_gameManager);
             l_order = new NegotiateOrder(l_currentPlayer, l_randomPlayer);
+        } else if(l_currentPlayer.getD_playerCardList().contains(Cards.BLOCKADE_CARD)){
+            l_order = new BlockadeOrder(l_currentPlayer, l_weakestCountry);
         } else {
             List<Integer> l_neighbours = l_weakestCountry.getD_neighbourCountryIDList();
             for (int l_neighborCountryID: l_neighbours) {
