@@ -196,11 +196,17 @@ public class CommandParser {
             case Commands.TOURNAMENT:
                 String[] l_tournamentInput = p_input.split(" -");
                 List<Strategy> l_listOfPlayerStrategies = new ArrayList<>();
+                List<Map> l_mapList = new ArrayList<>();
+                int l_numberOfGames = 0;
+                int l_maxNumberOfTurns = 0;
+
                 for (int l_i = 1; l_i < l_tournamentInput.length; l_i++) {
                     String[] l_params = l_tournamentInput[l_i].split(" ");
                     if(l_params[0].startsWith("M")){
                         String l_mapFiles = l_params[1];
-                        List<String> l_listOfMapFiles = Arrays.asList(l_mapFiles.split(","));
+                        for (String l_mapFileName: l_mapFiles.split(",")) {
+                            l_mapList.add(MapUtil.loadMap(l_mapFileName));
+                        }
                     } else if (l_params[0].startsWith("P")) {
                         String l_playerStrategies = l_params[1];
                         String[] l_stringOfPlayerStrategies = l_playerStrategies.split(",");
@@ -226,13 +232,17 @@ public class CommandParser {
                             }
                         }
                     } else if (l_params[0].startsWith("G")) {
-                        int l_numberOfGames = Integer.parseInt(l_params[1]);
+                        l_numberOfGames = Integer.parseInt(l_params[1]);
                     } else if (l_params[0].startsWith("D")) {
-                        int l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
+                        l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
                     } else {
                         System.out.println(Constants.CMD_ERROR);
                     }
-                    //call to tournament game class
+                    TournamentGameManager l_tournamentGameManager= new TournamentGameManager();
+                    l_tournamentGameManager.setD_mapList(l_mapList);
+                    l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
+                    l_tournamentGameManager.setD_numGames(l_numberOfGames);
+                    l_tournamentGameManager.setD_maxTurns(l_maxNumberOfTurns);
                 }
 
                 break;

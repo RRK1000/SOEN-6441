@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import strategy.Strategy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TournamentGameManager {
@@ -16,6 +17,7 @@ public class TournamentGameManager {
     private List<Strategy> d_strategyList;
     private int d_numGames;
     private int d_maxTurns;
+    private HashMap<String, ArrayList<String>> d_resultMap;
 
     /**
      * Default constructor for GameManager.
@@ -23,6 +25,7 @@ public class TournamentGameManager {
     public TournamentGameManager() {
         d_mapList = new ArrayList<>();
         d_strategyList = new ArrayList<>();
+        d_resultMap = new HashMap<>();
     }
 
     public void setD_mapList(List<Map> d_mapList) {
@@ -42,7 +45,9 @@ public class TournamentGameManager {
     }
 
     public void runTournament() {
+        int l_mapIndex = 0;
         for (Map l_map : d_mapList) {
+            d_resultMap.put("Map " + l_mapIndex, new ArrayList<>());
             for (int l_i = 0; l_i < d_numGames; l_i++) {
                 GameManager l_gameManager = setUpGameManager(l_map);
 
@@ -77,10 +82,11 @@ public class TournamentGameManager {
 
                         // Case where game has a winner
                         if (l_gameManager.getD_playerList().size() == 1) {
+                            d_resultMap.get("Map "+l_mapIndex).add(l_gameManager.getD_playerList().get(0).getD_playerName());
                             String l_op = "Player " + l_gameManager.getD_playerList().get(0).getD_playerName() + " wins!";
                             System.out.println(l_op);
                             LogManager.logAction(l_op);
-                            System.exit(0);
+                            break;
                         }
                     } else {
                         do {
@@ -98,7 +104,14 @@ public class TournamentGameManager {
                         System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
                     }
                 }
+                d_resultMap.get("Map "+l_mapIndex).add("Draw");
             }
+            l_mapIndex++;
+        }
+
+        System.out.println("\n\nTournament Report");
+        for (String l_key : d_resultMap.keySet()) {
+            System.out.println(l_key + ": " + d_resultMap.get(l_key));
         }
     }
 
