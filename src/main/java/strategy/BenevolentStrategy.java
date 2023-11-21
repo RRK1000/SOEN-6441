@@ -1,13 +1,17 @@
 package strategy;
 
 import controller.GameManager;
+import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
 import orders.AdvanceOrder;
+import orders.AirliftOrder;
 import orders.DeployOrder;
+import orders.NegotiateOrder;
 
 import java.util.List;
+import java.util.Random;
 
 public class BenevolentStrategy implements Strategy{
 
@@ -26,6 +30,12 @@ public class BenevolentStrategy implements Strategy{
                 
         if(l_currentPlayer.getD_numArmies() != 0) {
             l_order = new DeployOrder(l_currentPlayer, l_weakestCountry, l_currentPlayer.getD_numArmies());
+        } else if (l_currentPlayer.getD_playerCardList().contains(Cards.AIRLIFT_CARD)){
+            Country l_countryFrom = getStrongestCountry(l_countries);
+            l_order = new AirliftOrder(l_currentPlayer, l_countryFrom, l_weakestCountry, 2);
+        } else if(l_currentPlayer.getD_playerCardList().contains(Cards.DIPLOMACY_CARD) && !l_currentPlayer.getD_countryList().isEmpty()){
+            Player l_randomPlayer = getRandomPlayer(l_currentPlayer, p_gameManager);
+            l_order = new NegotiateOrder(l_currentPlayer, l_randomPlayer);
         } else {
             List<Integer> l_neighbours = l_weakestCountry.getD_neighbourCountryIDList();
             for (int l_neighborCountryID: l_neighbours) {
@@ -35,6 +45,7 @@ public class BenevolentStrategy implements Strategy{
                 }
             }
         }
+
         return l_order;
     }
 
@@ -48,5 +59,28 @@ public class BenevolentStrategy implements Strategy{
             }
         }
         return l_weakestCountry;
+    }
+
+    private Country getStrongestCountry(List<Country> p_countryList) {
+        Country l_strongestCountry = null;
+        int l_maxArmies = Integer.MIN_VALUE;
+        for (Country l_c: p_countryList) {
+            if(l_c.getD_numArmies() > l_maxArmies) {
+                l_strongestCountry = l_c;
+                l_maxArmies = l_c.getD_numArmies();
+            }
+        }
+        return l_strongestCountry;
+    }
+
+    private Player getRandomPlayer(Player p_currentPlayer, GameManager p_gameManager){
+        Random l_random = new Random();
+        int l_randCountry = l_random.nextInt(p_currentPlayer.getD_countryList().size());
+        Country l_country = p_currentPlayer.getD_countryList().get(l_randCountry);
+        int l_neighborID = l_random.nextInt(l_country.getD_neighbourCountryIDList().size());
+        int l_neighbor = l_country.getD_neighbourCountryIDList().get(l_neighborID);
+        Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighbor);
+        return l_neighborCountry.getD_owner();
+
     }
 }
