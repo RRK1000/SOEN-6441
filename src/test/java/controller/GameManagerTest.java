@@ -5,6 +5,7 @@ import models.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import phases.StartupPhase;
+import strategy.HumanStrategy;
 import util.MapUtil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,8 +35,8 @@ class GameManagerTest {
         d_gameManager = new GameManager();
         d_gameManager.setD_gamePhase(StartupPhase.getInstance());
         d_gameManager.setD_map(d_map);
-        d_gameManager.addPlayer(l_player1Name);
-        d_gameManager.addPlayer(l_player2Name);
+        d_gameManager.addPlayer(l_player1Name, new HumanStrategy());
+        d_gameManager.addPlayer(l_player2Name, new HumanStrategy());
 
     }
 

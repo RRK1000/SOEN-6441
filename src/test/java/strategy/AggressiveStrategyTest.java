@@ -26,9 +26,9 @@ class AggressiveStrategyTest {
         d_gamePhase.loadMap("europe.map", d_gameManager);
         String l_player1Name = "Player1";
         String l_player2Name = "Player2";
-        d_gameManager.addPlayer(l_player1Name);
+        d_gameManager.addPlayer(l_player1Name, new HumanStrategy());
         d_gameManager.findPlayerByName(l_player1Name).setD_playerStrategy(new AggressiveStrategy());
-        d_gameManager.addPlayer(l_player2Name);
+        d_gameManager.addPlayer(l_player2Name, new HumanStrategy());
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 

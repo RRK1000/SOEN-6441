@@ -43,7 +43,7 @@ class StartupPhaseTest {
      */
     @Test
     void gamePlayerTest() {
-        String[] l_cmdSplit = {"gameplayer", "-add", "p1", "-remove", "p2"};
+        String[] l_cmdSplit = {"gameplayer", "-add", "p1", "Human", "-remove", "p2", "Human"};
         d_gamePhase.gamePlayer(l_cmdSplit, d_gameManager);
         assertFalse(d_gameManager.getD_playerList().isEmpty());
     }
@@ -54,7 +54,7 @@ class StartupPhaseTest {
      */
     @Test
     void assignCountriesTest() {
-        String[] l_cmdSplit = {"gameplayer", "-add", "p1", "-add", "p2"};
+        String[] l_cmdSplit = {"gameplayer", "-add", "p1", "Human", "-add", "p2", "Human"};
         d_gamePhase.gamePlayer(l_cmdSplit, d_gameManager);
         d_gamePhase.assignCountries(d_gameManager);
         assertEquals(d_gameManager.getD_gamePhase().getClass(), IssueOrderPhase.class);
