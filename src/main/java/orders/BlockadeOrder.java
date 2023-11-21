@@ -46,9 +46,6 @@ public class BlockadeOrder implements Order, Serializable {
      * Makes a country neutral and removes it from the player's list if the Blockade order is valid.
      */
     public void execute() {
-        List<String> l_playerCardList = d_player.getD_playerCardList();
-        l_playerCardList.remove(Cards.BLOCKADE_CARD);
-        d_player.setD_playerCardList(l_playerCardList);
         if (!d_player.getD_countryList().contains(d_country)) {
             LogManager.logAction("err: Blockade Order Execute failed. Player no longer owns country: " + d_country.getD_countryID());
             return;
