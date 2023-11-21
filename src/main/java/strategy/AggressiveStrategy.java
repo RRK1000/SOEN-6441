@@ -32,6 +32,10 @@ public class AggressiveStrategy implements Strategy{
                 Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighborCountryID);
                 if(!l_neighborCountry.getD_owner().equals(l_currentPlayer)) {
                     l_order = new AdvanceOrder(l_currentPlayer, l_neighborCountry, l_strongestCountry, l_neighborCountry.getD_numArmies() - 1);
+                    if(!l_order.isValid()){
+                        l_order = null;
+                        continue;
+                    }
                     return l_order;
                 }
             }
@@ -40,7 +44,10 @@ public class AggressiveStrategy implements Strategy{
                 Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighborCountryID);
                 if(l_neighborCountry.getD_numArmies() > 1 && l_neighborCountry.getD_owner().equals(l_currentPlayer)) {
                     l_order = new AdvanceOrder(l_currentPlayer, l_neighborCountry, l_strongestCountry, l_neighborCountry.getD_numArmies()-1);
-                    if(!l_order.isValid()) continue;
+                    if(!l_order.isValid()){
+                        l_order = null;
+                        continue;
+                    }
                     return l_order;
                 }
             }

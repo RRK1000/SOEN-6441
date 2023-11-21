@@ -250,7 +250,7 @@ public class GameManager {
     /**
      * Updates neutral countries from the previous round
      */
-    private void updateNeutralCountriesOnRoundEnd() {
+    void updateNeutralCountriesOnRoundEnd() {
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             if (l_country.isD_isNeutral()) {
                 l_country.setD_isNeutral(false);
@@ -261,7 +261,7 @@ public class GameManager {
     /**
      * Resets player diplomacy on round end
      */
-    private void updatePlayerDiplomacyOnRoundEnd() {
+    void updatePlayerDiplomacyOnRoundEnd() {
         for (Player l_player : d_playerList) {
             l_player.clearPlayerNegotiation();
         }
