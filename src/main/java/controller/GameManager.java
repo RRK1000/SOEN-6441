@@ -3,11 +3,12 @@ package controller;
 import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import gamelog.LogManager;
+import global.Constants;
 import global.Strategies;
 import models.*;
 import phases.InitMapPhase;
 import phases.Phase;
-import strategy.HumanStrategy;
+import strategy.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -172,9 +173,8 @@ public class GameManager {
      *
      * @param p_playerName name of the player to be added
      */
-    public void addPlayer(String p_playerName) {
-        List<String> l_cardsList = Arrays.asList(Strategies.CHEATER_STRATEGY, Strategies.BENEVOLENT_STRATEGY,
-                Strategies.AGGRESSIVE_STRATEGY, Strategies.HUMAN_STRATEGY, Strategies.RANDOM_STRATEGY);
+    public void addPlayer(String p_playerName, Strategy l_strategy) {
+
         //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
             for (Player l_p : d_playerList) {
@@ -186,6 +186,7 @@ public class GameManager {
             }
             //Adding new player to the game
             Player l_player = new Player(p_playerName);
+            l_player.setD_playerStrategy(l_strategy);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
             LogManager.logAction("Added " + p_playerName + " to the game!");

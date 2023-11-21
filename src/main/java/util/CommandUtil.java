@@ -51,6 +51,8 @@ public class CommandUtil {
             case Commands.EDIT_CONTINENT:
 
             case Commands.EDIT_COUNTRY:
+
+            case Commands.GAME_PLAYER:
                 l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 2);
                 l_optionSpec.put("remove", 1);
@@ -77,13 +79,6 @@ public class CommandUtil {
             case Commands.AIRLIFT_ORDER:
             case Commands.ADVANCE_ORDER:
                 return l_cmdSplit.length == 4;
-
-            case Commands.GAME_PLAYER:
-                l_optionSpec = new HashMap<>();
-                l_optionSpec.put("add", 1);
-                l_optionSpec.put("remove", 1);
-
-                return hasValidOptions(p_input, l_optionSpec);
 
             case Commands.DEPLOY_ORDER:
                 return l_cmdSplit.length == 3;
