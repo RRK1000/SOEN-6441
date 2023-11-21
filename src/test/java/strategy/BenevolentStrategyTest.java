@@ -4,10 +4,7 @@ import controller.GameManager;
 import global.Cards;
 import models.Order;
 import models.Player;
-import orders.AdvanceOrder;
-import orders.AirliftOrder;
-import orders.DeployOrder;
-import orders.NegotiateOrder;
+import orders.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,5 +126,23 @@ class BenevolentStrategyTest {
         l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);
         assertTrue(l_order instanceof NegotiateOrder);
+    }
+    @Test
+    void createOrderTest6() {
+        Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
+        List<String> l_cards = Arrays.asList(Cards.BLOCKADE_CARD);
+        l_currentPlayer.setD_playerCardList(l_cards);
+        Order l_order = d_gameManager.findPlayerByName("Player1")
+                .getD_playerStrategy().createOrder(d_gameManager);
+        l_currentPlayer.setD_currentOrder(l_order);
+        l_currentPlayer.issueOrder();
+        d_gameManager.setD_gamePhase(new ExecuteOrderPhase());
+        d_gameManager.getD_gamePhase().executeOrder(d_gameManager);
+        d_gameManager.setD_gamePhase(new IssueOrderPhase());
+
+        l_currentPlayer.setD_numArmies(0);
+        l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
+        l_currentPlayer.setD_currentOrder(l_order);
+        assertTrue(l_order instanceof BlockadeOrder);
     }
 }
