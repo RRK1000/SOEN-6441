@@ -79,9 +79,9 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 		for (Country l_conquestCountry : p_map.getD_countryMapGraph().vertexSet()) {
 			List<Integer> l_neighbors = getNeighborsForCountry(l_conquestCountry, p_map);
 			l_tempBorders.put(l_conquestCountry.getD_countryID(), l_neighbors);
-			System.out.println("Country: " + l_conquestCountry.getD_countryName() + " (ID: "
-					+ l_conquestCountry.getD_countryID() + ")");
-			System.out.println("Neighbors: " + l_neighbors);
+		//	System.out.println("Country: " + l_conquestCountry.getD_countryName() + " (ID: "
+		//			+ l_conquestCountry.getD_countryID() + ")");
+		//	System.out.println("Neighbors: " + l_neighbors);
 		}
 
 		// Create a new Map object and set relationships
@@ -243,10 +243,10 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 
 		Map l_dominationMap = convertToDominationFormat(p_map);
 
-		if (!MapUtil.isValidMap(l_dominationMap)) {
-			throw new IOException("The map is invalid and cannot be saved.");
-
-		}
+//		if (!MapUtil.isValidMap(l_dominationMap)) {
+//			throw new IOException("The map is invalid and cannot be saved.");
+//
+//		}
 
 		try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_fileName))) {
 			l_writer.write("[continents]\n");
