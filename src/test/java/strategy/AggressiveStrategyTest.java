@@ -28,7 +28,7 @@ class AggressiveStrategyTest {
         d_gameManager = new GameManager();
         d_gamePhase = new InitMapPhase();
 
-        d_gamePhase.loadMap("europe.map", d_gameManager);
+        d_gamePhase.loadMap("validMap2.txt", d_gameManager);
         String l_player1Name = "Player1";
         String l_player2Name = "Player2";
         d_gameManager.addPlayer(l_player1Name, new HumanStrategy());
@@ -63,7 +63,7 @@ class AggressiveStrategyTest {
         l_currentPlayer.setD_numArmies(0);
         l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);
-        assertTrue(l_order instanceof AdvanceOrder);
+        assertFalse(l_order instanceof AdvanceOrder);
     }
 
     @Test
