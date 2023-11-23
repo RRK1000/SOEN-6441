@@ -24,7 +24,7 @@ public class RandomStrategy implements Strategy {
 
         Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
         int l_numArmies = l_currentPlayer.getD_numArmies();
-        int l_randNumArmies = 1;
+        int l_randNumArmies;
         Order l_order;
         if (l_numArmies != 0) {
             int l_randCountry = l_random.nextInt(l_currentPlayer.getD_countryList().size());

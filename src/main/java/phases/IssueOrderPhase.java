@@ -65,6 +65,7 @@ public class IssueOrderPhase extends Phase {
             p_currentPlayer.setD_currentOrder(l_order);
             // Call the issue_order() method of the current player to add the order
             p_currentPlayer.issueOrder();
+            LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Deploy order issued: " + p_num + " armies deployed to " + p_country.getD_countryID());
             System.out.println("Issued Deploy Order");
 
             p_gameManager.updatePlayerTurn();
@@ -90,6 +91,8 @@ public class IssueOrderPhase extends Phase {
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
+        LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Advance order issued: "
+                + p_num + " armies deployed from " + p_countryFrom.getD_countryID() + " to " + p_countryTo.getD_countryID());
         System.out.println("Issued Advance Order");
 
         p_gameManager.updatePlayerTurn();
@@ -110,6 +113,7 @@ public class IssueOrderPhase extends Phase {
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
+        LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Bomb order issued: " + p_country.getD_countryID());
         System.out.println("Issued Bomb Order");
 
         p_gameManager.updatePlayerTurn();
@@ -131,6 +135,9 @@ public class IssueOrderPhase extends Phase {
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
+        LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Advance order issued: "
+                + p_num + " armies airlifted from " + p_countryFrom.getD_countryID() + " to " + p_countryTo.getD_countryID());
+
         System.out.println("Issued Airlift Order");
 
         p_gameManager.updatePlayerTurn();
@@ -151,6 +158,7 @@ public class IssueOrderPhase extends Phase {
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
+        LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Blockade order issued: " + p_country.getD_countryID());
         System.out.println("Issued Blockade Order");
 
         p_gameManager.updatePlayerTurn();
@@ -171,6 +179,7 @@ public class IssueOrderPhase extends Phase {
         }
         p_currentPlayer.setD_currentOrder(l_order);
         p_currentPlayer.issueOrder();
+        LogManager.logAction("[" + p_currentPlayer.getD_playerName() + "] Diplomacy order issued: " +p_otherPlayer.getD_playerName());
         System.out.println("Issued Diplomacy Order");
 
         p_gameManager.updatePlayerTurn();
@@ -196,6 +205,7 @@ public class IssueOrderPhase extends Phase {
             l_out.close();
             l_file.close();
 
+            LogManager.logAction("Game state saved");
             System.out.println("Game state saved");
         } catch (IOException l_e) {
             throw new RuntimeException(l_e);
