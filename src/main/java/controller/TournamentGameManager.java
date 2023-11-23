@@ -13,11 +13,11 @@ import java.util.List;
 
 public class TournamentGameManager {
 
+    private final HashMap<String, ArrayList<String>> d_resultMap;
     private List<Map> d_mapList;
     private List<Strategy> d_strategyList;
     private int d_numGames;
     private int d_maxTurns;
-    private HashMap<String, ArrayList<String>> d_resultMap;
 
     /**
      * Default constructor for GameManager.
@@ -53,7 +53,7 @@ public class TournamentGameManager {
 
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {
                     Player l_currentPlayer = l_gameManager.getD_playerList().get(l_gameManager.getD_currentPlayerTurn());
-                    if(!l_gameManager.getD_skipTurnList().contains(l_gameManager.getD_currentPlayerTurn())) {
+                    if (!l_gameManager.getD_skipTurnList().contains(l_gameManager.getD_currentPlayerTurn())) {
                         Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(l_gameManager);
                         if (null == l_order) {
                             l_gameManager.addPlayerToSkipList(l_gameManager.getD_currentPlayerTurn());
@@ -82,7 +82,7 @@ public class TournamentGameManager {
 
                         // Case where game has a winner
                         if (l_gameManager.getD_playerList().size() == 1) {
-                            d_resultMap.get("Map "+l_mapIndex).add(l_gameManager.getD_playerList().get(0).getD_playerName());
+                            d_resultMap.get("Map " + l_mapIndex).add(l_gameManager.getD_playerList().get(0).getD_playerName());
                             String l_op = "Player " + l_gameManager.getD_playerList().get(0).getD_playerName() + " wins!";
                             System.out.println(l_op);
                             LogManager.logAction(l_op);
@@ -104,7 +104,7 @@ public class TournamentGameManager {
                         System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
                     }
                 }
-                d_resultMap.get("Map "+l_mapIndex).add("Draw");
+                d_resultMap.get("Map " + l_mapIndex).add("Draw");
             }
             l_mapIndex++;
         }
@@ -118,8 +118,10 @@ public class TournamentGameManager {
     private GameManager setUpGameManager(Map p_map) {
         GameManager l_gameManager = new GameManager();
         l_gameManager.setD_map(p_map);
+        int l_pid = 1;
         for (Strategy l_strategy : d_strategyList) {
-            String l_playerName = StringUtils.remove(l_strategy.getClass().getName() + "Player", "strategy.");
+            String l_playerName = StringUtils.remove(l_strategy.getClass().getName() + "Player", "strategy.")
+                    + "-p" + (l_pid++);
             l_gameManager.addPlayer(l_playerName, l_strategy);
         }
         l_gameManager.setD_gamePhase(l_gameManager.getD_gamePhase().nextPhase());
