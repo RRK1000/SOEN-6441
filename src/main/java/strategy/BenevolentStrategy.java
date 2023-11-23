@@ -23,6 +23,8 @@ public class BenevolentStrategy implements Strategy{
         Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
         List<Country> l_countries = l_currentPlayer.getD_countryList();
         Country l_weakestCountry = getWeakestCountry(l_countries);
+
+        if(null == l_weakestCountry) return null;
         Order l_order = null;
                 
         if(l_currentPlayer.getD_numArmies() != 0) {

@@ -8,7 +8,6 @@ import models.Order;
 import models.Player;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * This class handles the bomb type order.
@@ -45,7 +44,7 @@ public class BombOrder implements Order, Serializable {
         }
         d_country.setD_numArmies(d_country.getD_numArmies() / 2);
 
-        LogManager.logAction("Bomb order executed: Halved armies in " + d_country.getD_countryID());
+        LogManager.logAction("[" + d_player.getD_playerName() + "] Bomb order executed: Halved armies in " + d_country.getD_countryID());
     }
 
     /**

@@ -3,17 +3,15 @@ package controller;
 import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import gamelog.LogManager;
-import global.Constants;
-import global.Strategies;
 import models.*;
 import phases.InitMapPhase;
 import phases.Phase;
-import strategy.*;
+import strategy.HumanStrategy;
+import strategy.Strategy;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -274,7 +272,7 @@ public class GameManager {
     public void showMap() {
 
         System.out.printf("------------------------------------------------------------------------------------------------%n");
-        System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
+        System.out.printf("| %-8s | %-8s | %-35s | %-35s | %-8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
         System.out.printf("------------------------------------------------------------------------------------------------%n");
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             Player l_owner = l_country.getD_owner();
@@ -283,7 +281,7 @@ public class GameManager {
                 l_neighbors.append(l_neighbourID);
                 l_neighbors.append(" ");
             }
-            System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
+            System.out.printf("| %-8s | %-8s | %-35s | %-35s | %-8s |%n",
                     l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_country.isD_isNeutral() ? "neutral" : l_owner.getD_playerName(), l_country.getD_numArmies());
         }
         LogManager.logAction("Displayed the current game map and state.");

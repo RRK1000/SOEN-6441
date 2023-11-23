@@ -7,7 +7,6 @@ import models.Order;
 import models.Player;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * This class handles the airlift type order.
@@ -53,7 +52,7 @@ public class AirliftOrder implements Order, Serializable {
         d_sourceCountry.setD_numArmies(d_sourceCountry.getD_numArmies() - d_numArmies);
         d_targetCountry.setD_numArmies(d_targetCountry.getD_numArmies() + d_numArmies);
 
-        LogManager.logAction("Airlift order executed: " + d_numArmies + " armies moved from " +
+        LogManager.logAction("[" + d_player.getD_playerName() + "] Airlift order executed: " + d_numArmies + " armies moved from " +
                 d_sourceCountry.getD_countryID() + " to " + d_targetCountry.getD_countryID());
 
     }

@@ -51,7 +51,7 @@ public class DeployOrder implements Order, Serializable {
             return;
         }
         d_country.setD_numArmies(d_country.getD_numArmies() + d_num);
-        LogManager.logAction("Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryID());
+        LogManager.logAction("[" + d_player.getD_playerName() + "] Deploy order executed: " + d_num + " armies deployed to " + d_country.getD_countryID());
 
     }
 

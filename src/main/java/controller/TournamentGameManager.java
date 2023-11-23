@@ -51,6 +51,7 @@ public class TournamentGameManager {
             for (int l_i = 0; l_i < d_numGames; l_i++) {
                 GameManager l_gameManager = setUpGameManager(l_map);
 
+                boolean hasWinner = false;
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {
                     Player l_currentPlayer = l_gameManager.getD_playerList().get(l_gameManager.getD_currentPlayerTurn());
                     if (!l_gameManager.getD_skipTurnList().contains(l_gameManager.getD_currentPlayerTurn())) {
@@ -79,6 +80,7 @@ public class TournamentGameManager {
                         l_gameManager.getD_skipTurnList().clear();
                         l_gameManager.setD_currentPlayerTurn(0);
                         LogManager.logAction("Round end. \n");
+                        l_gameManager.updatePlayerList();
 
                         // Case where game has a winner
                         if (l_gameManager.getD_playerList().size() == 1) {
@@ -86,6 +88,7 @@ public class TournamentGameManager {
                             String l_op = "Player " + l_gameManager.getD_playerList().get(0).getD_playerName() + " wins!";
                             System.out.println(l_op);
                             LogManager.logAction(l_op);
+                            hasWinner = true;
                             break;
                         }
                     } else {
@@ -104,7 +107,8 @@ public class TournamentGameManager {
                         System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
                     }
                 }
-                d_resultMap.get("Map " + l_mapIndex).add("Draw");
+                l_gameManager.showMap();
+                if (!hasWinner) d_resultMap.get("Map " + l_mapIndex).add("Draw");
             }
             l_mapIndex++;
         }

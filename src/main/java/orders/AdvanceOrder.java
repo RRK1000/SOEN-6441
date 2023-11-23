@@ -95,7 +95,7 @@ public class AdvanceOrder implements Order, Serializable {
 
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
 
-        LogManager.logAction("Advance order executed: " + d_num + " armies moved from " +
+        LogManager.logAction("[" + d_player.getD_playerName() + "] Advance order executed: " + d_num + " armies moved from " +
                 d_countryfrom.getD_countryID() + " to " + d_countryto.getD_countryID());
     }
 

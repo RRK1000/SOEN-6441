@@ -12,6 +12,7 @@ import orders.DeployOrder;
 import java.util.List;
 
 public class AggressiveStrategy implements Strategy {
+    private Country d_strongestCountry;
 
     /**
      * Creates an order according to player strategy
@@ -64,10 +65,13 @@ public class AggressiveStrategy implements Strategy {
                 }
             }
         }
+        if(null == l_order) d_strongestCountry = null;
         return l_order;
     }
 
     private Country getStrongestCountry(List<Country> p_countryList) {
+        if(null != d_strongestCountry)  return d_strongestCountry;
+
         Country l_strongestCountry = null;
         int l_maxArmies = Integer.MIN_VALUE;
         for (Country l_c : p_countryList) {
