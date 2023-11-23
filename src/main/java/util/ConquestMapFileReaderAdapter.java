@@ -32,18 +32,18 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	@Override
 	public Map loadMap(String p_fileName) throws IOException {
 
-		Map conquestMap = loadConquestMap(p_fileName);
-		if (conquestMap == null) {
+		Map l_conquestMap = loadConquestMap(p_fileName);
+		if (l_conquestMap == null) {
 			throw new IOException("Failed to load Conquest map format.");
 		}
 
-		Map dominationMap = convertToDominationFormat(conquestMap);
+		Map l_dominationMap = convertToDominationFormat(l_conquestMap);
 
 //	    if (!MapUtil.isValidMap(dominationMap)) {
 //	        throw new IOException("Converted Domination map is invalid.");
 //	    }
 
-		return dominationMap;
+		return l_dominationMap;
 	}
 
 	/**
@@ -238,44 +238,44 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	 * @return true if map is saved successfully, false otherwise
 	 * @throws IOException if there is an issue in file writing
 	 */
+	
 	@Override
 	public boolean saveMap(Map p_map, String p_fileName) throws IOException {
+		
+		 if (!p_fileName.endsWith(".conquest")) {
+		        p_fileName += ".conquest";
+		    }
+		
+	    try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_fileName))) {
+	
+	        l_writer.write("[Continents]\n");
+	        for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
+	            l_writer.write(l_continent.getD_continentName() + "=" + l_continent.getD_continentValue() + "\n");
+	        }
+	        l_writer.write("\n");
 
-		Map l_dominationMap = convertToDominationFormat(p_map);
 
-//		if (!MapUtil.isValidMap(l_dominationMap)) {
-//			throw new IOException("The map is invalid and cannot be saved.");
-//
-//		}
+	        l_writer.write("[Territories]\n");
+	        for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
+	            Continent l_continent = p_map.getD_continentByID(l_country.getD_continentID());
+	            String continentName = l_continent.getD_continentName();
 
-		try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_fileName))) {
-			l_writer.write("[continents]\n");
-			for (Continent l_continent : l_dominationMap.getD_continentMapGraph().vertexSet()) {
-				l_writer.write(l_continent.getD_continentName() + "=" + l_continent.getD_continentValue() + "\n");
-			}
-			l_writer.write("\n");
 
-			l_writer.write("[countries]\n");
-			HashMap<Integer, Continent> l_continentMap = new HashMap<>();
-			for (Country l_country : l_dominationMap.getD_countryMapGraph().vertexSet()) {
-				Continent l_continent = l_dominationMap.getD_continentByID(l_country.getD_continentID());
-				l_continentMap.put(l_country.getD_continentID(), l_continent);
-				l_writer.write(l_country.getD_countryID() + "," + l_country.getD_countryName() + ","
-						+ l_continent.getD_continentName() + "\n");
-			}
-			l_writer.write("\n");
+	            l_writer.write(l_country.getD_countryName() + "," + l_country.getD_countryID() + "," + continentName);
 
-			l_writer.write("[borders]\n");
-			for (Country l_country : l_dominationMap.getD_countryMapGraph().vertexSet()) {
-				StringBuilder l_borderData = new StringBuilder();
-				l_borderData.append(l_country.getD_countryID());
-				for (Integer neighborID : l_country.getD_neighbourCountryIDList()) {
-					l_borderData.append(",").append(neighborID);
-				}
-				l_writer.write(l_borderData.toString() + "\n");
-			}
+	            for (Integer neighborID : l_country.getD_neighbourCountryIDList()) {
+	                Country l_neighborCountry = p_map.getD_countryByID(neighborID);
+	                l_writer.write("," + l_neighborCountry.getD_countryName());
+	            }
 
-		}
-		return true;
+	            l_writer.write("\n");
+	        }
+	    }
+	    return true;
 	}
+	
+
+   
+
+
 }

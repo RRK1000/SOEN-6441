@@ -1,6 +1,8 @@
 package controller;
 
 
+import java.io.IOException;
+
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
@@ -11,6 +13,10 @@ import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
 import util.CommandUtil;
+import util.ConquestMapFileReaderAdapter;
+import util.DominationMapFileReader;
+import util.MapFileReader;
+
 
 /**
  * Represents the command parser.
@@ -23,6 +29,7 @@ import util.CommandUtil;
  * @author Yusuke
  */
 public class CommandParser {
+
 
     /**
      * Prints error on console and in game log
@@ -115,9 +122,36 @@ public class CommandParser {
                 break;
 
             case Commands.SAVE_MAP:
-                p_gameManager.getD_gamePhase().saveMap(l_map, l_cmdSplit);
-                LogManager.logAction("Saved the map with input: " + String.join(" ", l_cmdSplit));
+                String l_fileName = l_cmdSplit[1];
+                String l_format = l_cmdSplit[2]; 
+
+                MapFileReader l_fileReader;
+
+                // Determine which file reader to use based on the format argument
+                if ("conquest".equalsIgnoreCase(l_format)) {
+                    l_fileReader = new ConquestMapFileReaderAdapter();
+                } else if ("domination".equalsIgnoreCase(l_format)) {
+                    l_fileReader = new DominationMapFileReader();
+                } else {
+                    System.out.println("Invalid format. Please specify 'conquest' or 'domination'.");
+                    break;
+                }
+
+                // Attempt to save the map using the chosen file reader
+                try {
+                    if (l_fileReader.saveMap(l_map, l_fileName)) {
+                        LogManager.logAction("Map saved in " + l_format + " format: " + l_fileName);
+                        System.out.println("Map successfully saved in " + l_format + " format.");
+                    } else {
+                        LogManager.logAction("Failed to save the map.");
+                        System.out.println("Failed to save the map.");
+                    }
+                } catch (IOException l_e) {
+                    LogManager.logAction("Error occurred while saving the map: " + l_e.getMessage());
+                    System.out.println("An error occurred while saving the map: " + l_e.getMessage());
+                }
                 break;
+
 
             case Commands.EDIT_MAP:
                 p_gameManager.getD_gamePhase().editMap(p_gameManager, l_cmdSplit);
@@ -135,9 +169,24 @@ public class CommandParser {
                 break;
 
             case Commands.LOAD_MAP:
-                p_gameManager.getD_gamePhase().loadMap(l_cmdSplit[1], p_gameManager);
-                p_gameManager.setD_mapFileName(l_cmdSplit[1]);
-                LogManager.logAction("Loaded a map: " + l_cmdSplit[1]);
+                String l_filename = l_cmdSplit[1];
+                MapFileReader l_loadfileReader;
+
+                if (l_filename.endsWith(".conquest")) {
+                    l_loadfileReader = new ConquestMapFileReaderAdapter();
+                } else {
+                    l_loadfileReader = new DominationMapFileReader();
+                }
+
+                try {
+                    Map loadedMap = l_loadfileReader.loadMap(l_filename);
+                    p_gameManager.setD_map(loadedMap);
+                    p_gameManager.setD_mapFileName(l_filename);
+                    LogManager.logAction("Loaded a map: " + l_filename);
+                } catch (IOException e) {
+                    System.out.println("Error loading the map file: " + e.getMessage());
+                    LogManager.logAction("Error loading the map file: " + l_filename);
+                }
                 break;
 
             case Commands.GAME_PLAYER:
