@@ -5,11 +5,10 @@ import global.Cards;
 import models.Country;
 import models.Order;
 import models.Player;
-import orders.AdvanceOrder;
-import orders.BombOrder;
-import orders.DeployOrder;
+import orders.*;
 
 import java.util.List;
+import java.util.Random;
 
 public class AggressiveStrategy implements Strategy {
     private Country d_strongestCountry;
@@ -31,12 +30,15 @@ public class AggressiveStrategy implements Strategy {
 
         if (l_currentPlayer.getD_numArmies() != 0) {
             l_order = new DeployOrder(l_currentPlayer, l_strongestCountry, l_currentPlayer.getD_numArmies());
-        } else if (l_currentPlayer.getD_playerCardList().contains(Cards.BOMB_CARD) && l_currentPlayer.getD_countryList().isEmpty()) {
+        } else if (l_currentPlayer.getD_playerCardList().contains(Cards.BOMB_CARD) && !l_currentPlayer.getD_countryList().isEmpty()) {
             Country l_countryToBomb = getUnownedNeighbor(l_currentPlayer, p_gameManager);
             if(l_countryToBomb != null){
                 l_order = new BombOrder(l_currentPlayer, l_countryToBomb);
             }
         } else {
+            l_order = generateCardOrder(p_gameManager, l_currentPlayer);
+            if(null != l_order) return l_order;
+
             List<Integer> l_neighbours = l_strongestCountry.getD_neighbourCountryIDList();
 
             // attacking to a non-owned neighbour from the strongest country
@@ -94,6 +96,39 @@ public class AggressiveStrategy implements Strategy {
             }
         }
         return null;
+    }
 
+    private Order generateCardOrder(GameManager p_gameManager, Player p_currentPLayer) {
+        Random l_random = new Random();
+
+        if (!p_currentPLayer.getD_playerCardList().isEmpty()) {
+            String l_card = p_currentPLayer.getD_playerCardList().get(l_random.nextInt(p_currentPLayer.getD_playerCardList().size()));
+            switch (l_card) {
+                case Cards.AIRLIFT_CARD:
+                    if (p_currentPLayer.getD_countryList().size() == 1) break;
+                    Country l_randCountryFrom = p_currentPLayer.getD_countryList().get(
+                            l_random.nextInt(p_currentPLayer.getD_countryList().size()));
+                    Country l_randCountryTo;
+                    do {
+                        l_randCountryTo = p_currentPLayer.getD_countryList().get(
+                                l_random.nextInt(p_currentPLayer.getD_countryList().size()));
+                    } while (l_randCountryTo != l_randCountryFrom);
+                    return new AirliftOrder(p_currentPLayer, l_randCountryFrom, l_randCountryTo, l_randCountryFrom.getD_numArmies());
+
+                case Cards.DIPLOMACY_CARD:
+                    Player l_oppPlayer;
+                    do {
+                        l_oppPlayer = p_gameManager.getD_playerList().get(
+                                l_random.nextInt(p_gameManager.getD_playerList().size()));
+                    } while (l_oppPlayer != p_currentPLayer);
+                    return new NegotiateOrder(p_currentPLayer, l_oppPlayer);
+
+                case Cards.BLOCKADE_CARD:
+                    Country l_randCountry = p_currentPLayer.getD_countryList().get(
+                            l_random.nextInt(p_currentPLayer.getD_countryList().size()));
+                    return new BlockadeOrder(p_currentPLayer, l_randCountry);
+            }
+        }
+        return null;
     }
 }

@@ -21,6 +21,8 @@ public class BenevolentStrategy implements Strategy{
     @Override
     public Order createOrder(GameManager p_gameManager) {
         Player l_currentPlayer = p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn());
+        if(l_currentPlayer.getD_countryList().isEmpty()) return null;
+
         List<Country> l_countries = l_currentPlayer.getD_countryList();
         Country l_weakestCountry = getWeakestCountry(l_countries);
 
