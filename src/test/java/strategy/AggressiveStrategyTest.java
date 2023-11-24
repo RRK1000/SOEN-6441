@@ -63,7 +63,7 @@ class AggressiveStrategyTest {
         l_currentPlayer.setD_numArmies(0);
         l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);
-        assertFalse(l_order instanceof AdvanceOrder);
+        assertTrue(l_order instanceof AdvanceOrder);
     }
 
     @Test
