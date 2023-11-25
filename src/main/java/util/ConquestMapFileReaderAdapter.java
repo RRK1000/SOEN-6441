@@ -2,7 +2,6 @@ package util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,6 +32,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
      */
     @Override
     public Map loadMap(String p_fileName) throws IOException {
+
         Map l_conquestMap = loadConquestMap(p_fileName);
         if (l_conquestMap == null) {
             throw new IOException("Failed to load Conquest map format.");
@@ -43,8 +43,8 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
         if (!MapUtil.isValidMap(l_dominationMap)) {
             System.out.println("Map is invalid");
         }
-
-      
+//
+//      
 //        System.out.println("=== Converted Domination Map ===");
 //        System.out.println("[continents]");
 //        l_dominationMap.getD_continentMapGraph().vertexSet().forEach(continent -> {
@@ -202,7 +202,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 		int l_continentID = 1;
 		int l_countryID = 1; 
 
-		try (BufferedReader l_reader = new BufferedReader(new FileReader(p_fileName))) {
+        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_fileName))) {
 			String l_line;
 			boolean l_isContinentsSection = false, l_isTerritoriesSection = false;
 
@@ -230,7 +230,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 			}
 		}
 
-		try (BufferedReader l_reader2 = new BufferedReader(new FileReader(p_fileName))) {
+		try (BufferedReader l_reader2 = new BufferedReader(new FileReader("src/main/resources/" + p_fileName))) {
 			String l_line;
 			boolean l_isTerritoriesSection = false;
 
@@ -262,7 +262,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 		}
 
 		// Load neighboring relationships
-		try (BufferedReader l_reader3 = new BufferedReader(new FileReader(p_fileName))) {
+		try (BufferedReader l_reader3 = new BufferedReader(new FileReader("src/main/resources/" +p_fileName))) {
 			String l_line;
 			boolean l_isTerritoriesSection = false;
 
@@ -308,9 +308,13 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	 */
 	@Override
 	public boolean saveMap(Map p_map, String p_fileName) throws IOException {
+	    String l_modifiedFileName = p_fileName;
 
 	
 		if (p_fileName.endsWith(".domination")) {
+			
+	        l_modifiedFileName = p_fileName.substring(0, p_fileName.length() - 11) + ".conquest";
+
 			p_fileName = p_fileName.substring(0, p_fileName.length() - 11) + ".conquest";
 		}
 
@@ -318,7 +322,10 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 			p_fileName += ".conquest";
 		}
 
-		try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(p_fileName))) {
+	    String l_fullPath = "src/main/resources/" + l_modifiedFileName;
+
+		
+        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_fullPath))) {
 
 			l_writer.write("[Continents]\n");
 			for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
@@ -333,8 +340,8 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 				
 				l_writer.write(l_country.getD_countryName() + "," + l_country.getD_xCoordinate() + ","
 						+ l_country.getD_yCoordinate() + "," + l_continent.getD_continentName());
-				for (Integer neighborID : l_country.getD_neighbourCountryIDList()) {
-					Country l_neighborCountry = p_map.getD_countryByID(neighborID);
+				for (Integer l_neighborID : l_country.getD_neighbourCountryIDList()) {
+					Country l_neighborCountry = p_map.getD_countryByID(l_neighborID);
 					l_writer.write("," + l_neighborCountry.getD_countryName());
 				}
 				l_writer.write("\n");
@@ -345,16 +352,14 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 			return false;
 		}
 
-		ConquestMapFileReaderAdapter l_Map = new ConquestMapFileReaderAdapter();
-		Map l_loadedMap = l_Map.loadMap(p_fileName); 
-		if (!MapUtil.isValidMap(l_loadedMap)) {
-
-			new File(p_fileName).delete();
-			System.out.println("Invalid map. File has been deleted.");
-			return false;
-		}
-		System.out.println("Map has been saved to :" + p_fileName);
-		return true;
+        ConquestMapFileReaderAdapter l_Map = new ConquestMapFileReaderAdapter();
+        Map l_loadedMap = l_Map.loadMap(l_modifiedFileName); 
+        if (!MapUtil.isValidMap(l_loadedMap)) {
+            System.out.println("Map is invalid, check the file.");
+            return false;
+        }
+        System.out.println("Map has been saved to :" + l_modifiedFileName);
+        return true;
 	}
 
 }

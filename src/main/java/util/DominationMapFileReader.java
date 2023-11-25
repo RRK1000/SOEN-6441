@@ -19,6 +19,7 @@ public class DominationMapFileReader implements MapFileReader {
      */
     @Override
     public Map loadMap(String p_fileName) throws IOException {
+    	System.out.println("This file is Domination Format.");
         return MapUtil.loadMap(p_fileName);
     }
 
