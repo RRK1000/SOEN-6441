@@ -61,6 +61,9 @@ public class RandomStrategy implements Strategy {
     private Order generateCardOrder(GameManager p_gameManager, Player p_currentPLayer) {
         Random l_random = new Random();
 
+        // to have randomness in whether to use card
+        if(l_random.nextBoolean()) return null;
+
         if (!p_currentPLayer.getD_playerCardList().isEmpty()) {
             String l_card = p_currentPLayer.getD_playerCardList().get(l_random.nextInt(p_currentPLayer.getD_playerCardList().size()));
             switch (l_card) {
