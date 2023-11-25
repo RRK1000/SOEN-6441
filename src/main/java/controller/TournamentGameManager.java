@@ -1,21 +1,27 @@
 package controller;
 
 import gamelog.LogManager;
+import global.Strategies;
 import models.Map;
 import models.Order;
 import models.Player;
 import org.apache.commons.lang.StringUtils;
-import strategy.Strategy;
+import strategy.AggressiveStrategy;
+import strategy.BenevolentStrategy;
+import strategy.CheaterStrategy;
+import strategy.RandomStrategy;
+import util.MapUtil;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class TournamentGameManager {
 
-    private final HashMap<String, ArrayList<String>> d_resultMap;
-    private List<Map> d_mapList;
-    private List<Strategy> d_strategyList;
+    private final SortedMap<String, ArrayList<String>> d_resultMap;
+    private List<String> d_mapList;
+    private List<String> d_strategyList;
     private int d_numGames;
     private int d_maxTurns;
 
@@ -25,14 +31,14 @@ public class TournamentGameManager {
     public TournamentGameManager() {
         d_mapList = new ArrayList<>();
         d_strategyList = new ArrayList<>();
-        d_resultMap = new HashMap<>();
+        d_resultMap = new TreeMap<>();
     }
 
-    public void setD_mapList(List<Map> d_mapList) {
+    public void setD_mapList(List<String> d_mapList) {
         this.d_mapList = d_mapList;
     }
 
-    public void setD_strategyList(List<Strategy> d_strategyList) {
+    public void setD_strategyList(List<String> d_strategyList) {
         this.d_strategyList = d_strategyList;
     }
 
@@ -46,10 +52,10 @@ public class TournamentGameManager {
 
     public void runTournament() {
         int l_mapIndex = 0;
-        for (Map l_map : d_mapList) {
+        for (String l_map : d_mapList) {
             d_resultMap.put("Map " + l_mapIndex, new ArrayList<>());
             for (int l_i = 0; l_i < d_numGames; l_i++) {
-                GameManager l_gameManager = setUpGameManager(l_map);
+                GameManager l_gameManager = setUpGameManager(MapUtil.loadMap(l_map));
 
                 boolean hasWinner = false;
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {
@@ -62,6 +68,8 @@ public class TournamentGameManager {
                         }
                         l_currentPlayer.setD_currentOrder(l_order);
                         l_currentPlayer.issueOrder();
+                        LogManager.logAction("[" + l_currentPlayer.getD_playerName() + "] Order issued: " + StringUtils.remove(l_order.getClass().getName(), "orders."));
+
 
                         String l_currentPlayerName = l_currentPlayer.getD_playerName();
                         System.out.println("Player " + l_currentPlayerName + " turn over. ");
@@ -123,10 +131,23 @@ public class TournamentGameManager {
         GameManager l_gameManager = new GameManager();
         l_gameManager.setD_map(p_map);
         int l_pid = 1;
-        for (Strategy l_strategy : d_strategyList) {
-            String l_playerName = StringUtils.remove(l_strategy.getClass().getName() + "Player", "strategy.")
-                    + "-p" + (l_pid++);
-            l_gameManager.addPlayer(l_playerName, l_strategy);
+        for (String l_strategy : d_strategyList) {
+            String l_playerName = l_strategy + "Player-p" + l_pid++;
+
+            switch (l_strategy) {
+                case Strategies.AGGRESSIVE_STRATEGY:
+                    l_gameManager.addPlayer(l_playerName, new AggressiveStrategy());
+                    break;
+                case Strategies.BENEVOLENT_STRATEGY:
+                    l_gameManager.addPlayer(l_playerName, new BenevolentStrategy());
+                    break;
+                case Strategies.RANDOM_STRATEGY:
+                    l_gameManager.addPlayer(l_playerName, new RandomStrategy());
+                    break;
+                case Strategies.CHEATER_STRATEGY:
+                    l_gameManager.addPlayer(l_playerName, new CheaterStrategy());
+                    break;
+            }
         }
         l_gameManager.setD_gamePhase(l_gameManager.getD_gamePhase().nextPhase());
         l_gameManager.getD_gamePhase().assignCountries(l_gameManager);

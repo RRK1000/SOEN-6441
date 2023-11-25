@@ -7,19 +7,21 @@ import java.util.Scanner;
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
-import global.Strategies;
 import models.Country;
 import models.Map;
 import models.Player;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
-import strategy.*;
 import util.CommandUtil;
 import util.ConquestMapFileReaderAdapter;
 import util.DominationMapFileReader;
 import util.MapFileReader;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Represents the command parser.
@@ -195,8 +197,8 @@ public class CommandParser {
 
             case Commands.TOURNAMENT:
                 String[] l_tournamentInput = p_input.split(" -");
-                List<Strategy> l_listOfPlayerStrategies = new ArrayList<>();
-                List<Map> l_mapList = new ArrayList<>();
+                List<String> l_listOfPlayerStrategies = new ArrayList<>();
+                List<String> l_mapList = new ArrayList<>();
                 int l_numberOfGames = 0;
                 int l_maxNumberOfTurns = 0;
 
@@ -204,48 +206,31 @@ public class CommandParser {
                     String[] l_params = l_tournamentInput[l_i].split(" ");
                     if(l_params[0].startsWith("M")){
                         String l_mapFiles = l_params[1];
-                        for (String l_mapFileName: l_mapFiles.split(",")) {
-                            l_mapList.add(MapUtil.loadMap(l_mapFileName));
-                        }
-                    } else if (l_params[0].startsWith("P")) {
+                        l_mapList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                    }
+                    if (l_params[0].startsWith("P")) {
                         String l_playerStrategies = l_params[1];
                         String[] l_stringOfPlayerStrategies = l_playerStrategies.split(",");
-                        for (String l_strategy: l_stringOfPlayerStrategies) {
-                            switch (l_strategy) {
-                                case Strategies.HUMAN_STRATEGY:
-                                    l_listOfPlayerStrategies.add(new HumanStrategy());
-                                    break;
-                                case Strategies.AGGRESSIVE_STRATEGY:
-                                    l_listOfPlayerStrategies.add(new AggressiveStrategy());
-                                    break;
-                                case Strategies.BENEVOLENT_STRATEGY:
-                                    l_listOfPlayerStrategies.add(new BenevolentStrategy());
-                                    break;
-                                case Strategies.CHEATER_STRATEGY:
-                                    l_listOfPlayerStrategies.add(new CheaterStrategy());
-                                    break;
-                                case Strategies.RANDOM_STRATEGY:
-                                    l_listOfPlayerStrategies.add(new RandomStrategy());
-                                    break;
-                                default:
-                                    System.out.println(Constants.CMD_ERROR);
-                            }
+                        if(l_stringOfPlayerStrategies.length < 2){
+                            displayError();
+                            break;
                         }
+
+                        l_listOfPlayerStrategies.addAll(Arrays.asList(l_stringOfPlayerStrategies));
                     } else if (l_params[0].startsWith("G")) {
-                        l_numberOfGames = Integer.parseInt(l_params[1]);
+                        l_numberOfGames = Math.max(1,Integer.parseInt(l_params[1]));
                     } else if (l_params[0].startsWith("D")) {
-                        l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
+                        l_maxNumberOfTurns = Math.max(10, Integer.parseInt(l_params[1]));
                     } else {
                         System.out.println(Constants.CMD_ERROR);
                     }
-                    TournamentGameManager l_tournamentGameManager= new TournamentGameManager();
-                    l_tournamentGameManager.setD_mapList(l_mapList);
-                    l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
-                    l_tournamentGameManager.setD_numGames(l_numberOfGames);
-                    l_tournamentGameManager.setD_maxTurns(l_maxNumberOfTurns);
-                    l_tournamentGameManager.runTournament();
                 }
-
+                TournamentGameManager l_tournamentGameManager= new TournamentGameManager();
+                l_tournamentGameManager.setD_mapList(l_mapList);
+                l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
+                l_tournamentGameManager.setD_numGames(l_numberOfGames);
+                l_tournamentGameManager.setD_maxTurns(l_maxNumberOfTurns);
+                l_tournamentGameManager.runTournament();
                 break;
 
             case Commands.GAME_PLAYER:

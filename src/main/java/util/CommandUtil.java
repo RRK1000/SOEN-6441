@@ -84,7 +84,13 @@ public class CommandUtil {
                 return l_cmdSplit.length == 3;
 
             case Commands.TOURNAMENT:
-                return l_cmdSplit.length == 9;
+                l_optionSpec = new HashMap<>();
+                l_optionSpec.put("M", 1);
+                l_optionSpec.put("P", 1);
+                l_optionSpec.put("G", 1);
+                l_optionSpec.put("D", 1);
+
+                return hasValidOptions(p_input, l_optionSpec) && l_cmdSplit.length == 9;
 
             default:
                 return true;
