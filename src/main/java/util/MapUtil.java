@@ -189,6 +189,7 @@ public class MapUtil {
             }
             l_writer.write("\n");
 
+            
             //writing the details of countries in the file
             l_writer.write("[countries]\n");
             for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
