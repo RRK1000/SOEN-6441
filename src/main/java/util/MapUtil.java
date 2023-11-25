@@ -188,7 +188,6 @@ public class MapUtil {
                 l_writer.write(l_continent.getD_continentName() + " " + l_continent.getD_continentValue() + "\n");
             }
             l_writer.write("\n");
-
             
             //writing the details of countries in the file
             l_writer.write("[countries]\n");
