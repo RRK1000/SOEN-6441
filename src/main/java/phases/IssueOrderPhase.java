@@ -70,7 +70,7 @@ public class IssueOrderPhase extends Phase {
 
             p_gameManager.updatePlayerTurn();
         } else {
-            // Handle the case where there is no current player or it's not their turn
+            // Handle the case where there is no current player, or it's not their turn
             System.out.println("No current player or it's not their turn to issue orders.");
         }
     }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BenevolentStrategy implements Strategy{
+    private Country d_weakestCountry;
 
     /**
      * Creates an order according to player strategy
@@ -53,6 +54,8 @@ public class BenevolentStrategy implements Strategy{
     }
 
     private Country getWeakestCountry(List<Country> p_countries) {
+        if(null != d_weakestCountry)  return d_weakestCountry;
+
         Country l_weakestCountry = null;
         int l_lowestArmies = Integer.MAX_VALUE;
         for (Country l_country: p_countries) {
@@ -61,6 +64,7 @@ public class BenevolentStrategy implements Strategy{
                 l_lowestArmies = l_country.getD_numArmies();
             }
         }
+        d_weakestCountry = l_weakestCountry;
         return l_weakestCountry;
     }
 
