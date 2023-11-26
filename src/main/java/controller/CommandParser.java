@@ -201,7 +201,9 @@ public class CommandParser {
                 List<String> l_mapList = new ArrayList<>();
                 int l_numberOfGames = 0;
                 int l_maxNumberOfTurns = 0;
+                boolean l_hasError = false;
 
+                // iterating through each option value
                 for (int l_i = 1; l_i < l_tournamentInput.length; l_i++) {
                     String[] l_params = l_tournamentInput[l_i].split(" ");
                     if(l_params[0].startsWith("M")){
@@ -218,13 +220,26 @@ public class CommandParser {
 
                         l_listOfPlayerStrategies.addAll(Arrays.asList(l_stringOfPlayerStrategies));
                     } else if (l_params[0].startsWith("G")) {
-                        l_numberOfGames = Math.max(1,Integer.parseInt(l_params[1]));
+                        if(Integer.parseInt(l_params[1]) < 1 || Integer.parseInt(l_params[1]) > 5) {
+                            System.out.println("G option value invalid, 1 to 5 games allowed");
+                            l_hasError = true;
+                            break;
+                        }
+                        l_numberOfGames = Integer.parseInt(l_params[1]);
                     } else if (l_params[0].startsWith("D")) {
-                        l_maxNumberOfTurns = Math.max(10, Integer.parseInt(l_params[1]));
+                        if(Integer.parseInt(l_params[1]) < 10 || Integer.parseInt(l_params[1]) > 50) {
+                            System.out.println("D option value invalid, 10 to 50 turns allowed");
+                            l_hasError = true;
+                            break;
+                        }
+                        l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
                     } else {
                         System.out.println(Constants.CMD_ERROR);
                     }
                 }
+                if(l_hasError) break;
+
+                // setting up the tournament game manager with the user specified values
                 TournamentGameManager l_tournamentGameManager= new TournamentGameManager();
                 l_tournamentGameManager.setD_mapList(l_mapList);
                 l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
