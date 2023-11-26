@@ -36,7 +36,7 @@ public class ConquestMapFileReaderAdapterTest {
 	@Test
 	void testLoadMapValidFile() {
 		try {
-			Map l_map = d_adapter.loadMap("ConquestTestMap.domination");
+			Map l_map = d_adapter.loadMap("ConquestTestMap.txt");
 			assertNotNull(l_map, "Map should not be null for a valid file");
 		} catch (IOException e) {
 			fail("IOException should not be thrown for a valid file");
