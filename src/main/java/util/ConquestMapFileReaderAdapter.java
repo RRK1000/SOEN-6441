@@ -89,7 +89,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	        l_dominationContinent.setD_continentName(l_conquestContinent.getD_continentName());
 	        l_dominationContinent.setD_continentValue(l_conquestContinent.getD_continentValue());
 	        l_tempContinents.put(l_conquestContinent.getD_continentID(), l_dominationContinent);
-	        System.out.println("Continent " + l_dominationContinent.getD_continentName() + " includes countries:");
+//	        System.out.println("Continent " + l_dominationContinent.getD_continentName() + " includes countries:");
 	        for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
 	            if (l_country.getD_continentID() == l_dominationContinent.getD_continentID()) {
 	                System.out.println(" - " + l_country.getD_countryName());
@@ -107,7 +107,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	        l_tempCountries.put(l_conquestCountry.getD_countryID(), l_dominationCountry);
 	        l_tempBorders.put(l_dominationCountry.getD_countryID(), l_conquestCountry.getD_neighbourCountryIDList());
 	        Continent l_continent = l_tempContinents.get(l_conquestCountry.getD_continentID());
-	        System.out.println("Country " + l_conquestCountry.getD_countryName() + " belongs to continent " + l_continent.getD_continentName());
+//	        System.out.println("Country " + l_conquestCountry.getD_countryName() + " belongs to continent " + l_continent.getD_continentName());
 	    }
 
 	    // Neighbors copying
@@ -141,7 +141,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	        for (Integer l_neighborID : entry.getValue()) {
 	            Country l_neighborCountry = l_tempCountries.get(l_neighborID);
 	            l_newMap.getD_countryMapGraph().addEdge(l_country, l_neighborCountry);
-	            System.out.println("Added edge between countries: " + l_country.getD_countryName() + " and " + l_neighborCountry.getD_countryName());
+//	            System.out.println("Added edge between countries: " + l_country.getD_countryName() + " and " + l_neighborCountry.getD_countryName());
 	        }
 	    }
 
@@ -153,7 +153,7 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	            Continent l_neighborContinent = l_tempContinents.get(l_neighborCountry.getD_continentID());
 	            if (!l_continent.equals(l_neighborContinent)) {
 	                l_newMap.getD_continentMapGraph().addEdge(l_continent, l_neighborContinent);
-	                System.out.println("Added edge between continents: " + l_continent.getD_continentName() + " and " + l_neighborContinent.getD_continentName());
+//	                System.out.println("Added edge between continents: " + l_continent.getD_continentName() + " and " + l_neighborContinent.getD_continentName());
 	            }
 	        }
 	    }
@@ -173,10 +173,10 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 			HashMap<Integer, List<Integer>> l_tempBorders) {
 		List<Integer> l_neighbors = l_tempBorders.getOrDefault(p_country.getD_countryID(), new ArrayList<>());
 
-		System.out.println(
-				"Getting neighbors for " + p_country.getD_countryName() + " (ID: " + p_country.getD_countryID() + ")");
-		System.out.println("Neighbors found for " + p_country.getD_countryName() + " (ID: " + p_country.getD_countryID()
-				+ "): " + l_neighbors);
+//		System.out.println(
+//				"Getting neighbors for " + p_country.getD_countryName() + " (ID: " + p_country.getD_countryID() + ")");
+//		System.out.println("Neighbors found for " + p_country.getD_countryName() + " (ID: " + p_country.getD_countryID()
+//				+ "): " + l_neighbors);
 
 		return l_neighbors;
 	}
@@ -277,17 +277,17 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 					Country l_country = l_countryMap.get(l_parts[0].trim());
 					if (l_country != null) {
 						List<Integer> l_neighbors = new ArrayList<>();
-						System.out.println("Processing country: " + l_country.getD_countryName());
+//						System.out.println("Processing country: " + l_country.getD_countryName());
 						for (int i = 4; i < l_parts.length; i++) {
 							String l_neighborName = l_parts[i].trim();
 							Integer l_neighborId = l_countryNameIdMap.get(l_neighborName);
-							System.out.println("Neighbor name: " + l_neighborName + ", ID: " + l_neighborId);
+//							System.out.println("Neighbor name: " + l_neighborName + ", ID: " + l_neighborId);
 							if (l_neighborId != null) {
 								l_neighbors.add(l_neighborId);
 							}
 						}
 						l_country.setD_neighbourCountryIDList(l_neighbors);
-						System.out.println("Neighbors for " + l_country.getD_countryName() + ": " + l_neighbors);
+//						System.out.println("Neighbors for " + l_country.getD_countryName() + ": " + l_neighbors);
 					}
 				}
 			}
@@ -308,58 +308,48 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 	 */
 	@Override
 	public boolean saveMap(Map p_map, String p_fileName) throws IOException {
+
+		if (!MapUtil.isValidMap(p_map)) {
+	        System.out.println("Map is invalid, not saving to file.");
+	        return false;
+	    }
+
 	    String l_modifiedFileName = p_fileName;
 
-	
-		if (p_fileName.endsWith(".domination")) {
-			
+	    if (p_fileName.endsWith(".domination")) {
 	        l_modifiedFileName = p_fileName.substring(0, p_fileName.length() - 11) + ".conquest";
+	        p_fileName = l_modifiedFileName;
+	    } else if (!p_fileName.endsWith(".conquest")) {
+	        p_fileName += ".conquest";
+	    }
 
-			p_fileName = p_fileName.substring(0, p_fileName.length() - 11) + ".conquest";
-		}
+	    String l_fullPath = "src/main/resources/" + p_fileName;
 
-		else if (!p_fileName.endsWith(".conquest")) {
-			p_fileName += ".conquest";
-		}
+	    try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_fullPath))) {
+	        l_writer.write("[Continents]\n");
+	        for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
+	            l_writer.write(l_continent.getD_continentName() + "=" + l_continent.getD_continentValue() + "\n");
+	        }
+	        l_writer.write("\n");
 
-	    String l_fullPath = "src/main/resources/" + l_modifiedFileName;
+	        l_writer.write("[Territories]\n");
+	        for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
+	            Continent l_continent = p_map.getD_continentByID(l_country.getD_continentID());
+	            l_writer.write(l_country.getD_countryName() + "," + l_country.getD_xCoordinate() + ","
+	                    + l_country.getD_yCoordinate() + "," + l_continent.getD_continentName());
+	            for (Integer l_neighborID : l_country.getD_neighbourCountryIDList()) {
+	                Country l_neighborCountry = p_map.getD_countryByID(l_neighborID);
+	                l_writer.write("," + l_neighborCountry.getD_countryName());
+	            }
+	            l_writer.write("\n");
+	        }
+	    } catch (IOException e) {
+	        System.out.println("Error saving the map: " + e.getMessage());
+	        return false;
+	    }
 
-		
-        try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_fullPath))) {
-
-			l_writer.write("[Continents]\n");
-			for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
-				l_writer.write(l_continent.getD_continentName() + "=" + l_continent.getD_continentValue() + "\n");
-			}
-			l_writer.write("\n");
-
-			
-			l_writer.write("[Territories]\n");
-			for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
-				Continent l_continent = p_map.getD_continentByID(l_country.getD_continentID());
-				
-				l_writer.write(l_country.getD_countryName() + "," + l_country.getD_xCoordinate() + ","
-						+ l_country.getD_yCoordinate() + "," + l_continent.getD_continentName());
-				for (Integer l_neighborID : l_country.getD_neighbourCountryIDList()) {
-					Country l_neighborCountry = p_map.getD_countryByID(l_neighborID);
-					l_writer.write("," + l_neighborCountry.getD_countryName());
-				}
-				l_writer.write("\n");
-			}
-
-		} catch (IOException e) {
-			System.out.println("Error saving the map: " + e.getMessage());
-			return false;
-		}
-
-        ConquestMapFileReaderAdapter l_Map = new ConquestMapFileReaderAdapter();
-        Map l_loadedMap = l_Map.loadMap(l_modifiedFileName); 
-        if (!MapUtil.isValidMap(l_loadedMap)) {
-            System.out.println("Map is invalid, check the file.");
-            return false;
-        }
-        System.out.println("Map has been saved to :" + l_modifiedFileName);
-        return true;
+	    System.out.println("Map has been saved to: " + l_modifiedFileName);
+	    return true;
 	}
 
 }
