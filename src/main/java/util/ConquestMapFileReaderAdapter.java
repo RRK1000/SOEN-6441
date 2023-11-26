@@ -249,14 +249,14 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 					}
 
 					Country l_country = new Country();
-					l_country.setD_countryID(l_countryID++); // 国IDは行数に基づいて自動割り当て
+					l_country.setD_countryID(l_countryID++); 
 					l_country.setD_countryName(l_parts[0].trim());
 					l_country.setD_continentID(l_continentIDForCountry);
-					l_country.setD_xCoordinate(Integer.parseInt(l_parts[1].trim())); // X座標
-					l_country.setD_yCoordinate(Integer.parseInt(l_parts[2].trim())); // Y座標
+					l_country.setD_xCoordinate(Integer.parseInt(l_parts[1].trim())); 
+					l_country.setD_yCoordinate(Integer.parseInt(l_parts[2].trim())); 
 					l_countryMapGraph.addVertex(l_country);
 					l_countryMap.put(l_parts[0].trim(), l_country);
-					l_countryNameIdMap.put(l_parts[0].trim(), l_countryID - 1); // 国名とIDの関連付け
+					l_countryNameIdMap.put(l_parts[0].trim(), l_countryID - 1); 
 				}
 			}
 		}
