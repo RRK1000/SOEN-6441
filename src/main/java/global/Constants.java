@@ -28,7 +28,10 @@ public class Constants {
             "\n\t savemap <filename> :\tSaves the user-created map into a file path given" +
             "\n\t validatemap \t\t:\tVerifies the map correctness" +
             "\n" +
-            "\n\t showmap\t: Displays the map that is loaded, if valid";
+            "\n\t showmap\t: Displays the map that is loaded, if valid"+
+            "\n" +
+            "\n\t tournament -M <listofmapfiles> -P <listofplayerstrategies> -G <numberofgames> -D <maxnumberofturns>\t: " +
+            "Begins a tournament, and displays a report after simulating the tournament\n";
     /**
      * Displayed while exiting or ending the game.
      */
