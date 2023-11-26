@@ -1,0 +1,8 @@
+[Continents]
+Asia=5
+Europe=3
+
+[Territories]
+Japan,1,1,Asia,Germany,China
+Germany,2,2,Europe,Japan,China
+China,3,3,Asia,Japan,Germany

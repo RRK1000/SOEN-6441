@@ -2,9 +2,7 @@ package phases;
 
 import controller.GameManager;
 import gamelog.LogManager;
-import global.Constants;
 import models.Country;
-import models.Map;
 import models.Player;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class StartupPhase extends Phase {
     /**
      * Private constructor to present instantiation
      */
-    private StartupPhase(){}
+    public StartupPhase(){}
 
     /**
      * Get the singleton instance for StartupPhase

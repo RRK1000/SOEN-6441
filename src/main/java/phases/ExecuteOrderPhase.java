@@ -2,9 +2,6 @@ package phases;
 
 import controller.GameManager;
 import gamelog.LogManager;
-import global.Constants;
-import models.Country;
-import models.Map;
 import models.Order;
 import models.Player;
 
@@ -24,7 +21,7 @@ public class ExecuteOrderPhase extends Phase {
     /**
      * Private constructor to present instantiation
      */
-    private ExecuteOrderPhase(){}
+    public ExecuteOrderPhase(){}
 
     /**
      * Get the singleton instance for ExecuteOrderPhase

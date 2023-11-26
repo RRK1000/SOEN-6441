@@ -24,7 +24,7 @@ public class IssueOrderPhase extends Phase {
     /**
      * Private constructor to present instantiation
      */
-    private IssueOrderPhase(){}
+    public IssueOrderPhase(){}
 
     /**
      * Get the singleton instance for IssueOrderPhase

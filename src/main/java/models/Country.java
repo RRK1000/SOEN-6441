@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Anuja Somthankar
  * @author Rishi Ravikumar
- * @author Yusuke
+ * @author Yusuke Ishii
  */
 public class Country implements Serializable {
     private int d_countryID;
@@ -23,6 +23,10 @@ public class Country implements Serializable {
     private int d_numArmies;
     private Player d_owner;
     private boolean d_isNeutral;
+    private List<String> d_neighbourCountryNames;
+    private int d_xCoordinate;
+    private int d_yCoordinate;
+
 
     /**
      * Default constructor for Country class.
@@ -72,6 +76,15 @@ public class Country implements Serializable {
         return d_countryName;
     }
 
+    /**
+     * Sets the Country Name
+     *
+     * @param p_countryName The new countryName
+     */
+    public void setD_countryName(String p_countryName) {
+        this.d_countryName = p_countryName;
+    }
+    
     /**
      * Gets the ID of the continent to which the country belongs.
      *
@@ -161,4 +174,61 @@ public class Country implements Serializable {
     public void setD_isNeutral(boolean p_isNeutral) {
         this.d_isNeutral = p_isNeutral;
     }
+    /**
+     * Gets the names of neighboring countries.
+     * 
+     * @return A list of names of neighboring countries.
+     */
+    public List<String> getD_neighbourCountryNames() {
+        if (d_neighbourCountryNames == null) {
+            d_neighbourCountryNames = new ArrayList<>();
+        }
+        return d_neighbourCountryNames;
+    }
+
+    /**
+     * Sets the names of neighboring countries
+     * 
+     * @param p_neighbourCountryNames A list of names of neighboring countries
+     */
+    public void setD_neighbourCountryNames(List<String> p_neighbourCountryNames) {
+        this.d_neighbourCountryNames = p_neighbourCountryNames;
+    }
+
+    /**
+     * Gets the x-coordinate of the country
+     * 
+     * @return The x-coordinate
+     */
+    public int getD_xCoordinate() {
+        return d_xCoordinate;
+    }
+
+    /**
+     * Sets the x-coordinate of the country
+     * 
+     * @param p_xCoordinate The x-coordinate to set
+     */
+    public void setD_xCoordinate(int p_xCoordinate) {
+        this.d_xCoordinate = p_xCoordinate;
+    }
+
+    /**
+     * Gets the y-coordinate of the country
+     * 
+     * @return The y-coordinate
+     */
+    public int getD_yCoordinate() {
+        return d_yCoordinate;
+    }
+
+    /**
+     * Sets the y-coordinate of the country
+     * 
+     * @param p_yCoordinate The y-coordinate to set
+     */
+    public void setD_yCoordinate(int p_yCoordinate) {
+        this.d_yCoordinate = p_yCoordinate;
+    }
+    
 }
