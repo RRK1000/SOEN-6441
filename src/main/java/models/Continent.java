@@ -71,6 +71,17 @@ public class Continent implements Serializable {
         this.d_continentName = p_continentName;
     }
 
+    
+    /**
+     * Gets the continent Name
+     *
+     * @return The continent Name
+     */
+    
+    public String getD_continentName() {
+        return d_continentName;
+    }
+    
     /**
      * Gets the continent value.
      *

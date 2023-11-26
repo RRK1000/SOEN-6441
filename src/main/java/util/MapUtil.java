@@ -1,15 +1,20 @@
 package util;
 
-import models.Continent;
-import models.Country;
-import models.Map;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import models.Continent;
+import models.Country;
+import models.Map;
 
 /**
  * Represents the Map Utility class.
@@ -20,6 +25,7 @@ import java.util.List;
  * @author Nimisha Jadav
  */
 public class MapUtil {
+	
     /**
      * Loads the map from a given file, and stores it into {@link models.Map}
      *
@@ -62,6 +68,8 @@ public class MapUtil {
         return l_map;
     }
 
+    
+    
     /**
      * Loads the continents from a given file
      *
@@ -72,13 +80,13 @@ public class MapUtil {
      */
     public static void loadContinents(BufferedReader p_reader, DefaultDirectedGraph<Continent, DefaultEdge> p_continentMapGraph, Map p_map) throws IOException {
         int l_continentID = 1;
-        String l_line;
+    	String l_line;
         while ((l_line = p_reader.readLine()) != null && !l_line.isEmpty()) {
             String[] l_continentData = l_line.split(" ");
             Continent l_continent = new Continent();
-            l_continent.setD_continentID(l_continentID++);
+            l_continent.setD_continentID(l_continentID++); 
             l_continent.setD_continentName(l_continentData[0]);
-            l_continent.setD_continentValue(Integer.parseInt(l_continentData[1]));
+            l_continent.setD_continentValue(Integer.parseInt(l_continentData[1])); 
             p_continentMapGraph.addVertex(l_continent);
         }
         p_map.setD_continentMapGraph(p_continentMapGraph);
@@ -99,12 +107,16 @@ public class MapUtil {
             Country l_country = new Country();
             Continent l_continent = p_map.getD_continentByID(Integer.parseInt(l_countryData[2]));
             l_country.setD_countryID(Integer.parseInt(l_countryData[0]));
+            l_country.setD_countryName(l_countryData[1]); 
             l_country.setD_continentID(Integer.parseInt(l_countryData[2]));
+            l_country.setD_xCoordinate(Integer.parseInt(l_countryData[3])); 
+            l_country.setD_yCoordinate(Integer.parseInt(l_countryData[4])); 
             p_countryMapGraph.addVertex(l_country);
             l_continent.addCountry(l_country);
         }
         p_map.setD_countryMapGraph(p_countryMapGraph);
     }
+
 
     /**
      * Loads the borders from a given file
@@ -173,15 +185,16 @@ public class MapUtil {
             //writing the details of continents in the file
             l_writer.write("[continents]\n");
             for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
-                l_writer.write(l_continent.getD_continentID() + " " + l_continent.getD_continentValue() + " blue\n");
+                l_writer.write(l_continent.getD_continentName() + " " + l_continent.getD_continentValue() + "\n");
             }
             l_writer.write("\n");
-
+            
             //writing the details of countries in the file
             l_writer.write("[countries]\n");
             for (Country l_country : p_map.getD_countryMapGraph().vertexSet()) {
-                l_writer.write(l_country.getD_countryID()
-                        + " " + l_country.getD_countryName() + " " + l_country.getD_continentID() + " 100 100\n");
+                l_writer.write(l_country.getD_countryID() + " " + l_country.getD_countryName() + " " 
+                    + l_country.getD_continentID() + " " + l_country.getD_xCoordinate() + " " 
+                    + l_country.getD_yCoordinate() + "\n");
             }
             l_writer.write("\n");
 
