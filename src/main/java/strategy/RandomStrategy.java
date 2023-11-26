@@ -58,6 +58,12 @@ public class RandomStrategy implements Strategy {
         }
     }
 
+    /**
+     * Generates a random order involving an owned card
+     * @param p_gameManager {@link GameManager} game manager object
+     * @param p_currentPLayer {@link Player} Current player
+     * @return {@link Order} generated order object, or null
+     */
     private Order generateCardOrder(GameManager p_gameManager, Player p_currentPLayer) {
         Random l_random = new Random();
 

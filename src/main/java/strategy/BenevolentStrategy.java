@@ -53,12 +53,17 @@ public class BenevolentStrategy implements Strategy{
         return l_order;
     }
 
-    private Country getWeakestCountry(List<Country> p_countries) {
+    /**
+     * Iterates through the countries and finds the country with the least deployed armies
+     * @param p_countryList List of player owned countries
+     * @return {@link Country} with the least deployed armies
+     */
+    private Country getWeakestCountry(List<Country> p_countryList) {
         if(null != d_weakestCountry)  return d_weakestCountry;
 
         Country l_weakestCountry = null;
         int l_lowestArmies = Integer.MAX_VALUE;
-        for (Country l_country: p_countries) {
+        for (Country l_country: p_countryList) {
             if(l_lowestArmies > l_country.getD_numArmies()) {
                 l_weakestCountry = l_country;
                 l_lowestArmies = l_country.getD_numArmies();
@@ -68,6 +73,11 @@ public class BenevolentStrategy implements Strategy{
         return l_weakestCountry;
     }
 
+    /**
+     * Iterates through the countries and finds the country with the most deployed armies
+     * @param p_countryList List of player owned countries
+     * @return {@link Country} with the most deployed armies
+     */
     private Country getStrongestCountry(List<Country> p_countryList) {
         Country l_strongestCountry = null;
         int l_maxArmies = Integer.MIN_VALUE;
@@ -80,6 +90,12 @@ public class BenevolentStrategy implements Strategy{
         return l_strongestCountry;
     }
 
+    /**
+     * Finds a randomly picked opponent player from the game manager
+     * @param p_currentPlayer {@link Player} Current player
+     * @param p_gameManager {@link GameManager} game manager object
+     * @return randomly picked opponent player
+     */
     private Player getRandomPlayer(Player p_currentPlayer, GameManager p_gameManager){
         Random l_random = new Random();
         Player l_oppPlayer;

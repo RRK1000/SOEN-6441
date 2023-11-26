@@ -73,6 +73,11 @@ public class AggressiveStrategy implements Strategy {
         return l_order;
     }
 
+    /**
+     * Iterates through the countries and finds the country with the most deployed armies
+     * @param p_countryList List of player owned countries
+     * @return {@link Country} with the most deployed armies
+     */
     private Country getStrongestCountry(List<Country> p_countryList) {
         if(null != d_strongestCountry)  return d_strongestCountry;
 
@@ -87,6 +92,12 @@ public class AggressiveStrategy implements Strategy {
         return l_strongestCountry;
     }
 
+    /**
+     * Finds a country that's a neighbour and unowned by the current player
+     * @param p_currentPlayer {@link Player} Current player
+     * @param p_gameManager {@link GameManager} game manager object
+     * @return Neighbor {@link Country}
+     */
     private Country getUnownedNeighbor(Player p_currentPlayer, GameManager p_gameManager){
         Country l_neighbor;
         for(Country l_country: p_currentPlayer.getD_countryList()){
@@ -100,6 +111,12 @@ public class AggressiveStrategy implements Strategy {
         return null;
     }
 
+    /**
+     * Generates a random order involving an owned card
+     * @param p_gameManager {@link GameManager} game manager object
+     * @param p_currentPLayer {@link Player} Current player
+     * @return {@link Order} generated order object, or null
+     */
     private Order generateCardOrder(GameManager p_gameManager, Player p_currentPLayer) {
         Random l_random = new Random();
 

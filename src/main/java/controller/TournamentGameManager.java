@@ -50,6 +50,9 @@ public class TournamentGameManager {
         this.d_maxTurns = d_maxTurns;
     }
 
+    /**
+     * Methods to simulate the tournament, over all the maps
+     */
     public void runTournament() {
         int l_mapIndex = 0;
         for (String l_map : d_mapList) {
@@ -60,6 +63,8 @@ public class TournamentGameManager {
                 boolean hasWinner = false;
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {
                     Player l_currentPlayer = l_gameManager.getD_playerList().get(l_gameManager.getD_currentPlayerTurn());
+
+                    // generates and issues orders based on the player strategy
                     if (!l_gameManager.getD_skipTurnList().contains(l_gameManager.getD_currentPlayerTurn())) {
                         Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(l_gameManager);
                         if (null == l_order) {
@@ -76,6 +81,7 @@ public class TournamentGameManager {
                         System.out.println();
                     }
 
+                    // handles the case where all players have completed issuing orders
                     if (l_gameManager.getD_skipTurnList().toArray().length == l_gameManager.getD_playerList().toArray().length) {
                         l_gameManager.updateNeutralCountriesOnRoundEnd();
                         l_gameManager.updatePlayerDiplomacyOnRoundEnd();
@@ -127,6 +133,11 @@ public class TournamentGameManager {
         }
     }
 
+    /**
+     * Method to set up a game manager with the players and the map
+     * @param p_map {@link Map} with which a {@link GameManager} object is initialised
+     * @return initialised {@link GameManager} object
+     */
     private GameManager setUpGameManager(Map p_map) {
         GameManager l_gameManager = new GameManager();
         l_gameManager.setD_map(p_map);
