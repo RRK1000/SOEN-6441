@@ -1,9 +1,6 @@
 package controller;
 
-import models.Map;
 import org.junit.jupiter.api.Test;
-import strategy.*;
-import util.MapUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +9,15 @@ class TournamentGameManagerTest {
 
     @Test
     void runTournament() {
-        List<Map> l_mapList = new ArrayList<>();
-        l_mapList.add(MapUtil.loadMap("europe.map"));
-        l_mapList.add(MapUtil.loadMap("validMap2.txt"));
+        List<String> l_mapList = new ArrayList<>();
+        l_mapList.add("europe.map");
+        l_mapList.add("validMap2.txt");
 
-        List<Strategy> l_strategyList = new ArrayList<>();
-        l_strategyList.add(new AggressiveStrategy());
-        l_strategyList.add(new BenevolentStrategy());
-        l_strategyList.add(new RandomStrategy());
-        l_strategyList.add(new CheaterStrategy());
+        List<String> l_strategyList = new ArrayList<>();
+        l_strategyList.add("Aggressive");
+        l_strategyList.add("Benevolent");
+        l_strategyList.add("Random");
+        l_strategyList.add("Cheater");
 
         int l_numGames = 4;
         int l_maxTurns = 300;
