@@ -1,5 +1,13 @@
 package strategy;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import controller.GameManager;
 import global.Cards;
 import models.Order;
@@ -7,22 +15,24 @@ import models.Player;
 import orders.AdvanceOrder;
 import orders.BombOrder;
 import orders.DeployOrder;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import phases.ExecuteOrderPhase;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.Phase;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * The following class tests the Behaviour and working of AggressiveStrategy class
+ * @author Abhigyan Singh
+ */
 class AggressiveStrategyTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;
+
+    /**
+     * Sets up the test environment before each test case execution.
+     * Initializes a new {@link GameManager} and sets the game phase to {@link InitMapPhase}.
+     * Adds players, assigns strategies, and assigns countries to players for testing.
+     */
     @BeforeEach
     void setUp() {
         d_gameManager = new GameManager();
@@ -37,11 +47,20 @@ class AggressiveStrategyTest {
         d_gameManager.getD_gamePhase().assignCountries(d_gameManager);
     }
 
+    
+    /**
+     * Cleans the test environment after each test case execution.
+     * Resets the {@link GameManager} to null.
+     */
     @AfterEach
     void tearDown() {
         d_gameManager = null;
     }
 
+    /**
+     * Tests the creation of a deploy order by the aggressive strategy.
+     * Verifies that the order created is an instance of {@link DeployOrder}.
+     */
     @Test
     void createOrderTest1() {
         Order l_order = d_gameManager.findPlayerByName("Player1")
@@ -49,6 +68,11 @@ class AggressiveStrategyTest {
         assertTrue(l_order instanceof DeployOrder);
     }
 
+    /**
+     * Tests the creation of an advance order by the aggressive strategy.
+     * Executes a previous order, sets up the game phase, and verifies
+     * that the new order created is an instance of {@link AdvanceOrder}.
+     */
     @Test
     void createOrderTest2() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
@@ -66,6 +90,11 @@ class AggressiveStrategyTest {
         assertTrue(l_order instanceof AdvanceOrder);
     }
 
+    /**
+     * Tests the creation of a bomb order by the aggressive strategy.
+     * Uses a bomb card, executes the order, sets up the game phase,
+     * and verifies that the new order created is an instance of {@link BombOrder}.
+     */
     @Test
     void createOrderTest3() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
