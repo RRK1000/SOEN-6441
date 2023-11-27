@@ -1,20 +1,20 @@
 package strategy;
 
-import controller.GameManager;
-import models.Order;
-import models.Player;
-import orders.AdvanceOrder;
-import orders.DeployOrder;
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import phases.ExecuteOrderPhase;
+
+import controller.GameManager;
+import models.Order;
+import orders.DeployOrder;
 import phases.InitMapPhase;
-import phases.IssueOrderPhase;
 import phases.Phase;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * The following class tests the Behaviour and working of RandomStrategyTest class
+ * @author Abhigyan Singh
+ */
 class RandomStrategyTest {
 
     static GameManager d_gameManager;
@@ -45,6 +45,10 @@ class RandomStrategyTest {
         d_gameManager = null;
     }
 
+    /**
+     * Tests the creation of a deploy order by the random strategy.
+     * Verifies that the order created is an instance of {@link DeployOrder}.
+     */
     @Test
     void createOrderTest1() {
         Order l_order = d_gameManager.findPlayerByName("Player1")
