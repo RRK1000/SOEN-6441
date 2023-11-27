@@ -1,22 +1,27 @@
 package strategy;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import controller.GameManager;
 import global.Cards;
 import models.Order;
 import models.Player;
-import orders.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import orders.AdvanceOrder;
+import orders.AirliftOrder;
+import orders.BlockadeOrder;
+import orders.DeployOrder;
+import orders.NegotiateOrder;
 import phases.ExecuteOrderPhase;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.Phase;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The following class tests the Behaviour of the benevolent strategy
@@ -52,6 +57,10 @@ class BenevolentStrategyTest {
         d_gameManager = null;
     }
 
+    /**
+     * Tests the creation of a deploy order by the benevolent strategy.
+     * Verifies that the order created is an instance of {@link DeployOrder}.
+     */
     @Test
     void createOrderTest1() {
         Order l_order = d_gameManager.findPlayerByName("Player1")
@@ -59,6 +68,10 @@ class BenevolentStrategyTest {
         assertTrue(l_order instanceof DeployOrder);
     }
 
+    /**
+     * Tests the creation of an order by the benevolent strategy after issuing a previous order.
+     * Verifies that the new order is not an instance of {@link DeployOrder}.
+     */
     @Test
     void createOrderTest2() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
@@ -73,6 +86,10 @@ class BenevolentStrategyTest {
         assertFalse(l_order2 instanceof DeployOrder);
     }
 
+    /**
+     * Tests the creation of an order after executing a previous order by the benevolent strategy.
+     * Verifies that the new order is not an instance of {@link AdvanceOrder}.
+     */
     @Test
     void createOrderTest3() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
@@ -90,6 +107,10 @@ class BenevolentStrategyTest {
         assertFalse(l_order instanceof AdvanceOrder);
     }
 
+    /**
+     * Tests the creation of an airlift order by the benevolent strategy using an airlift card.
+     * Verifies that the order created is an instance of {@link AirliftOrder}.
+     */
     @Test
     void createOrderTest4() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
@@ -109,6 +130,10 @@ class BenevolentStrategyTest {
         assertTrue(l_order instanceof AirliftOrder);
     }
 
+    /**
+     * Tests the creation of a negotiate order by the benevolent strategy using a diplomacy card.
+     * Verifies that the order created is an instance of {@link NegotiateOrder}.
+     */
     @Test
     void createOrderTest5() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
@@ -127,6 +152,11 @@ class BenevolentStrategyTest {
         l_currentPlayer.setD_currentOrder(l_order);
         assertTrue(l_order instanceof NegotiateOrder);
     }
+
+    /**
+     * Tests the creation of a blockade order by the benevolent strategy using a blockade card.
+     * Verifies that the order created is an instance of {@link BlockadeOrder}.
+     */
     @Test
     void createOrderTest6() {
         Player l_currentPlayer = d_gameManager.findPlayerByName("Player1");
