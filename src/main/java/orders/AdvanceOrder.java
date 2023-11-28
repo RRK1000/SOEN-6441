@@ -95,7 +95,7 @@ public class AdvanceOrder implements Order, Serializable {
 
         d_countryto.setD_numArmies(Math.max(l_defendingArmies - l_attackingArmies, d_num - l_defendingArmies));
 
-        LogManager.logAction("Advance order executed: " + d_num + " armies moved from " +
+        LogManager.logAction("[" + d_player.getD_playerName() + "] Advance order executed: " + d_num + " armies moved from " +
                 d_countryfrom.getD_countryID() + " to " + d_countryto.getD_countryID());
     }
 
@@ -111,7 +111,12 @@ public class AdvanceOrder implements Order, Serializable {
             System.out.println(l_err);
             LogManager.logAction(l_err);
             return false;
-        }else if (d_num == d_countryfrom.getD_numArmies()) {
+        } else if (d_num <= 0) {
+            String l_err = "err: Invalid Advance Order. Invalid order, number of armies must be at least 1";
+            System.out.println(l_err);
+            LogManager.logAction(l_err);
+            return false;
+        } else if (d_num == d_countryfrom.getD_numArmies()) {
             String l_err = "err: Invalid Advance Order. Invalid order, one army must remain on all territories";
             System.out.println(l_err);
             LogManager.logAction(l_err);

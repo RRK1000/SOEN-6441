@@ -19,6 +19,10 @@ import util.DominationMapFileReader;
 import util.MapFileReader;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Represents the command parser.
  * It handles the commands entered by player and validates it.
@@ -189,6 +193,59 @@ public class CommandParser {
                     System.out.println("Error loading the map file: " + e.getMessage());
                     LogManager.logAction("Error loading the map file: " + l_filename);
                 }
+                break;
+
+            case Commands.TOURNAMENT:
+                String[] l_tournamentInput = p_input.split(" -");
+                List<String> l_listOfPlayerStrategies = new ArrayList<>();
+                List<String> l_mapList = new ArrayList<>();
+                int l_numberOfGames = 0;
+                int l_maxNumberOfTurns = 0;
+                boolean l_hasError = false;
+
+                // iterating through each option value
+                for (int l_i = 1; l_i < l_tournamentInput.length; l_i++) {
+                    String[] l_params = l_tournamentInput[l_i].split(" ");
+                    if(l_params[0].startsWith("M")){
+                        String l_mapFiles = l_params[1];
+                        l_mapList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                    }
+                    if (l_params[0].startsWith("P")) {
+                        String l_playerStrategies = l_params[1];
+                        String[] l_stringOfPlayerStrategies = l_playerStrategies.split(",");
+                        if(l_stringOfPlayerStrategies.length < 2){
+                            displayError();
+                            break;
+                        }
+
+                        l_listOfPlayerStrategies.addAll(Arrays.asList(l_stringOfPlayerStrategies));
+                    } else if (l_params[0].startsWith("G")) {
+                        if(Integer.parseInt(l_params[1]) < 1 || Integer.parseInt(l_params[1]) > 5) {
+                            System.out.println("G option value invalid, 1 to 5 games allowed");
+                            l_hasError = true;
+                            break;
+                        }
+                        l_numberOfGames = Integer.parseInt(l_params[1]);
+                    } else if (l_params[0].startsWith("D")) {
+                        if(Integer.parseInt(l_params[1]) < 10 || Integer.parseInt(l_params[1]) > 50) {
+                            System.out.println("D option value invalid, 10 to 50 turns allowed");
+                            l_hasError = true;
+                            break;
+                        }
+                        l_maxNumberOfTurns = Integer.parseInt(l_params[1]);
+                    } else {
+                        System.out.println(Constants.CMD_ERROR);
+                    }
+                }
+                if(l_hasError) break;
+
+                // setting up the tournament game manager with the user specified values
+                TournamentGameManager l_tournamentGameManager= new TournamentGameManager();
+                l_tournamentGameManager.setD_mapList(l_mapList);
+                l_tournamentGameManager.setD_strategyList(l_listOfPlayerStrategies);
+                l_tournamentGameManager.setD_numGames(l_numberOfGames);
+                l_tournamentGameManager.setD_maxTurns(l_maxNumberOfTurns);
+                l_tournamentGameManager.runTournament();
                 break;
 
             case Commands.GAME_PLAYER:

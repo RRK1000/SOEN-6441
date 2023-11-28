@@ -96,5 +96,5 @@ public class Commands {
      */
     public static final String SAVE_GAME = "savegame";
 
-
+    public static final String TOURNAMENT = "tournament";
 }

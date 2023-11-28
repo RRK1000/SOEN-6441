@@ -46,7 +46,7 @@ public class NegotiateOrder implements Order, Serializable {
         d_player.addPlayerNegotiation(d_targetPlayer);
         d_targetPlayer.addPlayerNegotiation(d_player);
 
-        String l_executionLog = "Negotiation with " + d_targetPlayer.getD_playerName() + " approached by " + d_player.getD_playerName() + " successful!";
+        String l_executionLog = "[" + d_player.getD_playerName() + "] Negotiation order with " + d_targetPlayer.getD_playerName() + " executed";
         System.out.println(l_executionLog);
         LogManager.logAction(l_executionLog);
 

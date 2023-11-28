@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation("org.jgrapht:jgrapht-core:1.4.0")
     implementation(group = "commons-cli", name = "commons-cli", version = "1.4")
+    implementation("commons-lang:commons-lang:2.6")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")

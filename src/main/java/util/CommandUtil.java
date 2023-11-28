@@ -51,6 +51,8 @@ public class CommandUtil {
             case Commands.EDIT_CONTINENT:
 
             case Commands.EDIT_COUNTRY:
+
+            case Commands.GAME_PLAYER:
                 l_optionSpec = new HashMap<>();
                 l_optionSpec.put("add", 2);
                 l_optionSpec.put("remove", 1);
@@ -78,15 +80,17 @@ public class CommandUtil {
             case Commands.ADVANCE_ORDER:
                 return l_cmdSplit.length == 4;
 
-            case Commands.GAME_PLAYER:
-                l_optionSpec = new HashMap<>();
-                l_optionSpec.put("add", 1);
-                l_optionSpec.put("remove", 1);
-
-                return hasValidOptions(p_input, l_optionSpec);
-
             case Commands.DEPLOY_ORDER:
                 return l_cmdSplit.length == 3;
+
+            case Commands.TOURNAMENT:
+                l_optionSpec = new HashMap<>();
+                l_optionSpec.put("M", 1);
+                l_optionSpec.put("P", 1);
+                l_optionSpec.put("G", 1);
+                l_optionSpec.put("D", 1);
+
+                return hasValidOptions(p_input, l_optionSpec) && l_cmdSplit.length == 9;
 
             default:
                 return true;
@@ -111,7 +115,8 @@ public class CommandUtil {
                     Commands.EDIT_MAP,
                     Commands.VALIDATE_MAP,
                     Commands.LOAD_MAP,
-                    Commands.LOAD_GAME
+                    Commands.LOAD_GAME,
+                    Commands.TOURNAMENT
             });
 
         } else if (p_gamePhase instanceof StartupPhase) {

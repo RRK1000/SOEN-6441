@@ -1,15 +1,12 @@
 package models;
 
-import gamelog.LogEntryBuffer;
-import gamelog.LogFileWriter;
+import gamelog.LogManager;
 import global.Cards;
 import orders.*;
 import strategy.HumanStrategy;
 import strategy.Strategy;
 
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,15 +21,6 @@ import java.util.Random;
  * @author Rishi Ravikumar
  */
 public class Player implements Serializable {
-    private static final LogEntryBuffer d_logBuffer;
-    private static final LogFileWriter d_logWriter;
-
-    static {
-        Path l_logPath = Paths.get(System.getProperty("user.dir"), "game.log");
-        d_logBuffer = new LogEntryBuffer();
-        d_logWriter = new LogFileWriter(l_logPath);
-        d_logBuffer.addObserver(d_logWriter);
-    }
 
     private String d_playerName;
     private int d_numArmies;
@@ -75,16 +63,6 @@ public class Player implements Serializable {
         this.d_orderList = p_orderList;
         this.d_currentOrder = p_currentOrder;
         this.d_playerStrategy = new HumanStrategy();
-    }
-
-    /**
-     * Notifies log about action
-     *
-     * @param p_action Action done by user
-     */
-    private static void logAction(String p_action) {
-        d_logBuffer.setActionInfo(p_action);
-        d_logBuffer.notifyObservers();
     }
 
     public Strategy getD_playerStrategy() {
@@ -170,8 +148,6 @@ public class Player implements Serializable {
             d_playerCardList.remove(Cards.DIPLOMACY_CARD);
             d_orderList.add(l_negotiateOrder);
         }
-        logAction(this.d_playerName + " issued an order: " + d_currentOrder.getClass().getSimpleName());
-
     }
 
 
@@ -308,8 +284,7 @@ public class Player implements Serializable {
         String l_card = l_cardsList.get(l_randomIndex);
         this.d_playerCardList.add(l_card);
         System.out.println(l_card + " gained by " + this.d_playerName);
-        logAction(this.d_playerName + " gained a " + l_card + " card.");
-
+        LogManager.logAction(this.d_playerName + " gained a " + l_card + " card.");
     }
 
     /**

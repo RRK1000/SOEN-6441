@@ -3,16 +3,15 @@ package controller;
 import gamelog.LogEntryBuffer;
 import gamelog.LogFileWriter;
 import gamelog.LogManager;
-import global.Strategies;
 import models.*;
 import phases.InitMapPhase;
 import phases.Phase;
 import strategy.HumanStrategy;
+import strategy.Strategy;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -172,9 +171,8 @@ public class GameManager {
      *
      * @param p_playerName name of the player to be added
      */
-    public void addPlayer(String p_playerName) {
-        List<String> l_cardsList = Arrays.asList(Strategies.CHEATER_STRATEGY, Strategies.BENEVOLENT_STRATEGY,
-                Strategies.AGGRESSIVE_STRATEGY, Strategies.HUMAN_STRATEGY, Strategies.RANDOM_STRATEGY);
+    public void addPlayer(String p_playerName, Strategy l_strategy) {
+
         //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
             for (Player l_p : d_playerList) {
@@ -186,6 +184,7 @@ public class GameManager {
             }
             //Adding new player to the game
             Player l_player = new Player(p_playerName);
+            l_player.setD_playerStrategy(l_strategy);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
             LogManager.logAction("Added " + p_playerName + " to the game!");
@@ -249,7 +248,7 @@ public class GameManager {
     /**
      * Updates neutral countries from the previous round
      */
-    private void updateNeutralCountriesOnRoundEnd() {
+    void updateNeutralCountriesOnRoundEnd() {
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             if (l_country.isD_isNeutral()) {
                 l_country.setD_isNeutral(false);
@@ -260,7 +259,7 @@ public class GameManager {
     /**
      * Resets player diplomacy on round end
      */
-    private void updatePlayerDiplomacyOnRoundEnd() {
+    void updatePlayerDiplomacyOnRoundEnd() {
         for (Player l_player : d_playerList) {
             l_player.clearPlayerNegotiation();
         }
@@ -273,7 +272,7 @@ public class GameManager {
     public void showMap() {
 
         System.out.printf("------------------------------------------------------------------------------------------------%n");
-        System.out.printf("| %-8s | %-8s | %-30s | %10s | %8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
+        System.out.printf("| %-8s | %-8s | %-35s | %-35s | %-8s |%n", "Country", "Continent", "Neighbors", "Owner", "# of Armies");
         System.out.printf("------------------------------------------------------------------------------------------------%n");
         for (Country l_country : d_map.getD_countryMapGraph().vertexSet()) {
             Player l_owner = l_country.getD_owner();
@@ -282,7 +281,7 @@ public class GameManager {
                 l_neighbors.append(l_neighbourID);
                 l_neighbors.append(" ");
             }
-            System.out.printf("| %-8s | %-8s | %30s | %10s | %8s |%n",
+            System.out.printf("| %-8s | %-8s | %-35s | %-35s | %-8s |%n",
                     l_country.getD_countryID(), l_country.getD_continentID(), l_neighbors, l_country.isD_isNeutral() ? "neutral" : l_owner.getD_playerName(), l_country.getD_numArmies());
         }
         LogManager.logAction("Displayed the current game map and state.");
