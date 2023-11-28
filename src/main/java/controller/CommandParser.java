@@ -13,10 +13,7 @@ import models.Player;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
-import util.CommandUtil;
-import util.ConquestMapFileReaderAdapter;
-import util.DominationMapFileReader;
-import util.MapFileReader;
+import util.*;
 
 
 import java.util.ArrayList;
@@ -186,9 +183,12 @@ public class CommandParser {
 
                 try {
                     Map loadedMap = l_loadfileReader.loadMap(l_filename);
-                    p_gameManager.setD_map(loadedMap);
-                    p_gameManager.setD_mapFileName(l_filename);
-                    LogManager.logAction("Loaded a map: " + l_filename);
+                    if(MapUtil.isValidMap(loadedMap)) {
+                        p_gameManager.setD_map(loadedMap);
+                        p_gameManager.setD_mapFileName(l_filename);
+                        p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
+                        LogManager.logAction("Loaded a map: " + l_filename);
+                    }
                 } catch (IOException e) {
                     System.out.println("Error loading the map file: " + e.getMessage());
                     LogManager.logAction("Error loading the map file: " + l_filename);
