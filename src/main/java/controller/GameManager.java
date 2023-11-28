@@ -35,6 +35,8 @@ public class GameManager {
     private Map d_map;
     private String d_mapFileName;
 
+    private int d_numTurns;
+
     /**
      * Default constructor for GameManager.
      */
@@ -119,16 +121,22 @@ public class GameManager {
         } else {
             System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
         }
-
         if(!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)){
+            if(d_numTurns > 50) {
+                showMap();
+                System.out.println("50 turns reached");
+                return;
+            }
             Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(this);
             if(null == l_order){
                 this.addPlayerToSkipList(d_currentPlayerTurn);
+                d_numTurns++;
                 updatePlayerTurn();
                 return;
             }
             l_currentPlayer.setD_currentOrder(l_order);
             l_currentPlayer.issueOrder();
+            d_numTurns++;
             updatePlayerTurn();
         }
     }

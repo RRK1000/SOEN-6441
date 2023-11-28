@@ -1,9 +1,6 @@
 package controller;
 
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
@@ -15,10 +12,11 @@ import phases.IssueOrderPhase;
 import phases.StartupPhase;
 import util.*;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Represents the command parser.
@@ -338,6 +336,9 @@ public class CommandParser {
 
             case Commands.SAVE_GAME:
                 p_gameManager.getD_gamePhase().saveGame(p_gameManager, l_cmdSplit[1]);
+                break;
+
+            case "exit":
                 break;
 
             default:
