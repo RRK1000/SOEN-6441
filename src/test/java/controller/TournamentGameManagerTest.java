@@ -1,12 +1,24 @@
 package controller;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+/**
+ * The {@code TournamentGameManagerTest} class contains JUnit tests for the
+ * {@link controller.TournamentGameManager} class.
+ * It focuses on testing the functionality of running a tournament with different maps
+ * and player strategies.
+ *
+ * @author Abhigyan Singh
+ */
+
 class TournamentGameManagerTest {
 
+    /**
+     * Tests the functionality of running a tournament with specified maps,
+     * player strategies, number of games, and maximum turns per game.
+     */
     @Test
     void runTournament() {
         List<String> l_mapList = new ArrayList<>();
@@ -19,6 +31,7 @@ class TournamentGameManagerTest {
         l_strategyList.add("Random");
         l_strategyList.add("Cheater");
 
+        // Set the number of games and maximum turns per game
         int l_numGames = 4;
         int l_maxTurns = 300;
 
