@@ -166,8 +166,7 @@ public class InitMapPhase extends Phase {
      */
     @Override
     public void editMap(GameManager p_gameManager, String[] p_cmdSplit) {
-        p_gameManager.setD_map(MapUtil.editMap(p_cmdSplit[1]));
-        System.out.println("Map loaded to be edited...");
+        p_gameManager.setD_map(MapUtil.editMap(p_cmdSplit[1], p_gameManager));
     }
 
     /**

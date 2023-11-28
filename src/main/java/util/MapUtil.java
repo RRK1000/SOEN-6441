@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import controller.GameManager;
+import gamelog.LogManager;
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -157,16 +159,31 @@ public class MapUtil {
      * @param p_filename The name of the file to load the map from
      * @return {@link models.Map}
      */
-    public static Map editMap(String p_filename) {
+    public static Map editMap(String p_filename, GameManager p_gameManager) {
         Map l_map;
-        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
-            l_map = loadMap(p_filename);
-        } catch (Exception l_e) {
-            System.out.println("File not found");
-            l_map = new Map();
-            return l_map;
+        MapFileReader l_loadfileReader;
+        Map loadedMap = new Map();
+
+        if (MapUtil.isMapConquest(p_filename)) {
+            l_loadfileReader = new ConquestMapFileReaderAdapter();
+            System.out.println("This file is Conquest Format.");
+
+        } else {
+            l_loadfileReader = new DominationMapFileReader();
         }
-        return l_map;
+
+        try {
+            loadedMap = l_loadfileReader.loadMap(p_filename);
+            if(MapUtil.isValidMap(loadedMap)) {
+                p_gameManager.setD_map(loadedMap);
+                p_gameManager.setD_mapFileName(p_filename);
+                LogManager.logAction("Loaded a map: " + p_filename);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading the map file: " + e.getMessage());
+            LogManager.logAction("Error loading the map file: " + p_filename);
+        }
+        return loadedMap;
     }
 
     /**
