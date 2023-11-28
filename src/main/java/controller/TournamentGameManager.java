@@ -1,22 +1,26 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import org.apache.commons.lang.StringUtils;
+
 import gamelog.LogManager;
 import global.Strategies;
 import models.Map;
 import models.Order;
 import models.Player;
-import org.apache.commons.lang.StringUtils;
 import strategy.AggressiveStrategy;
 import strategy.BenevolentStrategy;
 import strategy.CheaterStrategy;
 import strategy.RandomStrategy;
 import util.MapUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
+/**
+ * The {@code TournamentGameManager} class simulates a tournament scenario for the game.
+ */
 public class TournamentGameManager {
 
     private final SortedMap<String, ArrayList<String>> d_resultMap;
