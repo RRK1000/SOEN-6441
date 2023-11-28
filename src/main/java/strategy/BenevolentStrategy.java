@@ -7,10 +7,11 @@ import models.Order;
 import models.Player;
 import orders.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
-public class BenevolentStrategy implements Strategy{
+public class BenevolentStrategy implements Strategy, Serializable {
     private Country d_weakestCountry;
 
     /**

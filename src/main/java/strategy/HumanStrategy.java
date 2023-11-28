@@ -3,7 +3,9 @@ package strategy;
 import controller.GameManager;
 import models.Order;
 
-public class HumanStrategy implements Strategy{
+import java.io.Serializable;
+
+public class HumanStrategy implements Strategy, Serializable {
 
     /**
      * Issues an order according to player strategy

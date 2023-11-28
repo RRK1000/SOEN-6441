@@ -7,10 +7,11 @@ import models.Order;
 import models.Player;
 import orders.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
-public class RandomStrategy implements Strategy {
+public class RandomStrategy implements Strategy, Serializable {
 
     /**
      * Creates an order according to player strategy
