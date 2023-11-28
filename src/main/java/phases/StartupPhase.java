@@ -5,8 +5,10 @@ import gamelog.LogManager;
 import global.Constants;
 import global.Strategies;
 import models.Country;
+import models.Map;
 import models.Player;
 import strategy.*;
+import util.MapUtil;
 
 import java.util.List;
 
@@ -132,5 +134,16 @@ public class StartupPhase extends Phase {
         if(!p_gameManager.getD_isTournamentGame() && !(l_playerList.get(l_currentPlayerTurn).getD_playerStrategy() instanceof HumanStrategy)) {
             p_gameManager.updatePlayerTurn();
         }
+    }
+
+    /**
+     * This method displays the map.
+     *
+     * @param p_map         The map object
+     * @param p_gameManager The object of the game manager.
+     */
+    @Override
+    public void showMap(Map p_map, GameManager p_gameManager) {
+        MapUtil.showMap(p_map);
     }
 }
