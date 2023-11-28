@@ -59,4 +59,26 @@ class StartupPhaseTest {
         d_gamePhase.assignCountries(d_gameManager);
         assertEquals(d_gameManager.getD_gamePhase().getClass(), IssueOrderPhase.class);
     }
+
+    /**
+     * Test case to verify that the getInstance() method returns the same instance.
+     */
+    @Test
+    public void testGetInstance(){
+        StartupPhase l_instance1, l_instance2;
+        l_instance1 = StartupPhase.getInstance();
+        l_instance2 = StartupPhase.getInstance();
+
+        assertSame(l_instance1, l_instance2);
+    }
+
+    /**
+     * Test case to verify that the nextPhase() method returns the expected next phase.
+     */
+    @Test
+    public void testNextPhase(){
+        StartupPhase l_startUpPhase = StartupPhase.getInstance();
+        Phase l_nextPhase = l_startUpPhase.nextPhase();
+        assertEquals(IssueOrderPhase.class,l_nextPhase.getClass());
+    }
 }

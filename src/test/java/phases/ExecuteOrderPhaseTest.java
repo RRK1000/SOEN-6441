@@ -99,4 +99,14 @@ class ExecuteOrderPhaseTest {
         d_gameManager.getD_gamePhase().executeOrder(d_gameManager);
         assertEquals(l_countryTo.getD_numArmies(), 2);
     }
+
+    /**
+     * Test case to verify that the nextPhase() method returns the expected next phase.
+     */
+    @Test
+    public void testNextPhase(){
+        ExecuteOrderPhase l_executeOrderPhase = ExecuteOrderPhase.getInstance();
+        Phase l_nextPhase = l_executeOrderPhase.nextPhase();
+        assertEquals(IssueOrderPhase.class,l_nextPhase.getClass());
+    }
 }
