@@ -96,5 +96,12 @@ public class Commands {
      */
     public static final String SAVE_GAME = "savegame";
 
+    /**
+     * tournament command
+     */
     public static final String TOURNAMENT = "tournament";
+    /**
+     * exit command
+     */
+    public static final String EXIT = "exit";
 }
