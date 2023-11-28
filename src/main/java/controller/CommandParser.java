@@ -4,6 +4,7 @@ package controller;
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
+import global.Strategies;
 import models.Country;
 import models.Map;
 import models.Player;
@@ -217,6 +218,16 @@ public class CommandParser {
                         }
 
                         l_listOfPlayerStrategies.addAll(Arrays.asList(l_stringOfPlayerStrategies));
+                        List<String> l_cardsList = Arrays.asList(Strategies.AGGRESSIVE_STRATEGY, Strategies.BENEVOLENT_STRATEGY,
+                        Strategies.CHEATER_STRATEGY, Strategies.RANDOM_STRATEGY);
+                        for(String l_strategy: l_listOfPlayerStrategies){
+                            if(!l_cardsList.contains(l_strategy)){
+                                l_hasError = true;
+                                System.out.println("P option invalid, only Aggressive, Benevolent, Cheater and Random strategies are allowed");
+                                break;
+                            }
+                        }
+
                     } else if (l_params[0].startsWith("G")) {
                         if(Integer.parseInt(l_params[1]) < 1 || Integer.parseInt(l_params[1]) > 5) {
                             System.out.println("G option value invalid, 1 to 5 games allowed");
