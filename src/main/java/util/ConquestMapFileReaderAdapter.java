@@ -43,30 +43,6 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
         if (!MapUtil.isValidMap(l_dominationMap)) {
             System.out.println("Map is invalid");
         }
-//
-//      
-//        System.out.println("=== Converted Domination Map ===");
-//        System.out.println("[continents]");
-//        l_dominationMap.getD_continentMapGraph().vertexSet().forEach(continent -> {
-//            System.out.println(continent.getD_continentName() + " " + continent.getD_continentValue());
-//        });
-//
-//        System.out.println("\n[countries]");
-//        l_dominationMap.getD_countryMapGraph().vertexSet().forEach(country -> {
-//            Continent l_continent = l_dominationMap.getD_continentByID(country.getD_continentID());
-//            System.out.println(
-//                    country.getD_countryID() + " " + country.getD_countryName() + " " + l_continent.getD_continentID()
-//                            + " " + country.getD_xCoordinate() + " " + country.getD_yCoordinate());
-//        });
-//
-//        System.out.println("\n[borders]");
-//        l_dominationMap.getD_countryMapGraph().vertexSet().forEach(country -> {
-//            System.out.print(country.getD_countryID());
-//            for (Integer l_neighborID : country.getD_neighbourCountryIDList()) {
-//                System.out.print(" " + l_neighborID);
-//            }
-//            System.out.println();
-//        });
 
         return l_dominationMap;
     }
@@ -316,16 +292,11 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 
 	    String l_modifiedFileName = p_fileName;
 
-	    if (p_fileName.endsWith(".domination")) {
-	        l_modifiedFileName = p_fileName.substring(0, p_fileName.length() - 11) + ".conquest";
-	        p_fileName = l_modifiedFileName;
-	    } else if (!p_fileName.endsWith(".conquest")) {
-	        p_fileName += ".conquest";
-	    }
-
 	    String l_fullPath = "src/main/resources/" + p_fileName;
 
 	    try (BufferedWriter l_writer = new BufferedWriter(new FileWriter(l_fullPath))) {
+			l_writer.write("[Map]\n");
+			l_writer.write("author=SOEN6441-U2\n\n");
 	        l_writer.write("[Continents]\n");
 	        for (Continent l_continent : p_map.getD_continentMapGraph().vertexSet()) {
 	            l_writer.write(l_continent.getD_continentName() + "=" + l_continent.getD_continentValue() + "\n");

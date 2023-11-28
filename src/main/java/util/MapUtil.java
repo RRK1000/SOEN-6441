@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
@@ -465,6 +466,15 @@ public class MapUtil {
             System.out.println("Removed " + l_country.getD_countryID() + " and " + l_neighbourCountry.getD_countryID() + " as neighbors.");
         } catch (Exception l_e) {
             System.out.println("Unable to remove neighbour");
+        }
+    }
+
+    public static boolean isMapConquest(String p_filename) {
+        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
+            String l_line;
+            return Objects.equals(l_line = l_reader.readLine(), "[Map]");
+        } catch (IOException e) {
+            return false;
         }
     }
 }

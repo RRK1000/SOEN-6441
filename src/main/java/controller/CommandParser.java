@@ -173,7 +173,7 @@ public class CommandParser {
                 String l_filename = l_cmdSplit[1];
                 MapFileReader l_loadfileReader;
 
-                if (l_filename.endsWith(".conquest")) {
+                if (MapUtil.isMapConquest(l_filename)) {
                     l_loadfileReader = new ConquestMapFileReaderAdapter();
                 	System.out.println("This file is Conquest Format.");
 
