@@ -129,7 +129,7 @@ public class StartupPhase extends Phase {
         System.out.println("Available Reinforcement Armies: " + l_playerList.get(l_currentPlayerTurn).getD_numArmies());
 
         p_gameManager.setD_gamePhase(this.nextPhase());
-        if(!(l_playerList.get(l_currentPlayerTurn).getD_playerStrategy() instanceof HumanStrategy)) {
+        if(!p_gameManager.getD_isTournamentGame() && !(l_playerList.get(l_currentPlayerTurn).getD_playerStrategy() instanceof HumanStrategy)) {
             p_gameManager.updatePlayerTurn();
         }
     }

@@ -75,7 +75,6 @@ public class TournamentGameManager {
                         l_currentPlayer.issueOrder();
                         LogManager.logAction("[" + l_currentPlayer.getD_playerName() + "] Order issued: " + StringUtils.remove(l_order.getClass().getName(), "orders."));
 
-
                         String l_currentPlayerName = l_currentPlayer.getD_playerName();
                         System.out.println("Player " + l_currentPlayerName + " turn over. ");
                         System.out.println();
@@ -121,6 +120,10 @@ public class TournamentGameManager {
                         System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
                     }
                 }
+                l_gameManager.setD_gamePhase(l_gameManager.getD_gamePhase().nextPhase());
+                l_gameManager.getD_gamePhase().executeOrder(l_gameManager);
+                l_gameManager.setD_gamePhase(l_gameManager.getD_gamePhase().nextPhase());
+
                 l_gameManager.showMap();
                 if (!hasWinner) d_resultMap.get("Map " + l_mapIndex).add("Draw");
             }
@@ -141,6 +144,7 @@ public class TournamentGameManager {
     private GameManager setUpGameManager(Map p_map) {
         GameManager l_gameManager = new GameManager();
         l_gameManager.setD_map(p_map);
+        l_gameManager.setD_isTournamentGame(true);
         int l_pid = 1;
         for (String l_strategy : d_strategyList) {
             String l_playerName = l_strategy + "Player-p" + l_pid++;

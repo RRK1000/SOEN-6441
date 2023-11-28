@@ -34,7 +34,7 @@ public class GameManager {
     private int d_currentPlayerTurn;
     private Map d_map;
     private String d_mapFileName;
-
+    private Boolean d_isTournamentGame;
     private int d_numTurns;
 
     /**
@@ -49,7 +49,15 @@ public class GameManager {
         this.d_logBuffer = new LogEntryBuffer();
         this.d_logWriter = new LogFileWriter(l_logPath);
         this.d_logBuffer.addObserver(d_logWriter);
+        this.d_isTournamentGame = false;
+    }
 
+    public Boolean getD_isTournamentGame() {
+        return d_isTournamentGame;
+    }
+
+    public void setD_isTournamentGame(Boolean d_isTournamentGame) {
+        this.d_isTournamentGame = d_isTournamentGame;
     }
 
     public List<Integer> getD_skipTurnList() {
@@ -121,14 +129,14 @@ public class GameManager {
         } else {
             System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
         }
-        if(!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)){
-            if(d_numTurns > 50) {
+        if (!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)) {
+            if (d_numTurns > 50) {
                 showMap();
                 System.out.println("50 turns reached");
                 return;
             }
             Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(this);
-            if(null == l_order){
+            if (null == l_order) {
                 this.addPlayerToSkipList(d_currentPlayerTurn);
                 d_numTurns++;
                 updatePlayerTurn();
