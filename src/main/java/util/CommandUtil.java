@@ -166,7 +166,7 @@ public class CommandUtil {
      * @param p_commands list of the valid commands
      * @return boolean result of the command validation
      */
-    private static boolean isValidGameCommand(String p_input, String[] p_commands){
+    public static boolean isValidGameCommand(String p_input, String[] p_commands){
         for(String l_command:p_commands){
             if(p_input.startsWith(l_command)){
                 return true;
