@@ -20,7 +20,7 @@ import java.util.TreeMap;
 public class TournamentGameManager {
 
     private final SortedMap<String, ArrayList<String>> d_resultMap;
-    private List<String> d_mapList;
+    private List<Map> d_mapList;
     private List<String> d_strategyList;
     private int d_numGames;
     private int d_maxTurns;
@@ -34,7 +34,7 @@ public class TournamentGameManager {
         d_resultMap = new TreeMap<>();
     }
 
-    public void setD_mapList(List<String> d_mapList) {
+    public void setD_mapList(List<Map> d_mapList) {
         this.d_mapList = d_mapList;
     }
 
@@ -55,10 +55,10 @@ public class TournamentGameManager {
      */
     public void runTournament() {
         int l_mapIndex = 0;
-        for (String l_map : d_mapList) {
+        for (Map l_map : d_mapList) {
             d_resultMap.put("Map " + l_mapIndex, new ArrayList<>());
             for (int l_i = 0; l_i < d_numGames; l_i++) {
-                GameManager l_gameManager = setUpGameManager(MapUtil.loadMap(l_map));
+                GameManager l_gameManager = setUpGameManager(l_map);
 
                 boolean hasWinner = false;
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {

@@ -197,7 +197,8 @@ public class CommandParser {
             case Commands.TOURNAMENT:
                 String[] l_tournamentInput = p_input.split(" -");
                 List<String> l_listOfPlayerStrategies = new ArrayList<>();
-                List<String> l_mapList = new ArrayList<>();
+                List<String> l_mapNameList = new ArrayList<>();
+                List<Map> l_mapList= new ArrayList<>();
                 int l_numberOfGames = 0;
                 int l_maxNumberOfTurns = 0;
                 boolean l_hasError = false;
@@ -207,7 +208,32 @@ public class CommandParser {
                     String[] l_params = l_tournamentInput[l_i].split(" ");
                     if(l_params[0].startsWith("M")){
                         String l_mapFiles = l_params[1];
-                        l_mapList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                        l_mapNameList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                        for(String l_mapTournament: l_mapNameList) {
+                            if (MapUtil.isMapConquest(l_mapTournament)) {
+                                l_loadfileReader = new ConquestMapFileReaderAdapter();
+                                System.out.println("This file is Conquest Format.");
+
+                            } else {
+                                l_loadfileReader = new DominationMapFileReader();
+                            }
+
+                            try {
+                                System.out.println("\nLoading Map: " + l_mapTournament);
+                                Map loadedMap = l_loadfileReader.loadMap(l_mapTournament);
+                                if(MapUtil.isValidMap(loadedMap)) {
+                                    l_mapList.add(loadedMap);
+                                } else {
+                                    l_hasError = true;
+                                    System.out.println("M option invalid, enter valid maps");
+                                    break;
+                                }
+                            } catch (IOException e) {
+                                System.out.println("Error loading the map file: " + e.getMessage());
+                                LogManager.logAction("Error loading the map file: " + l_mapTournament);
+                                l_hasError = true;
+                            }
+                        }
                     }
                     if (l_params[0].startsWith("P")) {
                         String l_playerStrategies = l_params[1];
