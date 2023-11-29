@@ -1,15 +1,5 @@
 package strategy;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.AfterEach;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import controller.GameManager;
 import global.Cards;
 import models.Order;
@@ -17,10 +7,19 @@ import models.Player;
 import orders.AdvanceOrder;
 import orders.BombOrder;
 import orders.DeployOrder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import phases.ExecuteOrderPhase;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.Phase;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * The following class tests the Behaviour and working of AggressiveStrategy class
