@@ -133,6 +133,7 @@ public class GameManager {
             if (d_numTurns > 50) {
                 showMap();
                 System.out.println("50 turns reached");
+                System.exit(0);
                 return;
             }
             Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(this);
