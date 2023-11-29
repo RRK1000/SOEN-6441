@@ -75,10 +75,10 @@ public class Player implements Serializable {
 
     /**
      * Sets the strategy of the player
-     * @param d_playerStrategy Player Strategy
+     * @param p_playerStrategy Player Strategy
      */
-    public void setD_playerStrategy(Strategy d_playerStrategy) {
-        this.d_playerStrategy = d_playerStrategy;
+    public void setD_playerStrategy(Strategy p_playerStrategy) {
+        this.d_playerStrategy = p_playerStrategy;
     }
 
     /**

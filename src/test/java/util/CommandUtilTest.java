@@ -28,8 +28,8 @@ class CommandUtilTest {
                 "editneighbor -add 1 2 -add 1 2 -add 2 3 -add 3 1"
         };
 
-        for (String command: l_cmdList) {
-            assertTrue(CommandUtil.isValidCmd(command, new InitMapPhase()));
+        for (String l_command: l_cmdList) {
+            assertTrue(CommandUtil.isValidCmd(l_command, new InitMapPhase()));
         }
     }
 
@@ -44,8 +44,8 @@ class CommandUtilTest {
                 "editneighbor -add 1 2 3"
         };
 
-        for (String command: l_cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, new InitMapPhase()));
+        for (String l_command: l_cmdList) {
+            assertFalse(CommandUtil.isValidCmd(l_command, new InitMapPhase()));
         }
     }
 
@@ -55,7 +55,7 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd3() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "deploy 3 3",
                 "advance 1 2 3",
                 "airlift 1 2 3",
@@ -63,8 +63,8 @@ class CommandUtilTest {
                 "negotiate 1",
         };
 
-        for (String command: cmdList) {
-            assertTrue(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
+        for (String l_command: l_cmdList) {
+            assertTrue(CommandUtil.isValidCmd(l_command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -73,14 +73,14 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd4() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "deploy 3 3 3",
                 "deploy 3",
                 "deplo 3 3"
         };
 
-        for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
+        for (String l_command: l_cmdList) {
+            assertFalse(CommandUtil.isValidCmd(l_command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -89,14 +89,14 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd5() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "advance 1 2 3 4",
                 "advance 1 2",
                 "advance 1"
         };
 
-        for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
+        for (String l_command: l_cmdList) {
+            assertFalse(CommandUtil.isValidCmd(l_command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -105,7 +105,7 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd6() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "deploy 3 3",
                 "advance 1 2 3",
                 "airlift 1 2 3",
@@ -113,8 +113,8 @@ class CommandUtilTest {
                 "negotiate 1",
         };
 
-        for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, StartupPhase.getInstance()));
+        for (String l_command: l_cmdList) {
+            assertFalse(CommandUtil.isValidCmd(l_command, StartupPhase.getInstance()));
         }
     }
 
@@ -123,7 +123,7 @@ class CommandUtilTest {
      */
     @Test
     void isValidCmd7() {
-        String[] cmdList = {
+        String[] l_cmdList = {
                 "editcontinent -add 2 1",
                 "editcountry -add 1 1 -add 2 1 -add 3 1 -add 4 1",
                 "editcountry -remove 4",
@@ -131,8 +131,8 @@ class CommandUtilTest {
                 "gameplayer -add p1 -remove p2"
         };
 
-        for (String command: cmdList) {
-            assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
+        for (String l_command: l_cmdList) {
+            assertFalse(CommandUtil.isValidCmd(l_command, IssueOrderPhase.getInstance()));
         }
     }
 
@@ -142,7 +142,7 @@ class CommandUtilTest {
     @Test
     public void testIsValidGameCommand(){
         String l_input = "EDIT_COUNTRY";
-        String[] validCommands = {
+        String[] l_validCommands = {
                 "EDIT_CONTINENT",
                 "EDIT_COUNTRY",
                 "EDIT_NEIGHBOR",
@@ -153,7 +153,7 @@ class CommandUtilTest {
                 "LOAD_GAME",
                 "LOAD_GAME"
         };
-        boolean l_result = CommandUtil.isValidGameCommand(l_input, validCommands);
+        boolean l_result = CommandUtil.isValidGameCommand(l_input, l_validCommands);
         assertTrue(l_result);
     }
 
@@ -163,7 +163,7 @@ class CommandUtilTest {
     @Test
     public void testIsValidGameCommandInvalidInput(){
         String l_input = "INVALID_COMMAND";
-        String[] validCommands = {
+        String[] l_validCommands = {
                 "EDIT_CONTINENT",
                 "EDIT_COUNTRY",
                 "EDIT_NEIGHBOR",
@@ -174,7 +174,7 @@ class CommandUtilTest {
                 "LOAD_GAME",
                 "LOAD_GAME"
         };
-        boolean l_result = CommandUtil.isValidGameCommand(l_input, validCommands);
+        boolean l_result = CommandUtil.isValidGameCommand(l_input, l_validCommands);
         assertFalse(l_result);
     }
 }

@@ -16,7 +16,7 @@ public class ExecuteOrderPhase extends Phase {
     /**
      * Singleton instance
      */
-    private static ExecuteOrderPhase l_instance;
+    private static ExecuteOrderPhase d_instance;
 
     /**
      * Private constructor to present instantiation
@@ -28,10 +28,10 @@ public class ExecuteOrderPhase extends Phase {
      * @return ExecuteOrderPhase instance
      */
     public static ExecuteOrderPhase getInstance(){
-        if(l_instance==null){
-            l_instance= new ExecuteOrderPhase();
+        if(d_instance==null){
+            d_instance= new ExecuteOrderPhase();
         }
-        return l_instance;
+        return d_instance;
     }
     /**
      * This method shifts the game phase to the next phase.

@@ -22,7 +22,7 @@ public class StartupPhase extends Phase {
     /**
      * Singleton instance
      */
-    private static StartupPhase l_instance;
+    private static StartupPhase d_instance;
 
     /**
      * Private constructor to present instantiation
@@ -34,10 +34,10 @@ public class StartupPhase extends Phase {
      * @return StartupPhase instance
      */
     public static StartupPhase getInstance(){
-        if(l_instance==null){
-            l_instance= new StartupPhase();
+        if(d_instance==null){
+            d_instance= new StartupPhase();
         }
-        return l_instance;
+        return d_instance;
     }
 
     /**

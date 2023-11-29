@@ -162,7 +162,7 @@ public class MapUtil {
     public static Map editMap(String p_filename, GameManager p_gameManager) {
         Map l_map;
         MapFileReader l_loadfileReader;
-        Map loadedMap = new Map();
+        Map l_loadedMap = new Map();
 
         if (MapUtil.isMapConquest(p_filename)) {
             l_loadfileReader = new ConquestMapFileReaderAdapter();
@@ -173,9 +173,9 @@ public class MapUtil {
         }
 
         try {
-            loadedMap = l_loadfileReader.loadMap(p_filename);
-            if(MapUtil.isValidMap(loadedMap)) {
-                p_gameManager.setD_map(loadedMap);
+            l_loadedMap = l_loadfileReader.loadMap(p_filename);
+            if(MapUtil.isValidMap(l_loadedMap)) {
+                p_gameManager.setD_map(l_loadedMap);
                 p_gameManager.setD_mapFileName(p_filename);
                 LogManager.logAction("Loaded a map: " + p_filename);
             }
@@ -183,7 +183,7 @@ public class MapUtil {
             System.out.println("Error loading the map file: " + e.getMessage());
             LogManager.logAction("Error loading the map file: " + p_filename);
         }
-        return loadedMap;
+        return l_loadedMap;
     }
 
     /**

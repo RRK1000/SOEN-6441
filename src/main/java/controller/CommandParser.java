@@ -145,9 +145,9 @@ public class CommandParser {
                         System.out.println("Failed to save the map.");
                         LogManager.logAction("Failed to save the map.");
                     }
-                } catch (IOException e) {
-                    System.out.println("An error occurred while saving the map: " + e.getMessage());
-                    LogManager.logAction("Error occurred while saving the map: " + e.getMessage());
+                } catch (IOException l_e) {
+                    System.out.println("An error occurred while saving the map: " + l_e.getMessage());
+                    LogManager.logAction("Error occurred while saving the map: " + l_e.getMessage());
                 }
                 break;
 
@@ -181,15 +181,15 @@ public class CommandParser {
                 }
 
                 try {
-                    Map loadedMap = l_loadfileReader.loadMap(l_filename);
-                    if(MapUtil.isValidMap(loadedMap)) {
-                        p_gameManager.setD_map(loadedMap);
+                    Map l_loadedMap = l_loadfileReader.loadMap(l_filename);
+                    if(MapUtil.isValidMap(l_loadedMap)) {
+                        p_gameManager.setD_map(l_loadedMap);
                         p_gameManager.setD_mapFileName(l_filename);
                         p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
                         LogManager.logAction("Loaded a map: " + l_filename);
                     }
-                } catch (IOException e) {
-                    System.out.println("Error loading the map file: " + e.getMessage());
+                } catch (IOException l_e) {
+                    System.out.println("Error loading the map file: " + l_e.getMessage());
                     LogManager.logAction("Error loading the map file: " + l_filename);
                 }
                 break;
@@ -220,16 +220,16 @@ public class CommandParser {
 
                             try {
                                 System.out.println("\nLoading Map: " + l_mapTournament);
-                                Map loadedMap = l_loadfileReader.loadMap(l_mapTournament);
-                                if(MapUtil.isValidMap(loadedMap)) {
-                                    l_mapList.add(loadedMap);
+                                Map l_loadedMap = l_loadfileReader.loadMap(l_mapTournament);
+                                if(MapUtil.isValidMap(l_loadedMap)) {
+                                    l_mapList.add(l_loadedMap);
                                 } else {
                                     l_hasError = true;
                                     System.out.println("M option invalid, enter valid maps");
                                     break;
                                 }
-                            } catch (IOException e) {
-                                System.out.println("Error loading the map file: " + e.getMessage());
+                            } catch (IOException l_e) {
+                                System.out.println("Error loading the map file: " + l_e.getMessage());
                                 LogManager.logAction("Error loading the map file: " + l_mapTournament);
                                 l_hasError = true;
                             }

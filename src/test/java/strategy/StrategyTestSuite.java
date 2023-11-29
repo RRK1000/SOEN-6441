@@ -6,6 +6,6 @@ import org.junit.platform.suite.api.Suite;
  * JUnit test suite for strategy implementations.
  */
 @Suite
-@SelectClasses({BenevolentStrategyTest.class, AggressiveStrategyTest.class, RandomStrategyTest.class, CheaterStrategy.class})
+@SelectClasses({BenevolentStrategyTest.class, AggressiveStrategyTest.class, RandomStrategyTest.class, CheaterStrategyTest.class})
 public class StrategyTestSuite {
 }

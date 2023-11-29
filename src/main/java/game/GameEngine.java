@@ -24,7 +24,7 @@ public class GameEngine {
      * @param p_args Command line arguments.
      */
     public static void main(String[] p_args) {
-        GameManager d_gameManager = new GameManager();
+        GameManager l_gameManager = new GameManager();
         Scanner l_scanner = new Scanner(System.in);
 
         System.out.println("WELCOME TO WARZONE");
@@ -36,7 +36,7 @@ public class GameEngine {
         do {
             System.out.print("\n> ");
             l_inputCommand = l_scanner.nextLine();
-            CommandParser.inputParser(d_gameManager, l_inputCommand);
+            CommandParser.inputParser(l_gameManager, l_inputCommand);
         } while (!Objects.equals(l_inputCommand, "exit"));
     }
 }

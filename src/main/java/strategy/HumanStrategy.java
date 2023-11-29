@@ -14,8 +14,8 @@ public class HumanStrategy implements Strategy, Serializable {
     /**
      * Issues an order according to player strategy
      *
-     * @param p_gameManager
-     * @return
+     * @param p_gameManager game manager object
+     * @return null
      */
     @Override
     public Order createOrder(GameManager p_gameManager) {

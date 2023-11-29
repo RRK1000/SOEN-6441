@@ -41,34 +41,34 @@ public class TournamentGameManager {
 
     /**
      * Sets the list of maps for tournament
-     * @param d_mapList list of maps
+     * @param p_mapList list of maps
      */
-    public void setD_mapList(List<Map> d_mapList) {
-        this.d_mapList = d_mapList;
+    public void setD_mapList(List<Map> p_mapList) {
+        this.d_mapList = p_mapList;
     }
 
     /**
      * Sets the list of strategies for tournament
-     * @param d_strategyList list of strategies
+     * @param p_strategyList list of strategies
      */
-    public void setD_strategyList(List<String> d_strategyList) {
-        this.d_strategyList = d_strategyList;
+    public void setD_strategyList(List<String> p_strategyList) {
+        this.d_strategyList = p_strategyList;
     }
 
     /**
      * Sets the number of games for tournament
-     * @param d_numGames number of games
+     * @param p_numGames number of games
      */
-    public void setD_numGames(int d_numGames) {
-        this.d_numGames = d_numGames;
+    public void setD_numGames(int p_numGames) {
+        this.d_numGames = p_numGames;
     }
 
     /**
      * Sets the max turns to be played in the tournament
-     * @param d_maxTurns maximum turns
+     * @param p_maxTurns maximum turns
      */
-    public void setD_maxTurns(int d_maxTurns) {
-        this.d_maxTurns = d_maxTurns;
+    public void setD_maxTurns(int p_maxTurns) {
+        this.d_maxTurns = p_maxTurns;
     }
 
     /**
@@ -81,7 +81,7 @@ public class TournamentGameManager {
             for (int l_i = 0; l_i < d_numGames; l_i++) {
                 GameManager l_gameManager = setUpGameManager(l_map);
 
-                boolean hasWinner = false;
+                boolean l_hasWinner = false;
                 for (int l_j = 0; l_j < d_maxTurns; l_j++) {
                     Player l_currentPlayer = l_gameManager.getD_playerList().get(l_gameManager.getD_currentPlayerTurn());
 
@@ -122,7 +122,7 @@ public class TournamentGameManager {
                             String l_op = "Player " + l_gameManager.getD_playerList().get(0).getD_playerName() + " wins!";
                             System.out.println(l_op);
                             LogManager.logAction(l_op);
-                            hasWinner = true;
+                            l_hasWinner = true;
                             break;
                         }
                     } else {
@@ -146,7 +146,7 @@ public class TournamentGameManager {
                 l_gameManager.setD_gamePhase(l_gameManager.getD_gamePhase().nextPhase());
 
                 l_gameManager.showMap();
-                if (!hasWinner) d_resultMap.get("Map " + l_mapIndex).add("Draw");
+                if (!l_hasWinner) d_resultMap.get("Map " + l_mapIndex).add("Draw");
             }
             l_mapIndex++;
         }

@@ -19,7 +19,7 @@ public class IssueOrderPhase extends Phase {
     /**
      * Singleton instance
      */
-    private static IssueOrderPhase l_instance;
+    private static IssueOrderPhase d_instance;
 
     /**
      * Private constructor to present instantiation
@@ -31,10 +31,10 @@ public class IssueOrderPhase extends Phase {
      * @return IssueOrderPhase instance
      */
     public static IssueOrderPhase getInstance(){
-        if(l_instance==null){
-            l_instance= new IssueOrderPhase();
+        if(d_instance==null){
+            d_instance= new IssueOrderPhase();
         }
-        return l_instance;
+        return d_instance;
     }
     /**
      * This method shifts the game phase to the next phase.

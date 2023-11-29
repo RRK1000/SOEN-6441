@@ -253,17 +253,14 @@ public class ConquestMapFileReaderAdapter implements MapFileReader {
 					Country l_country = l_countryMap.get(l_parts[0].trim());
 					if (l_country != null) {
 						List<Integer> l_neighbors = new ArrayList<>();
-//						System.out.println("Processing country: " + l_country.getD_countryName());
 						for (int i = 4; i < l_parts.length; i++) {
 							String l_neighborName = l_parts[i].trim();
 							Integer l_neighborId = l_countryNameIdMap.get(l_neighborName);
-//							System.out.println("Neighbor name: " + l_neighborName + ", ID: " + l_neighborId);
 							if (l_neighborId != null) {
 								l_neighbors.add(l_neighborId);
 							}
 						}
 						l_country.setD_neighbourCountryIDList(l_neighbors);
-//						System.out.println("Neighbors for " + l_country.getD_countryName() + ": " + l_neighbors);
 					}
 				}
 			}

@@ -62,10 +62,10 @@ public class GameManager {
 
     /**
      * Sets true if game is a tournament
-     * @param d_isTournamentGame true if game is a tournament, false otherwise
+     * @param p_isTournamentGame true if game is a tournament, false otherwise
      */
-    public void setD_isTournamentGame(Boolean d_isTournamentGame) {
-        this.d_isTournamentGame = d_isTournamentGame;
+    public void setD_isTournamentGame(Boolean p_isTournamentGame) {
+        this.d_isTournamentGame = p_isTournamentGame;
     }
 
     /**
@@ -210,8 +210,9 @@ public class GameManager {
      * Adds a new {@link models.Player} to the game
      *
      * @param p_playerName name of the player to be added
+     * @param p_strategy Strategy of the player
      */
-    public void addPlayer(String p_playerName, Strategy l_strategy) {
+    public void addPlayer(String p_playerName, Strategy p_strategy) {
 
         //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
@@ -224,7 +225,7 @@ public class GameManager {
             }
             //Adding new player to the game
             Player l_player = new Player(p_playerName);
-            l_player.setD_playerStrategy(l_strategy);
+            l_player.setD_playerStrategy(p_strategy);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
             LogManager.logAction("Added " + p_playerName + " to the game!");

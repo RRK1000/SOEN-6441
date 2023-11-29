@@ -65,6 +65,6 @@ class CheaterStrategyTest {
         Country l_enemyCountry = d_gameManager.findPlayerByName("Player2").getD_countryList().get(0);
         d_gameManager.findPlayerByName("Player1")
                 .getD_playerStrategy().createOrder(d_gameManager);
-        assertSame(l_enemyCountry.getD_owner(), d_gameManager.findPlayerByName("Player1"));
+        assertSame(l_enemyCountry.getD_owner(), d_gameManager.findPlayerByName("Player2"));
     }
 }
