@@ -1,13 +1,12 @@
 package util;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
-
+import models.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import models.Map;
+import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for ConquestMapFileReaderAdapter This class performs unit tests on
@@ -26,7 +25,7 @@ public class ConquestMapFileReaderAdapterTest {
 	 */
 	@BeforeEach
 	void setUp() {
-		d_adapter = new ConquestMapFileReaderAdapter();
+		d_adapter = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
 	}
 
 	/**

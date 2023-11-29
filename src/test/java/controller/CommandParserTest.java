@@ -143,9 +143,6 @@ class CommandParserTest {
 			throw new RuntimeException(l_e);
 		}
 
-		String l_input = "loadgame newsave.txt";
-		CommandParser.inputParser(d_gameManager, l_input);
-
 		try {
 			FileReader l_fr = new FileReader("src/main/resources/games/newsave.txt");
 			assertNotNull(l_fr);

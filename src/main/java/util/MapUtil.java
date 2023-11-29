@@ -1,23 +1,18 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import controller.GameManager;
 import gamelog.LogManager;
+import models.Continent;
+import models.Country;
+import models.Map;
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import models.Continent;
-import models.Country;
-import models.Map;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the Map Utility class.
@@ -165,7 +160,7 @@ public class MapUtil {
         Map l_loadedMap = new Map();
 
         if (MapUtil.isMapConquest(p_filename)) {
-            l_loadfileReader = new ConquestMapFileReaderAdapter();
+            l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
             System.out.println("This file is Conquest Format.");
 
         } else {

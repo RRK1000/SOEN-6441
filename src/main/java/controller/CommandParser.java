@@ -130,7 +130,7 @@ public class CommandParser {
                 String l_format = l_scanner.nextLine().trim().toLowerCase();
                 MapFileReader l_fileReader;
                 if ("conquest".equals(l_format)) {
-                    l_fileReader = new ConquestMapFileReaderAdapter();
+                    l_fileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
                 } else if ("domination".equals(l_format)) {
                     l_fileReader = new DominationMapFileReader();
                 } else {
@@ -173,7 +173,7 @@ public class CommandParser {
                 MapFileReader l_loadfileReader;
 
                 if (MapUtil.isMapConquest(l_filename)) {
-                    l_loadfileReader = new ConquestMapFileReaderAdapter();
+                    l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
                 	System.out.println("This file is Conquest Format.");
 
                 } else {
@@ -211,7 +211,7 @@ public class CommandParser {
                         l_mapNameList.addAll(Arrays.asList(l_mapFiles.split(",")));
                         for(String l_mapTournament: l_mapNameList) {
                             if (MapUtil.isMapConquest(l_mapTournament)) {
-                                l_loadfileReader = new ConquestMapFileReaderAdapter();
+                                l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
                                 System.out.println("This file is Conquest Format.");
 
                             } else {
