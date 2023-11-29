@@ -1,0 +1,12 @@
+[Map]
+author=SOEN6441-U2
+
+[Continents]
+North_Europe=5
+East_Europe=4
+
+[Territories]
+England,164,126,North_Europe,Scotland,N_Ireland,Rep_Ireland
+Scotland,158,44,North_Europe,England,N_Ireland,Rep_Ireland
+N_Ireland,125,70,East_Europe,England,Scotland,Rep_Ireland
+Rep_Ireland,106,90,East_Europe,England,Scotland,N_Ireland
