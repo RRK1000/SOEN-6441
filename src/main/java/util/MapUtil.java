@@ -152,6 +152,7 @@ public class MapUtil {
      * if the file does not exist
      *
      * @param p_filename The name of the file to load the map from
+     * @param p_gameManager The game manager object
      * @return {@link models.Map}
      */
     public static Map editMap(String p_filename, GameManager p_gameManager) {
