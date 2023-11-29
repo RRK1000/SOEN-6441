@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for game engine
+ * @author Rishi Ravikumar
  */
 class GameEngineTest {
     static GameManager d_gameManager;

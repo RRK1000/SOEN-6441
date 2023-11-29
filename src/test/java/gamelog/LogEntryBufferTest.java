@@ -67,7 +67,6 @@ public class LogEntryBufferTest {
 		 * Update method for the observer
 		 * 
 		 * @param p_o   Observable object
-		 * @param p_arg Argument passed to the observer
 		 */
 		@Override
 		public void update(Observable p_o) {

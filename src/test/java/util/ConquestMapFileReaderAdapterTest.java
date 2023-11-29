@@ -64,7 +64,6 @@ public class ConquestMapFileReaderAdapterTest {
 	 * Tests loading a map file with an invalid file path Validates that the method
 	 * throws an IOException for an invalid file path
 	 */
-
 	@Test
 	public void testLoadMap_InvalidFile() {
 		String l_invalidFileName = "invalidFileName"; // Set an invalid file path

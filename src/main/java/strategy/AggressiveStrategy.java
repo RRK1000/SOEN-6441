@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the aggressive strategy and its execution
+ * @author Anuja Somthankar, Rishi Ravikumar
+ */
 public class AggressiveStrategy implements Strategy, Serializable {
     private Country d_strongestCountry;
 

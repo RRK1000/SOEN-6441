@@ -8,6 +8,10 @@ import models.Player;
 
 import java.io.Serializable;
 
+/**
+ * Represents the Cheater Strategy and its execution
+ * @author Rishi Ravikumar
+ */
 public class CheaterStrategy implements Strategy, Serializable {
 
     /**

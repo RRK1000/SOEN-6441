@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the Random strategy and its execution
+ * @author Rishi Ravikumar
+ */
 public class RandomStrategy implements Strategy, Serializable {
 
     /**

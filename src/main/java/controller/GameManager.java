@@ -52,27 +52,50 @@ public class GameManager {
         this.d_isTournamentGame = false;
     }
 
+    /**
+     * Returns if the game is a tournament
+     * @return true if game is a tournament, false otherwise
+     */
     public Boolean getD_isTournamentGame() {
         return d_isTournamentGame;
     }
 
+    /**
+     * Sets true if game is a tournament
+     * @param d_isTournamentGame true if game is a tournament, false otherwise
+     */
     public void setD_isTournamentGame(Boolean d_isTournamentGame) {
         this.d_isTournamentGame = d_isTournamentGame;
     }
 
+    /**
+     * Returns list of players whose turn is to be skipped
+     * @return list of players whose turn is to be skipped
+     */
     public List<Integer> getD_skipTurnList() {
         return d_skipTurnList;
     }
 
+    /**
+     * Sets list of players whose turn is to be skipped
+     * @param p_skipTurnList list of players whose turn is to be skipped
+     */
     public void setD_skipTurnList(List<Integer> p_skipTurnList) {
         this.d_skipTurnList = p_skipTurnList;
     }
 
-
+    /**
+     * Returns the map file name
+     * @return map file name
+     */
     public String getD_mapFileName() {
         return d_mapFileName;
     }
 
+    /**
+     * Sets the map file name
+     * @param p_mapFileName map file name
+     */
     public void setD_mapFileName(String p_mapFileName) {
         this.d_mapFileName = p_mapFileName;
     }

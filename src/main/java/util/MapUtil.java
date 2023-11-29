@@ -486,6 +486,11 @@ public class MapUtil {
         }
     }
 
+    /**
+     * Checks if the map file is in conquest format or domination
+     * @param p_filename Name of the file
+     * @return true if the map is conquest format, false otherwise
+     */
     public static boolean isMapConquest(String p_filename) {
         try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
             String l_line;

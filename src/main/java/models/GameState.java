@@ -3,6 +3,10 @@ package models;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Represents the state of the game
+ * @author Rishi Ravikumar
+ */
 public class GameState implements Serializable {
     private List<Integer> d_skipTurnList;
     private String d_gamePhase;

@@ -65,10 +65,18 @@ public class Player implements Serializable {
         this.d_playerStrategy = new HumanStrategy();
     }
 
+    /**
+     * Returns the strategy of the player
+     * @return Player Strategy
+     */
     public Strategy getD_playerStrategy() {
         return d_playerStrategy;
     }
 
+    /**
+     * Sets the strategy of the player
+     * @param d_playerStrategy Player Strategy
+     */
     public void setD_playerStrategy(Strategy d_playerStrategy) {
         this.d_playerStrategy = d_playerStrategy;
     }
@@ -297,10 +305,18 @@ public class Player implements Serializable {
         return d_negotiationList.contains(p_otherPlayer);
     }
 
+    /**
+     * Returns the list of players with whom current player is in negotiation with
+     * @return list of players with whom current player is in negotiation with
+     */
     public List<Player> getD_negotiationList() {
         return d_negotiationList;
     }
 
+    /**
+     * Sets the list of players with whom current player is in negotiation with
+     * @param p_negotiationList list of players with whom current player is in negotiation with
+     */
     public void setD_negotiationList(List<Player> p_negotiationList) {
         this.d_negotiationList = p_negotiationList;
     }

@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents the Benevolent Strategy and its execution
+ * @author Anuja Somthankar
+ */
 public class BenevolentStrategy implements Strategy, Serializable {
     private Country d_weakestCountry;
 

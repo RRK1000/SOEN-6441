@@ -5,6 +5,10 @@ import models.Order;
 
 import java.io.Serializable;
 
+/**
+ * Represents the Human Strategy
+ * @author Anuja Somthankar
+ */
 public class HumanStrategy implements Strategy, Serializable {
 
     /**

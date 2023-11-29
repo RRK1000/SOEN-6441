@@ -20,6 +20,7 @@ import util.MapUtil;
 
 /**
  * The {@code TournamentGameManager} class simulates a tournament scenario for the game.
+ * @author Rishi Ravikumar
  */
 public class TournamentGameManager {
 
@@ -38,18 +39,34 @@ public class TournamentGameManager {
         d_resultMap = new TreeMap<>();
     }
 
+    /**
+     * Sets the list of maps for tournament
+     * @param d_mapList list of maps
+     */
     public void setD_mapList(List<Map> d_mapList) {
         this.d_mapList = d_mapList;
     }
 
+    /**
+     * Sets the list of strategies for tournament
+     * @param d_strategyList list of strategies
+     */
     public void setD_strategyList(List<String> d_strategyList) {
         this.d_strategyList = d_strategyList;
     }
 
+    /**
+     * Sets the number of games for tournament
+     * @param d_numGames number of games
+     */
     public void setD_numGames(int d_numGames) {
         this.d_numGames = d_numGames;
     }
 
+    /**
+     * Sets the max turns to be played in the tournament
+     * @param d_maxTurns maximum turns
+     */
     public void setD_maxTurns(int d_maxTurns) {
         this.d_maxTurns = d_maxTurns;
     }
