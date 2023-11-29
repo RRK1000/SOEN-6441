@@ -10,6 +10,10 @@ import strategy.HumanStrategy;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests to check the functionality of Execute order
+ * @author Rishi Ravikumar
+ */
 class ExecuteOrderPhaseTest {
     static GameManager d_gameManager;
     static Phase d_gamePhase;

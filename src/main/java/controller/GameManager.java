@@ -34,6 +34,8 @@ public class GameManager {
     private int d_currentPlayerTurn;
     private Map d_map;
     private String d_mapFileName;
+    private Boolean d_isTournamentGame;
+    private int d_numTurns;
 
     /**
      * Default constructor for GameManager.
@@ -47,22 +49,53 @@ public class GameManager {
         this.d_logBuffer = new LogEntryBuffer();
         this.d_logWriter = new LogFileWriter(l_logPath);
         this.d_logBuffer.addObserver(d_logWriter);
-
+        this.d_isTournamentGame = false;
     }
 
+    /**
+     * Returns if the game is a tournament
+     * @return true if game is a tournament, false otherwise
+     */
+    public Boolean getD_isTournamentGame() {
+        return d_isTournamentGame;
+    }
+
+    /**
+     * Sets true if game is a tournament
+     * @param p_isTournamentGame true if game is a tournament, false otherwise
+     */
+    public void setD_isTournamentGame(Boolean p_isTournamentGame) {
+        this.d_isTournamentGame = p_isTournamentGame;
+    }
+
+    /**
+     * Returns list of players whose turn is to be skipped
+     * @return list of players whose turn is to be skipped
+     */
     public List<Integer> getD_skipTurnList() {
         return d_skipTurnList;
     }
 
+    /**
+     * Sets list of players whose turn is to be skipped
+     * @param p_skipTurnList list of players whose turn is to be skipped
+     */
     public void setD_skipTurnList(List<Integer> p_skipTurnList) {
         this.d_skipTurnList = p_skipTurnList;
     }
 
-
+    /**
+     * Returns the map file name
+     * @return map file name
+     */
     public String getD_mapFileName() {
         return d_mapFileName;
     }
 
+    /**
+     * Sets the map file name
+     * @param p_mapFileName map file name
+     */
     public void setD_mapFileName(String p_mapFileName) {
         this.d_mapFileName = p_mapFileName;
     }
@@ -119,16 +152,23 @@ public class GameManager {
         } else {
             System.out.println("No cards are available to Player " + l_currentPlayer.getD_playerName());
         }
-
-        if(!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)){
+        if (!(l_currentPlayer.getD_playerStrategy() instanceof HumanStrategy)) {
+            if (d_numTurns > 50) {
+                showMap();
+                System.out.println("50 turns reached");
+                System.exit(0);
+                return;
+            }
             Order l_order = l_currentPlayer.getD_playerStrategy().createOrder(this);
-            if(null == l_order){
+            if (null == l_order) {
                 this.addPlayerToSkipList(d_currentPlayerTurn);
+                d_numTurns++;
                 updatePlayerTurn();
                 return;
             }
             l_currentPlayer.setD_currentOrder(l_order);
             l_currentPlayer.issueOrder();
+            d_numTurns++;
             updatePlayerTurn();
         }
     }
@@ -170,8 +210,9 @@ public class GameManager {
      * Adds a new {@link models.Player} to the game
      *
      * @param p_playerName name of the player to be added
+     * @param p_strategy Strategy of the player
      */
-    public void addPlayer(String p_playerName, Strategy l_strategy) {
+    public void addPlayer(String p_playerName, Strategy p_strategy) {
 
         //Adding a new player only if the number of players is less than 6
         if (d_playerList.size() < 6) {
@@ -184,7 +225,7 @@ public class GameManager {
             }
             //Adding new player to the game
             Player l_player = new Player(p_playerName);
-            l_player.setD_playerStrategy(l_strategy);
+            l_player.setD_playerStrategy(p_strategy);
             d_playerList.add(l_player);
             System.out.println("Added " + p_playerName + " to the game!");
             LogManager.logAction("Added " + p_playerName + " to the game!");

@@ -35,19 +35,19 @@ class CommandParserTest {
 	void setUp() {
 		d_gameManager = new GameManager();
 		Player d_player = new Player("John", 5, new ArrayList<>(), new ArrayList<>(), null);
-		Country d_country = new Country();
-		Order d_order = new DeployOrder(d_player, d_country, 3);
-		d_player.setD_currentOrder(d_order);
+		Country l_country = new Country();
+		Order l_order = new DeployOrder(d_player, l_country, 3);
+		d_player.setD_currentOrder(l_order);
 
-		String player1Name = "Player1";
-		String player2Name = "Player2";
+		String l_player1Name = "Player1";
+		String l_player2Name = "Player2";
 
 		d_map = MapUtil.loadMap("europe.map");
 
 		d_gameManager = new GameManager();
 		d_gameManager.setD_map(d_map);
-		d_gameManager.addPlayer(player1Name, new HumanStrategy());
-		d_gameManager.addPlayer(player2Name, new HumanStrategy());
+		d_gameManager.addPlayer(l_player1Name, new HumanStrategy());
+		d_gameManager.addPlayer(l_player2Name, new HumanStrategy());
 
 	}
 
@@ -58,13 +58,13 @@ class CommandParserTest {
 	 */
 	@Test
 	void assignReinforcements() {
-		int expectedPlayer1Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
-		int expectedPlayer2Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
+		int l_expectedPlayer1Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
+		int l_expectedPlayer2Armies = Math.max((d_map.getD_countryMapGraph().vertexSet().size() / 3), 3);
 		d_gameManager.setD_gamePhase(StartupPhase.getInstance());
 		d_gameManager.getD_gamePhase().assignCountries(d_gameManager); // calls assignReinforcements internally
 
-		assertEquals(expectedPlayer1Armies, d_gameManager.getD_playerList().get(0).getD_numArmies());
-		assertEquals(expectedPlayer2Armies, d_gameManager.getD_playerList().get(1).getD_numArmies());
+		assertEquals(l_expectedPlayer1Armies, d_gameManager.getD_playerList().get(0).getD_numArmies());
+		assertEquals(l_expectedPlayer2Armies, d_gameManager.getD_playerList().get(1).getD_numArmies());
 	}
 
 
@@ -139,12 +139,9 @@ class CommandParserTest {
 				CommandParser.inputParser(d_gameManager, l_inputCommand);
 				l_inputCommand = l_reader.readLine();
 			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
+		} catch (IOException l_e) {
+			throw new RuntimeException(l_e);
 		}
-
-		String l_input = "loadgame newsave.txt";
-		CommandParser.inputParser(d_gameManager, l_input);
 
 		try {
 			FileReader l_fr = new FileReader("src/main/resources/games/newsave.txt");

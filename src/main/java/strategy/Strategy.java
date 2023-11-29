@@ -3,6 +3,10 @@ package strategy;
 import controller.GameManager;
 import models.Order;
 
+/**
+ * Strategy implementation - defines the way a particular strategy would play out
+ * @author Anuja Somthankar
+ */
 public interface Strategy {
 
     /**

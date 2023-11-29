@@ -166,8 +166,7 @@ public class InitMapPhase extends Phase {
      */
     @Override
     public void editMap(GameManager p_gameManager, String[] p_cmdSplit) {
-        p_gameManager.setD_map(MapUtil.editMap(p_cmdSplit[1]));
-        System.out.println("Map loaded to be edited...");
+        p_gameManager.setD_map(MapUtil.editMap(p_cmdSplit[1], p_gameManager));
     }
 
     /**
@@ -226,6 +225,9 @@ public class InitMapPhase extends Phase {
             p_gameManager.setD_currentPlayerTurn(l_gameState.getD_currentPlayerTurn());
             p_gameManager.setD_map(l_gameState.getD_map());
             System.out.println("Game loaded");
+            System.out.println("Player " + p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn()).getD_playerName() +"'s turn");
+            System.out.println("available reinforcement armies: " + p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn()).getD_numArmies());
+            System.out.println("cards available: " + p_gameManager.getD_playerList().get(p_gameManager.getD_currentPlayerTurn()).getD_playerCardList());
             LogManager.logAction("Game loaded from file");
         } catch(IOException l_ex)
         {

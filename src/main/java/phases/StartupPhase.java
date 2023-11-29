@@ -5,8 +5,10 @@ import gamelog.LogManager;
 import global.Constants;
 import global.Strategies;
 import models.Country;
+import models.Map;
 import models.Player;
 import strategy.*;
+import util.MapUtil;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class StartupPhase extends Phase {
     /**
      * Singleton instance
      */
-    private static StartupPhase l_instance;
+    private static StartupPhase d_instance;
 
     /**
      * Private constructor to present instantiation
@@ -32,10 +34,10 @@ public class StartupPhase extends Phase {
      * @return StartupPhase instance
      */
     public static StartupPhase getInstance(){
-        if(l_instance==null){
-            l_instance= new StartupPhase();
+        if(d_instance==null){
+            d_instance= new StartupPhase();
         }
-        return l_instance;
+        return d_instance;
     }
 
     /**
@@ -129,5 +131,19 @@ public class StartupPhase extends Phase {
         System.out.println("Available Reinforcement Armies: " + l_playerList.get(l_currentPlayerTurn).getD_numArmies());
 
         p_gameManager.setD_gamePhase(this.nextPhase());
+        if(!p_gameManager.getD_isTournamentGame() && !(l_playerList.get(l_currentPlayerTurn).getD_playerStrategy() instanceof HumanStrategy)) {
+            p_gameManager.updatePlayerTurn();
+        }
+    }
+
+    /**
+     * This method displays the map.
+     *
+     * @param p_map         The map object
+     * @param p_gameManager The object of the game manager.
+     */
+    @Override
+    public void showMap(Map p_map, GameManager p_gameManager) {
+        MapUtil.showMap(p_map);
     }
 }

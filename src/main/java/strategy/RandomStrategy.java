@@ -7,10 +7,15 @@ import models.Order;
 import models.Player;
 import orders.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
-public class RandomStrategy implements Strategy {
+/**
+ * Represents the Random strategy and its execution
+ * @author Rishi Ravikumar
+ */
+public class RandomStrategy implements Strategy, Serializable {
 
     /**
      * Creates an order according to player strategy
@@ -28,32 +33,36 @@ public class RandomStrategy implements Strategy {
         int l_numArmies = l_currentPlayer.getD_numArmies();
         int l_randNumArmies;
         Order l_order;
-        if (l_numArmies != 0) {
+        if (l_numArmies > 0) {
             int l_randCountry = l_random.nextInt(l_currentPlayer.getD_countryList().size());
-            l_randNumArmies = Math.max(1, l_random.nextInt(l_numArmies + 1));
+            l_randNumArmies = Math.max(1, l_random.nextInt(l_numArmies));
             l_order = new DeployOrder(l_currentPlayer, l_currentPlayer.getD_countryList().get(l_randCountry), l_randNumArmies);
             return l_order;
         } else {
             l_order = generateCardOrder(p_gameManager, l_currentPlayer);
-            if(null != l_order) return l_order;
+            if(null != l_order && l_order.isValid()) return l_order;
 
             //Advance
             int l_tryAdvanceOrders = Math.max(1, l_currentPlayer.getD_countryList().size());
-            int l_randCountryFrom = -1;
+            int l_randCountryFromIndex = -1;
+            boolean l_isValidCountry = false;
             for (int l_i = 1; l_i < l_tryAdvanceOrders; l_i++) {
-                l_randCountryFrom = l_random.nextInt(l_currentPlayer.getD_countryList().size());
-                if (l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies() != 0) {
+                l_randCountryFromIndex = l_random.nextInt(l_currentPlayer.getD_countryList().size());
+                if (l_currentPlayer.getD_countryList().get(l_randCountryFromIndex).getD_numArmies() > 0) {
+                    l_isValidCountry = true;
                     break;
                 }
             }
-            if (l_randCountryFrom == -1 || l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies() <= 0)
+            if (!l_isValidCountry)
                 return null;
 
-            int l_randAttackArmies = l_random.nextInt(l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_numArmies());
-            List<Integer> l_neighborList = l_currentPlayer.getD_countryList().get(l_randCountryFrom).getD_neighbourCountryIDList();
+            Country l_randCountryFrom = l_currentPlayer.getD_countryList().get(l_randCountryFromIndex);
+            int l_randAttackArmies = l_random.nextInt(l_randCountryFrom.getD_numArmies());
+            List<Integer> l_neighborList = l_randCountryFrom.getD_neighbourCountryIDList();
             int l_randCountryTo = l_random.nextInt(l_neighborList.size());
-            l_order = new AdvanceOrder(l_currentPlayer, l_currentPlayer.getD_countryList().get(l_randCountryFrom),
+            l_order = new AdvanceOrder(l_currentPlayer, l_randCountryFrom,
                     p_gameManager.getD_map().getD_countryByID(l_neighborList.get(l_randCountryTo)), l_randAttackArmies);
+            if(!l_order.isValid()) return null;
             return l_order;
         }
     }

@@ -34,14 +34,6 @@ public class DominationMapFileReader implements MapFileReader {
      */
     @Override
     public boolean saveMap(Map p_map, String p_fileName) throws IOException {
-    	
-		if (p_fileName.endsWith(".conquest")) {
-			p_fileName = p_fileName.substring(0, p_fileName.length() - 9) + ".domination";
-		}
-
-		else if (!p_fileName.endsWith(".domination")) {
-			p_fileName += ".domination";
-		} 
 		
         return MapUtil.saveMap(p_map, p_fileName);
     }

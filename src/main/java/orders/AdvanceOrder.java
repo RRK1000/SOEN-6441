@@ -64,6 +64,7 @@ public class AdvanceOrder implements Order, Serializable {
             LogManager.logAction("err: Invalid advance order, armies unavailable on country.");
             return;
         } else if (d_player.isInNegotiationWith(d_countryto.getD_owner())) {
+            d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() + d_num);
             String l_err = "err: Invalid Advance Order. Diplomacy Card played, peace enforced between players";
             System.out.println(l_err);
             LogManager.logAction(l_err);
@@ -72,12 +73,10 @@ public class AdvanceOrder implements Order, Serializable {
 
         if(d_countryto.getD_owner().equals(d_player)) {
             d_countryto.setD_numArmies(d_countryto.getD_numArmies() + d_num);
-            d_countryfrom.setD_numArmies(d_countryfrom.getD_numArmies() - d_num);
             return;
 
         }
         int l_attackingArmies = (int) (d_num * 0.6);
-
         int l_defendingArmies = (int) (d_countryto.getD_numArmies() * 0.7);
 
 

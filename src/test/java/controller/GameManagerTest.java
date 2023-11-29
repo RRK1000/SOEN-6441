@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class GameManagerTest {
     private GameManager d_gameManager;
-    private Player d_player1;
-    private Player d_player2;
     private Map d_map = new Map();
 
     /**

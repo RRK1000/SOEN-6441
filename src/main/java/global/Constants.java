@@ -41,7 +41,7 @@ public class Constants {
      * Displays the usage of commands during Game startup phase
      */
     public static final String GAME_STARTUP_HELP = "usage: " +
-            "\n\t gameplayer -add <playername> -remove <playername>  :\tAdd/Remove player from the game " +
+            "\n\t gameplayer -add <playername> <strategy> -remove <playername>  :\tAdd/Remove player from the game " +
             "\n\t assigncountries\t\t\t\t\t\t\t:\tAssigns countries to the players, and starts the game\n";
 
     /**

@@ -1,20 +1,18 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import controller.GameManager;
+import gamelog.LogManager;
+import models.Continent;
+import models.Country;
+import models.Map;
 import org.jgrapht.GraphTests;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import models.Continent;
-import models.Country;
-import models.Map;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents the Map Utility class.
@@ -156,16 +154,31 @@ public class MapUtil {
      * @param p_filename The name of the file to load the map from
      * @return {@link models.Map}
      */
-    public static Map editMap(String p_filename) {
+    public static Map editMap(String p_filename, GameManager p_gameManager) {
         Map l_map;
-        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
-            l_map = loadMap(p_filename);
-        } catch (Exception l_e) {
-            System.out.println("File not found");
-            l_map = new Map();
-            return l_map;
+        MapFileReader l_loadfileReader;
+        Map l_loadedMap = new Map();
+
+        if (MapUtil.isMapConquest(p_filename)) {
+            l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
+            System.out.println("This file is Conquest Format.");
+
+        } else {
+            l_loadfileReader = new DominationMapFileReader();
         }
-        return l_map;
+
+        try {
+            l_loadedMap = l_loadfileReader.loadMap(p_filename);
+            if(MapUtil.isValidMap(l_loadedMap)) {
+                p_gameManager.setD_map(l_loadedMap);
+                p_gameManager.setD_mapFileName(p_filename);
+                LogManager.logAction("Loaded a map: " + p_filename);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading the map file: " + e.getMessage());
+            LogManager.logAction("Error loading the map file: " + p_filename);
+        }
+        return l_loadedMap;
     }
 
     /**
@@ -465,6 +478,20 @@ public class MapUtil {
             System.out.println("Removed " + l_country.getD_countryID() + " and " + l_neighbourCountry.getD_countryID() + " as neighbors.");
         } catch (Exception l_e) {
             System.out.println("Unable to remove neighbour");
+        }
+    }
+
+    /**
+     * Checks if the map file is in conquest format or domination
+     * @param p_filename Name of the file
+     * @return true if the map is conquest format, false otherwise
+     */
+    public static boolean isMapConquest(String p_filename) {
+        try (BufferedReader l_reader = new BufferedReader(new FileReader("src/main/resources/" + p_filename))) {
+            String l_line;
+            return Objects.equals(l_line = l_reader.readLine(), "[Map]");
+        } catch (IOException e) {
+            return false;
         }
     }
 }

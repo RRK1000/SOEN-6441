@@ -1,13 +1,5 @@
 package strategy;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import controller.GameManager;
 import global.Cards;
 import models.Order;
@@ -15,10 +7,19 @@ import models.Player;
 import orders.AdvanceOrder;
 import orders.BombOrder;
 import orders.DeployOrder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import phases.ExecuteOrderPhase;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.Phase;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * The following class tests the Behaviour and working of AggressiveStrategy class
@@ -83,11 +84,11 @@ class AggressiveStrategyTest {
         d_gameManager.setD_gamePhase(new ExecuteOrderPhase());
         d_gameManager.getD_gamePhase().executeOrder(d_gameManager);
         d_gameManager.setD_gamePhase(new IssueOrderPhase());
-
+        d_gameManager.setD_currentPlayerTurn(0);
         l_currentPlayer.setD_numArmies(0);
         l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);
-        assertTrue(l_order instanceof AdvanceOrder);
+        assertFalse(l_order instanceof AdvanceOrder);
     }
 
     /**
@@ -107,7 +108,7 @@ class AggressiveStrategyTest {
         d_gameManager.setD_gamePhase(new ExecuteOrderPhase());
         d_gameManager.getD_gamePhase().executeOrder(d_gameManager);
         d_gameManager.setD_gamePhase(new IssueOrderPhase());
-
+        d_gameManager.setD_currentPlayerTurn(0);
         l_currentPlayer.setD_numArmies(0);
         l_order = l_currentPlayer.getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);

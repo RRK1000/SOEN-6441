@@ -1,27 +1,23 @@
 package controller;
 
 
-import java.io.IOException;
-import java.util.Scanner;
-
 import gamelog.LogManager;
 import global.Commands;
 import global.Constants;
+import global.Strategies;
 import models.Country;
 import models.Map;
 import models.Player;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
-import util.CommandUtil;
-import util.ConquestMapFileReaderAdapter;
-import util.DominationMapFileReader;
-import util.MapFileReader;
+import util.*;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Represents the command parser.
@@ -134,7 +130,7 @@ public class CommandParser {
                 String l_format = l_scanner.nextLine().trim().toLowerCase();
                 MapFileReader l_fileReader;
                 if ("conquest".equals(l_format)) {
-                    l_fileReader = new ConquestMapFileReaderAdapter();
+                    l_fileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
                 } else if ("domination".equals(l_format)) {
                     l_fileReader = new DominationMapFileReader();
                 } else {
@@ -149,9 +145,9 @@ public class CommandParser {
                         System.out.println("Failed to save the map.");
                         LogManager.logAction("Failed to save the map.");
                     }
-                } catch (IOException e) {
-                    System.out.println("An error occurred while saving the map: " + e.getMessage());
-                    LogManager.logAction("Error occurred while saving the map: " + e.getMessage());
+                } catch (IOException l_e) {
+                    System.out.println("An error occurred while saving the map: " + l_e.getMessage());
+                    LogManager.logAction("Error occurred while saving the map: " + l_e.getMessage());
                 }
                 break;
 
@@ -176,8 +172,8 @@ public class CommandParser {
                 String l_filename = l_cmdSplit[1];
                 MapFileReader l_loadfileReader;
 
-                if (l_filename.endsWith(".conquest")) {
-                    l_loadfileReader = new ConquestMapFileReaderAdapter();
+                if (MapUtil.isMapConquest(l_filename)) {
+                    l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
                 	System.out.println("This file is Conquest Format.");
 
                 } else {
@@ -185,12 +181,15 @@ public class CommandParser {
                 }
 
                 try {
-                    Map loadedMap = l_loadfileReader.loadMap(l_filename);
-                    p_gameManager.setD_map(loadedMap);
-                    p_gameManager.setD_mapFileName(l_filename);
-                    LogManager.logAction("Loaded a map: " + l_filename);
-                } catch (IOException e) {
-                    System.out.println("Error loading the map file: " + e.getMessage());
+                    Map l_loadedMap = l_loadfileReader.loadMap(l_filename);
+                    if(MapUtil.isValidMap(l_loadedMap)) {
+                        p_gameManager.setD_map(l_loadedMap);
+                        p_gameManager.setD_mapFileName(l_filename);
+                        p_gameManager.setD_gamePhase(p_gameManager.getD_gamePhase().nextPhase());
+                        LogManager.logAction("Loaded a map: " + l_filename);
+                    }
+                } catch (IOException l_e) {
+                    System.out.println("Error loading the map file: " + l_e.getMessage());
                     LogManager.logAction("Error loading the map file: " + l_filename);
                 }
                 break;
@@ -198,7 +197,8 @@ public class CommandParser {
             case Commands.TOURNAMENT:
                 String[] l_tournamentInput = p_input.split(" -");
                 List<String> l_listOfPlayerStrategies = new ArrayList<>();
-                List<String> l_mapList = new ArrayList<>();
+                List<String> l_mapNameList = new ArrayList<>();
+                List<Map> l_mapList= new ArrayList<>();
                 int l_numberOfGames = 0;
                 int l_maxNumberOfTurns = 0;
                 boolean l_hasError = false;
@@ -208,7 +208,32 @@ public class CommandParser {
                     String[] l_params = l_tournamentInput[l_i].split(" ");
                     if(l_params[0].startsWith("M")){
                         String l_mapFiles = l_params[1];
-                        l_mapList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                        l_mapNameList.addAll(Arrays.asList(l_mapFiles.split(",")));
+                        for(String l_mapTournament: l_mapNameList) {
+                            if (MapUtil.isMapConquest(l_mapTournament)) {
+                                l_loadfileReader = new ConquestMapFileReaderAdapter(new ConquestMapFileReader());
+                                System.out.println("This file is Conquest Format.");
+
+                            } else {
+                                l_loadfileReader = new DominationMapFileReader();
+                            }
+
+                            try {
+                                System.out.println("\nLoading Map: " + l_mapTournament);
+                                Map l_loadedMap = l_loadfileReader.loadMap(l_mapTournament);
+                                if(MapUtil.isValidMap(l_loadedMap)) {
+                                    l_mapList.add(l_loadedMap);
+                                } else {
+                                    l_hasError = true;
+                                    System.out.println("M option invalid, enter valid maps");
+                                    break;
+                                }
+                            } catch (IOException l_e) {
+                                System.out.println("Error loading the map file: " + l_e.getMessage());
+                                LogManager.logAction("Error loading the map file: " + l_mapTournament);
+                                l_hasError = true;
+                            }
+                        }
                     }
                     if (l_params[0].startsWith("P")) {
                         String l_playerStrategies = l_params[1];
@@ -219,6 +244,16 @@ public class CommandParser {
                         }
 
                         l_listOfPlayerStrategies.addAll(Arrays.asList(l_stringOfPlayerStrategies));
+                        List<String> l_cardsList = Arrays.asList(Strategies.AGGRESSIVE_STRATEGY, Strategies.BENEVOLENT_STRATEGY,
+                        Strategies.CHEATER_STRATEGY, Strategies.RANDOM_STRATEGY);
+                        for(String l_strategy: l_listOfPlayerStrategies){
+                            if(!l_cardsList.contains(l_strategy)){
+                                l_hasError = true;
+                                System.out.println("P option invalid, only Aggressive, Benevolent, Cheater and Random strategies are allowed");
+                                break;
+                            }
+                        }
+
                     } else if (l_params[0].startsWith("G")) {
                         if(Integer.parseInt(l_params[1]) < 1 || Integer.parseInt(l_params[1]) > 5) {
                             System.out.println("G option value invalid, 1 to 5 games allowed");
@@ -338,6 +373,9 @@ public class CommandParser {
 
             case Commands.SAVE_GAME:
                 p_gameManager.getD_gamePhase().saveGame(p_gameManager, l_cmdSplit[1]);
+                break;
+
+            case "exit":
                 break;
 
             default:

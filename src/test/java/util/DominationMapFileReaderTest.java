@@ -34,7 +34,7 @@ public class DominationMapFileReaderTest {
         try {
             Map l_map = d_reader.loadMap(l_validFileName);
             assertNotNull(l_map, "Map should not be null for a valid file");
-        } catch (Exception e) {
+        } catch (Exception l_e) {
             fail("Exception should not be thrown for a valid file");
         }
     }
@@ -46,8 +46,8 @@ public class DominationMapFileReaderTest {
     public void testSaveMap_InvalidMap() throws IOException {
         Map l_invalidMap = new Map(); // Generate an invalid map
         String l_fileNameToSave = "src/test/resources/invalidDominationMap.map";
-        boolean result = d_reader.saveMap(l_invalidMap, l_fileNameToSave);
-        assertFalse(result, "Should return false for an invalid map");
+        boolean l_result = d_reader.saveMap(l_invalidMap, l_fileNameToSave);
+        assertFalse(l_result, "Should return false for an invalid map");
     }
 
     /**
@@ -69,7 +69,7 @@ public class DominationMapFileReaderTest {
         try {
             l_result = d_reader.saveMap(l_loadedMap, l_fileNameToSave);
             assertTrue(l_result, "Map should be saved successfully");
-        } catch (IOException e) {
+        } catch (IOException l_e) {
             fail("Exception should not be thrown while saving the map");
         }
     }

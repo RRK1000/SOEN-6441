@@ -116,7 +116,8 @@ public class CommandUtil {
                     Commands.VALIDATE_MAP,
                     Commands.LOAD_MAP,
                     Commands.LOAD_GAME,
-                    Commands.TOURNAMENT
+                    Commands.TOURNAMENT,
+                    Commands.EXIT
             });
 
         } else if (p_gamePhase instanceof StartupPhase) {
@@ -124,7 +125,8 @@ public class CommandUtil {
                     Commands.GAME_PLAYER,
                     Commands.ASSIGN_COUNTRIES,
                     Commands.SHOW_MAP,
-                    Commands.LOAD_GAME
+                    Commands.LOAD_GAME,
+                    Commands.EXIT
             });
 
         } else if (p_gamePhase instanceof IssueOrderPhase) {
@@ -137,12 +139,14 @@ public class CommandUtil {
                     Commands.DIPLOMACY_ORDER,
                     Commands.SAVE_GAME,
                     Commands.COMMIT,
-                    Commands.SHOW_MAP
+                    Commands.SHOW_MAP,
+                    Commands.EXIT
             });
 
         } else if (p_gamePhase instanceof ExecuteOrderPhase) {
             return isValidGameCommand(p_input, new String[]{
-                    Commands.SHOW_MAP
+                    Commands.SHOW_MAP,
+                    Commands.EXIT
             });
         }
         return false;

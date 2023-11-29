@@ -25,4 +25,3 @@ advance 4 1 1
 advance 2 4 1
 commit
 advance 1 4 3
-commit

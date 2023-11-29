@@ -7,10 +7,15 @@ import models.Order;
 import models.Player;
 import orders.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
-public class AggressiveStrategy implements Strategy {
+/**
+ * Represents the aggressive strategy and its execution
+ * @author Anuja Somthankar, Rishi Ravikumar
+ */
+public class AggressiveStrategy implements Strategy, Serializable {
     private Country d_strongestCountry;
 
     /**
@@ -46,7 +51,7 @@ public class AggressiveStrategy implements Strategy {
             // attacking to a non-owned neighbour from the strongest country
             for (int l_neighborCountryID : l_neighbours) {
                 Country l_neighborCountry = p_gameManager.getD_map().getD_countryByID(l_neighborCountryID);
-                if (!l_neighborCountry.getD_owner().equals(l_currentPlayer)) {
+                if (!l_neighborCountry.getD_owner().equals(l_currentPlayer) && l_strongestCountry.getD_numArmies() > 1) {
                     l_order = new AdvanceOrder(l_currentPlayer, l_strongestCountry, l_neighborCountry, l_strongestCountry.getD_numArmies() - 1);
                     if (!l_order.isValid()) {
                         l_order = null;

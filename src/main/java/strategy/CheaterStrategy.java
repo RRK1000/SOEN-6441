@@ -6,7 +6,13 @@ import models.Country;
 import models.Order;
 import models.Player;
 
-public class CheaterStrategy implements Strategy {
+import java.io.Serializable;
+
+/**
+ * Represents the Cheater Strategy and its execution
+ * @author Rishi Ravikumar
+ */
+public class CheaterStrategy implements Strategy, Serializable {
 
     /**
      * Creates an order according to player strategy

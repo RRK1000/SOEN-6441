@@ -8,7 +8,8 @@ import org.junit.platform.suite.api.Suite;
  */
 
 @Suite
-@SelectClasses({CommandUtilTest.class, MapUtilTest.class})
+@SelectClasses({CommandUtilTest.class, MapUtilTest.class, DominationMapFileReaderTest.class,
+            ConquestMapFileReaderAdapterTest.class})
 public class UtilTestSuite {
 
 }

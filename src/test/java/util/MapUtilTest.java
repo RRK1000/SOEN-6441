@@ -1,5 +1,6 @@
 package util;
 
+import controller.GameManager;
 import models.Continent;
 import models.Country;
 import models.Map;
@@ -99,7 +100,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest1() {
-		Map l_map = MapUtil.editMap("InvalidMap1.txt");
+		Map l_map = MapUtil.editMap("InvalidMap1.txt", new GameManager());
 		MapUtil.showMap(l_map);
 
 		assertNotNull(l_map);
@@ -110,7 +111,7 @@ class MapUtilTest {
 	 */
 	@Test
 	void editMapTest2() {
-		Map l_map = MapUtil.editMap("invalid.txt");
+		Map l_map = MapUtil.editMap("invalid.txt", new GameManager());
 		MapUtil.showMap(l_map);
 
 		assertNotNull(l_map);

@@ -1,5 +1,9 @@
 package global;
 
+/**
+ * Represents the possible strategies for a player
+ * @author Anuja Somthankar
+ */
 public class Strategies {
     /**
      * Human Strategy Constant

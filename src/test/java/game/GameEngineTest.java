@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for game engine
+ * @author Rishi Ravikumar
  */
 class GameEngineTest {
     static GameManager d_gameManager;
@@ -133,8 +134,8 @@ class GameEngineTest {
                 CommandParser.inputParser(d_gameManager, l_inputCommand);
                 l_inputCommand = l_reader.readLine();
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException l_e) {
+            throw new RuntimeException(l_e);
         }
     }
 }
