@@ -79,7 +79,7 @@ class BenevolentStrategyTest {
                 .getD_playerStrategy().createOrder(d_gameManager);
         l_currentPlayer.setD_currentOrder(l_order);
         l_currentPlayer.issueOrder();
-
+        d_gameManager.setD_currentPlayerTurn(0);
         Order l_order2 = d_gameManager.findPlayerByName("Player1")
                 .getD_playerStrategy().createOrder(d_gameManager);
 
