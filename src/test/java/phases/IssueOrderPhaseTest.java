@@ -51,4 +51,14 @@ class IssueOrderPhaseTest {
         d_gameManager.getD_gamePhase().deploy(d_gameManager, l_p1, l_country, 1);
         assertEquals(l_p1.getD_numArmies(), 2); // 3 -> 2
     }
+
+    /**
+     * Test case to verify that the nextPhase() method returns the expected next phase.
+     */
+    @Test
+    public void testNextPhase(){
+        IssueOrderPhase l_issueOrderPhase = IssueOrderPhase.getInstance();
+        Phase l_nextPhase = l_issueOrderPhase.nextPhase();
+        assertEquals(ExecuteOrderPhase.class, l_nextPhase.getClass());
+    }
 }

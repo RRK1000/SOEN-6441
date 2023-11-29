@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 import phases.InitMapPhase;
 import phases.IssueOrderPhase;
 import phases.StartupPhase;
+import global.Commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static util.CommandUtil.isValidGameCommand;
 
 /**
  * Tests for command validation utility
@@ -132,5 +134,47 @@ class CommandUtilTest {
         for (String command: cmdList) {
             assertFalse(CommandUtil.isValidCmd(command, IssueOrderPhase.getInstance()));
         }
+    }
+
+    /**
+     * Test case to verify that the {@code isValidGameCommand} method correctly identifies a valid input
+     */
+    @Test
+    public void testIsValidGameCommand(){
+        String l_input = "EDIT_COUNTRY";
+        String[] validCommands = {
+                "EDIT_CONTINENT",
+                "EDIT_COUNTRY",
+                "EDIT_NEIGHBOR",
+                "SHOW_MAP",
+                "SAVE_MAP",
+                "EDIT_MAP",
+                "VALIDATE_MAP",
+                "LOAD_GAME",
+                "LOAD_GAME"
+        };
+        boolean l_result = CommandUtil.isValidGameCommand(l_input, validCommands);
+        assertTrue(l_result);
+    }
+
+    /**
+     * Test case to verify that the {@code isValidGameCommand} method correctly identifies an invalid input
+     */
+    @Test
+    public void testIsValidGameCommandInvalidInput(){
+        String l_input = "INVALID_COMMAND";
+        String[] validCommands = {
+                "EDIT_CONTINENT",
+                "EDIT_COUNTRY",
+                "EDIT_NEIGHBOR",
+                "SHOW_MAP",
+                "SAVE_MAP",
+                "EDIT_MAP",
+                "VALIDATE_MAP",
+                "LOAD_GAME",
+                "LOAD_GAME"
+        };
+        boolean l_result = CommandUtil.isValidGameCommand(l_input, validCommands);
+        assertFalse(l_result);
     }
 }
